@@ -105,6 +105,12 @@ async function generateAndCopySingleCode(modelId, creatorName, price) {
 }
 
 function getAdminKey() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const qKey = (urlParams.get('key') || '').trim();
+  if (qKey) {
+    setAdminKey(qKey);
+    return qKey.toUpperCase();
+  }
   const sessionKey = (sessionStorage.getItem('cs_admin_key') || '').trim();
   if (sessionKey) return sessionKey;
   const match = document.cookie.match(/(?:^|;\s*)cs_admin_key=([^;]+)/);
@@ -508,9 +514,12 @@ function populateModelMediaSelect() {
 }
 
 let currentMediaFilter = 'all';
+let currentMediaPage = 1;
+const MEDIA_PER_PAGE = 18;
 
 function setMediaFilter(filter) {
   currentMediaFilter = filter;
+  currentMediaPage = 1;
   onSelectModelChange();
 }
 
@@ -622,8 +631,10 @@ function onSelectModelChange() {
     }
 
     const adminKey = getAdminKey();
+    const visibleCount = currentMediaPage * MEDIA_PER_PAGE;
+    const visibleItems = filteredPreviews.slice(0, visibleCount);
 
-    gridEl.innerHTML = filteredPreviews.map((item, index) => {
+    let gridHtml = visibleItems.map((item, index) => {
       const url = typeof item === 'object' ? item.url : item;
       const isTeaser = typeof item === 'object' ? !!item.isTeaser : false;
       const isVideo = (typeof item === 'object' && item.type === 'video') || /\.(mp4|webm|mov)$/i.test(url);
@@ -636,7 +647,7 @@ function onSelectModelChange() {
         <div class="media-card" data-url="${url}" style="border: 1px solid ${isTeaser ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'};">
           <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer;" title="Clique para ampliar e ver em tamanho real">
             ${isVideo 
-              ? `<video src="${mediaSrc}" class="media-card-vid" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
+              ? `<video src="${mediaSrc}" class="media-card-vid" preload="metadata" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
               : `<img src="${mediaSrc}" alt="Mídia" class="media-card-img" loading="lazy" />`
             }
             <span class="media-type-badge">${isVideo ? '🎬 VÍDEO' : '📷 FOTO'}</span>
@@ -665,6 +676,18 @@ function onSelectModelChange() {
         </div>
       `;
     }).join('');
+
+    if (filteredPreviews.length > visibleCount) {
+      gridHtml += `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 25px 0 10px 0;">
+          <button class="btn-primary" style="padding: 12px 30px; font-size: 14px; font-weight: 800; box-shadow: 0 4px 20px rgba(225,29,72,0.4);" onclick="currentMediaPage++; renderMediaManager();">
+            ⬇️ Carregar Mais Mídias (${filteredPreviews.length - visibleCount} restantes)
+          </button>
+        </div>
+      `;
+    }
+
+    gridEl.innerHTML = gridHtml;
   }
 }
 

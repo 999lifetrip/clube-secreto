@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 const crypto = require('crypto');
+const zlib = require('zlib');
 
 const PORT = process.env.PORT || 3008;
 const CONFIG_FILE = path.join(__dirname, 'config', 'vip_codes.json');
@@ -101,13 +102,39 @@ function parseJsonBody(req) {
   });
 }
 
-function sendJson(res, statusCode, data) {
-  res.writeHead(statusCode, {
-    'Content-Type': 'application/json; charset=utf-8',
-    'Cache-Control': 'no-cache, no-store, must-revalidate',
-    'Access-Control-Allow-Origin': '*'
-  });
-  res.end(JSON.stringify(data));
+function sendJson(res, statusCode, data, req) {
+  const jsonStr = JSON.stringify(data);
+  const reqObj = req || res.req;
+  const acceptEncoding = (reqObj && reqObj.headers && reqObj.headers['accept-encoding']) || '';
+  if (acceptEncoding.includes('gzip') && jsonStr.length > 512) {
+    zlib.gzip(Buffer.from(jsonStr, 'utf-8'), (err, zipped) => {
+      if (err) {
+        res.writeHead(statusCode, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Access-Control-Allow-Origin': '*'
+        });
+        return res.end(jsonStr);
+      }
+      res.writeHead(statusCode, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Encoding': 'gzip',
+        'Vary': 'Accept-Encoding',
+        'Content-Length': zipped.length,
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(zipped);
+    });
+  } else {
+    res.writeHead(statusCode, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Content-Length': Buffer.byteLength(jsonStr),
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(jsonStr);
+  }
 }
 
 function checkAdminAuth(req, urlObj) {
@@ -355,14 +382,7 @@ const server = http.createServer(async (req, res) => {
 
     // Se é admin ou assinante semanal, devolve catálogo completo
     if (isAdmin || isWeekly) {
-      res.writeHead(200, {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-        'Access-Control-Allow-Origin': '*'
-      });
-      return res.end(JSON.stringify(catalog));
+      return sendJson(res, 200, catalog, req);
     }
 
     // Para visitantes ou packs individuais: sanitiza itens bloqueados (sem URLs reais)
@@ -390,14 +410,7 @@ const server = http.createServer(async (req, res) => {
       };
     });
 
-    res.writeHead(200, {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
-      'Pragma': 'no-cache',
-      'Expires': '0',
-      'Access-Control-Allow-Origin': '*'
-    });
-    return res.end(JSON.stringify(sanitized));
+    return sendJson(res, 200, sanitized, req);
   }
 
   // 1.6. SINCRONIZAÇÃO COM GITHUB DIRETO DO PAINEL ADMIN
@@ -999,22 +1012,59 @@ const server = http.createServer(async (req, res) => {
         'Accept-Ranges': 'bytes',
         'Content-Length': chunksize,
         'Content-Type': contentType,
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'public, max-age=86400'
       });
       file.pipe(res);
       return;
     }
 
-    const isCode = ['.html', '.css', '.js', '.json'].includes(ext);
-    const cacheHeader = isCode ? 'no-cache, no-store, must-revalidate' : 'public, max-age=3600';
+    // ETag caching para resposta instantânea (304 Not Modified)
+    const etag = `W/"${stats.size.toString(16)}-${Math.floor(stats.mtimeMs).toString(16)}"`;
+    if (req.headers['if-none-match'] === etag) {
+      res.writeHead(304, {
+        'ETag': etag,
+        'Cache-Control': ext.match(/\.(jpg|jpeg|png|webp|ico|svg)$/i)
+          ? 'public, max-age=604800, stale-while-revalidate=86400'
+          : 'no-cache, must-revalidate'
+      });
+      return res.end();
+    }
+
+    const isCode = ['.html', '.css', '.js', '.json', '.svg'].includes(ext);
+    const isImage = ['.jpg', '.jpeg', '.png', '.webp', '.ico'].includes(ext);
+    const acceptEncoding = req.headers['accept-encoding'] || '';
+
+    if (isImage) {
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Content-Length': stats.size,
+        'ETag': etag,
+        'Cache-Control': 'public, max-age=604800, stale-while-revalidate=86400',
+        'Accept-Ranges': 'bytes'
+      });
+      return fs.createReadStream(filePath).pipe(res);
+    }
+
+    // Compressão GZIP em tempo real para scripts, estilos e páginas
+    if (isCode && acceptEncoding.includes('gzip')) {
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Content-Encoding': 'gzip',
+        'Vary': 'Accept-Encoding',
+        'ETag': etag,
+        'Cache-Control': 'no-cache, must-revalidate'
+      });
+      const raw = fs.createReadStream(filePath);
+      const gzip = zlib.createGzip({ level: 6 });
+      return raw.pipe(gzip).pipe(res);
+    }
 
     res.writeHead(200, {
       'Content-Type': contentType,
       'Content-Length': stats.size,
-      'Accept-Ranges': 'bytes',
-      'Cache-Control': cacheHeader,
-      'Pragma': 'no-cache',
-      'Expires': '0'
+      'ETag': etag,
+      'Cache-Control': 'no-cache, must-revalidate',
+      'Accept-Ranges': 'bytes'
     });
 
     fs.createReadStream(filePath).pipe(res);
