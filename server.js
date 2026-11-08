@@ -602,14 +602,17 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 404, { success: false, error: 'Modelo não encontrada.' });
       }
 
-      const item = model.previews.find(p => (typeof p === 'object' ? p.url : p) === mediaUrl);
-      if (!item) {
+      const idx = model.previews.findIndex(p => (typeof p === 'object' ? p.url : p) === mediaUrl);
+      if (idx === -1) {
         return sendJson(res, 404, { success: false, error: 'Mídia não encontrada.' });
       }
 
-      if (typeof item === 'object') {
-        item.isTeaser = !!isTeaser;
-      }
+      const isVideo = mediaUrl.endsWith('.mp4') || (typeof model.previews[idx] === 'object' && model.previews[idx].type === 'video');
+      model.previews[idx] = {
+        type: isVideo ? 'video' : 'image',
+        url: mediaUrl,
+        isTeaser: !!isTeaser
+      };
 
       saveCatalog(catalog);
       return sendJson(res, 200, {
@@ -619,6 +622,76 @@ const server = http.createServer(async (req, res) => {
       });
     } catch (e) {
       return sendJson(res, 500, { success: false, error: 'Erro ao atualizar mídia.' });
+    }
+  }
+
+  // 6.1. DEFINIR EM LOTE: TODAS COMO VIP OU MARCAR PRÉVIAS
+  if (req.method === 'POST' && pathname === '/api/admin/media/batch-toggle') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const { modelId, urls, isTeaser, action } = await parseJsonBody(req);
+      const catalog = loadCatalog();
+      const model = catalog.find(m => m.id === modelId);
+      if (!model || !Array.isArray(model.previews)) {
+        return sendJson(res, 404, { success: false, error: 'Modelo não encontrada.' });
+      }
+
+      if (action === 'all_vip') {
+        // Bloqueia todas como VIP
+        model.previews.forEach((p, i) => {
+          const url = typeof p === 'object' ? p.url : p;
+          const isVid = url.endsWith('.mp4') || (typeof p === 'object' && p.type === 'video');
+          model.previews[i] = {
+            type: isVid ? 'video' : 'image',
+            url: url,
+            isTeaser: false
+          };
+        });
+      } else if (action === 'first_teasers') {
+        // Marca 1º vídeo e as primeiras 3 fotos como prévias, e todo o resto como VIP
+        let vidCount = 0;
+        let picCount = 0;
+        model.previews.forEach((p, i) => {
+          const url = typeof p === 'object' ? p.url : p;
+          const isVid = url.endsWith('.mp4') || (typeof p === 'object' && p.type === 'video');
+          let teaser = false;
+          if (isVid && vidCount < 1) {
+            teaser = true;
+            vidCount++;
+          } else if (!isVid && picCount < 3) {
+            teaser = true;
+            picCount++;
+          }
+          model.previews[i] = {
+            type: isVid ? 'video' : 'image',
+            url: url,
+            isTeaser: teaser
+          };
+        });
+      } else if (Array.isArray(urls)) {
+        model.previews.forEach((p, i) => {
+          const url = typeof p === 'object' ? p.url : p;
+          if (urls.includes(url)) {
+            const isVid = url.endsWith('.mp4') || (typeof p === 'object' && p.type === 'video');
+            model.previews[i] = {
+              type: isVid ? 'video' : 'image',
+              url: url,
+              isTeaser: !!isTeaser
+            };
+          }
+        });
+      }
+
+      saveCatalog(catalog);
+      return sendJson(res, 200, {
+        success: true,
+        catalog: catalog,
+        message: 'Status de mídias atualizado em lote com sucesso!'
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao processar alteração em lote.' });
     }
   }
 

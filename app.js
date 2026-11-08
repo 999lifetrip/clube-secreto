@@ -454,24 +454,35 @@ function openPreviewModal(itemId) {
 function renderPreviewContent(item) {
   const unlocked = isModelUnlocked(item.id);
 
-  // Coleta fotos para o lightbox
-  const photoPreviews = item.previews
-    .map((p, idx) => {
-      const isVideo = (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'));
-      return isVideo ? null : { url: typeof p === 'object' ? p.url : p, originalIndex: idx };
-    })
-    .filter(Boolean);
-
-  currentLightboxPhotos = photoPreviews;
-  currentLightboxItem = item;
-
   // Vídeos e Fotos
   const allVids = item.previews.filter(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
   const allPics = item.previews.filter(p => !((typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'))));
 
-  // Se bloqueado, exibe os 2 primeiros vídeos de prévia e 4 fotos
-  let displayVids = unlocked ? allVids : allVids.slice(0, 2);
-  let displayPics = unlocked ? allPics : allPics.slice(0, 4);
+  // Prévias estritamente configuradas pelo Admin (isTeaser === true)
+  const teaserVids = allVids.filter(v => typeof v === 'object' && v.isTeaser);
+  const teaserPics = allPics.filter(p => typeof p === 'object' && p.isTeaser);
+
+  // Se o ensaio está desbloqueado: exibe TODOS os vídeos e fotos
+  // Se o ensaio está bloqueado: exibe ESTRITAMENTE o que o Admin marcou como prévia!
+  // Fallback de segurança: caso nenhuma mídia tenha sido marcada como prévia ainda, exibe o 1º vídeo e 3 fotos
+  let displayVids = unlocked 
+    ? allVids 
+    : (teaserVids.length > 0 ? teaserVids : allVids.slice(0, 1));
+
+  let displayPics = unlocked 
+    ? allPics 
+    : (teaserPics.length > 0 ? teaserPics : allPics.slice(0, 3));
+
+  // Coleta fotos para o visualizador tela cheia (Lightbox)
+  // No modo bloqueado, apenas as fotos de prévia são navegáveis; ao final aparece o slide de bloqueio!
+  const availablePics = unlocked ? allPics : displayPics;
+  const photoPreviews = availablePics.map((p, idx) => ({
+    url: typeof p === 'object' ? p.url : p,
+    originalIndex: idx
+  }));
+
+  currentLightboxPhotos = photoPreviews;
+  currentLightboxItem = item;
 
   let html = '';
 

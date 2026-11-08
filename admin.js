@@ -496,6 +496,45 @@ function populateModelMediaSelect() {
   onSelectModelChange();
 }
 
+let currentMediaFilter = 'all';
+
+function setMediaFilter(filter) {
+  currentMediaFilter = filter;
+  onSelectModelChange();
+}
+
+async function applyBatchMediaAction(modelId, action) {
+  const key = getAdminKey();
+  if (!key) return;
+
+  const msg = action === 'all_vip' 
+    ? 'Deseja realmente bloquear TODAS as mídias desta modelo como VIP exclusivo?' 
+    : 'Deseja definir 1 vídeo e 3 fotos como prévias grátis e o restante como VIP?';
+  if (!confirm(msg)) return;
+
+  showToast('⏳ Aplicando alteração em lote...');
+  try {
+    const res = await fetch('/api/admin/media/batch-toggle', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      },
+      body: JSON.stringify({ modelId, action })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showToast('✅ Mídias atualizadas em lote no catálogo!');
+      await loadAdminCatalog();
+    } else {
+      showToast(data.error || 'Erro na alteração em lote.');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Erro de conexão ao alterar mídias em lote.');
+  }
+}
+
 function onSelectModelChange() {
   const select = document.getElementById('selectModelMedia');
   if (!select) return;
@@ -515,52 +554,91 @@ function onSelectModelChange() {
   const previews = Array.isArray(model.previews) ? model.previews : [];
   const teasers = previews.filter(p => typeof p === 'object' && p.isTeaser);
   const vips = previews.filter(p => !(typeof p === 'object' && p.isTeaser));
+  const allVids = previews.filter(p => (typeof p === 'object' && p.type === 'video') || /\.(mp4|webm|mov)$/i.test(typeof p === 'object' ? p.url : p));
+  const allPics = previews.filter(p => !((typeof p === 'object' && p.type === 'video') || /\.(mp4|webm|mov)$/i.test(typeof p === 'object' ? p.url : p)));
 
   if (statsEl) {
     statsEl.innerHTML = `
-      <span>Modelo Selecionada: <strong style="color:#fff;">${model.creatorName}</strong></span>
-      <span>Total: <strong>${previews.length}</strong> mídias</span>
-      <span style="color:#10b981;">👁️ Prévias Grátis: <strong>${teasers.length}</strong> (Amostra p/ visitantes)</span>
-      <span style="color:#e11d48;">🔒 Exclusivos VIP: <strong>${vips.length}</strong> (Bloqueadas até ativar código)</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <span>Modelo Selecionada: <strong style="color:#fff; font-size:15px;">${model.creatorName}</strong></span>
+          <span style="margin-left: 14px;">Total: <strong>${previews.length}</strong> mídias</span>
+          <span style="color:#10b981; margin-left: 14px;">👁️ Prévias Grátis: <strong>${teasers.length}</strong> (Visíveis no site)</span>
+          <span style="color:#e11d48; margin-left: 14px;">🔒 Exclusivos VIP: <strong>${vips.length}</strong> (Bloqueadas até ativar código)</span>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-secondary" style="font-size: 11px; padding: 6px 12px; border-color: rgba(16,185,129,0.5); color: #10b981;" onclick="applyBatchMediaAction('${model.id}', 'first_teasers')" title="Marca 1 vídeo e 3 fotos como prévias, e bloqueia todo o restante como VIP">
+            ⚡ Prévia Padrão (1 Vídeo + 3 Fotos)
+          </button>
+          <button class="btn-secondary" style="font-size: 11px; padding: 6px 12px; border-color: rgba(244,63,94,0.5); color: #f43f5e;" onclick="applyBatchMediaAction('${model.id}', 'all_vip')" title="Bloqueia 100% das fotos e vídeos desta modelo como VIP">
+            🔒 Bloquear Todas como VIP
+          </button>
+        </div>
+      </div>
+
+      <!-- Barra de Filtros de Mídia -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; width: 100%; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px;">
+        <button class="btn-pill-filter ${currentMediaFilter === 'all' ? 'active' : ''}" onclick="setMediaFilter('all')">✨ Todas (${previews.length})</button>
+        <button class="btn-pill-filter ${currentMediaFilter === 'teasers' ? 'active' : ''}" style="border-color: #10b981; color: ${currentMediaFilter === 'teasers' ? '#fff' : '#10b981'};" onclick="setMediaFilter('teasers')">👁️ Só Prévias Grátis (${teasers.length})</button>
+        <button class="btn-pill-filter ${currentMediaFilter === 'vips' ? 'active' : ''}" style="border-color: #e11d48; color: ${currentMediaFilter === 'vips' ? '#fff' : '#e11d48'};" onclick="setMediaFilter('vips')">🔒 Só Exclusivos VIP (${vips.length})</button>
+        <button class="btn-pill-filter ${currentMediaFilter === 'videos' ? 'active' : ''}" onclick="setMediaFilter('videos')">🎬 Só Vídeos (${allVids.length})</button>
+        <button class="btn-pill-filter ${currentMediaFilter === 'photos' ? 'active' : ''}" onclick="setMediaFilter('photos')">📷 Só Fotos (${allPics.length})</button>
+      </div>
     `;
   }
 
   if (gridEl) {
-    if (previews.length === 0) {
+    let filteredPreviews = previews;
+    if (currentMediaFilter === 'teasers') {
+      filteredPreviews = previews.filter(p => typeof p === 'object' && p.isTeaser);
+    } else if (currentMediaFilter === 'vips') {
+      filteredPreviews = previews.filter(p => !(typeof p === 'object' && p.isTeaser));
+    } else if (currentMediaFilter === 'videos') {
+      filteredPreviews = previews.filter(p => (typeof p === 'object' && p.type === 'video') || /\.(mp4|webm|mov)$/i.test(typeof p === 'object' ? p.url : p));
+    } else if (currentMediaFilter === 'photos') {
+      filteredPreviews = previews.filter(p => !((typeof p === 'object' && p.type === 'video') || /\.(mp4|webm|mov)$/i.test(typeof p === 'object' ? p.url : p)));
+    }
+
+    if (filteredPreviews.length === 0) {
       gridEl.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); background: var(--bg-card); border-radius: 8px;">
-          Nenhuma mídia cadastrada para esta modelo ainda.<br />
-          Clique no botão "📤 Enviar Fotos/Vídeos" acima para adicionar!
+          Nenhuma mídia encontrada com este filtro.<br />
+          <button class="btn-secondary" style="margin-top:10px;" onclick="setMediaFilter('all')">Ver Todas</button>
         </div>
       `;
       return;
     }
 
-    gridEl.innerHTML = previews.map((item, index) => {
+    gridEl.innerHTML = filteredPreviews.map((item, index) => {
       const url = typeof item === 'object' ? item.url : item;
       const isTeaser = typeof item === 'object' ? !!item.isTeaser : false;
       const isVideo = (typeof item === 'object' && item.type === 'video') || /\.(mp4|webm|mov)$/i.test(url);
+      const isCover = model.cover === url;
+      const isAvatar = model.avatar === url;
 
       return `
-        <div class="media-card" data-url="${url}">
+        <div class="media-card" data-url="${url}" style="border: 1px solid ${isTeaser ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'};">
           <div class="media-card-preview">
             ${isVideo 
               ? `<video src="${url}" class="media-card-vid" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
               : `<img src="${url}" alt="Mídia" class="media-card-img" loading="lazy" />`
             }
             <span class="media-type-badge">${isVideo ? '🎬 VÍDEO' : '📷 FOTO'}</span>
-            <span class="media-role-badge ${isTeaser ? 'teaser' : 'vip'}" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})" title="Clique para alternar">
+            <span class="media-role-badge ${isTeaser ? 'teaser' : 'vip'}" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})" title="Clique para alternar Prévia vs. VIP">
               ${isTeaser ? '👁️ Prévia Grátis' : '🔒 Exclusivo VIP'}
             </span>
+            ${isCover ? '<span style="position:absolute; bottom:6px; left:6px; background:#e11d48; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">CAPA OFICIAL</span>' : ''}
+            ${isAvatar ? '<span style="position:absolute; bottom:6px; right:6px; background:#3b82f6; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">PERFIL</span>' : ''}
           </div>
 
           <div class="media-card-controls">
-            <button class="btn-toggle-teaser ${isTeaser ? 'teaser' : 'vip'}" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})">
+            <button class="btn-toggle-teaser ${isTeaser ? 'teaser' : 'vip'}" style="flex:1;" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})">
               ${isTeaser ? 'Tornar VIP 🔒' : 'Tornar Prévia 👁️'}
             </button>
             ${!isVideo ? `
               <button class="btn-copy-sm" title="Definir como Capa" onclick="setMediaRole('${model.id}', '${url}', 'cover')">Capa</button>
-              <button class="btn-copy-sm" title="Definir como Avatar" onclick="setMediaRole('${model.id}', '${url}', 'avatar')">Foto Perfil</button>
+              <button class="btn-copy-sm" title="Definir como Avatar" onclick="setMediaRole('${model.id}', '${url}', 'avatar')">Perfil</button>
             ` : ''}
             <button class="btn-del-media" title="Remover Mídia" onclick="deleteMediaItem('${model.id}', '${url}')">✕</button>
           </div>
@@ -586,13 +664,21 @@ async function toggleMediaTeaser(modelId, mediaUrl, isTeaser) {
 
     const data = await res.json();
     if (res.ok && data.success) {
-      showToast(isTeaser ? '👁️ Definida como Prévia Grátis!' : '🔒 Definida como Exclusiva VIP!');
-      // Atualizar localmente
+      showToast(isTeaser ? '👁️ Mídia definida como Prévia Grátis (Já aparece no site!)' : '🔒 Mídia bloqueada como Exclusivo VIP (Bloqueada no site!)');
+      // Atualizar no catálogo local
       const model = catalogCache.find(m => m.id === modelId);
       if (model && Array.isArray(model.previews)) {
-        const item = model.previews.find(p => (typeof p === 'object' ? p.url : p) === mediaUrl);
-        if (item && typeof item === 'object') {
-          item.isTeaser = isTeaser;
+        const idx = model.previews.findIndex(p => (typeof p === 'object' ? p.url : p) === mediaUrl);
+        if (idx !== -1) {
+          if (typeof model.previews[idx] === 'object') {
+            model.previews[idx].isTeaser = isTeaser;
+          } else {
+            model.previews[idx] = {
+              type: mediaUrl.endsWith('.mp4') ? 'video' : 'image',
+              url: mediaUrl,
+              isTeaser: isTeaser
+            };
+          }
         }
       }
       onSelectModelChange();
