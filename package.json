@@ -1,0 +1,18 @@
+{
+  "name": "clube-secreto-vip",
+  "version": "2.0.0",
+  "description": "Plataforma Clube Secreto VIP — Portfólios, Ensaios 4K, Sistema Anti-Burla de Códigos e Painel Administrativo CMS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "vip",
+    "clube-secreto",
+    "cms",
+    "node"
+  ],
+  "author": "AN0N",
+  "license": "ISC"
+}
+
