@@ -20,14 +20,19 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com fotos em alta resolução e vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
-    "cover": "/media/alinabelle/photo_33.jpg",
-    "avatar": "/media/alinabelle/photo_37.jpg",
+    "cover": "/media/alinabelle/photo_2.jpg",
+    "avatar": "/media/alinabelle/photo_1.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/alinabelle/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_2.mp4",
         "isTeaser": true
       },
       {
@@ -68,7 +73,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_10.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -113,7 +118,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_19.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1047,8 +1052,8 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
-    "cover": "/media/adiana/photo_12.jpg",
-    "avatar": "/media/adiana/photo_2.jpg",
+    "cover": "/media/adiana/photo_2.jpg",
+    "avatar": "/media/adiana/photo_1.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -1391,20 +1396,20 @@ const CREATORS_CATALOG = [
     "videoCount": 11,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo premium oficial com fotos de estúdio e glamour em altíssima definição e vídeos exclusivos em formato 60fps.",
-    "cover": "/media/brandi/photo_8.jpg",
-    "avatar": "/media/brandi/photo_5.jpg",
+    "cover": "/media/brandi/photo_2.jpg",
+    "avatar": "/media/brandi/photo_1.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/brandi/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
         "url": "/media/brandi/video_2.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1450,6 +1455,11 @@ const CREATORS_CATALOG = [
         "type": "video",
         "url": "/media/brandi/video_11.mp4",
         "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_1.jpg",
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1590,20 +1600,20 @@ const CREATORS_CATALOG = [
     "videoCount": 16,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Coleção imperdível com ensaios temáticos, cosplay sensual de alta produção e vídeos privativos.",
-    "cover": "/media/amayawaifu/photo_1.jpg",
-    "avatar": "/media/amayawaifu/photo_29.jpg",
+    "cover": "/media/amayawaifu/photo_2.jpg",
+    "avatar": "/media/amayawaifu/photo_1.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/amayawaifu/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
         "url": "/media/amayawaifu/video_2.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1678,12 +1688,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1845,19 +1855,19 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio moderno e urbano com visual ousado e acervo de vídeos exclusivos dos bastidores em alta definição.",
     "cover": "/media/fablazed/photo_2.jpg",
-    "avatar": "/media/fablazed/photo_7.jpg",
+    "avatar": "/media/fablazed/photo_1.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/fablazed/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
         "url": "/media/fablazed/video_2.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1932,7 +1942,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2028,8 +2038,8 @@ const CREATORS_CATALOG = [
     "videoCount": 13,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio praiano e lifestyle dourado com fotos deslumbrantes em alta resolução e vídeos exclusivos.",
-    "cover": "/media/minaveneta/photo_7.jpg",
-    "avatar": "/media/minaveneta/photo_13.jpg",
+    "cover": "/media/minaveneta/photo_12.jpg",
+    "avatar": "/media/minaveneta/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -2071,7 +2081,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/minaveneta/video_8.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",

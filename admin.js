@@ -302,8 +302,8 @@ function renderModelsGrid() {
           <a href="/?modelo=${model.id}" target="_blank" class="btn-secondary" style="font-size: 11px; padding: 8px 10px; justify-content: center; text-decoration: none; border-color: rgba(255,255,255,0.15);" title="Ver modelo no site oficial">
             <span>👁️ Ver no Site</span>
           </a>
-          <button class="btn-primary" style="font-size: 11px; padding: 8px 10px; justify-content: center; background: linear-gradient(135deg, #10b981, #059669); border: none;" onclick="generateAndCopySingleCode('${model.id}', '${model.creatorName}', '${model.individualPrice || '9,90'}')" title="Gera 1 código novo de R$ 9,90 e copia mensagem pronta para WhatsApp">
-            <span>🔑 Gerar PIX R$ 9,90</span>
+          <button class="btn-primary" style="font-size: 11px; padding: 8px 10px; justify-content: center; background: linear-gradient(135deg, #10b981, #059669); border: none;" onclick="generateAndCopySingleCode('${model.id}', '${model.creatorName}', '${model.individualPrice || '9,90'}')" title="Gera 1 código novo de R$ 9,90 (Vitalício) e copia mensagem pronta para WhatsApp">
+            <span>🔑 PIX Vitalício (R$ 9,90)</span>
           </button>
         </div>
 
@@ -906,12 +906,12 @@ function copyWhatsAppMessage(code, type, price) {
       `🔥 Plano Semanal VIP (${price}) — Acesso total a todas as criadoras, fotos 4K e vídeos exclusivos.\n\n` +
       `👉 TOQUE NO LINK ABAIXO PARA ENTRAR DIRETO (Já libera automático):\n${autoLink}\n\n` +
       `🔑 Ou se preferir digitar seu código no site:\n${code}\n\n` +
-      `Bom proveito! Qualquer dúvida estamos à disposição. 🔥`
-    : `Olá! Seu acesso ao PACK INDIVIDUAL está liberado! 🔒✨\n\n` +
-      `📸 Ensaio Completo em Alta Resolução (${price}) liberado.\n\n` +
+      `Válido por 7 dias. Bom proveito! Qualquer dúvida estamos à disposição. 🔥`
+    : `Olá! Seu acesso ao PACK INDIVIDUAL VITALÍCIO está liberado! 🔒✨\n\n` +
+      `📸 Ensaio Completo em Alta Resolução (${price}) — ACESSO VITALÍCIO (Para Sempre) liberado!\n\n` +
       `👉 TOQUE NO LINK ABAIXO PARA ENTRAR DIRETO (Já libera automático):\n${autoLink}\n\n` +
       `🔑 Ou se preferir digitar seu código no site:\n${code}\n\n` +
-      `Bom proveito! 🔥`;
+      `Seu acesso a este ensaio é vitalício e não expira nunca. Bom proveito! 🔥`;
 
   navigator.clipboard.writeText(msg).then(() => {
     showToast('📋 Mensagem pronta copiada com link direto!');

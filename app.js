@@ -130,10 +130,13 @@ function checkVipStatus() {
     const vipData = JSON.parse(raw);
     const now = Date.now();
 
-    if (vipData.active && vipData.expiresAt && vipData.expiresAt > now) {
+    const isLifetime = !!vipData.isLifetime || vipData.expiresAt === null;
+    const isNotExpired = isLifetime || (vipData.expiresAt && vipData.expiresAt > now);
+
+    if (vipData.active && isNotExpired) {
       isAdminActive = !!vipData.isAdmin;
       isVipActive = !!vipData.isWeeklyVip || isAdminActive;
-      vipDaysRemaining = Math.max(1, Math.ceil((vipData.expiresAt - now) / (1000 * 60 * 60 * 24)));
+      vipDaysRemaining = vipData.expiresAt ? Math.max(1, Math.ceil((vipData.expiresAt - now) / (1000 * 60 * 60 * 24))) : 9999;
       unlockedModels = new Set(Array.isArray(vipData.unlockedModels) ? vipData.unlockedModels : []);
     } else {
       isVipActive = false;
@@ -195,7 +198,7 @@ function updateVipUI() {
       } else {
         btnHeaderVip.classList.add("vip-active");
         if (btnHeaderVipIcon) btnHeaderVipIcon.textContent = "🔓";
-        if (btnHeaderVipText) btnHeaderVipText.textContent = `Pack (${vipDaysRemaining}d)`;
+        if (btnHeaderVipText) btnHeaderVipText.textContent = "Pack Vitalício";
       }
     }
     if (vipActiveBanner) {
@@ -207,7 +210,7 @@ function updateVipUI() {
         } else if (isVipActive) {
           vipActiveBannerText.innerHTML = `🔥 <strong>VIP Total Ativo</strong> (${vipDaysRemaining}d restantes)`;
         } else {
-          vipActiveBannerText.innerHTML = `✨ <strong>Pack Individual Ativo</strong> (${vipDaysRemaining}d restantes)`;
+          vipActiveBannerText.innerHTML = `✨ <strong>Pack Individual Ativo</strong> (Acesso Vitalício ✅)`;
         }
       }
     }
@@ -370,11 +373,11 @@ function renderCatalog() {
 
           <div class="card-price-box">
             <div class="price-individual">
-              <span class="price-label">${unlocked ? 'Status' : 'Pack Desta Modelo'}</span>
-              <span class="price-val" style="color: ${unlocked ? '#10b981' : 'var(--text-primary)'};">${unlocked ? 'LIBERADO ✅' : `R$ ${item.individualPrice}`}</span>
+              <span class="price-label">${unlocked ? 'Status' : 'Pack Vitalício'}</span>
+              <span class="price-val" style="color: ${unlocked ? '#10b981' : 'var(--text-primary)'};">${unlocked ? 'LIBERADO VITALÍCIO ✅' : `R$ ${item.individualPrice}`}</span>
             </div>
             <span style="font-size: 11px; color: ${unlocked ? '#10b981' : '#ff4d6d'}; font-weight: 700;">
-              ${unlocked ? 'Acesso Ativo' : 'Semanal Total: R$ 24,99'}
+              ${unlocked ? 'Acesso Permanente' : 'Semanal Total: R$ 24,99'}
             </span>
           </div>
 
@@ -387,7 +390,7 @@ function renderCatalog() {
                 <span>🔓 Ver Ensaio</span>
               </button>
             ` : `
-              <button class="btn-buy" onclick="openPixModal('Pack ${item.creatorName} — ${item.title}', '${item.individualPrice}', 'Acesso Individual (${item.creatorName})')">
+              <button class="btn-buy" onclick="openPixModal('Pack ${item.creatorName} — ${item.title}', '${item.individualPrice}', 'Acesso Vitalício (${item.creatorName})')">
                 <span>R$ ${item.individualPrice}</span>
               </button>
             `}
@@ -501,8 +504,8 @@ function renderPreviewContent(item) {
         <button class="btn-quick-single" onclick="buyCurrentSingle()">
           <span class="quick-btn-icon">🔓</span>
           <div class="quick-btn-info">
-            <span class="quick-btn-title">Comprar Só Esta Modelo</span>
-            <span class="quick-btn-sub">Apenas R$ ${item.individualPrice || '9,90'} no PIX (Fotos 4K + Vídeos)</span>
+            <span class="quick-btn-title">Comprar Só Esta Modelo (Acesso Vitalício)</span>
+            <span class="quick-btn-sub">Apenas R$ ${item.individualPrice || '9,90'} no PIX • Acesso Vitalício sem expiração</span>
           </div>
         </button>
 
@@ -556,7 +559,7 @@ function renderPreviewContent(item) {
       <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 10px;">
         <div>
           <span style="font-size: 11px; color: #10b981; text-transform: uppercase; font-weight: 800;">Status do Acesso:</span>
-          <span style="font-size: 15px; font-weight: 900; color: #10b981; display: block;">🔓 ${isAdminActive ? 'ACESSO MASTER ADMINISTRADOR' : (isVipActive ? 'VIP TOTAL LIBERADO (TODAS)' : 'PACK DESTA MODELO LIBERADO')}</span>
+          <span style="font-size: 15px; font-weight: 900; color: #10b981; display: block;">🔓 ${isAdminActive ? 'ACESSO MASTER ADMINISTRADOR' : (isVipActive ? 'VIP TOTAL LIBERADO (TODAS)' : 'PACK DESTA MODELO LIBERADO (ACESSO VITALÍCIO)')}</span>
         </div>
         <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857); padding: 10px 16px;" onclick="openLightbox(0)">
           <span>👁️ Ver Fotos em Tela Cheia</span>
@@ -585,7 +588,7 @@ function buyCurrentSingle() {
   openPixModal(
     `Pack ${currentPreviewItem.creatorName} — ${currentPreviewItem.title}`,
     currentPreviewItem.individualPrice || "9,90",
-    `Acesso Completo (${currentPreviewItem.creatorName})`
+    `Acesso Vitalício (${currentPreviewItem.creatorName})`
   );
 }
 
@@ -684,7 +687,10 @@ function openPixModal(itemName, itemPrice = "24,99", duration = "7 Dias de Acess
   if (pixItemDuration) pixItemDuration.textContent = duration;
 
   const isWeekly = itemPrice === "24,99" || itemName.toLowerCase().includes("semanal") || itemName.toLowerCase().includes("total");
-  const actionText = isWeekly ? "PASSE VIP TOTAL (7 DIAS)" : "PACK INDIVIDUAL (R$ 9,90)";
+  const durationText = isWeekly ? "7 Dias de Acesso Total" : "Acesso Vitalício (Sem Expiração)";
+  if (pixItemDuration) pixItemDuration.textContent = durationText;
+
+  const actionText = isWeekly ? "PASSE VIP TOTAL (7 DIAS)" : "PACK INDIVIDUAL VITALÍCIO (R$ 9,90)";
 
   const message = `Olá! Realizei o PIX de R$ ${itemPrice} para o *${itemName}* (${actionText}) no Clube Secreto.\n\nSegue meu comprovante para envio do meu *CÓDIGO DE ACESSO EXCLUSIVO* para liberar o site:`;
   btnWhatsAppConfirm.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

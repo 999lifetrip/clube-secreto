@@ -181,16 +181,20 @@ const server = http.createServer(async (req, res) => {
       // CÓDIGO JÁ FOI UTILIZADO
       if (codeRecord.status === 'USED') {
         if (codeRecord.usedByDeviceId === deviceId) {
-          if (codeRecord.expiresAt && codeRecord.expiresAt > now) {
-            const daysLeft = Math.ceil((codeRecord.expiresAt - now) / (1000 * 60 * 60 * 24));
+          const isLifetime = codeRecord.isLifetime || codeRecord.type === 'SINGLE_MODEL' || !codeRecord.expiresAt;
+          if (isLifetime || (codeRecord.expiresAt && codeRecord.expiresAt > now)) {
+            const daysLeft = codeRecord.expiresAt ? Math.ceil((codeRecord.expiresAt - now) / (1000 * 60 * 60 * 24)) : null;
             return sendJson(res, 200, {
               success: true,
               plan: codeRecord.label,
               type: codeRecord.type,
               isWeeklyVip: codeRecord.type === 'WEEKLY_VIP',
+              isLifetime: isLifetime,
               modelId: codeRecord.modelId,
               expiresAt: codeRecord.expiresAt,
-              message: `✅ Código revalidado neste dispositivo! Válido por mais ${daysLeft} dia(s).`
+              message: isLifetime
+                ? `✅ Acesso Vitalício revalidado neste dispositivo! Válido para sempre.`
+                : `✅ Código revalidado neste dispositivo! Válido por mais ${daysLeft} dia(s).`
             });
           } else {
             return sendJson(res, 400, {
@@ -223,11 +227,13 @@ const server = http.createServer(async (req, res) => {
         }
       }
 
-      const durationMs = (codeRecord.durationDays || 7) * 24 * 60 * 60 * 1000;
+      const isLifetime = codeRecord.isLifetime || codeRecord.type === 'SINGLE_MODEL';
+      const durationMs = isLifetime ? null : (codeRecord.durationDays || 7) * 24 * 60 * 60 * 1000;
       codeRecord.status = 'USED';
       codeRecord.usedByDeviceId = deviceId;
       codeRecord.usedAt = now;
-      codeRecord.expiresAt = now + durationMs;
+      codeRecord.expiresAt = isLifetime ? null : (now + durationMs);
+      codeRecord.isLifetime = isLifetime;
 
       saveVipCodes(codes);
 
@@ -237,11 +243,12 @@ const server = http.createServer(async (req, res) => {
         plan: codeRecord.label,
         type: codeRecord.type,
         isWeeklyVip: codeRecord.type === 'WEEKLY_VIP',
+        isLifetime: isLifetime,
         modelId: resolvedModelId,
         expiresAt: codeRecord.expiresAt,
-        message: codeRecord.type === 'WEEKLY_VIP'
-          ? `🎉 PLANO SEMANAL VIP ATIVADO! Acesso completo a todas as modelos por ${days} dias!`
-          : `🎉 PACK INDIVIDUAL ATIVADO! Acesso completo liberado para esta modelo por ${days} dias!`
+        message: isLifetime
+          ? `🎉 PACK INDIVIDUAL VITALÍCIO ATIVADO! Você tem acesso permanente para sempre a todas as fotos e vídeos desta modelo!`
+          : `🎉 PLANO SEMANAL VIP ATIVADO! Acesso completo a todas as modelos por ${days} dias!`
       });
     } catch (err) {
       console.error('Erro na ativação de código:', err);
@@ -260,7 +267,7 @@ const server = http.createServer(async (req, res) => {
       const activeCodes = codes.filter(c =>
         c.status === 'USED' &&
         c.usedByDeviceId === deviceId &&
-        c.expiresAt && c.expiresAt > now
+        (c.isLifetime || c.type === 'SINGLE_MODEL' || !c.expiresAt || c.expiresAt > now)
       );
 
       const isWeekly = activeCodes.some(c => c.type === 'WEEKLY_VIP' || c.isMaster);
@@ -673,6 +680,7 @@ const server = http.createServer(async (req, res) => {
         return res;
       }
 
+      const isLifetime = (type === 'SINGLE_MODEL');
       for (let i = 0; i < count; i++) {
         let codeStr = '';
         let label = '';
@@ -684,7 +692,7 @@ const server = http.createServer(async (req, res) => {
           price = '24,99';
         } else {
           codeStr = `PACK${randDigits(4)}`;
-          label = modelId ? `Pack Individual (${modelId})` : 'Pack Individual (R$ 9,90)';
+          label = modelId ? `Pack Individual (${modelId}) — Acesso Vitalício` : 'Pack Individual (R$ 9,90 — Acesso Vitalício)';
           price = '9,90';
         }
 
@@ -694,7 +702,8 @@ const server = http.createServer(async (req, res) => {
           label: label,
           modelId: modelId || null,
           price: price,
-          durationDays: 7,
+          durationDays: isLifetime ? null : 7,
+          isLifetime: isLifetime,
           isMaster: false,
           status: 'AVAILABLE',
           usedByDeviceId: null,
