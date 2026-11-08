@@ -1932,7 +1932,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
