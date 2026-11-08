@@ -16,8 +16,8 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "390K",
     "likes": "61.3K",
-    "photoCount": 1531,
-    "videoCount": 349,
+    "photoCount": 30,
+    "videoCount": 16,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com 1.531 fotos em alta resolução e 349 vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
     "cover": "/media/alinabelle/photo_2.jpg",
@@ -27,35 +27,83 @@ const CREATORS_CATALOG = [
     "previews": [
       {
         "type": "video",
-        "url": "/media/alinabelle/video_1.mp4"
+        "url": "/media/alinabelle/video_1.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_2.mp4"
+        "url": "/media/alinabelle/video_2.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_3.mp4"
+        "url": "/media/alinabelle/video_3.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_4.mp4"
+        "url": "/media/alinabelle/video_4.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_5.mp4"
+        "url": "/media/alinabelle/video_5.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_6.mp4"
+        "url": "/media/alinabelle/video_6.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_7.mp4"
+        "url": "/media/alinabelle/video_7.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/alinabelle/video_8.mp4"
+        "url": "/media/alinabelle/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_16.mp4",
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -79,107 +127,133 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_5.jpg"
+        "url": "/media/alinabelle/photo_5.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_6.jpg"
+        "url": "/media/alinabelle/photo_6.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_7.jpg"
+        "url": "/media/alinabelle/photo_7.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_8.jpg"
+        "url": "/media/alinabelle/photo_8.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_9.jpg"
+        "url": "/media/alinabelle/photo_9.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_10.jpg"
+        "url": "/media/alinabelle/photo_10.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_11.jpg"
+        "url": "/media/alinabelle/photo_11.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_12.jpg"
+        "url": "/media/alinabelle/photo_12.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_13.jpg"
+        "url": "/media/alinabelle/photo_13.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_14.jpg"
+        "url": "/media/alinabelle/photo_14.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_15.jpg"
+        "url": "/media/alinabelle/photo_15.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_16.jpg"
+        "url": "/media/alinabelle/photo_16.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_17.jpg"
+        "url": "/media/alinabelle/photo_17.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_18.jpg"
+        "url": "/media/alinabelle/photo_18.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_19.jpg"
+        "url": "/media/alinabelle/photo_19.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_20.jpg"
+        "url": "/media/alinabelle/photo_20.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_21.jpg"
+        "url": "/media/alinabelle/photo_21.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_22.jpg"
+        "url": "/media/alinabelle/photo_22.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_23.jpg"
+        "url": "/media/alinabelle/photo_23.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_24.jpg"
+        "url": "/media/alinabelle/photo_24.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_25.jpg"
+        "url": "/media/alinabelle/photo_25.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_26.jpg"
+        "url": "/media/alinabelle/photo_26.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_27.jpg"
+        "url": "/media/alinabelle/photo_27.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_28.jpg"
+        "url": "/media/alinabelle/photo_28.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_29.jpg"
+        "url": "/media/alinabelle/photo_29.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/alinabelle/photo_30.jpg"
+        "url": "/media/alinabelle/photo_30.jpg",
+        "isTeaser": false
       }
     ]
   },
@@ -196,8 +270,8 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "215K",
     "likes": "36.8K",
-    "photoCount": 424,
-    "videoCount": 133,
+    "photoCount": 30,
+    "videoCount": 16,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com 424 fotos em ultra resolução 4K e 133 vídeos exclusivos. Sessões profissionais, ensaios de estúdio, lifestyle e momentos de bastidores em altíssima qualidade.",
     "cover": "/media/karentahe/photo_2.jpg",
@@ -207,35 +281,83 @@ const CREATORS_CATALOG = [
     "previews": [
       {
         "type": "video",
-        "url": "/media/karentahe/video_1.mp4"
+        "url": "/media/karentahe/video_1.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_2.mp4"
+        "url": "/media/karentahe/video_2.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_3.mp4"
+        "url": "/media/karentahe/video_3.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_4.mp4"
+        "url": "/media/karentahe/video_4.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_5.mp4"
+        "url": "/media/karentahe/video_5.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_6.mp4"
+        "url": "/media/karentahe/video_6.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_7.mp4"
+        "url": "/media/karentahe/video_7.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/karentahe/video_8.mp4"
+        "url": "/media/karentahe/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_16.mp4",
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -259,107 +381,133 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_5.jpg"
+        "url": "/media/karentahe/photo_5.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_6.jpg"
+        "url": "/media/karentahe/photo_6.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_7.jpg"
+        "url": "/media/karentahe/photo_7.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_8.jpg"
+        "url": "/media/karentahe/photo_8.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_9.jpg"
+        "url": "/media/karentahe/photo_9.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_10.jpg"
+        "url": "/media/karentahe/photo_10.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_11.jpg"
+        "url": "/media/karentahe/photo_11.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_12.jpg"
+        "url": "/media/karentahe/photo_12.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_13.jpg"
+        "url": "/media/karentahe/photo_13.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_14.jpg"
+        "url": "/media/karentahe/photo_14.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_15.jpg"
+        "url": "/media/karentahe/photo_15.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_16.jpg"
+        "url": "/media/karentahe/photo_16.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_17.jpg"
+        "url": "/media/karentahe/photo_17.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_18.jpg"
+        "url": "/media/karentahe/photo_18.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_19.jpg"
+        "url": "/media/karentahe/photo_19.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_20.jpg"
+        "url": "/media/karentahe/photo_20.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_21.jpg"
+        "url": "/media/karentahe/photo_21.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_22.jpg"
+        "url": "/media/karentahe/photo_22.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_23.jpg"
+        "url": "/media/karentahe/photo_23.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_24.jpg"
+        "url": "/media/karentahe/photo_24.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_25.jpg"
+        "url": "/media/karentahe/photo_25.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_26.jpg"
+        "url": "/media/karentahe/photo_26.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_27.jpg"
+        "url": "/media/karentahe/photo_27.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_28.jpg"
+        "url": "/media/karentahe/photo_28.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_29.jpg"
+        "url": "/media/karentahe/photo_29.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/karentahe/photo_30.jpg"
+        "url": "/media/karentahe/photo_30.jpg",
+        "isTeaser": false
       }
     ]
   },
@@ -376,8 +524,8 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "340K",
     "likes": "52.4K",
-    "photoCount": 467,
-    "videoCount": 56,
+    "photoCount": 30,
+    "videoCount": 16,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com 467 fotos em altíssima resolução e 56 vídeos exclusivos. Sessões temáticas, cosplay de alto nível, lifestyle e bastidores em alta qualidade.",
     "cover": "/media/xspidergirl/photo_2.jpg",
@@ -387,35 +535,83 @@ const CREATORS_CATALOG = [
     "previews": [
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_1.mp4"
+        "url": "/media/xspidergirl/video_1.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_2.mp4"
+        "url": "/media/xspidergirl/video_2.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_3.mp4"
+        "url": "/media/xspidergirl/video_3.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_4.mp4"
+        "url": "/media/xspidergirl/video_4.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_5.mp4"
+        "url": "/media/xspidergirl/video_5.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_6.mp4"
+        "url": "/media/xspidergirl/video_6.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_7.mp4"
+        "url": "/media/xspidergirl/video_7.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_8.mp4"
+        "url": "/media/xspidergirl/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_16.mp4",
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -439,107 +635,133 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_5.jpg"
+        "url": "/media/xspidergirl/photo_5.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_6.jpg"
+        "url": "/media/xspidergirl/photo_6.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_7.jpg"
+        "url": "/media/xspidergirl/photo_7.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_8.jpg"
+        "url": "/media/xspidergirl/photo_8.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_9.jpg"
+        "url": "/media/xspidergirl/photo_9.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_10.jpg"
+        "url": "/media/xspidergirl/photo_10.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_11.jpg"
+        "url": "/media/xspidergirl/photo_11.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_12.jpg"
+        "url": "/media/xspidergirl/photo_12.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_13.jpg"
+        "url": "/media/xspidergirl/photo_13.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_14.jpg"
+        "url": "/media/xspidergirl/photo_14.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_15.jpg"
+        "url": "/media/xspidergirl/photo_15.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_16.jpg"
+        "url": "/media/xspidergirl/photo_16.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_17.jpg"
+        "url": "/media/xspidergirl/photo_17.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_18.jpg"
+        "url": "/media/xspidergirl/photo_18.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_19.jpg"
+        "url": "/media/xspidergirl/photo_19.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_20.jpg"
+        "url": "/media/xspidergirl/photo_20.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_21.jpg"
+        "url": "/media/xspidergirl/photo_21.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_22.jpg"
+        "url": "/media/xspidergirl/photo_22.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_23.jpg"
+        "url": "/media/xspidergirl/photo_23.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_24.jpg"
+        "url": "/media/xspidergirl/photo_24.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_25.jpg"
+        "url": "/media/xspidergirl/photo_25.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_26.jpg"
+        "url": "/media/xspidergirl/photo_26.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_27.jpg"
+        "url": "/media/xspidergirl/photo_27.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_28.jpg"
+        "url": "/media/xspidergirl/photo_28.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_29.jpg"
+        "url": "/media/xspidergirl/photo_29.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/xspidergirl/photo_30.jpg"
+        "url": "/media/xspidergirl/photo_30.jpg",
+        "isTeaser": false
       }
     ]
   },
@@ -556,8 +778,8 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "284K",
     "likes": "41.2K",
-    "photoCount": 790,
-    "videoCount": 85,
+    "photoCount": 30,
+    "videoCount": 16,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com 790 fotos em altíssima definição e 85 vídeos exclusivos. Sessões profissionais de estúdio, glamour, lifestyle e bastidores em alta qualidade.",
     "cover": "/media/adiana/photo_2.jpg",
@@ -567,35 +789,83 @@ const CREATORS_CATALOG = [
     "previews": [
       {
         "type": "video",
-        "url": "/media/adiana/video_1.mp4"
+        "url": "/media/adiana/video_1.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_2.mp4"
+        "url": "/media/adiana/video_2.mp4",
+        "isTeaser": true
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_3.mp4"
+        "url": "/media/adiana/video_3.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_4.mp4"
+        "url": "/media/adiana/video_4.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_5.mp4"
+        "url": "/media/adiana/video_5.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_6.mp4"
+        "url": "/media/adiana/video_6.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_7.mp4"
+        "url": "/media/adiana/video_7.mp4",
+        "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/adiana/video_8.mp4"
+        "url": "/media/adiana/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_16.mp4",
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -619,107 +889,133 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_5.jpg"
+        "url": "/media/adiana/photo_5.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_6.jpg"
+        "url": "/media/adiana/photo_6.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_7.jpg"
+        "url": "/media/adiana/photo_7.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_8.jpg"
+        "url": "/media/adiana/photo_8.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_9.jpg"
+        "url": "/media/adiana/photo_9.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_10.jpg"
+        "url": "/media/adiana/photo_10.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_11.jpg"
+        "url": "/media/adiana/photo_11.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_12.jpg"
+        "url": "/media/adiana/photo_12.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_13.jpg"
+        "url": "/media/adiana/photo_13.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_14.jpg"
+        "url": "/media/adiana/photo_14.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_15.jpg"
+        "url": "/media/adiana/photo_15.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_16.jpg"
+        "url": "/media/adiana/photo_16.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_17.jpg"
+        "url": "/media/adiana/photo_17.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_18.jpg"
+        "url": "/media/adiana/photo_18.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_19.jpg"
+        "url": "/media/adiana/photo_19.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_20.jpg"
+        "url": "/media/adiana/photo_20.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_21.jpg"
+        "url": "/media/adiana/photo_21.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_22.jpg"
+        "url": "/media/adiana/photo_22.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_23.jpg"
+        "url": "/media/adiana/photo_23.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_24.jpg"
+        "url": "/media/adiana/photo_24.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_25.jpg"
+        "url": "/media/adiana/photo_25.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_26.jpg"
+        "url": "/media/adiana/photo_26.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_27.jpg"
+        "url": "/media/adiana/photo_27.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_28.jpg"
+        "url": "/media/adiana/photo_28.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_29.jpg"
+        "url": "/media/adiana/photo_29.jpg",
+        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/adiana/photo_30.jpg"
+        "url": "/media/adiana/photo_30.jpg",
+        "isTeaser": false
       }
     ]
   },
