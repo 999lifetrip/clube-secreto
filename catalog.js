@@ -1,5 +1,5 @@
 // ═════════════════════════════════════════════════════════════════════════
-// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (8 MODELOS VIP & +120 VÍDEOS)
+// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (ENSAIOS & PORTFÓLIOS EXCLUSIVOS)
 // ═════════════════════════════════════════════════════════════════════════
 
 const CREATORS_CATALOG = [
@@ -364,20 +364,20 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Portfólio completo da sensação do cosplay temático e geek sensual. Ensaios com figurinos exclusivos, iluminação cinematográfica e vídeos 60fps.",
-    "cover": "/media/xspidergirl/photo_2.jpg",
-    "avatar": "/media/xspidergirl/photo_1.jpg",
+    "cover": "/media/xspidergirl/photo_6.jpg",
+    "avatar": "/media/xspidergirl/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/xspidergirl/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
         "url": "/media/xspidergirl/video_2.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -417,7 +417,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/xspidergirl/video_10.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -442,7 +442,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/xspidergirl/video_15.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -517,7 +517,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/xspidergirl/photo_6.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -557,12 +557,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/xspidergirl/photo_14.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/xspidergirl/photo_15.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -708,15 +708,15 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "A musa Karentahe em ensaios paradisíacos de tirar o fôlego. Fotos douradas ao pôr do sol, maiôs de alta costura e vídeos em alta resolução.",
-    "cover": "/media/karentahe/photo_2.jpg",
-    "avatar": "/media/karentahe/photo_1.jpg",
+    "cover": "/media/karentahe/photo_9.jpg",
+    "avatar": "/media/karentahe/photo_27.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/karentahe/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -841,7 +841,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -981,7 +981,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_30.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1031,7 +1031,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_40.jpg",
-        "isTeaser": false
+        "isTeaser": true
       }
     ]
   },
@@ -2038,8 +2038,8 @@ const CREATORS_CATALOG = [
     "videoCount": 13,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio praiano e lifestyle dourado com fotos deslumbrantes em alta resolução e vídeos exclusivos.",
-    "cover": "/media/minaveneta/photo_2.jpg",
-    "avatar": "/media/minaveneta/photo_1.jpg",
+    "cover": "/media/minaveneta/photo_12.jpg",
+    "avatar": "/media/minaveneta/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -2110,21 +2110,6 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
-        "url": "/media/minaveneta/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
         "url": "/media/minaveneta/photo_4.jpg",
         "isTeaser": false
       },
@@ -2141,7 +2126,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/minaveneta/photo_7.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2211,26 +2196,6 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/minaveneta/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_25.jpg",
         "isTeaser": false
       }
     ]
