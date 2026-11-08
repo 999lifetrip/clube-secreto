@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  clube-secreto:
+    build: .
+    container_name: clube-secreto-vip
+    restart: unless-stopped
+    ports:
+      - "3008:3008"
+    environment:
+      - PORT=3008
+      - NODE_ENV=production
+    volumes:
+      - ./config:/app/config
+      - ./media:/app/media
+      - ./catalog.js:/app/catalog.js
+
