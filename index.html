@@ -101,13 +101,15 @@
 
   <!-- Carrossel de Reels / Shorts (Toque para assistir e ir direto na modelo) -->
   <section class="reels-section" id="reelsSection">
-    <div class="reels-section-header">
+    <div class="reels-section-header" onclick="openReelsFeed()" style="cursor: pointer;" title="Abrir Modo Reels em Tela Cheia">
       <div class="reels-title-box">
         <span class="reels-live-pulse"></span>
         <span class="reels-title-text">VÍDEOS & SHORTS VIP</span>
         <span class="reels-badge-hot">EM ALTA 🔥</span>
       </div>
-      <span class="reels-scroll-hint">Toque para assistir ▶️</span>
+      <button class="btn-open-reels-header" onclick="event.stopPropagation(); openReelsFeed()">
+        <span>▶ Abrir Reels</span>
+      </button>
     </div>
     <div class="reels-carousel" id="reelsCarousel">
       <!-- Injetado dinamicamente via app.js -->
@@ -334,6 +336,52 @@
             <button class="btn-inline-activate" onclick="activateFromPixModal()">Liberar</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reels Fullscreen Player (Estilo TikTok / Instagram Reels) -->
+  <div class="reels-feed-overlay" id="reelsFeedOverlay" style="display: none;">
+    <!-- Top Bar -->
+    <div class="reels-feed-topbar">
+      <button class="reels-feed-close" onclick="closeReelsFeed()" title="Voltar ao catálogo">
+        <span>✕ Fechar</span>
+      </button>
+      <div class="reels-feed-brand">
+        <span class="reels-live-pulse"></span>
+        <span>CLUBE SECRETO REELS</span>
+      </div>
+      <button class="reels-feed-sound" id="reelsSoundToggle" onclick="toggleReelsAudio()" title="Ativar/Desativar Som">
+        <span id="reelsSoundIcon">🔇</span>
+      </button>
+    </div>
+
+    <!-- Container Vertical de Slides (Snap Scroll Y) -->
+    <div class="reels-feed-container" id="reelsFeedContainer">
+      <!-- Injetado dinamicamente via app.js -->
+    </div>
+
+    <!-- Botão Fixo Abaixo Sempre Visível Para Acessar -->
+    <div class="reels-sticky-bottom" id="reelsStickyBottom">
+      <div class="reels-model-info-row">
+        <img id="reelsStickyAvatar" src="assets/logo.jpg" class="reels-sticky-avatar" alt="Avatar" />
+        <div class="reels-sticky-meta">
+          <div class="reels-sticky-name-box">
+            <span id="reelsStickyName" class="reels-sticky-name">Modelo VIP</span>
+            <span class="verified-tag">✓</span>
+          </div>
+          <span id="reelsStickyTag" class="reels-sticky-tag">🎬 16 Vídeos Exclusivos + Fotos 4K</span>
+        </div>
+      </div>
+      <div class="reels-sticky-actions">
+        <button class="btn-reels-access" id="btnReelsAccess" onclick="accessCurrentReelModel()">
+          <span class="reels-btn-glow"></span>
+          <span class="reels-btn-text">🔓 ACESSAR CONTEÚDO COMPLETO</span>
+          <span class="reels-btn-sub">Pack Individual R$ 9,90 ou Plano VIP Semanal</span>
+        </button>
+      </div>
+      <div class="reels-swipe-hint">
+        <span>👆 Arraste para cima para ver a próxima modelo</span>
       </div>
     </div>
   </div>
