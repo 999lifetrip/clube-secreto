@@ -1,216 +1,21 @@
 [
   {
-    "code": "PACK-2017",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "PACK-2184",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "PACK-9159",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "PACK-4427",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "PACK-5929",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-2164",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-0788",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-3725",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-9040",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-8670",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "USED",
-    "usedByDeviceId": "test_device_1794112011277",
-    "usedAt": 1794112011279,
-    "expiresAt": 1794716811279
-  },
-  {
-    "code": "MOD-990-36D8B",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-E193C",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-EFEB9",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-SEM-2C1C74",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-SEM-B5287A",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "VIP-SEM-F86DE3",
-    "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (7 Dias)",
-    "modelId": null,
-    "price": "24,99",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
     "code": "ADM-CLUBE-98319-LUAN-X99",
     "type": "ADMIN_MASTER",
     "label": "ADMIN MASTER VITALÍCIO (LUAN / AN0N)",
+    "modelId": null,
+    "price": "0,00",
+    "durationDays": 3650,
+    "isMaster": true,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "VIP9999",
+    "type": "ADMIN_MASTER",
+    "label": "MASTER VIP DE TESTE RÁPIDO",
     "modelId": null,
     "price": "0,00",
     "durationDays": 3650,
@@ -234,9 +39,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-4ED33D",
+    "code": "VIP1001",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -247,9 +52,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-2D715B",
+    "code": "VIP1002",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -260,9 +65,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-48C0DB",
+    "code": "VIP1003",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -273,9 +78,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-E15619",
+    "code": "VIP1004",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -286,9 +91,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-D72E10",
+    "code": "VIP1005",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -299,9 +104,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-BEE294",
+    "code": "VIP1006",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -312,9 +117,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-486974",
+    "code": "VIP1007",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -325,9 +130,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-C91A0E",
+    "code": "VIP1008",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -338,9 +143,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-E1FAE8",
+    "code": "VIP1009",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -351,9 +156,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-CEEED6",
+    "code": "VIP1010",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -364,9 +169,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-8AA0FC",
+    "code": "VIP1011",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -377,9 +182,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-E6CBB7",
+    "code": "VIP1012",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -390,9 +195,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-EBDD82",
+    "code": "VIP1013",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -403,9 +208,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-927013",
+    "code": "VIP1014",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -416,9 +221,9 @@
     "expiresAt": null
   },
   {
-    "code": "VIP-SEM-969E85",
+    "code": "VIP1015",
     "type": "WEEKLY_VIP",
-    "label": "Plano Semanal VIP (Acesso Total 7 Dias)",
+    "label": "Plano Semanal VIP (7 Dias)",
     "modelId": null,
     "price": "24,99",
     "durationDays": 7,
@@ -429,87 +234,74 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-990-073CB1",
+    "code": "VIP1016",
+    "type": "WEEKLY_VIP",
+    "label": "Plano Semanal VIP (7 Dias)",
+    "modelId": null,
+    "price": "24,99",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "VIP1017",
+    "type": "WEEKLY_VIP",
+    "label": "Plano Semanal VIP (7 Dias)",
+    "modelId": null,
+    "price": "24,99",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "VIP1018",
+    "type": "WEEKLY_VIP",
+    "label": "Plano Semanal VIP (7 Dias)",
+    "modelId": null,
+    "price": "24,99",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "VIP1019",
+    "type": "WEEKLY_VIP",
+    "label": "Plano Semanal VIP (7 Dias)",
+    "modelId": null,
+    "price": "24,99",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "VIP1020",
+    "type": "WEEKLY_VIP",
+    "label": "Plano Semanal VIP (7 Dias)",
+    "modelId": null,
+    "price": "24,99",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2001",
     "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
-    "modelId": "ensaio-vip-adiana",
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "USED",
-    "usedByDeviceId": "cs_dev_mgkxge90_mw6x3d1k",
-    "usedAt": 1794087131492,
-    "expiresAt": 1794691931492
-  },
-  {
-    "code": "MOD-990-EA8B12",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-5A9EF2",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-63D256",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-8545AD",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-46736D",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
-    "modelId": null,
-    "price": "9,90",
-    "durationDays": 7,
-    "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
-  },
-  {
-    "code": "MOD-990-B8F24B",
-    "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
+    "label": "Pack Individual Coringa (R$ 9,90)",
     "modelId": null,
     "price": "9,90",
     "durationDays": 7,
@@ -520,9 +312,9 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-990-2315B5",
+    "code": "PACK2002",
     "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
+    "label": "Pack Individual Coringa (R$ 9,90)",
     "modelId": null,
     "price": "9,90",
     "durationDays": 7,
@@ -533,9 +325,9 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-990-66DAA5",
+    "code": "PACK2003",
     "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
+    "label": "Pack Individual Coringa (R$ 9,90)",
     "modelId": null,
     "price": "9,90",
     "durationDays": 7,
@@ -546,9 +338,9 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-990-00F8ED",
+    "code": "PACK2004",
     "type": "SINGLE_MODEL",
-    "label": "Pack Individual Coringa (R$ 9,90 - Modelo Escolhida)",
+    "label": "Pack Individual Coringa (R$ 9,90)",
     "modelId": null,
     "price": "9,90",
     "durationDays": 7,
@@ -559,7 +351,150 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ALINA-D8408",
+    "code": "PACK2005",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2006",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2007",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2008",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2009",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2010",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2011",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2012",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2013",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2014",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK2015",
+    "type": "SINGLE_MODEL",
+    "label": "Pack Individual Coringa (R$ 9,90)",
+    "modelId": null,
+    "price": "9,90",
+    "durationDays": 7,
+    "isMaster": false,
+    "status": "AVAILABLE",
+    "usedByDeviceId": null,
+    "usedAt": null,
+    "expiresAt": null
+  },
+  {
+    "code": "PACK3001",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Alina Belle (R$ 9,90)",
     "modelId": "ensaio-vip-alinabelle",
@@ -572,7 +507,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ALINA-D38FD",
+    "code": "PACK3002",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Alina Belle (R$ 9,90)",
     "modelId": "ensaio-vip-alinabelle",
@@ -585,7 +520,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ALINA-5D47D",
+    "code": "PACK3003",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Alina Belle (R$ 9,90)",
     "modelId": "ensaio-vip-alinabelle",
@@ -598,7 +533,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ALINA-7A924",
+    "code": "PACK3004",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Alina Belle (R$ 9,90)",
     "modelId": "ensaio-vip-alinabelle",
@@ -611,7 +546,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ALINA-1EA40",
+    "code": "PACK3005",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Alina Belle (R$ 9,90)",
     "modelId": "ensaio-vip-alinabelle",
@@ -624,7 +559,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-SPIDER-C15DD",
+    "code": "PACK4001",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Xspidergirl (R$ 9,90)",
     "modelId": "ensaio-vip-xspidergirl",
@@ -637,7 +572,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-SPIDER-28DFF",
+    "code": "PACK4002",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Xspidergirl (R$ 9,90)",
     "modelId": "ensaio-vip-xspidergirl",
@@ -650,7 +585,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-SPIDER-5A6A8",
+    "code": "PACK4003",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Xspidergirl (R$ 9,90)",
     "modelId": "ensaio-vip-xspidergirl",
@@ -663,7 +598,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-SPIDER-6D3C5",
+    "code": "PACK4004",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Xspidergirl (R$ 9,90)",
     "modelId": "ensaio-vip-xspidergirl",
@@ -676,7 +611,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-SPIDER-03576",
+    "code": "PACK4005",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Xspidergirl (R$ 9,90)",
     "modelId": "ensaio-vip-xspidergirl",
@@ -689,7 +624,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-KAREN-08EC1",
+    "code": "PACK5001",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Karentahe (R$ 9,90)",
     "modelId": "ensaio-vip-karentahe",
@@ -702,7 +637,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-KAREN-84793",
+    "code": "PACK5002",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Karentahe (R$ 9,90)",
     "modelId": "ensaio-vip-karentahe",
@@ -715,7 +650,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-KAREN-C935C",
+    "code": "PACK5003",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Karentahe (R$ 9,90)",
     "modelId": "ensaio-vip-karentahe",
@@ -728,7 +663,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-KAREN-F238E",
+    "code": "PACK5004",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Karentahe (R$ 9,90)",
     "modelId": "ensaio-vip-karentahe",
@@ -741,7 +676,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-KAREN-0D425",
+    "code": "PACK5005",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Karentahe (R$ 9,90)",
     "modelId": "ensaio-vip-karentahe",
@@ -754,7 +689,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ADIANA-19D82",
+    "code": "PACK6001",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Adiana (R$ 9,90)",
     "modelId": "ensaio-vip-adiana",
@@ -767,7 +702,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ADIANA-B08B1",
+    "code": "PACK6002",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Adiana (R$ 9,90)",
     "modelId": "ensaio-vip-adiana",
@@ -780,7 +715,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ADIANA-1E04C",
+    "code": "PACK6003",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Adiana (R$ 9,90)",
     "modelId": "ensaio-vip-adiana",
@@ -793,7 +728,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ADIANA-8F203",
+    "code": "PACK6004",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Adiana (R$ 9,90)",
     "modelId": "ensaio-vip-adiana",
@@ -806,7 +741,7 @@
     "expiresAt": null
   },
   {
-    "code": "MOD-ADIANA-A448B",
+    "code": "PACK6005",
     "type": "SINGLE_MODEL",
     "label": "Pack Individual Adiana (R$ 9,90)",
     "modelId": "ensaio-vip-adiana",
