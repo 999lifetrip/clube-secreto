@@ -717,7 +717,8 @@ async function setMediaRole(modelId, mediaUrl, role) {
 
     const data = await res.json();
     if (res.ok && data.success) {
-      showToast(`Foto definida como ${role === 'cover' ? 'Capa Oficial' : 'Avatar de Perfil'}!`);
+      const roleName = role === 'reels' ? 'Vídeo Principal do Reels' : (role === 'cover' ? 'Capa Oficial' : 'Avatar de Perfil');
+      showToast(`✅ ${roleName} atualizado com sucesso!`);
       await loadAdminCatalog();
     } else {
       showToast(data.error || 'Erro ao definir foto.');

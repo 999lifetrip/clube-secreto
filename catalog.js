@@ -1,7 +1,3 @@
-// ═════════════════════════════════════════════════════════════════════════
-// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (ENSAIOS & PORTFÓLIOS EXCLUSIVOS)
-// ═════════════════════════════════════════════════════════════════════════
-
 const CREATORS_CATALOG = [
   {
     "id": "ensaio-vip-alinabelle",
@@ -48,7 +44,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_6.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -68,7 +64,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_10.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -113,7 +109,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_19.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -303,7 +299,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/alinabelle/photo_33.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -340,7 +336,8 @@ const CREATORS_CATALOG = [
         "url": "/media/alinabelle/photo_40.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/alinabelle/video_1.mp4"
   },
   {
     "id": "ensaio-vip-xspidergirl",
@@ -437,7 +434,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/xspidergirl/video_15.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -552,12 +549,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/xspidergirl/photo_14.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/xspidergirl/photo_15.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -684,7 +681,8 @@ const CREATORS_CATALOG = [
         "url": "/media/xspidergirl/photo_40.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/xspidergirl/video_10.mp4"
   },
   {
     "id": "ensaio-vip-karentahe",
@@ -871,7 +869,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_9.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1026,9 +1024,10 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_40.jpg",
-        "isTeaser": true
+        "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/karentahe/video_2.mp4"
   },
   {
     "id": "ensaio-vip-adiana",
@@ -1060,7 +1059,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/adiana/video_2.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1230,7 +1229,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/adiana/photo_12.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1372,7 +1371,8 @@ const CREATORS_CATALOG = [
         "url": "/media/adiana/photo_40.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/adiana/video_1.mp4"
   },
   {
     "id": "ensaio-vip-brandi",
@@ -1399,7 +1399,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/brandi/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1484,7 +1484,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/brandi/photo_8.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1571,7 +1571,8 @@ const CREATORS_CATALOG = [
         "url": "/media/brandi/photo_25.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/brandi/video_1.mp4"
   },
   {
     "id": "ensaio-vip-amayawaifu",
@@ -1598,7 +1599,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/amayawaifu/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1678,17 +1679,17 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_3.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1825,7 +1826,8 @@ const CREATORS_CATALOG = [
         "url": "/media/amayawaifu/photo_30.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/amayawaifu/video_1.mp4"
   },
   {
     "id": "ensaio-vip-fablazed",
@@ -1852,7 +1854,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/fablazed/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1932,7 +1934,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1942,7 +1944,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_3.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2009,7 +2011,8 @@ const CREATORS_CATALOG = [
         "url": "/media/fablazed/photo_16.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/fablazed/video_1.mp4"
   },
   {
     "id": "ensaio-vip-minaveneta",
@@ -2041,7 +2044,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/minaveneta/video_2.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -2071,7 +2074,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/minaveneta/video_8.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -2141,7 +2144,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/minaveneta/photo_12.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2188,10 +2191,11 @@ const CREATORS_CATALOG = [
         "url": "/media/minaveneta/photo_21.jpg",
         "isTeaser": false
       }
-    ]
+    ],
+    "reelsVideo": "/media/minaveneta/video_1.mp4"
   }
 ];
 
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = CREATORS_CATALOG;
 }

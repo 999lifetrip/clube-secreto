@@ -312,9 +312,69 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // 1.5. CATÁLOGO PÚBLICO EM TEMPO REAL (Garante que qualquer alteração no admin apareça no site na hora)
+  // 1.5. CATÁLOGO EM TEMPO REAL COM PROTEÇÃO ANTI-BURLA
+  // Usuários não-assinantes recebem apenas prévias públicas (as URLs de VIP são omitidas)
   if (req.method === 'GET' && pathname === '/api/catalog') {
     const catalog = loadCatalog();
+    const isAdmin = checkAdminAuth(req, urlObj);
+    const deviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId');
+
+    let isWeekly = false;
+    const unlockedSet = new Set();
+
+    if (isAdmin) {
+      isWeekly = true;
+    } else if (deviceId) {
+      const codes = loadVipCodes();
+      const now = Date.now();
+      const activeCodes = codes.filter(c =>
+        c.status === 'USED' &&
+        c.usedByDeviceId === deviceId &&
+        (c.isLifetime || c.type === 'SINGLE_MODEL' || !c.expiresAt || c.expiresAt > now)
+      );
+      isWeekly = activeCodes.some(c => c.type === 'WEEKLY_VIP' || c.isMaster);
+      activeCodes.forEach(c => {
+        if (c.modelId) unlockedSet.add(c.modelId);
+      });
+    }
+
+    // Se é admin ou assinante semanal, devolve catálogo completo
+    if (isAdmin || isWeekly) {
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Access-Control-Allow-Origin': '*'
+      });
+      return res.end(JSON.stringify(catalog));
+    }
+
+    // Para visitantes ou packs individuais: sanitiza itens bloqueados (sem URLs reais)
+    const sanitized = catalog.map(model => {
+      const isModelPurchased = unlockedSet.has(model.id);
+      if (isModelPurchased) {
+        return model;
+      }
+
+      const safePreviews = (model.previews || []).map(p => {
+        const isT = typeof p === 'object' ? !!p.isTeaser : false;
+        const url = typeof p === 'object' ? p.url : p;
+        const isVid = (typeof p === 'object' && p.type === 'video') || (typeof url === 'string' && url.endsWith('.mp4'));
+
+        if (isT) {
+          return { type: isVid ? 'video' : 'image', url: url, isTeaser: true };
+        } else {
+          return { type: isVid ? 'video' : 'image', url: '', isTeaser: false, isLocked: true };
+        }
+      });
+
+      return {
+        ...model,
+        previews: safePreviews
+      };
+    });
+
     res.writeHead(200, {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
@@ -322,7 +382,7 @@ const server = http.createServer(async (req, res) => {
       'Expires': '0',
       'Access-Control-Allow-Origin': '*'
     });
-    return res.end(JSON.stringify(catalog));
+    return res.end(JSON.stringify(sanitized));
   }
 
   // 1.6. SINCRONIZAÇÃO COM GITHUB DIRETO DO PAINEL ADMIN
@@ -839,6 +899,67 @@ const server = http.createServer(async (req, res) => {
   }
 
   const filePath = path.join(__dirname, cleanUrl);
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // PROTEÇÃO ANTI-BURLA DE MÍDIAS PRIVADAS (/media/*)
+  // Prévias, Capas, Avatares e Reels são públicos; Mídias VIP exigem validação
+  // ═════════════════════════════════════════════════════════════════════════
+  if (cleanUrl.startsWith('/media/')) {
+    const catalog = loadCatalog();
+    let isPublicMedia = false;
+    let targetModelId = null;
+
+    for (const m of catalog) {
+      if (cleanUrl === m.cover || cleanUrl === m.avatar || cleanUrl === m.reelsVideo) {
+        isPublicMedia = true;
+        break;
+      }
+      if (Array.isArray(m.previews)) {
+        const found = m.previews.find(pr => (typeof pr === 'object' ? pr.url : pr) === cleanUrl);
+        if (found) {
+          targetModelId = m.id;
+          if (typeof found === 'object' && found.isTeaser) {
+            isPublicMedia = true;
+          }
+          break;
+        }
+      }
+    }
+
+    if (!isPublicMedia) {
+      const isAdmin = checkAdminAuth(req, urlObj);
+      const reqDeviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId') || urlObj.searchParams.get('dev');
+      let isAuthorized = false;
+
+      if (isAdmin) {
+        isAuthorized = true;
+      } else if (reqDeviceId) {
+        const codes = loadVipCodes();
+        const now = Date.now();
+        const active = codes.filter(c =>
+          c.status === 'USED' &&
+          c.usedByDeviceId === reqDeviceId &&
+          (c.isLifetime || c.type === 'SINGLE_MODEL' || !c.expiresAt || c.expiresAt > now)
+        );
+        const hasWeekly = active.some(c => c.type === 'WEEKLY_VIP' || c.isMaster);
+        const hasModel = targetModelId && active.some(c => c.modelId === targetModelId);
+        if (hasWeekly || hasModel) {
+          isAuthorized = true;
+        }
+      }
+
+      if (!isAuthorized) {
+        res.writeHead(403, {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Access-Control-Allow-Origin': '*'
+        });
+        return res.end(JSON.stringify({
+          error: '⛔ CONTEÚDO VIP EXCLUSIVO: Esta foto ou vídeo em alta definição é reservado para membros com código ativo do Clube Secreto.'
+        }));
+      }
+    }
+  }
 
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {

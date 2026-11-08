@@ -111,15 +111,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Verifica se um modelo específico está desbloqueado
 function isModelUnlocked(itemId) {
+  if (sessionStorage.getItem("cs_visitor_preview") === "1") return false;
   if (isAdminActive || isVipActive) return true;
   return unlockedModels.has(itemId);
 }
 
+// Alternar entre visão normal e simulação de visitante comum (para o Admin testar)
+function toggleVisitorMode() {
+  const isVisitor = sessionStorage.getItem("cs_visitor_preview") === "1";
+  if (isVisitor) {
+    sessionStorage.removeItem("cs_visitor_preview");
+    showToast("👑 Modo Administrador restaurado! Visualizando tudo liberado.");
+  } else {
+    sessionStorage.setItem("cs_visitor_preview", "1");
+    showToast("👁️ Modo Visitante Comum ativado! Visualizando o site 100% bloqueado.");
+  }
+  checkVipStatus();
+  syncLiveCatalog();
+}
+
 // Verifica estado do VIP/Admin salvo localmente
 function checkVipStatus() {
+  const isVisitorTestMode = sessionStorage.getItem("cs_visitor_preview") === "1";
+  if (isVisitorTestMode) {
+    isVipActive = false;
+    isAdminActive = false;
+    unlockedModels.clear();
+    updateVipUI();
+    return;
+  }
+
   try {
+    const rawAdminKey = (sessionStorage.getItem("cs_admin_key") || "").trim().toUpperCase();
+    const hasValidAdminKey = (rawAdminKey === "ADM-CLUBE-98319-LUAN-X99");
+    if (hasValidAdminKey) {
+      isAdminActive = true;
+      isVipActive = true;
+    }
+
     const raw = localStorage.getItem("clube_secreto_vip");
-    if (!raw) {
+    if (!raw && !hasValidAdminKey) {
       isVipActive = false;
       isAdminActive = false;
       unlockedModels.clear();
@@ -127,35 +158,49 @@ function checkVipStatus() {
       return;
     }
 
-    const vipData = JSON.parse(raw);
-    const now = Date.now();
+    if (raw) {
+      const vipData = JSON.parse(raw);
+      const now = Date.now();
 
-    const isLifetime = !!vipData.isLifetime || vipData.expiresAt === null;
-    const isNotExpired = isLifetime || (vipData.expiresAt && vipData.expiresAt > now);
+      const isLifetime = !!vipData.isLifetime || vipData.expiresAt === null;
+      const isNotExpired = isLifetime || (vipData.expiresAt && vipData.expiresAt > now);
 
-    if (vipData.active && isNotExpired) {
-      isAdminActive = !!vipData.isAdmin;
-      isVipActive = !!vipData.isWeeklyVip || isAdminActive;
-      vipDaysRemaining = vipData.expiresAt ? Math.max(1, Math.ceil((vipData.expiresAt - now) / (1000 * 60 * 60 * 24))) : 9999;
-      unlockedModels = new Set(Array.isArray(vipData.unlockedModels) ? vipData.unlockedModels : []);
-    } else {
+      if (vipData.active && isNotExpired) {
+        isAdminActive = isAdminActive || !!vipData.isAdmin;
+        isVipActive = isVipActive || !!vipData.isWeeklyVip || isAdminActive;
+        vipDaysRemaining = vipData.expiresAt ? Math.max(1, Math.ceil((vipData.expiresAt - now) / (1000 * 60 * 60 * 24))) : 9999;
+        unlockedModels = new Set(Array.isArray(vipData.unlockedModels) ? vipData.unlockedModels : []);
+      } else if (!hasValidAdminKey) {
+        isVipActive = false;
+        isAdminActive = false;
+        unlockedModels.clear();
+        localStorage.removeItem("clube_secreto_vip");
+      }
+    }
+  } catch (e) {
+    if (!hasValidAdminKey) {
       isVipActive = false;
       isAdminActive = false;
       unlockedModels.clear();
-      localStorage.removeItem("clube_secreto_vip");
     }
-  } catch (e) {
-    isVipActive = false;
-    isAdminActive = false;
-    unlockedModels.clear();
   }
 
   updateVipUI();
 }
 
-// Sincroniza com o servidor caso o cache local tenha sido limpo
+// Sincroniza com o servidor (O Servidor é a ÚNICA fonte de verdade anti-fraude)
 async function syncStatusWithBackend() {
   try {
+    const isVisitorTestMode = sessionStorage.getItem("cs_visitor_preview") === "1";
+    if (isVisitorTestMode) {
+      isVipActive = false;
+      isAdminActive = false;
+      unlockedModels.clear();
+      updateVipUI();
+      renderCatalog();
+      return;
+    }
+
     const deviceId = getDeviceId();
     const res = await fetch("/api/check-status", {
       method: "POST",
@@ -170,6 +215,25 @@ async function syncStatusWithBackend() {
       }
       updateVipUI();
       renderCatalog();
+      renderReelsCarousel();
+    } else {
+      // Se não tem compra ativa vinculada ao dispositivo no servidor:
+      // Verifica se o usuário é o Admin com sessão ativa no painel
+      const rawLocal = localStorage.getItem("clube_secreto_vip");
+      let localIsAdmin = false;
+      if (rawLocal) {
+        try { localIsAdmin = !!JSON.parse(rawLocal).isAdmin; } catch(e){}
+      }
+      if (!localIsAdmin) {
+        // Dispositivo comum não-pago: purga qualquer dado adulterado ou expirado
+        isVipActive = false;
+        isAdminActive = false;
+        unlockedModels.clear();
+        localStorage.removeItem("clube_secreto_vip");
+        updateVipUI();
+        renderCatalog();
+        renderReelsCarousel();
+      }
     }
   } catch (e) {
     // Modo offline silencioso
@@ -177,8 +241,54 @@ async function syncStatusWithBackend() {
 }
 
 function updateVipUI() {
-  const hasAccess = isAdminActive || isVipActive || unlockedModels.size > 0;
+  const isVisitorTestMode = sessionStorage.getItem("cs_visitor_preview") === "1";
+  const hasAccess = !isVisitorTestMode && (isAdminActive || isVipActive || unlockedModels.size > 0);
   const btnHeaderVipIcon = document.getElementById("btnHeaderVipIcon");
+
+  // Barra de Controle Rápido do Administrador (Para testar o site exatamente como visitante)
+  let testBar = document.getElementById("adminTestBar");
+  if (isVisitorTestMode) {
+    if (!testBar) {
+      testBar = document.createElement("div");
+      testBar.id = "adminTestBar";
+      testBar.style.cssText = "background: linear-gradient(90deg, #dc2626, #991b1b); color: #fff; padding: 10px 16px; font-size: 13px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10000; box-shadow: 0 2px 12px rgba(0,0,0,0.6);";
+      document.body.prepend(testBar);
+    }
+    testBar.style.display = "flex";
+    testBar.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 16px;">🔒</span>
+        <span><strong>MODO VISITANTE ATIVO (CONTEÚDO BLOQUEADO)</strong> — Teste como se não tivesse pago.</span>
+      </div>
+      <button onclick="toggleVisitorMode()" style="background: #fff; color: #dc2626; border: none; padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 800; cursor: pointer; text-transform: uppercase;">
+        👑 Voltar ao Modo Admin
+      </button>
+    `;
+  } else if (isAdminActive) {
+    if (!testBar) {
+      testBar = document.createElement("div");
+      testBar.id = "adminTestBar";
+      testBar.style.cssText = "background: linear-gradient(90deg, #7c3aed, #4f46e5); color: #fff; padding: 8px 16px; font-size: 12px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10000; box-shadow: 0 2px 10px rgba(0,0,0,0.5);";
+      document.body.prepend(testBar);
+    }
+    testBar.style.display = "flex";
+    testBar.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 15px;">👑</span>
+        <span><strong>Modo Admin Master Ativo</strong> (Você está vendo tudo liberado)</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button onclick="toggleVisitorMode()" style="background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.5); color: #fff; padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer;">
+          👁️ Ver como Visitante Não-Pago
+        </button>
+        <a href="/admin" style="background: #fff; color: #4f46e5; padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; text-decoration: none;">
+          Painel Master ↗
+        </a>
+      </div>
+    `;
+  } else if (testBar) {
+    testBar.style.display = "none";
+  }
 
   const btnHeroBuy = document.getElementById("btnHeroBuy");
   const heroTag = document.querySelector(".hero-tag");
@@ -878,8 +988,7 @@ function renderReelsCarousel() {
   container.innerHTML = modelsWithMedia.map(model => {
     // Busca prioritária do vídeo do Reels:
     // 1. model.reelsVideo (definido pelo admin)
-    // 2. Primeiro vídeo marcado como prévia (isTeaser === true)
-    // 3. Fallback: primeiro vídeo existente
+    // 2. Primeiro vídeo marcado como prévia pública (isTeaser === true)
     let videoUrl = null;
     if (model.reelsVideo) {
       videoUrl = model.reelsVideo;
@@ -887,19 +996,16 @@ function renderReelsCarousel() {
       const teaserVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video' && p.isTeaser) || (typeof p === 'object' && p.isTeaser && p.url && p.url.endsWith('.mp4')));
       if (teaserVid) {
         videoUrl = typeof teaserVid === 'object' ? teaserVid.url : teaserVid;
-      } else {
-        const anyVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
-        videoUrl = anyVid ? (typeof anyVid === 'object' ? anyVid.url : anyVid) : null;
       }
     }
-    const coverUrl = model.cover || model.avatar || (typeof model.previews[0] === "object" ? model.previews[0].url : model.previews[0]);
+    const coverUrl = model.cover || model.avatar || "assets/logo.jpg";
     const numVideos = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
 
     return `
       <div class="reel-card" onclick="openReelsFeed('${model.id}')" title="Assistir Reels de ${model.creatorName}">
         <div class="reel-card-inner">
           ${videoUrl ? `
-            <video class="reel-video" src="${videoUrl}" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>
+            <video class="reel-video" src="${videoUrl}" poster="${coverUrl}" preload="none" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>
           ` : `
             <img class="reel-img" src="${coverUrl}" alt="${model.creatorName}" loading="lazy" />
           `}
@@ -946,9 +1052,6 @@ function openReelsFeed(startModelId) {
       const teaserVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video' && p.isTeaser) || (typeof p === 'object' && p.isTeaser && p.url && p.url.endsWith('.mp4')));
       if (teaserVid) {
         vidUrl = typeof teaserVid === 'object' ? teaserVid.url : teaserVid;
-      } else {
-        const anyVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
-        vidUrl = anyVid ? (typeof anyVid === 'object' ? anyVid.url : anyVid) : '';
       }
     }
     const coverUrl = model.cover || model.avatar || "assets/logo.jpg";
@@ -1171,12 +1274,27 @@ function scrollToCatalog() {
 // ═════════════════════════════════════════════════════════════════════════
 async function syncLiveCatalog() {
   try {
-    const res = await fetch('/api/catalog?t=' + Date.now(), { cache: 'no-store' });
+    const isVisitorTestMode = sessionStorage.getItem("cs_visitor_preview") === "1";
+    const devId = isVisitorTestMode ? '' : getDeviceId();
+    const adminKey = isVisitorTestMode ? '' : (sessionStorage.getItem("cs_admin_key") || '');
+
+    let url = '/api/catalog?t=' + Date.now();
+    if (devId) url += '&deviceId=' + encodeURIComponent(devId);
+    if (adminKey) url += '&key=' + encodeURIComponent(adminKey);
+
+    const res = await fetch(url, {
+      cache: 'no-store',
+      headers: {
+        ...(devId ? { 'x-device-id': devId } : {}),
+        ...(adminKey ? { 'x-admin-key': adminKey } : {})
+      }
+    });
+
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         window.CREATORS_CATALOG = data;
-        renderCards();
+        renderCatalog();
         renderReelsCarousel();
       }
     }
