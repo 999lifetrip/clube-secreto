@@ -177,6 +177,10 @@ function updateVipUI() {
   const hasAccess = isAdminActive || isVipActive || unlockedModels.size > 0;
   const btnHeaderVipIcon = document.getElementById("btnHeaderVipIcon");
 
+  const btnHeroBuy = document.getElementById("btnHeroBuy");
+  const heroTag = document.querySelector(".hero-tag");
+  const heroSecBtn = document.querySelector(".hero-cta .btn-secondary-glass");
+
   if (hasAccess) {
     if (btnHeaderVip) {
       btnHeaderVip.classList.remove("vip-active", "vip-admin");
@@ -207,6 +211,24 @@ function updateVipUI() {
         }
       }
     }
+    if (btnHeroBuy) {
+      btnHeroBuy.innerHTML = `<span>🎬</span> VER VÍDEOS & REELS (VIP LIBERADO)`;
+      btnHeroBuy.onclick = () => openReelsFeed();
+      btnHeroBuy.style.background = "linear-gradient(135deg, #10b981, #059669)";
+      btnHeroBuy.style.boxShadow = "0 0 20px rgba(16, 185, 129, 0.5)";
+    }
+    if (heroTag) {
+      heroTag.innerHTML = `<span>👑</span> ACESSO VIP 100% LIBERADO`;
+      heroTag.style.borderColor = "#10b981";
+      heroTag.style.color = "#34d399";
+    }
+    if (heroSecBtn) {
+      heroSecBtn.innerHTML = `<span>🔥</span> Ver Modelos Desbloqueadas`;
+      heroSecBtn.onclick = () => {
+        openPreviewModal("ensaio-vip-alinabelle");
+        setPreviewFilter("videos");
+      };
+    }
   } else {
     if (btnHeaderVip) {
       btnHeaderVip.classList.remove("vip-active", "vip-admin");
@@ -215,6 +237,21 @@ function updateVipUI() {
     }
     if (vipActiveBanner) {
       vipActiveBanner.classList.add("hidden");
+    }
+    if (btnHeroBuy) {
+      btnHeroBuy.innerHTML = `<span>👑</span> ASSINAR PLANO SEMANAL (R$ 24,99)`;
+      btnHeroBuy.onclick = () => openVipModal();
+      btnHeroBuy.style.background = "";
+      btnHeroBuy.style.boxShadow = "";
+    }
+    if (heroTag) {
+      heroTag.innerHTML = `<span>🔒</span> PLANO SEMANAL VIP`;
+      heroTag.style.borderColor = "";
+      heroTag.style.color = "";
+    }
+    if (heroSecBtn) {
+      heroSecBtn.innerHTML = `<span>🔑</span> Já Tenho Código de Acesso`;
+      heroSecBtn.onclick = () => openCodeModal();
     }
   }
 }
@@ -805,8 +842,14 @@ async function activateCode(rawCode) {
     // Se estiver com modal aberto ou se o código for de uma modelo específica, abre direto
     if (currentPreviewItem) {
       openPreviewModal(currentPreviewItem.id);
+      setPreviewFilter("videos");
     } else if (data.modelId) {
       openPreviewModal(data.modelId);
+      setPreviewFilter("videos");
+    } else if (data.isWeeklyVip || data.allModels) {
+      // VIP Semanal ativado: abre imediatamente a primeira modelo (Alina Belle) com a aba de vídeos aberta!
+      openPreviewModal("ensaio-vip-alinabelle");
+      setPreviewFilter("videos");
     }
 
     return true;
