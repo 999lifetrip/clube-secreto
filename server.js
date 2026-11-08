@@ -149,9 +149,10 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { success: false, error: 'Identificador do dispositivo ausente.' });
       }
 
-      const cleanCode = code.trim().toUpperCase();
+      const norm = str => (str || '').replace(/[-\s_]/g, '').toUpperCase();
+      const inputNorm = norm(code);
       const codes = loadVipCodes();
-      const codeRecord = codes.find(c => c.code.toUpperCase() === cleanCode);
+      const codeRecord = codes.find(c => norm(c.code) === inputNorm);
 
       // Código inexistente
       if (!codeRecord) {
@@ -563,8 +564,10 @@ const server = http.createServer(async (req, res) => {
       const codes = loadVipCodes();
       const newGenerated = [];
 
-      function randHex(len = 6) {
-        return crypto.randomBytes(len).toString('hex').toUpperCase().slice(0, len);
+      function randDigits(len = 4) {
+        let res = '';
+        for (let j = 0; j < len; j++) res += Math.floor(Math.random() * 10);
+        return res;
       }
 
       for (let i = 0; i < count; i++) {
@@ -573,13 +576,12 @@ const server = http.createServer(async (req, res) => {
         let price = '9,90';
 
         if (type === 'WEEKLY_VIP') {
-          codeStr = `VIP-SEM-${randHex(6)}`;
+          codeStr = `VIP-${randDigits(4)}`;
           label = 'Plano Semanal VIP (7 Dias)';
           price = '24,99';
         } else {
-          const prefix = modelId ? modelId.replace('ensaio-vip-', '').toUpperCase().slice(0, 5) : '990';
-          codeStr = `MOD-${prefix}-${randHex(5)}`;
-          label = modelId ? `Pack Individual (${modelId})` : 'Pack Individual Coringa (R$ 9,90)';
+          codeStr = `PACK-${randDigits(4)}`;
+          label = modelId ? `Pack Individual (${modelId})` : 'Pack Individual (R$ 9,90)';
           price = '9,90';
         }
 
