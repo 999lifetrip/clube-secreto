@@ -85,14 +85,27 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners();
   syncStatusWithBackend();
 
-  // 1-Click Auto Ativação por link do WhatsApp (?codigo=... ou ?c=...)
+  // 1-Click Auto Ativação por link do WhatsApp (?codigo=... ou ?c=... e opcional &modelo=...)
   const urlParams = new URLSearchParams(window.location.search);
   const autoCode = urlParams.get('codigo') || urlParams.get('c') || urlParams.get('code');
+  const autoModel = urlParams.get('modelo') || urlParams.get('m');
+
+  if (autoModel && typeof CREATORS_CATALOG !== 'undefined') {
+    const targetModel = CREATORS_CATALOG.find(m => 
+      m.id === autoModel || 
+      m.id.replace('ensaio-vip-', '') === autoModel.toLowerCase() ||
+      m.creatorName.toLowerCase().includes(autoModel.toLowerCase())
+    );
+    if (targetModel) {
+      openPreviewModal(targetModel.id);
+    }
+  }
+
   if (autoCode) {
     setTimeout(async () => {
       if (vipCodeInput) vipCodeInput.value = autoCode.trim();
       await submitVipCode(autoCode.trim());
-    }, 400);
+    }, 450);
   }
 });
 
@@ -789,9 +802,11 @@ async function activateCode(rawCode) {
     closePixModal();
     closeLightbox();
 
-    // Se estiver com modal de prévia aberto, atualiza a exibição completa
+    // Se estiver com modal aberto ou se o código for de uma modelo específica, abre direto
     if (currentPreviewItem) {
       openPreviewModal(currentPreviewItem.id);
+    } else if (data.modelId) {
+      openPreviewModal(data.modelId);
     }
 
     return true;
