@@ -13,6 +13,8 @@
     "node"
   ],
   "author": "AN0N",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "megajs": "^1.3.10"
+  }
 }
-
