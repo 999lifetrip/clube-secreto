@@ -80,9 +80,20 @@ const toastMsg = document.getElementById("toastMsg");
 document.addEventListener("DOMContentLoaded", () => {
   getDeviceId(); // Garante inicialização do ID do dispositivo
   checkVipStatus();
+  renderReelsCarousel();
   renderCatalog();
   setupEventListeners();
   syncStatusWithBackend();
+
+  // 1-Click Auto Ativação por link do WhatsApp (?codigo=... ou ?c=...)
+  const urlParams = new URLSearchParams(window.location.search);
+  const autoCode = urlParams.get('codigo') || urlParams.get('c') || urlParams.get('code');
+  if (autoCode) {
+    setTimeout(async () => {
+      if (vipCodeInput) vipCodeInput.value = autoCode.trim();
+      await submitVipCode(autoCode.trim());
+    }, 400);
+  }
 });
 
 // Verifica se um modelo específico está desbloqueado
@@ -806,9 +817,54 @@ async function pasteCodeFromClipboard() {
   if (vipCodeInput) vipCodeInput.focus();
 }
 
-function submitVipCode() {
-  const code = vipCodeInput ? vipCodeInput.value : "";
+function submitVipCode(codeOverride) {
+  const code = codeOverride || (vipCodeInput ? vipCodeInput.value : "");
   activateCode(code);
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// CARROSSEL DE REELS / SHORTS / STORIES (CLIQUE DIRETO NA MODELO)
+// ═════════════════════════════════════════════════════════════════════════
+
+function renderReelsCarousel() {
+  const container = document.getElementById("reelsCarousel");
+  if (!container || typeof CREATORS_CATALOG === "undefined") return;
+
+  const modelsWithMedia = CREATORS_CATALOG.filter(m => Array.isArray(m.previews) && m.previews.length > 0);
+
+  container.innerHTML = modelsWithMedia.map(model => {
+    // Acha o primeiro vídeo da modelo para o Reels
+    const videoPreview = model.previews.find(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")));
+    const videoUrl = videoPreview ? (typeof videoPreview === "object" ? videoPreview.url : videoPreview) : null;
+    const coverUrl = model.cover || model.avatar || (typeof model.previews[0] === "object" ? model.previews[0].url : model.previews[0]);
+    const numVideos = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
+
+    return `
+      <div class="reel-card" onclick="openModelDirectFromReel('${model.id}')" title="Assistir reels de ${model.creatorName}">
+        <div class="reel-card-inner">
+          ${videoUrl ? `
+            <video class="reel-video" src="${videoUrl}" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>
+          ` : `
+            <img class="reel-img" src="${coverUrl}" alt="${model.creatorName}" loading="lazy" />
+          `}
+          <div class="reel-top-tag">
+            <span>🎬</span> ${numVideos > 0 ? `${numVideos} VÍDEOS` : "VIP"}
+          </div>
+          <div class="reel-play-icon">▶</div>
+          <div class="reel-overlay-bottom">
+            <img src="${model.avatar || coverUrl}" alt="${model.creatorName}" class="reel-creator-avatar" onerror="this.src='assets/logo.jpg'" />
+            <span class="reel-creator-name">${model.creatorName}</span>
+            <span class="reel-creator-vids">⚡ Ver Vídeos</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function openModelDirectFromReel(modelId) {
+  openPreviewModal(modelId);
+  setPreviewFilter("videos"); // vai direto na aba de vídeos da modelo!
 }
 
 function activateFromPixModal() {
