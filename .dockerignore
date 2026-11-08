@@ -1,0 +1,7 @@
+.git
+.gitignore
+*.log
+screenshot*.png
+admin_*.png
+mobile_*.png
+
