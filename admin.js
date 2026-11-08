@@ -770,30 +770,23 @@ function copyCodeOnly(code) {
 
 function copyWhatsAppMessage(code, type, price) {
   const isWeekly = type === 'WEEKLY_VIP';
-  const siteUrl = 'https://clube.omelhorvendedoronline.com.br';
+  const siteUrl = 'https://clubesecreto.omelhorvendedoronline.com.br';
+  const autoLink = `${siteUrl}/?codigo=${code}`;
 
   const msg = isWeekly
     ? `Olá! Seu acesso ao CLUBE SECRETO VIP está liberado! 👑✨\n\n` +
       `🔥 Plano Semanal VIP (${price}) — Acesso total a todas as criadoras, fotos 4K e vídeos exclusivos.\n\n` +
-      `👉 Acesse o site oficial: ${siteUrl}\n` +
-      `🔑 Seu Código de Liberação Único:\n${code}\n\n` +
-      `Instruções rápidas:\n` +
-      `1. Abra o site acima.\n` +
-      `2. Clique no botão "Liberar Código" no topo.\n` +
-      `3. Cole seu código e clique em Ativar!\n\n` +
+      `👉 TOQUE NO LINK ABAIXO PARA ENTRAR DIRETO (Já libera automático):\n${autoLink}\n\n` +
+      `🔑 Ou se preferir digitar seu código no site:\n${code}\n\n` +
       `Bom proveito! Qualquer dúvida estamos à disposição. 🔥`
     : `Olá! Seu acesso ao PACK INDIVIDUAL está liberado! 🔒✨\n\n` +
       `📸 Ensaio Completo em Alta Resolução (${price}) liberado.\n\n` +
-      `👉 Acesse o site oficial: ${siteUrl}\n` +
-      `🔑 Seu Código de Liberação Único:\n${code}\n\n` +
-      `Instruções rápidas:\n` +
-      `1. Abra o site acima e entre na modelo escolhida.\n` +
-      `2. Clique em "Já Tenho Código" ou "Liberar Código".\n` +
-      `3. Cole seu código para desbloquear todas as fotos e vídeos instantaneamente!\n\n` +
+      `👉 TOQUE NO LINK ABAIXO PARA ENTRAR DIRETO (Já libera automático):\n${autoLink}\n\n` +
+      `🔑 Ou se preferir digitar seu código no site:\n${code}\n\n` +
       `Bom proveito! 🔥`;
 
   navigator.clipboard.writeText(msg).then(() => {
-    showToast('📋 Mensagem pronta copiada para enviar no WhatsApp!');
+    showToast('📋 Mensagem pronta copiada com link direto!');
   }).catch(() => {
     prompt('Copie a mensagem para enviar:', msg);
   });
