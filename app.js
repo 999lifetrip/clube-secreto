@@ -431,30 +431,15 @@ function playVideoFullscreen(videoId) {
   }
 }
 
-// Modal de Prévia
+// Modal de Prévia Limpo e Direto (Sem poluição visual)
 function openPreviewModal(itemId) {
   const item = CREATORS_CATALOG.find(i => i.id === itemId);
   if (!item) return;
 
   currentPreviewItem = item;
-  currentPreviewFilter = 'all'; // reinicia no modo completo ao abrir
-
-  const tabAll = document.getElementById("modalTabAll");
-  const tabVideos = document.getElementById("modalTabVideos");
-  const tabPhotos = document.getElementById("modalTabPhotos");
-  if (tabAll) tabAll.classList.add("active");
-  if (tabVideos) tabVideos.classList.remove("active");
-  if (tabPhotos) tabPhotos.classList.remove("active");
 
   const numVideos = item.previews.filter(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'))).length;
   const numPhotos = item.previews.length - numVideos;
-
-  const tabLabelAll = document.getElementById("tabLabelAll");
-  const tabLabelVideos = document.getElementById("tabLabelVideos");
-  const tabLabelPhotos = document.getElementById("tabLabelPhotos");
-  if (tabLabelAll) tabLabelAll.textContent = `✨ Todas as Mídias (${item.previews.length})`;
-  if (tabLabelVideos) tabLabelVideos.textContent = `🎬 Só Vídeos (${numVideos})`;
-  if (tabLabelPhotos) tabLabelPhotos.textContent = `📸 Só Fotos (${numPhotos})`;
 
   previewTitle.textContent = item.title;
   previewCreator.textContent = `${item.creatorName} (${item.username}) • ${numPhotos} Fotos 4K + ${numVideos} Vídeos 60fps`;
@@ -477,144 +462,109 @@ function renderPreviewContent(item) {
   currentLightboxPhotos = photoPreviews;
   currentLightboxItem = item;
 
-  // Filtra itens de acordo com a aba selecionada (Todas, Só Vídeos, Só Fotos)
-  let itemsToDisplay = item.previews.filter(p => {
-    const isVideo = (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'));
-    if (currentPreviewFilter === 'videos') return isVideo;
-    if (currentPreviewFilter === 'photos') return !isVideo;
-    return true; // 'all'
+  // Vídeos e Fotos
+  const allVids = item.previews.filter(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
+  const allPics = item.previews.filter(p => !((typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'))));
+
+  // Se bloqueado, exibe os 2 primeiros vídeos de prévia e 4 fotos
+  let displayVids = unlocked ? allVids : allVids.slice(0, 2);
+  let displayPics = unlocked ? allPics : allPics.slice(0, 4);
+
+  let html = '';
+
+  // 1. VÍDEO PRINCIPAL EM DESTAQUE (Player nativo limpo, sem botões extras confusos)
+  displayVids.forEach((v, idx) => {
+    const url = typeof v === 'object' ? v.url : v;
+    const playerId = `player_${item.id}_${idx + 1}`;
+    html += `
+      <div class="preview-video-card">
+        <div class="preview-video-header">
+          <div class="video-header-left">
+            <span class="video-icon">🎬</span>
+            <span class="video-title">Vídeo ${idx + 1} de ${allVids.length} • ${item.creatorName}</span>
+          </div>
+          <span class="video-badge-hd">${unlocked ? '🔓 COMPLETO HD' : '🔒 PRÉVIA'}</span>
+        </div>
+
+        <div class="preview-video-player-container">
+          <video id="${playerId}" src="${url}" controls playsinline preload="metadata" class="responsive-video"></video>
+          ${!unlocked ? `<div class="video-watermark-tag">CLUBE SECRETO VIP 🔒</div>` : ''}
+        </div>
+      </div>
+    `;
   });
 
-  // Se não desbloqueado, limita para modo teaser (priorizando mídias configuradas no painel ADM)
-  let visibleItems = itemsToDisplay;
+  // 2. BLOCO DE AÇÃO DIRETO E LIMPO (Aparece logo abaixo do vídeo no modo prévia)
   if (!unlocked) {
-    const adminTeasers = itemsToDisplay.filter(p => typeof p === 'object' && p.isTeaser);
-    if (adminTeasers.length > 0) {
-      visibleItems = adminTeasers;
-    } else {
-      if (currentPreviewFilter === 'videos') {
-        visibleItems = itemsToDisplay.slice(0, 4); // Mostra 4 vídeos como prévia
-      } else if (currentPreviewFilter === 'photos') {
-        visibleItems = itemsToDisplay.slice(0, 8); // Mostra 8 fotos como prévia
-      } else {
-        const vids = itemsToDisplay.filter(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'))).slice(0, 2);
-        const pics = itemsToDisplay.filter(p => !((typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')))).slice(0, 8);
-        visibleItems = [...vids, ...pics];
-      }
-    }
+    html += `
+      <div class="modal-quick-actions">
+        <button class="btn-quick-single" onclick="buyCurrentSingle()">
+          <span class="quick-btn-icon">🔓</span>
+          <div class="quick-btn-info">
+            <span class="quick-btn-title">Comprar Só Esta Modelo</span>
+            <span class="quick-btn-sub">Apenas R$ ${item.individualPrice || '9,90'} no PIX (Fotos 4K + Vídeos)</span>
+          </div>
+        </button>
+
+        <button class="btn-quick-weekly" onclick="buyWeeklyFromPreview()">
+          <span class="quick-btn-icon">👑</span>
+          <div class="quick-btn-info">
+            <span class="quick-btn-title">Liberar Todas as 8 Modelos</span>
+            <span class="quick-btn-sub">Plano Semanal VIP R$ 24,99 (Acesso a Tudo)</span>
+          </div>
+        </button>
+
+        <button class="btn-quick-code" onclick="openCodeModal()">
+          <span>🔑 Já realizou o pagamento? Toque aqui para digitar o código</span>
+        </button>
+      </div>
+    `;
   }
 
-  const totalVideosInPack = item.previews.filter(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'))).length;
-
-  let videoSeq = 0;
-  let html = visibleItems.map((p, idx) => {
-    const isVideo = (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4'));
+  // 3. FOTOS DE PRÉVIA EM ALTA DEFINIÇÃO
+  displayPics.forEach((p) => {
     const url = typeof p === 'object' ? p.url : p;
-
-    if (isVideo) {
-      videoSeq++;
-      const playerId = `player_${item.id}_${videoSeq}`;
-      return `
-        <div class="preview-video-card">
-          <div class="preview-video-header">
-            <div class="video-header-left">
-              <span class="video-icon">🎬</span>
-              <span class="video-title">Vídeo ${videoSeq} de ${totalVideosInPack} • ${item.creatorName}</span>
-            </div>
-            <span class="video-badge-hd">${unlocked ? '🔓 COMPLETO HD' : '🔒 PRÉVIA'}</span>
-          </div>
-
-          <div class="preview-video-player-container">
-            <video id="${playerId}" src="${url}" controls playsinline preload="metadata" class="responsive-video"></video>
-            ${!unlocked ? `<div class="video-watermark-tag">CLUBE SECRETO VIP 🔒</div>` : ''}
-          </div>
-
-          <div class="video-action-bar">
-            <button class="btn-play-fullscreen" onclick="playVideoFullscreen('${playerId}')">
-              <span>▶️ Assistir em Tela Cheia</span>
-            </button>
-            <span class="video-tip">Toque no centro do vídeo para pausar ou tocar</span>
-          </div>
-        </div>
-      `;
-    }
-
-    // Foto
     const photoIdx = photoPreviews.findIndex(pi => pi.url === url);
-    return `
-      <div class="preview-item" onclick="openLightbox(${photoIdx >= 0 ? photoIdx : 0})" title="Toque para ampliar a foto de ${item.creatorName}">
+    html += `
+      <div class="preview-item" onclick="openLightbox(${photoIdx >= 0 ? photoIdx : 0})" title="Toque para ampliar">
         <img src="${url}" class="preview-img" alt="Foto do Ensaio" loading="lazy" />
         ${!unlocked ? `<div class="watermark-overlay">CLUBE SECRETO</div>` : ''}
       </div>
     `;
-  }).join("");
+  });
 
-  // Cards Teaser de Bloqueio quando não desbloqueado
+  // 4. CARD ÚNICO DE CONTEÚDO BLOQUEADO
   if (!unlocked) {
-    const remainingPhotos = Math.max(1, item.photoCount - 30);
-    const remainingVideos = Math.max(1, (item.videoCount || 50) - 8);
-
-    if (currentPreviewFilter === 'all' || currentPreviewFilter === 'photos') {
-      html += `
-        <div class="preview-item preview-locked-item" onclick="openCodeModal()" title="Desbloquear fotos completas">
-          <span class="locked-icon">🔒</span>
-          <span class="locked-count">+${remainingPhotos} FOTOS 4K</span>
-          <span class="locked-sub">Bloqueadas no Modo Grátis</span>
-          <button class="btn-locked-unlock">🔑 Digitar Código</button>
-        </div>
-      `;
-    }
-
-    if (currentPreviewFilter === 'all' || currentPreviewFilter === 'videos') {
-      html += `
-        <div class="preview-item preview-locked-item" onclick="openCodeModal()" title="Desbloquear todos os vídeos">
-          <span class="locked-icon">🎬</span>
-          <span class="locked-count">+${remainingVideos} VÍDEOS 60FPS</span>
-          <span class="locked-sub">Exclusivos no Acesso Completo</span>
-          <button class="btn-locked-unlock">🔑 Liberar Tudo</button>
-        </div>
-      `;
-    }
+    const remainingPhotos = Math.max(1, item.photoCount - displayPics.length);
+    const remainingVideos = Math.max(1, (item.videoCount || 24) - displayVids.length);
+    html += `
+      <div class="preview-item preview-locked-item" style="grid-column: 1 / -1; min-height: 140px; padding: 20px;" onclick="openCodeModal()" title="Desbloquear tudo">
+        <span class="locked-icon" style="font-size: 32px;">🔒</span>
+        <span class="locked-count" style="font-size: 14px; margin: 6px 0;">+${remainingPhotos} FOTOS 4K & +${remainingVideos} VÍDEOS 60FPS</span>
+        <span class="locked-sub" style="font-size: 11px;">Exclusivos no Acesso Completo</span>
+        <button class="btn-locked-unlock" style="margin-top: 10px;">🔑 Digitar Código / Liberar</button>
+      </div>
+    `;
   }
 
   previewGrid.innerHTML = html;
 
-  // Atualizar botões no rodapé do modal de prévia (100% acessível e claro)
+  // Rodapé do Modal (limpo, sem botões duplicados que poluem a tela)
   if (unlocked) {
+    previewModalFooter.style.display = 'block';
     previewModalFooter.innerHTML = `
       <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 10px;">
         <div>
           <span style="font-size: 11px; color: #10b981; text-transform: uppercase; font-weight: 800;">Status do Acesso:</span>
-          <span style="font-size: 17px; font-weight: 900; color: #10b981; display: block;">🔓 ${isAdminActive ? 'ACESSO MASTER ADMINISTRADOR' : (isVipActive ? 'VIP TOTAL LIBERADO (TODAS)' : 'PACK DESTA MODELO LIBERADO')}</span>
+          <span style="font-size: 15px; font-weight: 900; color: #10b981; display: block;">🔓 ${isAdminActive ? 'ACESSO MASTER ADMINISTRADOR' : (isVipActive ? 'VIP TOTAL LIBERADO (TODAS)' : 'PACK DESTA MODELO LIBERADO')}</span>
         </div>
-        <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857); padding: 12px 20px;" onclick="openLightbox(0)">
+        <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857); padding: 10px 16px;" onclick="openLightbox(0)">
           <span>👁️ Ver Fotos em Tela Cheia</span>
         </button>
       </div>
     `;
   } else {
-    previewModalFooter.innerHTML = `
-      <div class="mobile-accessible-footer">
-        <button class="btn-accessible-single" onclick="buyCurrentSingle()">
-          <span class="btn-acc-icon">🔓</span>
-          <div class="btn-acc-texts">
-            <span class="btn-acc-main">COMPRAR SÓ ESTA MODELO</span>
-            <span class="btn-acc-sub">Apenas R$ ${item.individualPrice || '9,90'} no PIX (Acesso Completo)</span>
-          </div>
-        </button>
-
-        <button class="btn-accessible-weekly" onclick="buyWeeklyFromPreview()">
-          <span class="btn-acc-icon">👑</span>
-          <div class="btn-acc-texts">
-            <span class="btn-acc-main">LIBERAR TODAS AS MODELOS</span>
-            <span class="btn-acc-sub">Plano Semanal VIP R$ 24,99 (Acesso a Tudo)</span>
-          </div>
-        </button>
-      </div>
-      <button class="btn-accessible-code" onclick="openCodeModal()">
-        <span>🔑 Já realizou o pagamento? Clique aqui para digitar seu código</span>
-      </button>
-    `;
+    previewModalFooter.style.display = 'none';
   }
 }
 
@@ -1163,3 +1113,30 @@ function showToast(msg) {
 function scrollToCatalog() {
   document.getElementById("catalogSection").scrollIntoView({ behavior: "smooth" });
 }
+
+// ═════════════════════════════════════════════════════════════════════════
+// SINCRONIZAÇÃO EM TEMPO REAL DO CATÁLOGO COM O SERVIDOR (SEM CACHE)
+// Garante que qualquer alteração feita no painel admin apareça no site na hora!
+// ═════════════════════════════════════════════════════════════════════════
+async function syncLiveCatalog() {
+  try {
+    const res = await fetch('/api/catalog?t=' + Date.now(), { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        window.CREATORS_CATALOG = data;
+        renderCards();
+        renderReelsCarousel();
+      }
+    }
+  } catch (err) {
+    console.warn('Fallback catálogo estático:', err);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', syncLiveCatalog);
+} else {
+  syncLiveCatalog();
+}
+

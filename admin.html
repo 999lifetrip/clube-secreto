@@ -44,6 +44,9 @@
       </div>
 
       <div class="admin-header-actions">
+        <button class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none;" onclick="syncAdminToGitHub()" title="Sincronizar catálogo e códigos com o repositório GitHub">
+          <span>🚀 Sincronizar Tudo no Site & GitHub</span>
+        </button>
         <a href="/" target="_blank" class="btn-secondary" title="Abrir o site oficial">
           <span>👁️ Ver Site</span>
         </a>
@@ -244,12 +247,14 @@ TTL: 300
             <input type="text" id="inputTitle" placeholder="Ex: Ensaio Exclusivo Estúdio VIP & Bastidores" />
           </div>
           <div class="form-group">
-            <label>Categoria</label>
+            <label>Categoria Oficial</label>
             <select id="inputCategory" class="admin-select">
-              <option value="estudio">Estúdio & Glamour</option>
-              <option value="cosplay">Cosplay & Geek</option>
-              <option value="fitness">Praia & Fitness</option>
-              <option value="lifestyle">Lifestyle & Luxo</option>
+              <option value="estudio">📸 Estúdio & Glamour</option>
+              <option value="cosplay">🎭 Cosplay & Geek</option>
+              <option value="praia">🏋️ Praia & Fitness</option>
+              <option value="moda">👗 Moda & Editorial</option>
+              <option value="streetwear">🏙️ Streetwear & Urbana</option>
+              <option value="viagem">🌴 Lifestyle & Viagem</option>
             </select>
           </div>
         </div>
@@ -261,18 +266,30 @@ TTL: 300
           </div>
           <div class="form-group">
             <label>Badge / Selo de Destaque</label>
-            <input type="text" id="inputBadge" value="NOVO LANÇAMENTO VIP 🔥" />
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="inputBadge" value="NOVO LANÇAMENTO VIP 🔥" style="flex: 1;" />
+              <select class="admin-select" style="max-width: 140px;" onchange="if(this.value){ document.getElementById('inputBadge').value = this.value; this.value=''; }">
+                <option value="">⚡ Presets</option>
+                <option value="DESTAQUE VIP 🔥">DESTAQUE 🔥</option>
+                <option value="MAIS ACESSADO ⭐">MAIS ACESSADO ⭐</option>
+                <option value="NOVO LANÇAMENTO 💥">LANÇAMENTO 💥</option>
+                <option value="MUSA DO COSPLAY 🎭">COSPLAY 🎭</option>
+                <option value="PREMIUM 💎">PREMIUM 💎</option>
+                <option value="SUPER EM ALTA 🔥">EM ALTA 🔥</option>
+                <option value="EXCLUSIVO VIP ✨">EXCLUSIVO ✨</option>
+              </select>
+            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label>Fotos no Acervo (Número informado ao cliente)</label>
-            <input type="number" id="inputPhotoCount" value="500" />
+            <label>Fotos no Acervo (Exibido no card)</label>
+            <input type="number" id="inputPhotoCount" value="40" />
           </div>
           <div class="form-group">
             <label>Vídeos no Acervo</label>
-            <input type="number" id="inputVideoCount" value="80" />
+            <input type="number" id="inputVideoCount" value="24" />
           </div>
         </div>
 
@@ -283,19 +300,27 @@ TTL: 300
 
         <div class="form-row">
           <div class="form-group">
-            <label>URL da Foto de Capa (Opcional)</label>
-            <input type="text" id="inputCover" placeholder="/media/slug/photo_1.jpg" />
+            <label>Foto de Capa</label>
+            <input type="text" id="inputCover" placeholder="/media/slug/photo_2.jpg" oninput="updateCoverPreview(this.value)" />
+            <div id="coverPreviewBox" style="margin-top: 6px; display: flex; align-items: center; gap: 8px;">
+              <img id="imgCoverPreview" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; display: none; border: 1px solid rgba(255,255,255,0.2);" />
+              <span id="coverPreviewText" style="font-size: 11px; color: var(--text-muted);">Digite a URL ou selecione abaixo</span>
+            </div>
           </div>
           <div class="form-group">
-            <label>URL da Foto de Perfil (Opcional)</label>
-            <input type="text" id="inputAvatar" placeholder="/media/slug/photo_2.jpg" />
+            <label>Foto de Avatar (Perfil)</label>
+            <input type="text" id="inputAvatar" placeholder="/media/slug/photo_1.jpg" oninput="updateAvatarPreview(this.value)" />
+            <div id="avatarPreviewBox" style="margin-top: 6px; display: flex; align-items: center; gap: 8px;">
+              <img id="imgAvatarPreview" src="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; display: none; border: 1px solid rgba(255,255,255,0.2);" />
+              <span id="avatarPreviewText" style="font-size: 11px; color: var(--text-muted);">Digite a URL ou selecione</span>
+            </div>
           </div>
         </div>
       </div>
 
       <div class="admin-modal-footer">
         <button class="btn-secondary" onclick="closeModelModal()">Cancelar</button>
-        <button class="btn-primary" onclick="saveModelForm()">💾 Salvar Modelo</button>
+        <button class="btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); border: none;" onclick="saveModelForm()">💾 Salvar e Atualizar Site Agora</button>
       </div>
     </div>
   </div>

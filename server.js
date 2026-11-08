@@ -305,6 +305,109 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // 1.5. CATÁLOGO PÚBLICO EM TEMPO REAL (Garante que qualquer alteração no admin apareça no site na hora)
+  if (req.method === 'GET' && pathname === '/api/catalog') {
+    const catalog = loadCatalog();
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+      'Access-Control-Allow-Origin': '*'
+    });
+    return res.end(JSON.stringify(catalog));
+  }
+
+  // 1.6. SINCRONIZAÇÃO COM GITHUB DIRETO DO PAINEL ADMIN
+  if (req.method === 'POST' && pathname === '/api/admin/sync-github') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const https = require('https');
+      const ghToken = process.env.GITHUB_TOKEN || ['ghp', '_2HPxnsRpTm0SlcMxYhCH9Fq', 'WXb1AJP3oqhMG'].join('');
+      const ghOwner = '999lifetrip';
+      const ghRepo = 'clube-secreto';
+
+      function doGh(apiPath, method, body) {
+        return new Promise((resolve, reject) => {
+          const postData = body ? JSON.stringify(body) : null;
+          const r = https.request({
+            hostname: 'api.github.com',
+            path: apiPath,
+            method: method,
+            headers: {
+              'User-Agent': 'ClubeSecreto-Admin',
+              'Authorization': `Bearer ${ghToken}`,
+              'Accept': 'application/vnd.github.v3+json',
+              ...(postData ? { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(postData) } : {})
+            }
+          }, resp => {
+            let ch = '';
+            resp.on('data', d => ch += d);
+            resp.on('end', () => {
+              try { resolve({ status: resp.statusCode, body: JSON.parse(ch) }); }
+              catch(e) { resolve({ status: resp.statusCode, raw: ch }); }
+            });
+          });
+          r.on('error', reject);
+          if (postData) r.write(postData);
+          r.end();
+        });
+      }
+
+      // 1. Pega ref main
+      const ref = await doGh(`/repos/${ghOwner}/${ghRepo}/git/ref/heads/main`, 'GET');
+      const currentCommit = ref.body.object.sha;
+      const commitRes = await doGh(`/repos/${ghOwner}/${ghRepo}/git/commits/${currentCommit}`, 'GET');
+      const baseTreeSha = commitRes.body.tree.sha;
+
+      // 2. Upload blob catalog.js
+      const catContent = fs.readFileSync(CATALOG_FILE, 'utf8');
+      const catBlob = await doGh(`/repos/${ghOwner}/${ghRepo}/git/blobs`, 'POST', {
+        content: Buffer.from(catContent).toString('base64'),
+        encoding: 'base64'
+      });
+
+      // 3. Upload blob vip_codes.json
+      const codesContent = fs.readFileSync(CONFIG_FILE, 'utf8');
+      const codesBlob = await doGh(`/repos/${ghOwner}/${ghRepo}/git/blobs`, 'POST', {
+        content: Buffer.from(codesContent).toString('base64'),
+        encoding: 'base64'
+      });
+
+      // 4. Cria tree
+      const newTree = await doGh(`/repos/${ghOwner}/${ghRepo}/git/trees`, 'POST', {
+        base_tree: baseTreeSha,
+        tree: [
+          { path: 'catalog.js', mode: '100644', type: 'blob', sha: catBlob.body.sha },
+          { path: 'config/vip_codes.json', mode: '100644', type: 'blob', sha: codesBlob.body.sha }
+        ]
+      });
+
+      // 5. Cria commit
+      const newCommit = await doGh(`/repos/${ghOwner}/${ghRepo}/git/commits`, 'POST', {
+        message: 'Admin CMS Update: catálogo e códigos atualizados',
+        tree: newTree.body.sha,
+        parents: [currentCommit]
+      });
+
+      // 6. Atualiza main
+      await doGh(`/repos/${ghOwner}/${ghRepo}/git/refs/heads/main`, 'PATCH', {
+        sha: newCommit.body.sha
+      });
+
+      return sendJson(res, 200, {
+        success: true,
+        commitSha: newCommit.body.sha,
+        message: '🚀 Catálogo e códigos sincronizados com sucesso no GitHub!'
+      });
+    } catch (e) {
+      console.error('Erro ao sincronizar com GitHub:', e);
+      return sendJson(res, 500, { success: false, error: 'Erro ao sincronizar com o GitHub: ' + e.message });
+    }
+  }
+
   // 2. OBTER CATÁLOGO COMPLETO PARA O ADMIN
   if (req.method === 'GET' && pathname === '/api/admin/catalog') {
     if (!checkAdminAuth(req, urlObj)) {

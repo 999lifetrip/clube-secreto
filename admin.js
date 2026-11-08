@@ -8,6 +8,102 @@ let codesCache = [];
 let currentCodesFilter = 'all';
 let selectedFilesToUpload = [];
 
+const CATEGORY_NAMES = {
+  estudio: '📸 Estúdio & Glamour',
+  cosplay: '🎭 Cosplay & Geek',
+  praia: '🏋️ Praia & Fitness',
+  moda: '👗 Moda & Editorial',
+  streetwear: '🏙️ Streetwear & Urbana',
+  viagem: '🌴 Lifestyle & Viagem'
+};
+
+function updateCoverPreview(url) {
+  const img = document.getElementById('imgCoverPreview');
+  const txt = document.getElementById('coverPreviewText');
+  if (!img) return;
+  if (url && url.trim()) {
+    img.src = url.trim();
+    img.style.display = 'block';
+    img.onerror = () => { img.style.display = 'none'; if (txt) txt.textContent = '❌ Imagem não encontrada'; };
+    img.onload = () => { if (txt) txt.textContent = '✅ Prévia da Capa carregada'; };
+  } else {
+    img.style.display = 'none';
+    if (txt) txt.textContent = 'Digite a URL ou selecione abaixo';
+  }
+}
+
+function updateAvatarPreview(url) {
+  const img = document.getElementById('imgAvatarPreview');
+  const txt = document.getElementById('avatarPreviewText');
+  if (!img) return;
+  if (url && url.trim()) {
+    img.src = url.trim();
+    img.style.display = 'block';
+    img.onerror = () => { img.style.display = 'none'; if (txt) txt.textContent = '❌ Avatar não encontrado'; };
+    img.onload = () => { if (txt) txt.textContent = '✅ Prévia do Avatar carregada'; };
+  } else {
+    img.style.display = 'none';
+    if (txt) txt.textContent = 'Digite a URL ou selecione';
+  }
+}
+
+async function syncAdminToGitHub() {
+  const key = getAdminKey();
+  if (!key) {
+    showToast('Chave Master não informada.');
+    return;
+  }
+  showToast('⏳ Sincronizando catálogo e códigos com GitHub & VPS...');
+  try {
+    const res = await fetch('/api/admin/sync-github', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      }
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showToast(`🚀 Sincronizado com sucesso com GitHub & VPS! (${data.commitSha ? data.commitSha.slice(0, 7) : 'OK'})`);
+    } else {
+      showToast(data.error || 'Erro ao sincronizar com GitHub.');
+    }
+  } catch (err) {
+    console.error('Erro na sincronização:', err);
+    showToast('Erro de conexão ao sincronizar com GitHub.');
+  }
+}
+
+async function generateAndCopySingleCode(modelId, creatorName, price) {
+  const key = getAdminKey();
+  if (!key) return;
+  showToast(`⏳ Gerando código PIX para ${creatorName}...`);
+  try {
+    const res = await fetch('/api/admin/codes/generate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      },
+      body: JSON.stringify({ type: 'SINGLE_MODEL', modelId: modelId, count: 1 })
+    });
+    const data = await res.json();
+    if (res.ok && data.success && data.codes && data.codes.length > 0) {
+      const code = data.codes[0].code;
+      copyWhatsAppMessage(code, 'SINGLE_MODEL', `R$ ${price || '9,90'}`);
+      showToast(`🎉 Código ${code} gerado! Mensagem WhatsApp copiada.`);
+      if (document.getElementById('tab-codes') && document.getElementById('tab-codes').classList.contains('active')) {
+        await loadAdminCodes();
+      }
+    } else {
+      showToast(data.error || 'Erro ao gerar código PIX.');
+    }
+  } catch (err) {
+    console.error(err);
+    showToast('Erro de conexão ao gerar código.');
+  }
+}
+
 function getAdminKey() {
   return (sessionStorage.getItem('cs_admin_key') || '').trim();
 }
@@ -163,35 +259,63 @@ function renderModelsGrid() {
     const teasersCount = previews.filter(p => typeof p === 'object' && p.isTeaser).length;
     const vipsCount = previews.length - teasersCount;
     const avatarSrc = model.avatar || model.cover || 'assets/logo.jpg';
+    const coverSrc = model.cover || avatarSrc;
+    const catLabel = CATEGORY_NAMES[model.category] || model.category || 'Ensaio VIP';
 
     return `
       <div class="model-card" data-id="${model.id}">
-        <div class="model-card-top">
-          <img src="${avatarSrc}" alt="${model.creatorName}" class="model-card-avatar" onerror="this.src='assets/logo.jpg'" />
+        <!-- Capa / Banner da Modelo com Badges -->
+        <div style="position: relative; width: 100%; height: 130px; border-radius: 8px; overflow: hidden; background: #0b0e14;">
+          <img src="${coverSrc}" alt="${model.creatorName}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='assets/logo.jpg'" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(10,12,18,0.85) 100%);"></div>
+          
+          <span style="position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 800; background: rgba(0,0,0,0.75); color: #fff; padding: 3px 8px; border-radius: 20px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.15);">
+            ${catLabel}
+          </span>
+
+          <span style="position: absolute; top: 8px; right: 8px; font-size: 10px; font-weight: 800; background: linear-gradient(135deg, #e11d48, #be123c); color: #fff; padding: 3px 8px; border-radius: 20px; box-shadow: 0 2px 8px rgba(225,29,72,0.4);">
+            ${model.badge || 'VIP 🔥'}
+          </span>
+        </div>
+
+        <!-- Avatar e Nomes -->
+        <div class="model-card-top" style="margin-top: -24px; position: relative; z-index: 2; padding: 0 4px;">
+          <img src="${avatarSrc}" alt="${model.creatorName}" class="model-card-avatar" style="border: 3px solid #0f131d; box-shadow: 0 4px 12px rgba(0,0,0,0.5);" onerror="this.src='assets/logo.jpg'" />
           <div class="model-card-names">
-            <div class="model-card-name">${model.creatorName}</div>
-            <div class="model-card-username">${model.username || ''} • <span style="color:var(--primary); font-weight:800;">R$ ${model.individualPrice || '9,90'}</span></div>
+            <div class="model-card-name" style="font-size: 15px;">${model.creatorName}</div>
+            <div class="model-card-username">${model.username || ''} • <strong style="color: #10b981;">R$ ${model.individualPrice || '9,90'}</strong></div>
           </div>
         </div>
 
-        <div style="font-size: 12px; color: #cbd5e1; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+        <div style="font-size: 12px; color: #94a3b8; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 0 4px;">
           ${model.title || model.description || 'Ensaio VIP Oficial'}
         </div>
 
         <div class="model-card-stats">
-          <span>📁 Total: <strong>${previews.length}</strong> mídias</span>
+          <span>📁 Total: <strong>${previews.length}</strong></span>
           <span style="color:#10b981;">👁️ <strong>${teasersCount}</strong> Prévias</span>
-          <span style="color:#e11d48;">🔒 <strong>${vipsCount}</strong> VIPs</span>
+          <span style="color:#f43f5e;">🔒 <strong>${vipsCount}</strong> VIPs</span>
         </div>
 
+        <!-- Linha 1 de Ações: Ver no Site & Gerar PIX R$ 9,90 WhatsApp -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <a href="/?modelo=${model.id}" target="_blank" class="btn-secondary" style="font-size: 11px; padding: 8px 10px; justify-content: center; text-decoration: none; border-color: rgba(255,255,255,0.15);" title="Ver modelo no site oficial">
+            <span>👁️ Ver no Site</span>
+          </a>
+          <button class="btn-primary" style="font-size: 11px; padding: 8px 10px; justify-content: center; background: linear-gradient(135deg, #10b981, #059669); border: none;" onclick="generateAndCopySingleCode('${model.id}', '${model.creatorName}', '${model.individualPrice || '9,90'}')" title="Gera 1 código novo de R$ 9,90 e copia mensagem pronta para WhatsApp">
+            <span>🔑 Gerar PIX R$ 9,90</span>
+          </button>
+        </div>
+
+        <!-- Linha 2 de Ações: Editar, Mídias e Excluir -->
         <div class="model-card-actions">
-          <button class="btn-secondary" style="flex: 1;" onclick="openEditModelModal('${model.id}')">
+          <button class="btn-secondary" style="flex: 1; padding: 7px 10px;" onclick="openEditModelModal('${model.id}')">
             <span>✏️ Editar</span>
           </button>
-          <button class="btn-primary" style="flex: 1.2;" onclick="selectModelAndGoToMedia('${model.id}')">
-            <span>🎬 Mídias</span>
+          <button class="btn-primary" style="flex: 1.2; padding: 7px 10px;" onclick="selectModelAndGoToMedia('${model.id}')">
+            <span>🎬 Mídias (${previews.length})</span>
           </button>
-          <button class="btn-danger" title="Excluir Modelo" onclick="deleteModel('${model.id}', '${model.creatorName}')">
+          <button class="btn-danger" style="padding: 7px 12px;" title="Excluir Modelo" onclick="deleteModel('${model.id}', '${model.creatorName}')">
             <span>🗑️</span>
           </button>
         </div>
@@ -222,11 +346,13 @@ function openNewModelModal() {
   document.getElementById('inputCategory').value = 'estudio';
   document.getElementById('inputPrice').value = '9,90';
   document.getElementById('inputBadge').value = 'NOVO LANÇAMENTO VIP 🔥';
-  document.getElementById('inputPhotoCount').value = '500';
-  document.getElementById('inputVideoCount').value = '80';
+  document.getElementById('inputPhotoCount').value = '40';
+  document.getElementById('inputVideoCount').value = '24';
   document.getElementById('inputDescription').value = '';
   document.getElementById('inputCover').value = '';
   document.getElementById('inputAvatar').value = '';
+  updateCoverPreview('');
+  updateAvatarPreview('');
 
   document.getElementById('modalModel').classList.add('open');
 }
@@ -248,6 +374,8 @@ function openEditModelModal(modelId) {
   document.getElementById('inputDescription').value = model.description || '';
   document.getElementById('inputCover').value = model.cover || '';
   document.getElementById('inputAvatar').value = model.avatar || '';
+  updateCoverPreview(model.cover || '');
+  updateAvatarPreview(model.avatar || '');
 
   document.getElementById('modalModel').classList.add('open');
 }
