@@ -494,6 +494,7 @@ const server = http.createServer(async (req, res) => {
         if (data.avatar) existing.avatar = data.avatar;
         if (data.photoCount) existing.photoCount = parseInt(data.photoCount, 10);
         if (data.videoCount) existing.videoCount = parseInt(data.videoCount, 10);
+        if (data.reelsVideo !== undefined) existing.reelsVideo = data.reelsVideo;
 
         saveCatalog(catalog);
         return sendJson(res, 200, { success: true, model: existing, isNew: false });
@@ -729,9 +730,20 @@ const server = http.createServer(async (req, res) => {
 
       if (role === 'cover') model.cover = mediaUrl;
       if (role === 'avatar') model.avatar = mediaUrl;
+      if (role === 'reels') {
+        model.reelsVideo = mediaUrl;
+        const idx = model.previews.findIndex(p => (typeof p === 'object' ? p.url : p) === mediaUrl);
+        if (idx !== -1) {
+          if (typeof model.previews[idx] === 'object') {
+            model.previews[idx].isTeaser = true;
+          } else {
+            model.previews[idx] = { type: 'video', url: mediaUrl, isTeaser: true };
+          }
+        }
+      }
 
       saveCatalog(catalog);
-      return sendJson(res, 200, { success: true, message: `Definido como ${role} com sucesso!` });
+      return sendJson(res, 200, { success: true, message: `Definido como ${role === 'reels' ? 'Vídeo do Reels' : role} com sucesso!` });
     } catch (e) {
       return sendJson(res, 500, { success: false, error: 'Erro ao definir papel.' });
     }

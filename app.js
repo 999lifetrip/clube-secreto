@@ -467,7 +467,19 @@ function renderPreviewContent(item) {
   // Fallback de segurança: caso nenhuma mídia tenha sido marcada como prévia ainda, exibe o 1º vídeo e 3 fotos
   let displayVids = unlocked 
     ? allVids 
-    : (teaserVids.length > 0 ? teaserVids : allVids.slice(0, 1));
+    : (teaserVids.length > 0 ? teaserVids : (allVids.length > 0 ? [allVids[0]] : []));
+
+  // Se houver um reelsVideo definido pelo Admin e o modelo estiver bloqueado, garante ele como o 1º vídeo de destaque
+  if (!unlocked && item.reelsVideo) {
+    const reelsIdx = displayVids.findIndex(v => (typeof v === 'object' ? v.url : v) === item.reelsVideo);
+    if (reelsIdx > 0) {
+      const reelsItem = displayVids.splice(reelsIdx, 1)[0];
+      displayVids.unshift(reelsItem);
+    } else if (reelsIdx === -1) {
+      const reelsObj = item.previews.find(p => (typeof p === 'object' ? p.url : p) === item.reelsVideo) || { type: 'video', url: item.reelsVideo, isTeaser: true };
+      displayVids.unshift(reelsObj);
+    }
+  }
 
   let displayPics = unlocked 
     ? allPics 
@@ -864,8 +876,22 @@ function renderReelsCarousel() {
   const modelsWithMedia = CREATORS_CATALOG.filter(m => Array.isArray(m.previews) && m.previews.length > 0);
 
   container.innerHTML = modelsWithMedia.map(model => {
-    const videoPreview = model.previews.find(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")));
-    const videoUrl = videoPreview ? (typeof videoPreview === "object" ? videoPreview.url : videoPreview) : null;
+    // Busca prioritária do vídeo do Reels:
+    // 1. model.reelsVideo (definido pelo admin)
+    // 2. Primeiro vídeo marcado como prévia (isTeaser === true)
+    // 3. Fallback: primeiro vídeo existente
+    let videoUrl = null;
+    if (model.reelsVideo) {
+      videoUrl = model.reelsVideo;
+    } else {
+      const teaserVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video' && p.isTeaser) || (typeof p === 'object' && p.isTeaser && p.url && p.url.endsWith('.mp4')));
+      if (teaserVid) {
+        videoUrl = typeof teaserVid === 'object' ? teaserVid.url : teaserVid;
+      } else {
+        const anyVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
+        videoUrl = anyVid ? (typeof anyVid === 'object' ? anyVid.url : anyVid) : null;
+      }
+    }
     const coverUrl = model.cover || model.avatar || (typeof model.previews[0] === "object" ? model.previews[0].url : model.previews[0]);
     const numVideos = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
 
@@ -915,8 +941,16 @@ function openReelsFeed(startModelId) {
   }
 
   container.innerHTML = modelsWithVideos.map((model, idx) => {
-    const vid = model.previews.find(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")));
-    const vidUrl = vid ? (typeof vid === "object" ? vid.url : vid) : "";
+    let vidUrl = model.reelsVideo;
+    if (!vidUrl) {
+      const teaserVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video' && p.isTeaser) || (typeof p === 'object' && p.isTeaser && p.url && p.url.endsWith('.mp4')));
+      if (teaserVid) {
+        vidUrl = typeof teaserVid === 'object' ? teaserVid.url : teaserVid;
+      } else {
+        const anyVid = model.previews.find(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
+        vidUrl = anyVid ? (typeof anyVid === 'object' ? anyVid.url : anyVid) : '';
+      }
+    }
     const coverUrl = model.cover || model.avatar || "assets/logo.jpg";
     const numVideos = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
     const likes = (14.2 + (idx * 2.8)).toFixed(1);

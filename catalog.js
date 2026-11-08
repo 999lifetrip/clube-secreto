@@ -1033,7 +1033,8 @@ const CREATORS_CATALOG = [
         "url": "/media/karentahe/photo_40.jpg",
         "isTeaser": true
       }
-    ]
+    ],
+    "reelsVideo": "/media/karentahe/video_2.mp4"
   },
   {
     "id": "ensaio-vip-adiana",
@@ -2196,6 +2197,41 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/minaveneta/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_1.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_2.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_3.jpg",
         "isTeaser": false
       }
     ]

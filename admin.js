@@ -351,6 +351,7 @@ function openNewModelModal() {
   document.getElementById('inputDescription').value = '';
   document.getElementById('inputCover').value = '';
   document.getElementById('inputAvatar').value = '';
+  if (document.getElementById('inputReelsVideo')) document.getElementById('inputReelsVideo').value = '';
   updateCoverPreview('');
   updateAvatarPreview('');
 
@@ -374,6 +375,7 @@ function openEditModelModal(modelId) {
   document.getElementById('inputDescription').value = model.description || '';
   document.getElementById('inputCover').value = model.cover || '';
   document.getElementById('inputAvatar').value = model.avatar || '';
+  if (document.getElementById('inputReelsVideo')) document.getElementById('inputReelsVideo').value = model.reelsVideo || '';
   updateCoverPreview(model.cover || '');
   updateAvatarPreview(model.avatar || '');
 
@@ -400,6 +402,7 @@ async function saveModelForm() {
   const description = document.getElementById('inputDescription').value.trim();
   const cover = document.getElementById('inputCover').value.trim();
   const avatar = document.getElementById('inputAvatar').value.trim();
+  const reelsVideo = document.getElementById('inputReelsVideo') ? document.getElementById('inputReelsVideo').value.trim() : '';
 
   if (!creatorName) {
     showToast('Informe o nome da criadora/modelo.');
@@ -419,7 +422,8 @@ async function saveModelForm() {
     videoCount,
     description: description || `Ensaio exclusivo de ${creatorName} em alta definição.`,
     cover,
-    avatar
+    avatar,
+    reelsVideo: reelsVideo || undefined
   };
 
   try {
@@ -616,6 +620,7 @@ function onSelectModelChange() {
       const isVideo = (typeof item === 'object' && item.type === 'video') || /\.(mp4|webm|mov)$/i.test(url);
       const isCover = model.cover === url;
       const isAvatar = model.avatar === url;
+      const isReels = model.reelsVideo === url;
 
       return `
         <div class="media-card" data-url="${url}" style="border: 1px solid ${isTeaser ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'};">
@@ -628,7 +633,8 @@ function onSelectModelChange() {
             <span class="media-role-badge ${isTeaser ? 'teaser' : 'vip'}" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})" title="Clique para alternar Prévia vs. VIP">
               ${isTeaser ? '👁️ Prévia Grátis' : '🔒 Exclusivo VIP'}
             </span>
-            ${isCover ? '<span style="position:absolute; bottom:6px; left:6px; background:#e11d48; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">CAPA OFICIAL</span>' : ''}
+            ${isReels ? '<span style="position:absolute; bottom:6px; left:6px; background:#8b5cf6; color:#fff; font-size:10px; font-weight:900; padding:3px 7px; border-radius:4px; box-shadow:0 2px 8px rgba(139,92,246,0.6);">⭐ VÍDEO DO REELS</span>' : ''}
+            ${isCover && !isReels ? '<span style="position:absolute; bottom:6px; left:6px; background:#e11d48; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">CAPA OFICIAL</span>' : ''}
             ${isAvatar ? '<span style="position:absolute; bottom:6px; right:6px; background:#3b82f6; color:#fff; font-size:10px; font-weight:800; padding:2px 6px; border-radius:4px;">PERFIL</span>' : ''}
           </div>
 
@@ -636,10 +642,14 @@ function onSelectModelChange() {
             <button class="btn-toggle-teaser ${isTeaser ? 'teaser' : 'vip'}" style="flex:1;" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})">
               ${isTeaser ? 'Tornar VIP 🔒' : 'Tornar Prévia 👁️'}
             </button>
-            ${!isVideo ? `
+            ${isVideo ? `
+              <button class="btn-copy-sm" style="background:${isReels ? '#8b5cf6' : '#1e293b'}; color:#fff; border:1px solid ${isReels ? '#a78bfa' : 'rgba(255,255,255,0.2)'}; font-weight:700;" title="Definir este vídeo como o Reel principal da modelo" onclick="setMediaRole('${model.id}', '${url}', 'reels')">
+                ${isReels ? '⭐ Reels Atual' : '🎬 Definir Reels'}
+              </button>
+            ` : `
               <button class="btn-copy-sm" title="Definir como Capa" onclick="setMediaRole('${model.id}', '${url}', 'cover')">Capa</button>
               <button class="btn-copy-sm" title="Definir como Avatar" onclick="setMediaRole('${model.id}', '${url}', 'avatar')">Perfil</button>
-            ` : ''}
+            `}
             <button class="btn-del-media" title="Remover Mídia" onclick="deleteMediaItem('${model.id}', '${url}')">✕</button>
           </div>
         </div>
