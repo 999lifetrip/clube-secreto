@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Controle Administrador — Clube Secreto</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css?v=1" />
+</head>
+<body>
+
+  <!-- Tela de Login do Admin (caso não autenticado) -->
+  <div id="adminLoginScreen" class="admin-login-screen">
+    <div class="login-card">
+      <img src="assets/logo.jpg" alt="Clube Secreto" class="login-logo" />
+      <h2 class="login-title">Painel do Administrador</h2>
+      <p class="login-sub">Digite a Chave Master para gerenciar modelos, fotos, vídeos e códigos.</p>
+      
+      <div class="login-input-group">
+        <label>CHAVE MASTER / CÓDIGO ADMIN:</label>
+        <input type="password" id="adminKeyInput" placeholder="Ex: ADM-CLUBE-98319-LUAN-X99" autocomplete="off" />
+        <button id="btnLogin" class="btn-primary" onclick="doAdminLogin()">
+          <span>🔓 Entrar no Painel</span>
+        </button>
+      </div>
+
+      <a href="/" class="login-back-link">← Voltar para o Site</a>
+    </div>
+  </div>
+
+  <!-- Interface Principal do Painel -->
+  <div id="adminApp" class="admin-app hidden">
+    <!-- Barra Superior -->
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <img src="assets/logo.jpg" alt="Logo" class="admin-header-logo" />
+        <div>
+          <h1 class="admin-header-title">Clube Secreto — Painel Master</h1>
+          <span class="admin-header-badge">👑 Administrador (AN0N)</span>
+        </div>
+      </div>
+
+      <div class="admin-header-actions">
+        <a href="/" target="_blank" class="btn-secondary" title="Abrir o site oficial">
+          <span>👁️ Ver Site</span>
+        </a>
+        <button class="btn-danger" onclick="doAdminLogout()">
+          <span>Sair</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navegação de Abas -->
+    <nav class="admin-nav-tabs">
+      <button class="admin-tab active" data-tab="models" onclick="switchAdminTab('models')">
+        <span>💃 Modelos & Ensaios</span>
+      </button>
+      <button class="admin-tab" data-tab="media" onclick="switchAdminTab('media')">
+        <span>🎬 Fotos & Vídeos (Prévias vs. VIP)</span>
+      </button>
+      <button class="admin-tab" data-tab="codes" onclick="switchAdminTab('codes')">
+        <span>🔑 Gerador de Códigos de Venda</span>
+      </button>
+      <button class="admin-tab" data-tab="deploy" onclick="switchAdminTab('deploy')">
+        <span>🚀 Publicar na VPS / Domínio</span>
+      </button>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="admin-main">
+      
+      <!-- ABA 1: MODELOS & ENSAIOS -->
+      <section id="tab-models" class="admin-section active">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">Modelos Cadastradas</h2>
+            <p class="section-desc">Crie novas criadoras, altere preços e configure os detalhes do ensaio.</p>
+          </div>
+          <button class="btn-primary" onclick="openNewModelModal()">
+            <span>➕ Adicionar Nova Modelo</span>
+          </button>
+        </div>
+
+        <div class="models-grid" id="modelsGrid">
+          <!-- Renderizado via admin.js -->
+        </div>
+      </section>
+
+      <!-- ABA 2: FOTOS & VÍDEOS (PRÉVIAS VS. VIP) -->
+      <section id="tab-media" class="admin-section">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">Gerenciador de Mídias (Prévias vs. VIP)</h2>
+            <p class="section-desc">Escolha quais fotos e vídeos são amostras grátis e quais são bloqueadas para assinantes.</p>
+          </div>
+          
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <select id="selectModelMedia" class="admin-select" onchange="onSelectModelChange()">
+              <!-- Preenchido dinamicamente -->
+            </select>
+            <button class="btn-primary" onclick="openUploadModal()">
+              <span>📤 Enviar Fotos/Vídeos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Estatísticas da Modelo Selecionada -->
+        <div class="model-media-stats" id="modelMediaStats">
+          <!-- Renderizado via admin.js -->
+        </div>
+
+        <!-- Grade de Mídias -->
+        <div class="media-manage-grid" id="mediaManageGrid">
+          <!-- Renderizado via admin.js -->
+        </div>
+      </section>
+
+      <!-- ABA 3: GERADOR DE CÓDIGOS PIX -->
+      <section id="tab-codes" class="admin-section">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">Códigos de Acesso de Venda</h2>
+            <p class="section-desc">Gere lotes de códigos de uso único protegidos contra fraudes para enviar no WhatsApp.</p>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-success" onclick="generateBatchCodes('WEEKLY_VIP', null, 10)">
+              <span>➕ Gerar 10x Semanal (R$ 24,99)</span>
+            </button>
+            <button class="btn-primary" onclick="generateBatchCodes('SINGLE_MODEL', null, 10)">
+              <span>➕ Gerar 10x Pack Modelo (R$ 9,90)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Resumo de Códigos -->
+        <div class="codes-summary-bar" id="codesSummaryBar">
+          <div class="summary-pill total">Total: <strong id="sumTotalCodes">0</strong></div>
+          <div class="summary-pill available">Disponíveis p/ Venda: <strong id="sumAvailCodes">0</strong></div>
+          <div class="summary-pill used">Já Usados: <strong id="sumUsedCodes">0</strong></div>
+        </div>
+
+        <!-- Filtro Rápido -->
+        <div class="codes-filter-bar">
+          <input type="text" id="filterCodesInput" placeholder="🔍 Buscar código..." oninput="renderCodesTable()" class="admin-input-search" />
+          <div class="codes-filter-buttons">
+            <button class="btn-pill-filter active" onclick="setCodesFilter('all')">Todos</button>
+            <button class="btn-pill-filter" onclick="setCodesFilter('available')">Disponíveis</button>
+            <button class="btn-pill-filter" onclick="setCodesFilter('used')">Já Resgatados</button>
+          </div>
+        </div>
+
+        <!-- Tabela de Códigos -->
+        <div class="codes-table-wrapper">
+          <table class="codes-table">
+            <thead>
+              <tr>
+                <th>Código Único</th>
+                <th>Tipo / Plano</th>
+                <th>Valor</th>
+                <th>Status</th>
+                <th>Vinculação / Detalhes</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="codesTableBody">
+              <!-- Renderizado via admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ABA 4: DEPLOY VPS / DOMÍNIO -->
+      <section id="tab-deploy" class="admin-section">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">Deploy na VPS & Domínio</h2>
+            <p class="section-desc">Como colocar este site no ar em <code>omelhorvendedor.online</code> ou subdomínio.</p>
+          </div>
+        </div>
+
+        <div class="deploy-guide-cards">
+          <div class="deploy-card">
+            <h3 class="deploy-card-title">🌐 Apontamento de Domínio (DNS Hostinger)</h3>
+            <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6;">
+              No painel da Hostinger em <strong>DNS / Gerenciamento de DNS</strong> de <code>omelhorvendedoronline.com.br</code>:
+            </p>
+            <div class="code-snippet">
+Tipo: A
+Nome: clube   (ou vip)
+Aponta para (IP): [IP da sua VPS]
+TTL: 300
+            </div>
+            <p style="font-size: 12px; color: #10b981; margin-top: 8px;">
+              Resultado: seu site abrirá em <strong>https://clube.omelhorvendedoronline.com.br</strong>!
+            </p>
+          </div>
+
+          <div class="deploy-card">
+            <h3 class="deploy-card-title">🐳 Subir no Coolify da VPS em 2 Minutos</h3>
+            <ol style="font-size: 13px; color: #cbd5e1; line-height: 1.8; padding-left: 20px;">
+              <li>Acesse seu painel <strong>Coolify</strong> na VPS.</li>
+              <li>Clique em <strong>+ New Resource</strong> ➔ <strong>Application</strong>.</li>
+              <li>Selecione o repositório ou pasta do projeto <code>creators-vip</code>.</li>
+              <li>Em <strong>Domains</strong>, coloque: <code>https://clube.omelhorvendedoronline.com.br</code></li>
+              <li>Porta: <code>3008</code>.</li>
+              <li>Clique em <strong>Deploy</strong>. O Coolify configura o SSL HTTPS e o site fica 100% no ar!</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal: Nova / Editar Modelo -->
+  <div class="admin-modal-backdrop" id="modalModel">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3 id="modalModelTitle">Adicionar Nova Modelo</h3>
+        <button class="modal-close-btn" onclick="closeModelModal()">✕</button>
+      </div>
+
+      <div class="admin-modal-body">
+        <input type="hidden" id="editModelId" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome da Criadora / Modelo *</label>
+            <input type="text" id="inputCreatorName" placeholder="Ex: Mia Khalifa" required />
+          </div>
+          <div class="form-group">
+            <label>@Username (Instagram / OnlyFans)</label>
+            <input type="text" id="inputUsername" placeholder="Ex: @miakhalifa" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Título do Ensaio</label>
+            <input type="text" id="inputTitle" placeholder="Ex: Ensaio Exclusivo Estúdio VIP & Bastidores" />
+          </div>
+          <div class="form-group">
+            <label>Categoria</label>
+            <select id="inputCategory" class="admin-select">
+              <option value="estudio">Estúdio & Glamour</option>
+              <option value="cosplay">Cosplay & Geek</option>
+              <option value="fitness">Praia & Fitness</option>
+              <option value="lifestyle">Lifestyle & Luxo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preço Individual do Pack (R$)</label>
+            <input type="text" id="inputPrice" value="9,90" />
+          </div>
+          <div class="form-group">
+            <label>Badge / Selo de Destaque</label>
+            <input type="text" id="inputBadge" value="NOVO LANÇAMENTO VIP 🔥" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Fotos no Acervo (Número informado ao cliente)</label>
+            <input type="number" id="inputPhotoCount" value="500" />
+          </div>
+          <div class="form-group">
+            <label>Vídeos no Acervo</label>
+            <input type="number" id="inputVideoCount" value="80" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição / Apresentação do Ensaio</label>
+          <textarea id="inputDescription" rows="3" placeholder="Detalhes do ensaio, qualidade 4K, bastidores..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>URL da Foto de Capa (Opcional)</label>
+            <input type="text" id="inputCover" placeholder="/media/slug/photo_1.jpg" />
+          </div>
+          <div class="form-group">
+            <label>URL da Foto de Perfil (Opcional)</label>
+            <input type="text" id="inputAvatar" placeholder="/media/slug/photo_2.jpg" />
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-modal-footer">
+        <button class="btn-secondary" onclick="closeModelModal()">Cancelar</button>
+        <button class="btn-primary" onclick="saveModelForm()">💾 Salvar Modelo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Upload de Mídias (Fotos e Vídeos) -->
+  <div class="admin-modal-backdrop" id="modalUpload">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3>Enviar Fotos ou Vídeos para <span id="uploadTargetModelName">...</span></h3>
+        <button class="modal-close-btn" onclick="closeUploadModal()">✕</button>
+      </div>
+
+      <div class="admin-modal-body">
+        <div class="upload-dropzone" id="uploadDropzone" onclick="document.getElementById('fileUploadInput').click()">
+          <span style="font-size: 42px; display: block; margin-bottom: 8px;">📤</span>
+          <strong>Clique ou arraste fotos e vídeos aqui</strong>
+          <span style="font-size: 12px; color: var(--text-muted); display: block; margin-top: 4px;">Suporta JPG, PNG, WEBP e MP4 (Até 100MB por envio)</span>
+          <input type="file" id="fileUploadInput" multiple accept="image/*,video/mp4" style="display: none;" onchange="onFilesSelected(event)" />
+        </div>
+
+        <div class="form-group" style="margin-top: 16px;">
+          <label>Definir estas mídias enviadas como:</label>
+          <div style="display: flex; gap: 14px; margin-top: 6px;">
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="radio" name="uploadRole" value="teaser" checked />
+              <span>👁️ <strong>Prévia Grátis</strong> (Aparece como amostra para visitantes)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
+              <input type="radio" name="uploadRole" value="vip" />
+              <span>🔒 <strong>Exclusivo VIP</strong> (Liberado só após comprar/código)</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="uploadQueueContainer" style="margin-top: 16px; max-height: 200px; overflow-y: auto;">
+          <!-- Lista de arquivos selecionados -->
+        </div>
+      </div>
+
+      <div class="admin-modal-footer">
+        <button class="btn-secondary" onclick="closeUploadModal()">Cancelar</button>
+        <button id="btnStartUpload" class="btn-primary" onclick="startUploadQueue()" disabled>
+          <span>🚀 Iniciar Envio</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="adminToast" class="admin-toast">
+    <span id="adminToastMsg">Sucesso</span>
+  </div>
+
+  <script src="admin.js?v=1"></script>
+</body>
+</html>
+
