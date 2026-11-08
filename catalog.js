@@ -24,7 +24,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -44,7 +44,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_6.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -337,7 +337,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "reelsVideo": "/media/alinabelle/video_1.mp4"
+    "reelsVideo": "/media/alinabelle/video_6.mp4"
   },
   {
     "id": "ensaio-vip-xspidergirl",

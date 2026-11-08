@@ -112,8 +112,23 @@ function sendJson(res, statusCode, data) {
 
 function checkAdminAuth(req, urlObj) {
   const authHeader = req.headers['x-admin-key'] || req.headers['authorization'];
-  const queryKey = urlObj.searchParams.get('key');
-  const token = authHeader ? authHeader.replace(/^Bearer\s+/i, '').trim() : queryKey;
+  const queryKey = urlObj ? urlObj.searchParams.get('key') : null;
+  
+  let cookieKey = null;
+  if (req.headers && req.headers.cookie) {
+    const match = req.headers.cookie.match(/(?:^|;\s*)cs_admin_key=([^;]+)/);
+    if (match) cookieKey = decodeURIComponent(match[1]).trim();
+  }
+
+  let refererKey = null;
+  if (req.headers && req.headers.referer) {
+    try {
+      const refUrl = new URL(req.headers.referer);
+      refererKey = refUrl.searchParams.get('key');
+    } catch (e) {}
+  }
+
+  const token = (authHeader ? authHeader.replace(/^Bearer\s+/i, '').trim() : null) || queryKey || cookieKey || refererKey;
   return token && ADMIN_KEYS.has(token);
 }
 

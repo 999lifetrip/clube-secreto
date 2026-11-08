@@ -377,6 +377,31 @@ TTL: 300
     </div>
   </div>
 
+  <!-- Modal: Inspetor de Mídia (Visualizar e Organizar com 1 Clique) -->
+  <div class="admin-modal-backdrop" id="adminMediaInspectorModal">
+    <div class="admin-modal-box" style="max-width: 680px; width: 95%;">
+      <div class="admin-modal-header">
+        <h3 id="inspectorModalTitle">Visualizador de Mídia</h3>
+        <button class="modal-close-btn" onclick="closeAdminMediaInspector()">✕</button>
+      </div>
+
+      <div class="admin-modal-body" style="text-align: center; padding: 15px;">
+        <div id="inspectorMediaContainer" style="max-height: 500px; display: flex; align-items: center; justify-content: center; background: #000; border-radius: 8px; overflow: hidden; margin-bottom: 15px;">
+          <!-- Injetado dinamicamente: vídeo ou foto em tela grande -->
+        </div>
+
+        <div id="inspectorActionsContainer" style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+          <!-- Ações rápidas: Tornar Prévia, Definir Reels, Capa, Avatar, Excluir -->
+        </div>
+      </div>
+
+      <div class="admin-modal-footer" style="justify-content: space-between;">
+        <span id="inspectorMediaUrlText" style="font-size: 11px; color: var(--text-muted); word-break: break-all;"></span>
+        <button class="btn-secondary" onclick="closeAdminMediaInspector()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification -->
   <div id="adminToast" class="admin-toast">
     <span id="adminToastMsg">Sucesso</span>

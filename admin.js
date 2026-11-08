@@ -105,15 +105,22 @@ async function generateAndCopySingleCode(modelId, creatorName, price) {
 }
 
 function getAdminKey() {
-  return (sessionStorage.getItem('cs_admin_key') || '').trim();
+  const sessionKey = (sessionStorage.getItem('cs_admin_key') || '').trim();
+  if (sessionKey) return sessionKey;
+  const match = document.cookie.match(/(?:^|;\s*)cs_admin_key=([^;]+)/);
+  if (match) return decodeURIComponent(match[1]).trim();
+  return '';
 }
 
 function setAdminKey(key) {
-  sessionStorage.setItem('cs_admin_key', (key || '').trim().toUpperCase());
+  const clean = (key || '').trim().toUpperCase();
+  sessionStorage.setItem('cs_admin_key', clean);
+  document.cookie = `cs_admin_key=${encodeURIComponent(clean)}; path=/; max-age=2592000; SameSite=Lax`;
 }
 
 function clearAdminKey() {
   sessionStorage.removeItem('cs_admin_key');
+  document.cookie = 'cs_admin_key=; path=/; max-age=0; SameSite=Lax';
 }
 
 // ═════════════════════════════════════════════════════════════════════════
@@ -614,6 +621,8 @@ function onSelectModelChange() {
       return;
     }
 
+    const adminKey = getAdminKey();
+
     gridEl.innerHTML = filteredPreviews.map((item, index) => {
       const url = typeof item === 'object' ? item.url : item;
       const isTeaser = typeof item === 'object' ? !!item.isTeaser : false;
@@ -621,16 +630,17 @@ function onSelectModelChange() {
       const isCover = model.cover === url;
       const isAvatar = model.avatar === url;
       const isReels = model.reelsVideo === url;
+      const mediaSrc = adminKey ? `${url}?key=${encodeURIComponent(adminKey)}` : url;
 
       return `
         <div class="media-card" data-url="${url}" style="border: 1px solid ${isTeaser ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'};">
-          <div class="media-card-preview">
+          <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer;" title="Clique para ampliar e ver em tamanho real">
             ${isVideo 
-              ? `<video src="${url}" class="media-card-vid" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
-              : `<img src="${url}" alt="Mídia" class="media-card-img" loading="lazy" />`
+              ? `<video src="${mediaSrc}" class="media-card-vid" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
+              : `<img src="${mediaSrc}" alt="Mídia" class="media-card-img" loading="lazy" />`
             }
             <span class="media-type-badge">${isVideo ? '🎬 VÍDEO' : '📷 FOTO'}</span>
-            <span class="media-role-badge ${isTeaser ? 'teaser' : 'vip'}" onclick="toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})" title="Clique para alternar Prévia vs. VIP">
+            <span class="media-role-badge ${isTeaser ? 'teaser' : 'vip'}" onclick="event.stopPropagation(); toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})" title="Clique para alternar Prévia vs. VIP">
               ${isTeaser ? '👁️ Prévia Grátis' : '🔒 Exclusivo VIP'}
             </span>
             ${isReels ? '<span style="position:absolute; bottom:6px; left:6px; background:#8b5cf6; color:#fff; font-size:10px; font-weight:900; padding:3px 7px; border-radius:4px; box-shadow:0 2px 8px rgba(139,92,246,0.6);">⭐ VÍDEO DO REELS</span>' : ''}
@@ -655,6 +665,64 @@ function onSelectModelChange() {
         </div>
       `;
     }).join('');
+  }
+}
+
+function openAdminMediaInspector(modelId, mediaUrl, isVideo, isTeaser, isReels, isCover, isAvatar) {
+  const modal = document.getElementById('adminMediaInspectorModal');
+  const title = document.getElementById('inspectorModalTitle');
+  const container = document.getElementById('inspectorMediaContainer');
+  const actions = document.getElementById('inspectorActionsContainer');
+  const urlText = document.getElementById('inspectorMediaUrlText');
+  if (!modal || !container) return;
+
+  const adminKey = getAdminKey();
+  const mediaSrc = adminKey ? `${mediaUrl}?key=${encodeURIComponent(adminKey)}` : mediaUrl;
+
+  title.textContent = isVideo ? '🎬 Inspetor de Vídeo' : '📷 Inspetor de Foto';
+  if (urlText) urlText.textContent = mediaUrl;
+
+  if (isVideo) {
+    container.innerHTML = `
+      <video src="${mediaSrc}" controls autoplay playsinline style="max-height: 480px; width: 100%; object-fit: contain; background: #000; border-radius: 6px;"></video>
+    `;
+  } else {
+    container.innerHTML = `
+      <img src="${mediaSrc}" alt="Mídia" style="max-height: 480px; width: 100%; object-fit: contain; background: #000; border-radius: 6px;" />
+    `;
+  }
+
+  actions.innerHTML = `
+    <button class="btn-toggle-teaser ${isTeaser ? 'teaser' : 'vip'}" style="padding: 10px 16px; font-size: 13px;" onclick="toggleMediaTeaser('${modelId}', '${mediaUrl}', ${!isTeaser}); closeAdminMediaInspector();">
+      ${isTeaser ? '🔒 Mudar para Exclusivo VIP' : '👁️ Mudar para Prévia Grátis'}
+    </button>
+    ${isVideo ? `
+      <button class="btn-primary" style="background:#8b5cf6; padding: 10px 16px; font-size: 13px;" onclick="setMediaRole('${modelId}', '${mediaUrl}', 'reels'); closeAdminMediaInspector();">
+        🎬 Definir como Vídeo do Reels
+      </button>
+    ` : `
+      <button class="btn-secondary" style="padding: 10px 16px; font-size: 13px;" onclick="setMediaRole('${modelId}', '${mediaUrl}', 'cover'); closeAdminMediaInspector();">
+        🖼️ Definir como Capa Oficial
+      </button>
+      <button class="btn-secondary" style="padding: 10px 16px; font-size: 13px;" onclick="setMediaRole('${modelId}', '${mediaUrl}', 'avatar'); closeAdminMediaInspector();">
+        👤 Definir como Foto de Perfil
+      </button>
+    `}
+  `;
+
+  modal.classList.add('open');
+}
+
+function closeAdminMediaInspector() {
+  const modal = document.getElementById('adminMediaInspectorModal');
+  if (modal) {
+    modal.classList.remove('open');
+    const container = document.getElementById('inspectorMediaContainer');
+    if (container) {
+      const vid = container.querySelector('video');
+      if (vid) { vid.pause(); vid.src = ''; }
+      container.innerHTML = '';
+    }
   }
 }
 
