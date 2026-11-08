@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Clube Secreto — Ensaios Exclusivos & Plano Semanal VIP</title>
+  <meta name="description" content="Acesse ensaios e portfólios exclusivos em alta resolução 4K e vídeos 60fps das criadoras mais cobiçadas no Clube Secreto." />
+  
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css?v=8" />
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-container">
+    <span>✅</span>
+    <span id="toastMsg">Chave PIX copiada com sucesso!</span>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <img src="assets/logo.jpg?v=4" alt="Logo Clube Secreto" class="navbar-logo-img" />
+        <div class="logo-title-group">
+          <span class="logo-text">CLUBE <span class="logo-accent">SECRETO</span></span>
+          <span class="logo-badge">VIP 🔥</span>
+        </div>
+      </a>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Buscar criadora, estilo ou ensaio..." />
+      </div>
+
+      <div class="nav-actions">
+        <!-- Botão para ativar código VIP -->
+        <button id="btnHeaderCode" class="btn-code-header" onclick="openCodeModal()">
+          <span>🔑</span>
+          <span>Liberar Código</span>
+        </button>
+
+        <!-- Botão Plano Semanal / Status VIP -->
+        <button id="btnHeaderVip" class="btn-vip-header" onclick="openVipModal()">
+          <span id="btnHeaderVipIcon">👑</span>
+          <span id="btnHeaderVipText">Plano Semanal</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner de Aviso VIP Ativo (Slim, Elegante e Discreto) -->
+  <div id="vipActiveBanner" class="vip-active-banner hidden">
+    <div class="vip-active-text">
+      <span id="vipActiveBannerText">👑 Admin Master Ativo</span>
+    </div>
+    <button class="btn-vip-exit" onclick="deactivateVip()" title="Encerrar sessão">Sair</button>
+  </div>
+
+  <!-- Hero Spotlight Compacto -->
+  <section class="hero-banner">
+    <div class="hero-card">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span>🔒</span> PLANO SEMANAL VIP
+        </div>
+        <h1 class="hero-title">Portfólios & Ensaios <span class="hero-title-accent">Exclusivos</span></h1>
+        <p class="hero-desc">
+          Acesso semanal completo a todas as fotos 4K e vídeos exclusivos com liberação instantânea por código VIP após o PIX.
+        </p>
+        <div class="hero-badges">
+          <div class="hero-badge-item">
+            <span>⚡ Liberação:</span> Imediata por Código VIP
+          </div>
+          <div class="hero-badge-item">
+            <span>👑 Período:</span> 7 Dias (Semanal)
+          </div>
+          <div class="hero-badge-item">
+            <span>🎬 Mídia:</span> Fotos 4K + Vídeos 60fps
+          </div>
+        </div>
+        <div class="hero-cta">
+          <button id="btnHeroBuy" class="btn-primary-glow" onclick="openVipModal()">
+            <span>👑</span> ASSINAR PLANO SEMANAL (R$ 24,99)
+          </button>
+          <button class="btn-secondary-glass" onclick="openCodeModal()">
+            <span>🔑 Já Tenho Código de Acesso</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-logo-box">
+        <img src="assets/logo.jpg" alt="Logo Oficial Clube Secreto" class="hero-logo-large" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Bar -->
+  <nav class="categories-nav" id="categoriesNav">
+    <button class="cat-pill active" data-category="all">✨ Todos os Ensaios</button>
+    <button class="cat-pill" data-category="estudio">📸 Estúdio & Glamour</button>
+    <button class="cat-pill" data-category="moda">👗 Moda & Editorial</button>
+    <button class="cat-pill" data-category="fitness">🏋️‍♀️ Praia & Fitness</button>
+    <button class="cat-pill" data-category="streetwear">🏙️ Streetwear & Urbana</button>
+    <button class="cat-pill" data-category="cosplay">🎭 Cosplay & Geek</button>
+    <button class="cat-pill" data-category="viagem">🌴 Lifestyle & Viagem</button>
+  </nav>
+
+  <!-- Catalog Section -->
+  <main class="catalog-section" id="catalogSection">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>Coleções Disponíveis</span>
+      </h2>
+      <span class="results-count" id="resultsCount">Carregando catálogo...</span>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" id="cardsGrid">
+      <!-- Injetado dinamicamente via app.js -->
+    </div>
+  </main>
+
+  <!-- Modal: Preview Gallery -->
+  <div class="modal-backdrop" id="previewModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 id="previewTitle" class="brand-font" style="font-size: 18px; font-weight: 800; color: #fff;">Prévia do Ensaio</h3>
+          <span id="previewCreator" style="font-size: 12px; color: var(--text-secondary);">@creator</span>
+        </div>
+        <button class="modal-close-btn" onclick="closePreviewModal()" title="Fechar">
+          <span>✕ Fechar</span>
+        </button>
+      </div>
+
+      <!-- Barra de Escolha: Todas as Mídias, Só Vídeos, Só Fotos -->
+      <div class="modal-media-filter-bar">
+        <button id="modalTabAll" class="modal-tab-btn active" onclick="setPreviewFilter('all')">
+          <span id="tabLabelAll">✨ Todas as Mídias</span>
+        </button>
+        <button id="modalTabVideos" class="modal-tab-btn" onclick="setPreviewFilter('videos')">
+          <span id="tabLabelVideos">🎬 Só Vídeos</span>
+        </button>
+        <button id="modalTabPhotos" class="modal-tab-btn" onclick="setPreviewFilter('photos')">
+          <span id="tabLabelPhotos">📸 Só Fotos</span>
+        </button>
+      </div>
+
+      <div class="preview-grid" id="previewGrid">
+        <!-- Injetado via app.js -->
+      </div>
+
+      <div class="modal-footer" id="previewModalFooter">
+        <!-- Injetado dinamicamente via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Lightbox (Visualizador em Tela Cheia das Fotos) -->
+  <div class="lightbox-backdrop" id="lightboxModal">
+    <div class="lightbox-header">
+      <div class="lightbox-info">
+        <span id="lightboxTitle" class="lightbox-title">Ensaio Fotográfico VIP</span>
+        <span id="lightboxCounter" class="lightbox-counter">Foto 1 de 1.531 (Prévia)</span>
+      </div>
+      <button class="lightbox-close" onclick="closeLightbox()" title="Fechar tela cheia">✕</button>
+    </div>
+
+    <div class="lightbox-body">
+      <button class="lightbox-nav-btn prev" onclick="prevLightboxPhoto()" aria-label="Foto anterior">◀</button>
+      
+      <div class="lightbox-img-wrapper" id="lightboxImgWrapper">
+        <img id="lightboxImg" src="" alt="Foto em Alta Resolução" class="lightbox-img" />
+        <div id="lightboxWatermark" class="watermark-overlay">CLUBE SECRETO</div>
+      </div>
+
+      <!-- Slide de bloqueio após prévias -->
+      <div id="lightboxLockedSlide" class="lightbox-locked-card" style="display: none;">
+        <span style="font-size: 40px; display: block; margin-bottom: 8px;">🔒</span>
+        <h3 id="lightboxLockedTitle" style="font-size: 18px; color: #fff; margin-bottom: 8px;">+1.525 Fotos e 347 Vídeos Restantes</h3>
+        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 20px;">
+          Esta foi apenas uma prévia gratuita. Para acessar a galeria completa em Ultra HD 4K e todos os vídeos sem restrições, assine o plano ou digite seu código.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn-primary-glow" style="width: 100%; justify-content: center;" onclick="closeLightbox(); openVipModal();">
+            <span>👑 Assinar Plano Semanal (R$ 24,99)</span>
+          </button>
+          <button class="btn-secondary-glass" style="width: 100%; justify-content: center;" onclick="closeLightbox(); openCodeModal();">
+            <span>🔑 Digitar Código de Acesso</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="lightbox-nav-btn next" onclick="nextLightboxPhoto()" aria-label="Próxima foto">▶</button>
+    </div>
+
+    <div class="lightbox-footer">
+      <button class="lightbox-footer-btn" onclick="prevLightboxPhoto()">
+        <span>◀ Anterior</span>
+      </button>
+      <button class="lightbox-footer-btn close-btn" onclick="closeLightbox()">
+        <span>✕ Fechar</span>
+      </button>
+      <button class="lightbox-footer-btn" onclick="nextLightboxPhoto()">
+        <span>Próxima ▶</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: Inserir Código VIP -->
+  <div class="modal-backdrop" id="codeModal">
+    <div class="modal-box code-modal-box">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 22px;">🔑</span>
+          <div>
+            <h3 class="brand-font" style="font-size: 18px; font-weight: 800; color: #fff;">Liberar Acesso VIP</h3>
+            <span style="font-size: 11px; color: var(--text-secondary);">Digite o código recebido no WhatsApp</span>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeCodeModal()">✕</button>
+      </div>
+
+      <div style="padding: 24px;">
+        <div class="code-info-box">
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0;">
+            Após realizar o pagamento via PIX do <strong>Pack Individual (R$ 9,90)</strong> ou do <strong>Plano Semanal VIP (R$ 24,99)</strong>, você recebe seu <strong>Código Único Exclusivo</strong> no WhatsApp para desbloquear o acervo completo sem marca d'água.
+          </p>
+        </div>
+
+        <div class="code-input-group">
+          <label class="code-input-label">SEU CÓDIGO DE ACESSO EXCLUSIVO:</label>
+          <div class="code-input-wrapper">
+            <input type="text" id="vipCodeInput" class="vip-code-input" placeholder="Ex: VIP-SEM-XXXX ou MOD-XXXX" autocomplete="off" autocapitalize="characters" />
+            <button class="btn-unlock-code" onclick="submitVipCode()">
+              <span>🔓 Liberar Agora</span>
+            </button>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; flex-wrap: wrap; gap: 8px;">
+            <button type="button" class="btn-paste-code" onclick="pasteCodeFromClipboard()">
+              <span>📋 Colar Código</span>
+            </button>
+            <span class="code-help-text" style="margin: 0;">🔒 Código único protegido antifraude</span>
+          </div>
+        </div>
+
+        <div class="code-modal-footer-cta">
+          <span>Ainda não possui um código de acesso?</span>
+          <button class="btn-link-pix" onclick="closeCodeModal(); openVipModal();">
+            👉 Adquirir Acesso via PIX (A partir de R$ 9,90)
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: PIX Checkout (Plano Semanal ou Individual) -->
+  <div class="modal-backdrop" id="pixModal">
+    <div class="modal-box pix-modal-box">
+      <div class="modal-header">
+        <h3 class="brand-font" style="font-size: 18px; font-weight: 800; color: #fff;">Pagamento Seguro via PIX</h3>
+        <button class="modal-close" onclick="closePixModal()">✕</button>
+      </div>
+
+      <div style="padding: 24px;">
+        <div class="pix-summary">
+          <div class="pix-summary-row">
+            <span>Item Selecionado:</span>
+            <strong id="pixItemName" style="color: #fff; max-width: 250px; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Plano Semanal VIP</strong>
+          </div>
+          <div class="pix-summary-row">
+            <span>Favorecido:</span>
+            <strong style="color: #fff;">Luan Batista</strong>
+          </div>
+          <div class="pix-summary-row">
+            <span>Duração do Acesso:</span>
+            <strong id="pixItemDuration" style="color: #10b981;">7 Dias de Acesso Total</strong>
+          </div>
+          <div class="pix-summary-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+            <span style="font-weight: 700;">Total a Transferir:</span>
+            <span id="pixItemValue" class="val-highlight">R$ 24,99</span>
+          </div>
+        </div>
+
+        <div class="pix-copy-box">
+          <span style="font-size: 12px; color: var(--text-secondary); text-transform: uppercase; font-weight: 700;">
+            Chave PIX (CPF do Titular):
+          </span>
+          <span class="pix-key-val">09658990983</span>
+          
+          <button class="btn-copy-pix" onclick="copyPixKey()">
+            <span>📋</span>
+            <span>Copiar Chave PIX (1 Toque)</span>
+          </button>
+        </div>
+
+        <div class="pix-steps-box">
+          <strong style="color: #cbd5e1; display: block; margin-bottom: 6px;">Como Funciona a Liberação:</strong>
+          <div class="pix-step-item">1️⃣ Copie a chave CPF acima e faça a transferência no seu banco para <strong>Luan Batista</strong>.</div>
+          <div class="pix-step-item">2️⃣ Clique no botão verde abaixo para enviar o comprovante no WhatsApp.</div>
+          <div class="pix-step-item">3️⃣ <strong>Você receberá o seu CÓDIGO VIP no WhatsApp</strong> para digitar aqui e liberar todos os ensaios na hora!</div>
+        </div>
+
+        <a id="btnWhatsAppConfirm" href="#" target="_blank" class="btn-whatsapp-confirm">
+          <span style="font-size: 18px;">💬</span>
+          <span>Enviar Comprovante e Receber Código</span>
+        </a>
+
+        <!-- Seção inline para quem já recebeu o código -->
+        <div class="pix-inline-code-box">
+          <span class="inline-code-title">🔑 Já recebeu seu código no WhatsApp?</span>
+          <div class="inline-code-row">
+            <input type="text" id="pixInlineCode" placeholder="Cole o código aqui..." class="inline-code-input" autocapitalize="characters" />
+            <button class="btn-inline-activate" onclick="activateFromPixModal()">Liberar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão Flutuante Oficial do WhatsApp -->
+  <a href="https://wa.me/554195993007?text=Ol%C3%A1!%20Estou%20no%20site%20Clube%20Secreto%20e%20gostaria%20de%20ajuda%20para%20liberar%20meu%20acesso." target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" title="Falar no WhatsApp de Suporte e Vendas">
+    <svg class="whatsapp-float-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span class="whatsapp-float-text">WhatsApp</span>
+  </a>
+
+  <!-- Scripts -->
+  <script src="catalog.js?v=8"></script>
+  <script src="app.js?v=8"></script>
+</body>
+</html>
