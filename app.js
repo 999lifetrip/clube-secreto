@@ -729,7 +729,8 @@ async function activateCode(rawCode) {
     return false;
   }
 
-  const cleanCode = rawCode.trim().toUpperCase();
+  // Normalização ultra flexível: aceita 'vip0000', 'Vip 0000', 'vip-0000', 'VIP0000'
+  const cleanCode = (rawCode || '').replace(/[-\s_]/g, '').trim().toUpperCase();
   const deviceId = getDeviceId();
   const targetModelId = currentPreviewItem ? currentPreviewItem.id : null;
 
