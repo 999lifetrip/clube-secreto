@@ -576,11 +576,11 @@ const server = http.createServer(async (req, res) => {
         let price = '9,90';
 
         if (type === 'WEEKLY_VIP') {
-          codeStr = `VIP-${randDigits(4)}`;
+          codeStr = `VIP${randDigits(4)}`;
           label = 'Plano Semanal VIP (7 Dias)';
           price = '24,99';
         } else {
-          codeStr = `PACK-${randDigits(4)}`;
+          codeStr = `PACK${randDigits(4)}`;
           label = modelId ? `Pack Individual (${modelId})` : 'Pack Individual (R$ 9,90)';
           price = '9,90';
         }
