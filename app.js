@@ -839,8 +839,13 @@ function submitVipCode(codeOverride) {
 }
 
 // ═════════════════════════════════════════════════════════════════════════
-// CARROSSEL DE REELS / SHORTS / STORIES (CLIQUE DIRETO NA MODELO)
+// REELS FEED EM TELA CHEIA (ESTILO TIKTOK & INSTAGRAM REELS)
+// Arrastando vendo as modelos com botão sempre fixo abaixo para acessar
 // ═════════════════════════════════════════════════════════════════════════
+
+let currentActiveReelModelId = null;
+let reelsAudioMuted = true;
+let reelsFeedObserver = null;
 
 function renderReelsCarousel() {
   const container = document.getElementById("reelsCarousel");
@@ -849,14 +854,13 @@ function renderReelsCarousel() {
   const modelsWithMedia = CREATORS_CATALOG.filter(m => Array.isArray(m.previews) && m.previews.length > 0);
 
   container.innerHTML = modelsWithMedia.map(model => {
-    // Acha o primeiro vídeo da modelo para o Reels
     const videoPreview = model.previews.find(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")));
     const videoUrl = videoPreview ? (typeof videoPreview === "object" ? videoPreview.url : videoPreview) : null;
     const coverUrl = model.cover || model.avatar || (typeof model.previews[0] === "object" ? model.previews[0].url : model.previews[0]);
     const numVideos = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
 
     return `
-      <div class="reel-card" onclick="openModelDirectFromReel('${model.id}')" title="Assistir reels de ${model.creatorName}">
+      <div class="reel-card" onclick="openReelsFeed('${model.id}')" title="Assistir Reels de ${model.creatorName}">
         <div class="reel-card-inner">
           ${videoUrl ? `
             <video class="reel-video" src="${videoUrl}" muted loop playsinline preload="metadata" onmouseenter="this.play()" onmouseleave="this.pause()"></video>
@@ -868,14 +872,186 @@ function renderReelsCarousel() {
           </div>
           <div class="reel-play-icon">▶</div>
           <div class="reel-overlay-bottom">
-            <img src="${model.avatar || coverUrl}" alt="${model.creatorName}" class="reel-creator-avatar" onerror="this.src='assets/logo.jpg'" />
-            <span class="reel-creator-name">${model.creatorName}</span>
-            <span class="reel-creator-vids">⚡ Ver Vídeos</span>
+            <div style="display:flex; align-items:center; gap:5px; margin-bottom:2px;">
+              <img src="${model.avatar || coverUrl}" alt="${model.creatorName}" class="reel-creator-avatar" onerror="this.src='assets/logo.jpg'" />
+              <div style="overflow:hidden;">
+                <span class="reel-creator-name">${model.creatorName}</span>
+                <span class="reel-creator-vids">⚡ ${numVideos} Vídeos</span>
+              </div>
+            </div>
+            <button class="reel-card-access-btn" onclick="event.stopPropagation(); openModelDirectFromReel('${model.id}')">
+              <span>🔓 Acessar</span>
+            </button>
           </div>
         </div>
       </div>
     `;
   }).join("");
+}
+
+function openReelsFeed(startModelId) {
+  const overlay = document.getElementById("reelsFeedOverlay");
+  const container = document.getElementById("reelsFeedContainer");
+  if (!overlay || !container || typeof CREATORS_CATALOG === "undefined") return;
+
+  const modelsWithVideos = CREATORS_CATALOG.filter(m => 
+    Array.isArray(m.previews) && 
+    m.previews.some(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")))
+  );
+
+  if (modelsWithVideos.length === 0) {
+    showToast("Nenhum vídeo disponível no momento.");
+    return;
+  }
+
+  container.innerHTML = modelsWithVideos.map((model, idx) => {
+    const vid = model.previews.find(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")));
+    const vidUrl = vid ? (typeof vid === "object" ? vid.url : vid) : "";
+    const coverUrl = model.cover || model.avatar || "assets/logo.jpg";
+    const numVideos = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
+    const likes = (14.2 + (idx * 2.8)).toFixed(1);
+
+    return `
+      <div class="reel-slide" data-model-id="${model.id}" id="reelSlide_${model.id}">
+        <video class="reel-slide-video" src="${vidUrl}" playsinline loop preload="auto" poster="${coverUrl}" muted onclick="toggleReelSlidePlayback(this)"></video>
+        
+        <div class="reel-sidebar-actions">
+          <div class="reel-action-btn reel-sidebar-avatar-box" onclick="accessCurrentReelModel()">
+            <img src="${model.avatar || coverUrl}" class="reel-sidebar-avatar" onerror="this.src='assets/logo.jpg'" />
+            <span class="reel-sidebar-badge">✓</span>
+          </div>
+          <div class="reel-action-btn" onclick="toggleReelHeart(this)">
+            <span class="reel-heart-icon">❤️</span>
+            <span class="reel-action-count">${likes}k</span>
+          </div>
+          <div class="reel-action-btn" onclick="accessCurrentReelModel()">
+            <span class="reel-action-icon">🎬</span>
+            <span class="reel-action-count">${numVideos} Vids</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  if (reelsFeedObserver) reelsFeedObserver.disconnect();
+
+  reelsFeedObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const vid = entry.target.querySelector("video");
+      const modelId = entry.target.getAttribute("data-model-id");
+
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+        currentActiveReelModelId = modelId;
+        updateReelsStickyBottom(modelId);
+
+        if (vid) {
+          vid.muted = reelsAudioMuted;
+          vid.play().catch(() => {});
+        }
+      } else {
+        if (vid) {
+          vid.pause();
+        }
+      }
+    });
+  }, {
+    root: container,
+    threshold: [0.55]
+  });
+
+  document.querySelectorAll(".reel-slide").forEach(slide => {
+    reelsFeedObserver.observe(slide);
+  });
+
+  const targetId = startModelId || modelsWithVideos[0].id;
+  currentActiveReelModelId = targetId;
+  updateReelsStickyBottom(targetId);
+
+  setTimeout(() => {
+    const targetSlide = document.getElementById(`reelSlide_${targetId}`);
+    if (targetSlide) {
+      targetSlide.scrollIntoView({ behavior: "instant" });
+      const vid = targetSlide.querySelector("video");
+      if (vid) {
+        vid.muted = reelsAudioMuted;
+        vid.play().catch(() => {});
+      }
+    }
+  }, 100);
+}
+
+function closeReelsFeed() {
+  const overlay = document.getElementById("reelsFeedOverlay");
+  if (overlay) overlay.style.display = "none";
+  document.body.style.overflow = "";
+
+  document.querySelectorAll(".reel-slide-video").forEach(v => {
+    v.pause();
+  });
+
+  if (reelsFeedObserver) {
+    reelsFeedObserver.disconnect();
+    reelsFeedObserver = null;
+  }
+}
+
+function updateReelsStickyBottom(modelId) {
+  if (typeof CREATORS_CATALOG === "undefined") return;
+  const model = CREATORS_CATALOG.find(m => m.id === modelId);
+  if (!model) return;
+
+  const avatar = document.getElementById("reelsStickyAvatar");
+  const name = document.getElementById("reelsStickyName");
+  const tag = document.getElementById("reelsStickyTag");
+
+  if (avatar) avatar.src = model.avatar || model.cover || "assets/logo.jpg";
+  if (name) name.textContent = model.creatorName;
+  if (tag) {
+    const numVids = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
+    tag.textContent = `🎬 ${numVids} Vídeos em Alta Resolução + Fotos 4K`;
+  }
+}
+
+function accessCurrentReelModel() {
+  const modelId = currentActiveReelModelId;
+  closeReelsFeed();
+  if (modelId) {
+    openModelDirectFromReel(modelId);
+  }
+}
+
+function toggleReelsAudio() {
+  reelsAudioMuted = !reelsAudioMuted;
+  const icon = document.getElementById("reelsSoundIcon");
+  if (icon) icon.textContent = reelsAudioMuted ? "🔇" : "🔊";
+
+  document.querySelectorAll(".reel-slide-video").forEach(v => {
+    v.muted = reelsAudioMuted;
+  });
+
+  showToast(reelsAudioMuted ? "🔇 Áudio desativado" : "🔊 Áudio ativado!");
+}
+
+function toggleReelSlidePlayback(videoEl) {
+  if (!videoEl) return;
+  if (videoEl.paused) {
+    videoEl.play();
+  } else {
+    videoEl.pause();
+  }
+}
+
+function toggleReelHeart(btnEl) {
+  const heart = btnEl.querySelector(".reel-heart-icon");
+  if (heart) {
+    heart.style.transform = "scale(1.4)";
+    setTimeout(() => {
+      heart.style.transform = "scale(1)";
+    }, 200);
+  }
 }
 
 function openModelDirectFromReel(modelId) {
