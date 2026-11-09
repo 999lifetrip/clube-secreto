@@ -1323,8 +1323,11 @@
     "price": "9.90",
     "durationDays": 3650,
     "isLifetime": true,
-    "status": "AVAILABLE",
-    "createdAt": "2026-11-09T01:53:27.646Z"
+    "status": "USED",
+    "createdAt": "2026-11-09T01:53:27.646Z",
+    "usedByDeviceId": "cs_dev_o9vfj882_mw8q8hab",
+    "usedAt": 1794196441402,
+    "expiresAt": null
   },
   {
     "code": "VIP-RACHEL-075D81",
@@ -2139,5 +2142,60 @@
     "isLifetime": true,
     "status": "AVAILABLE",
     "createdAt": "2026-11-09T03:26:05.265Z"
+  },
+  {
+    "code": "VIP-MARIA-A57A20",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-mariadmar",
+    "modelName": "Maria D'Mar",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:47:06.713Z"
+  },
+  {
+    "code": "VIP-MARIA-63EEF0",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-mariadmar",
+    "modelName": "Maria D'Mar",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:47:06.714Z"
+  },
+  {
+    "code": "VIP-MARIA-A68D7F",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-mariadmar",
+    "modelName": "Maria D'Mar",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:47:06.714Z"
+  },
+  {
+    "code": "VIP-MARIA-8FEA69",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-mariadmar",
+    "modelName": "Maria D'Mar",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:47:06.714Z"
+  },
+  {
+    "code": "VIP-MARIA-410AD8",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-mariadmar",
+    "modelName": "Maria D'Mar",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:47:06.714Z"
   }
 ]

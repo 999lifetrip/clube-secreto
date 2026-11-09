@@ -645,7 +645,7 @@ function renderPreviewContent(item) {
         <button class="btn-quick-weekly" onclick="buyWeeklyFromPreview()">
           <span class="quick-btn-icon">👑</span>
           <div class="quick-btn-info">
-            <span class="quick-btn-title">Liberar Todas as 8 Modelos</span>
+            <span class="quick-btn-title">Liberar Todas as ${CREATORS_CATALOG.length} Modelos</span>
             <span class="quick-btn-sub">Plano Semanal VIP R$ 24,99 (Acesso a Tudo)</span>
           </div>
         </button>
@@ -669,18 +669,69 @@ function renderPreviewContent(item) {
     `;
   });
 
-  // 4. CARD ÚNICO DE CONTEÚDO BLOQUEADO
+  // 4. MÍDIAS BLOQUEADAS BORRADAS (Fotos e Vídeos restantes visíveis com efeito blur e cadeado)
   if (!unlocked) {
-    const remainingPhotos = Math.max(1, item.photoCount - displayPics.length);
-    const remainingVideos = Math.max(1, (item.videoCount || 24) - displayVids.length);
-    html += `
-      <div class="preview-item preview-locked-item" style="grid-column: 1 / -1; min-height: 140px; padding: 20px;" onclick="openCodeModal()" title="Desbloquear tudo">
-        <span class="locked-icon" style="font-size: 32px;">🔒</span>
-        <span class="locked-count" style="font-size: 14px; margin: 6px 0;">+${remainingPhotos} FOTOS 4K & +${remainingVideos} VÍDEOS 60FPS</span>
-        <span class="locked-sub" style="font-size: 11px;">Exclusivos no Acesso Completo</span>
-        <button class="btn-locked-unlock" style="margin-top: 10px;">🔑 Digitar Código / Liberar</button>
-      </div>
-    `;
+    const lockedPics = allPics.slice(displayPics.length);
+    const lockedVids = allVids.slice(displayVids.length);
+
+    if (lockedPics.length > 0 || lockedVids.length > 0) {
+      html += `
+        <div class="locked-section-divider">
+          <div class="divider-line"></div>
+          <div class="divider-badge">
+            <span>🔒 Conteúdo Exclusivo VIP (+${lockedPics.length} Fotos & +${lockedVids.length} Vídeos)</span>
+          </div>
+          <div class="divider-line"></div>
+        </div>
+      `;
+
+      // Vídeos bloqueados borrados
+      lockedVids.forEach((v, vIdx) => {
+        html += `
+          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Vídeo VIP Bloqueado — Toque para digitar código">
+            <img src="${item.cover}" class="preview-img media-blurred" alt="Vídeo VIP Bloqueado" loading="lazy" />
+            <div class="locked-blur-overlay">
+              <div class="locked-blur-pill">
+                <span class="lock-icon">🔒</span>
+                <span class="lock-text">VÍDEO ${vIdx + 2} VIP</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      // Fotos bloqueadas borradas
+      lockedPics.forEach((p, pIdx) => {
+        const url = typeof p === 'object' ? p.url : p;
+        html += `
+          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Foto 4K VIP Bloqueada — Toque para digitar código">
+            <img src="${url}" class="preview-img media-blurred" alt="Foto VIP Bloqueada" loading="lazy" />
+            <div class="locked-blur-overlay">
+              <div class="locked-blur-pill">
+                <span class="lock-icon">🔒</span>
+                <span class="lock-text">FOTO ${pIdx + displayPics.length + 1} VIP</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      // Banner flutuante convidativo no final do grid
+      html += `
+        <div class="vip-floating-unlock-bar" onclick="openCodeModal()" title="Clique para liberar com código">
+          <div class="unlock-bar-content">
+            <span class="unlock-icon">🔐</span>
+            <div class="unlock-details">
+              <span class="unlock-main">+${lockedPics.length} Fotos 4K & +${lockedVids.length} Vídeos 60fps Bloqueados</span>
+              <span class="unlock-sub">Libere todo o acervo desta modelo por apenas R$ ${item.individualPrice || '9,90'} no PIX ou Plano Semanal VIP</span>
+            </div>
+            <button class="btn-unlock-action" onclick="event.stopPropagation(); openCodeModal();">
+              🔑 Digitar Código / Liberar
+            </button>
+          </div>
+        </div>
+      `;
+    }
   }
 
   previewGrid.innerHTML = html;

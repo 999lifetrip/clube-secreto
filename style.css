@@ -1524,6 +1524,156 @@ h1, h2, h3, h4, .brand-font {
   border-color: #ff4d6d;
 }
 
+/* Efeito Borrado e Overlay para Mídias VIP Bloqueadas */
+.media-blurred {
+  filter: blur(14px) brightness(0.65) saturate(1.2);
+  transform: scale(1.08);
+  transition: filter 0.3s ease, transform 0.3s ease;
+  user-select: none;
+  pointer-events: none;
+}
+
+.preview-item-locked {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(225, 29, 72, 0.3);
+  border-radius: 8px;
+  background: #0d0f15;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.preview-item-locked:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(225, 29, 72, 0.8);
+  box-shadow: 0 8px 25px rgba(225, 29, 72, 0.35);
+}
+
+.locked-blur-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.35) 0%, rgba(10, 10, 15, 0.75) 100%);
+  z-index: 2;
+}
+
+.locked-blur-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(18, 18, 26, 0.88);
+  border: 1px solid rgba(225, 29, 72, 0.5);
+  backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.locked-blur-pill .lock-icon {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.locked-blur-pill .lock-text {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.locked-section-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 12px;
+}
+
+.locked-section-divider .divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(225, 29, 72, 0.5), transparent);
+}
+
+.locked-section-divider .divider-badge {
+  background: rgba(225, 29, 72, 0.14);
+  border: 1px solid rgba(225, 29, 72, 0.45);
+  color: #fb7185;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 6px 18px;
+  border-radius: 20px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.vip-floating-unlock-bar {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(32, 14, 22, 0.95), rgba(15, 15, 24, 0.95));
+  border: 1px solid rgba(225, 29, 72, 0.5);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 16px;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(225, 29, 72, 0.25);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.vip-floating-unlock-bar:hover {
+  transform: translateY(-2px);
+  border-color: rgba(225, 29, 72, 0.9);
+}
+
+.unlock-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.unlock-icon {
+  font-size: 28px;
+}
+
+.unlock-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.unlock-main {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.unlock-sub {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.btn-unlock-action {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  color: #fff;
+  border: none;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(225, 29, 72, 0.45);
+  transition: filter 0.2s ease;
+}
+
+.btn-unlock-action:hover {
+  filter: brightness(1.2);
+}
+
 .locked-icon {
   font-size: 32px;
   margin-bottom: 6px;
