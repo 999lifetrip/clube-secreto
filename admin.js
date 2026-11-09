@@ -515,7 +515,17 @@ function populateModelMediaSelect() {
 
 let currentMediaFilter = 'all';
 let currentMediaPage = 1;
+let lastSelectedModelId = null;
 const MEDIA_PER_PAGE = 18;
+
+function loadMoreMedia() {
+  currentMediaPage++;
+  onSelectModelChange();
+}
+
+function renderMediaManager() {
+  onSelectModelChange();
+}
 
 function setMediaFilter(filter) {
   currentMediaFilter = filter;
@@ -560,6 +570,10 @@ function onSelectModelChange() {
   if (!select) return;
 
   const modelId = select.value;
+  if (lastSelectedModelId !== modelId) {
+    currentMediaPage = 1;
+    lastSelectedModelId = modelId;
+  }
   const model = catalogCache.find(m => m.id === modelId);
 
   const statsEl = document.getElementById('modelMediaStats');
@@ -680,7 +694,7 @@ function onSelectModelChange() {
     if (filteredPreviews.length > visibleCount) {
       gridHtml += `
         <div style="grid-column: 1 / -1; text-align: center; padding: 25px 0 10px 0;">
-          <button class="btn-primary" style="padding: 12px 30px; font-size: 14px; font-weight: 800; box-shadow: 0 4px 20px rgba(225,29,72,0.4);" onclick="currentMediaPage++; renderMediaManager();">
+          <button class="btn-primary" style="padding: 12px 30px; font-size: 14px; font-weight: 800; box-shadow: 0 4px 20px rgba(225,29,72,0.4);" onclick="loadMoreMedia()">
             ⬇️ Carregar Mais Mídias (${filteredPreviews.length - visibleCount} restantes)
           </button>
         </div>
