@@ -13,7 +13,7 @@ const CREATORS_CATALOG = [
     "views": "420K",
     "likes": "68.3K",
     "photoCount": 40,
-    "videoCount": 24,
+    "videoCount": 22,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com fotos em alta resolução e vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
     "cover": "/media/alinabelle/photo_33.jpg",
@@ -29,11 +29,6 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_4.mp4",
         "isTeaser": false
       },
       {
@@ -1043,7 +1038,7 @@ const CREATORS_CATALOG = [
     "views": "330K",
     "likes": "48.9K",
     "photoCount": 40,
-    "videoCount": 24,
+    "videoCount": 18,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
     "cover": "/media/adiana/photo_12.jpg",
@@ -1051,36 +1046,6 @@ const CREATORS_CATALOG = [
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
-      {
-        "type": "video",
-        "url": "/media/adiana/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_6.mp4",
-        "isTeaser": false
-      },
       {
         "type": "video",
         "url": "/media/adiana/video_7.mp4",
@@ -1139,7 +1104,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/adiana/video_18.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1372,7 +1337,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "reelsVideo": "/media/adiana/video_1.mp4"
+    "reelsVideo": "/media/adiana/video_18.mp4"
   },
   {
     "id": "ensaio-vip-brandi",
@@ -1396,6 +1361,11 @@ const CREATORS_CATALOG = [
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_1.jpg",
+        "isTeaser": false
+      },
       {
         "type": "video",
         "url": "/media/brandi/video_1.mp4",
@@ -2037,6 +2007,41 @@ const CREATORS_CATALOG = [
     "comboPrice": "24,99",
     "previews": [
       {
+        "type": "image",
+        "url": "/media/minaveneta/photo_1.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_2.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_3.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
         "type": "video",
         "url": "/media/minaveneta/video_1.mp4",
         "isTeaser": true
@@ -2193,9 +2198,392 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/minaveneta/video_1.mp4"
+  },
+  {
+    "id": "ensaio-vip-lovebyelenita",
+    "creatorName": "Lovebyelenita",
+    "username": "@lovebyelenita",
+    "verified": true,
+    "title": "Coleção Completa Lovebyelenita — Ensaio Privé & Bastidores VIP",
+    "category": "sensual",
+    "categoryLabel": "Sensual & Lifestyle",
+    "badge": "NOVO 🔥",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "290K",
+    "likes": "48.2K",
+    "photoCount": 6,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Acervo exclusivo oficial de Lovebyelenita com fotos em altíssima definição e vídeos dinâmicos em 60fps com exclusividade e glamour.",
+    "cover": "/media/lovebyelenita/photo_3.jpg",
+    "avatar": "/media/lovebyelenita/photo_1.jpg",
+    "reelsVideo": "/media/lovebyelenita/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_6.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-lrachel",
+    "creatorName": "Rachel L",
+    "username": "@l.rachel.l",
+    "verified": true,
+    "title": "Coleção Completa Rachel L — Glamour Internacional & Privé",
+    "category": "estudio",
+    "categoryLabel": "Estúdio & Glamour",
+    "badge": "DESTAQUE 💎",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "520K",
+    "likes": "81.5K",
+    "photoCount": 40,
+    "videoCount": 13,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Ensaio premium completo de Rachel L com acervo exuberante de fotos 4K e vídeos em 60fps dos bastidores mais cobiçados.",
+    "cover": "/media/lrachel/photo_1.jpg",
+    "avatar": "/media/lrachel/photo_2.jpg",
+    "reelsVideo": "/media/lrachel/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lrachel/photo_40.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_13.mp4",
+        "isTeaser": false
+      }
+    ]
   }
 ];
 
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = CREATORS_CATALOG;
-}
+if (typeof module !== 'undefined') module.exports = CREATORS_CATALOG;
