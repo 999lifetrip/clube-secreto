@@ -2308,7 +2308,7 @@ const CREATORS_CATALOG = [
     "views": "520K",
     "likes": "81.5K",
     "photoCount": 40,
-    "videoCount": 13,
+    "videoCount": 15,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio premium completo de Rachel L com acervo exuberante de fotos 4K e vídeos em 60fps dos bastidores mais cobiçados.",
     "cover": "/media/lrachel/photo_1.jpg",
@@ -2580,6 +2580,16 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/lrachel/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_15.mp4",
         "isTeaser": false
       }
     ]
