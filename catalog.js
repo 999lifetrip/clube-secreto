@@ -3748,6 +3748,696 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ]
+  },
+  {
+    "id": "ensaio-vip-missmichelleyg",
+    "creatorName": "Miss Michelle YG",
+    "username": "@missmichelleyg",
+    "verified": true,
+    "title": "Coleção Completa Miss Michelle YG — Ensaio Glamour & VIP Privé",
+    "category": "estudio",
+    "categoryLabel": "Estúdio & Glamour",
+    "badge": "NOVO 🔥",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "385K",
+    "likes": "59.4K",
+    "photoCount": 22,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Acervo oficial de Miss Michelle YG com ensaios estéticos em altíssima definição 4K e vídeos sensuais exclusivos em 60fps.",
+    "cover": "/media/missmichelleyg/photo_1.jpg",
+    "avatar": "/media/missmichelleyg/photo_2.jpg",
+    "reelsVideo": "/media/missmichelleyg/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/missmichelleyg/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/missmichelleyg/photo_22.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-kerolaychaves",
+    "creatorName": "Kerolay Chaves",
+    "username": "@kerolay_chaves",
+    "verified": true,
+    "title": "Coleção Completa Kerolay Chaves — Acervo Privado & Bastidores VIP",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "DESTAQUE 💎",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "1.2M",
+    "likes": "184.2K",
+    "photoCount": 40,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "O acervo mais desejado do Brasil: ensaios exclusivos de Kerolay Chaves sem censura, fotografia 4K e vídeos VIP originais.",
+    "cover": "/media/kerolaychaves/photo_1.jpg",
+    "avatar": "/media/kerolaychaves/photo_2.jpg",
+    "reelsVideo": "/media/kerolaychaves/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_40.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-iamnailah",
+    "creatorName": "IamNailah",
+    "username": "@iamnailah",
+    "verified": true,
+    "title": "Coleção Completa IamNailah — Ensaio Editorial & Sunset Privé",
+    "category": "moda",
+    "categoryLabel": "Moda & Editorial",
+    "badge": "POPULAR ⭐",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "290K",
+    "likes": "44.7K",
+    "photoCount": 5,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Ensaio editorial intimista e sensual de IamNailah com produções requintadas em 4K e vídeos cinematográficos dos bastidores.",
+    "cover": "/media/iamnailah/photo_1.jpg",
+    "avatar": "/media/iamnailah/photo_2.jpg",
+    "reelsVideo": "/media/iamnailah/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/iamnailah/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/iamnailah/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/iamnailah/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/iamnailah/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/iamnailah/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/iamnailah/photo_5.jpg",
+        "isTeaser": false
+      }
+    ]
   }
 ];
 
