@@ -1117,8 +1117,19 @@ function openReelsFeed(startModelId) {
 
     return `
       <div class="reel-slide" data-model-id="${model.id}" id="reelSlide_${model.id}">
-        <video class="reel-slide-video" src="${vidUrl}" playsinline loop preload="auto" poster="${coverUrl}" muted onclick="toggleReelSlidePlayback(this)"></video>
-        
+        <!-- Imagem de Capa HD NUNCA SOME: sempre presente no fundo e no centro -->
+        <div class="reel-slide-backdrop" style="background-image: url('${coverUrl}');"></div>
+        <img class="reel-slide-poster" src="${coverUrl}" alt="${model.creatorName}" loading="eager" />
+
+        <!-- Vídeo otimizado com lazy-loading e suporte universal a mobile -->
+        <video class="reel-slide-video" data-src="${vidUrl}" playsinline webkit-playsinline="true" x5-playsinline="true" loop muted preload="metadata" onclick="toggleReelSlidePlayback(this)"></video>
+
+        <!-- Botão Play Central (aparece se pausado ou se precisar de interação de toque) -->
+        <div class="reel-play-center-btn" onclick="toggleReelSlidePlayback(this.parentElement.querySelector('video'))">
+          <span class="reel-play-triangle">▶</span>
+          <span class="reel-play-text">Toque para Assistir</span>
+        </div>
+
         <div class="reel-sidebar-actions">
           <div class="reel-action-btn reel-sidebar-avatar-box" onclick="accessCurrentReelModel()">
             <img src="${model.avatar || coverUrl}" class="reel-sidebar-avatar" onerror="this.src='assets/logo.jpg'" />
@@ -1140,30 +1151,56 @@ function openReelsFeed(startModelId) {
   overlay.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  if (reelsFeedObserver) reelsFeedObserver.disconnect();
+  // Gestos de Touch no Celular (arrastar para cima / arrastar para baixo)
+  let touchStartY = 0;
+  let touchStartX = 0;
+  container.ontouchstart = (e) => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  };
 
+  container.ontouchend = (e) => {
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+    const deltaY = e.changedTouches[0].clientY - touchStartY;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(deltaY) > 40 && Math.abs(deltaY) > Math.abs(deltaX)) {
+      if (deltaY < 0) {
+        goToNextReel();
+      } else {
+        goToPrevReel();
+      }
+    }
+  };
+
+  // Teclado (setas para cima e para baixo no computador)
+  window.onkeydown = (e) => {
+    if (overlay.style.display !== "flex") return;
+    if (e.key === "ArrowDown" || e.key === "PageDown") {
+      e.preventDefault();
+      goToNextReel();
+    } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+      e.preventDefault();
+      goToPrevReel();
+    } else if (e.key === "Escape") {
+      closeReelsFeed();
+    }
+  };
+
+  // IntersectionObserver para detectar qual slide está ativo ao rolar
+  if (reelsFeedObserver) reelsFeedObserver.disconnect();
   reelsFeedObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      const vid = entry.target.querySelector("video");
-      const modelId = entry.target.getAttribute("data-model-id");
-
-      if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
-        currentActiveReelModelId = modelId;
-        updateReelsStickyBottom(modelId);
-
-        if (vid) {
-          vid.muted = reelsAudioMuted;
-          vid.play().catch(() => {});
-        }
-      } else {
-        if (vid) {
-          vid.pause();
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
+        const slide = entry.target;
+        const modelId = slide.getAttribute("data-model-id");
+        if (modelId !== currentActiveReelModelId) {
+          playReelSlide(slide, modelId);
         }
       }
     });
   }, {
     root: container,
-    threshold: [0.55]
+    threshold: [0.45]
   });
 
   document.querySelectorAll(".reel-slide").forEach(slide => {
@@ -1172,19 +1209,117 @@ function openReelsFeed(startModelId) {
 
   const targetId = startModelId || modelsWithVideos[0].id;
   currentActiveReelModelId = targetId;
+  window.currentActiveReelModelId = targetId;
   updateReelsStickyBottom(targetId);
 
-  setTimeout(() => {
-    const targetSlide = document.getElementById(`reelSlide_${targetId}`);
-    if (targetSlide) {
-      targetSlide.scrollIntoView({ behavior: "instant" });
-      const vid = targetSlide.querySelector("video");
+  // Ativa o slide inicial
+  const targetSlide = document.getElementById(`reelSlide_${targetId}`) || document.querySelector(".reel-slide");
+  if (targetSlide) {
+    targetSlide.scrollIntoView({ behavior: "instant" });
+    playReelSlide(targetSlide, targetId);
+  }
+}
+
+function playReelSlide(slide, modelId) {
+  if (!slide) return;
+  currentActiveReelModelId = modelId;
+  window.currentActiveReelModelId = modelId;
+  updateReelsStickyBottom(modelId);
+
+  const slides = [...document.querySelectorAll(".reel-slide")];
+  const activeIdx = slides.indexOf(slide);
+
+  // Pausa e descarrega vídeos de outros slides
+  slides.forEach((s, idx) => {
+    const vid = s.querySelector("video");
+    const playBtn = s.querySelector(".reel-play-center-btn");
+    if (s !== slide) {
       if (vid) {
-        vid.muted = reelsAudioMuted;
-        vid.play().catch(() => {});
+        vid.pause();
+        if (Math.abs(idx - activeIdx) > 1 && vid.src) {
+          vid.removeAttribute("src");
+          vid.load();
+        }
       }
+      s.classList.remove("video-playing");
+      if (playBtn) playBtn.style.display = "none";
     }
-  }, 100);
+  });
+
+  const vid = slide.querySelector("video");
+  const playBtn = slide.querySelector(".reel-play-center-btn");
+
+  if (vid) {
+    if (!vid.src && vid.dataset.src) {
+      vid.src = vid.dataset.src;
+    }
+
+    vid.muted = reelsAudioMuted;
+    vid.defaultMuted = reelsAudioMuted;
+
+    vid.onplaying = () => {
+      slide.classList.add("video-playing");
+      if (playBtn) playBtn.style.display = "none";
+    };
+
+    vid.onpause = () => {
+      if (currentActiveReelModelId === modelId) {
+        if (playBtn) playBtn.style.display = "flex";
+      }
+    };
+
+    vid.onerror = () => {
+      slide.classList.remove("video-playing");
+      if (playBtn) playBtn.style.display = "none";
+    };
+
+    const playPromise = vid.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          slide.classList.add("video-playing");
+          if (playBtn) playBtn.style.display = "none";
+        })
+        .catch(() => {
+          // Autoplay bloqueado pelo celular: a capa bonita continua 100% visível e mostra botão play
+          slide.classList.remove("video-playing");
+          if (playBtn) playBtn.style.display = "flex";
+        });
+    }
+  }
+
+  // Pre-carrega o próximo vídeo
+  if (activeIdx + 1 < slides.length) {
+    const nextVid = slides[activeIdx + 1].querySelector("video");
+    if (nextVid && !nextVid.src && nextVid.dataset.src) {
+      nextVid.src = nextVid.dataset.src;
+      nextVid.preload = "auto";
+    }
+  }
+}
+
+function goToNextReel() {
+  const slides = [...document.querySelectorAll(".reel-slide")];
+  if (slides.length === 0) return;
+  const currentIdx = slides.findIndex(s => s.getAttribute("data-model-id") === currentActiveReelModelId);
+  const nextIdx = (currentIdx + 1) % slides.length;
+  scrollToReelIndex(nextIdx);
+}
+
+function goToPrevReel() {
+  const slides = [...document.querySelectorAll(".reel-slide")];
+  if (slides.length === 0) return;
+  const currentIdx = slides.findIndex(s => s.getAttribute("data-model-id") === currentActiveReelModelId);
+  const prevIdx = (currentIdx - 1 + slides.length) % slides.length;
+  scrollToReelIndex(prevIdx);
+}
+
+function scrollToReelIndex(idx) {
+  const slides = [...document.querySelectorAll(".reel-slide")];
+  if (!slides[idx]) return;
+  slides[idx].scrollIntoView({ behavior: "smooth" });
+  const modelId = slides[idx].getAttribute("data-model-id");
+  playReelSlide(slides[idx], modelId);
 }
 
 function closeReelsFeed() {
@@ -1234,6 +1369,7 @@ function toggleReelsAudio() {
 
   document.querySelectorAll(".reel-slide-video").forEach(v => {
     v.muted = reelsAudioMuted;
+    v.defaultMuted = reelsAudioMuted;
   });
 
   showToast(reelsAudioMuted ? "🔇 Áudio desativado" : "🔊 Áudio ativado!");
@@ -1241,10 +1377,20 @@ function toggleReelsAudio() {
 
 function toggleReelSlidePlayback(videoEl) {
   if (!videoEl) return;
+  const slide = videoEl.closest(".reel-slide");
+  const playBtn = slide ? slide.querySelector(".reel-play-center-btn") : null;
+
   if (videoEl.paused) {
-    videoEl.play();
+    if (!videoEl.src && videoEl.dataset.src) {
+      videoEl.src = videoEl.dataset.src;
+    }
+    videoEl.play().then(() => {
+      if (slide) slide.classList.add("video-playing");
+      if (playBtn) playBtn.style.display = "none";
+    }).catch(() => {});
   } else {
     videoEl.pause();
+    if (playBtn) playBtn.style.display = "flex";
   }
 }
 
