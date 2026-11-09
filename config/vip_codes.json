@@ -1699,5 +1699,115 @@
     "isLifetime": true,
     "status": "AVAILABLE",
     "createdAt": "2026-11-09T02:11:06.846Z"
+  },
+  {
+    "code": "VIP-ELENITA-E3ACCE",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lovebyelenita",
+    "modelName": "Lovebyelenita",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.942Z"
+  },
+  {
+    "code": "VIP-ELENITA-7B0DB4",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lovebyelenita",
+    "modelName": "Lovebyelenita",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-ELENITA-613FCD",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lovebyelenita",
+    "modelName": "Lovebyelenita",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-ELENITA-7BAD3E",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lovebyelenita",
+    "modelName": "Lovebyelenita",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-ELENITA-988BF3",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lovebyelenita",
+    "modelName": "Lovebyelenita",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-RACHEL-A7F5DF",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lrachel",
+    "modelName": "Rachel L",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-RACHEL-30A376",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lrachel",
+    "modelName": "Rachel L",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-RACHEL-36E3BA",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lrachel",
+    "modelName": "Rachel L",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-RACHEL-14E613",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lrachel",
+    "modelName": "Rachel L",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-RACHEL-ACAA16",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-lrachel",
+    "modelName": "Rachel L",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T02:36:18.943Z"
   }
 ]

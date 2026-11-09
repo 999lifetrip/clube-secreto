@@ -13,7 +13,7 @@ const CREATORS_CATALOG = [
     "views": "420K",
     "likes": "68.3K",
     "photoCount": 40,
-    "videoCount": 22,
+    "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com fotos em alta resolução e vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
     "cover": "/media/alinabelle/photo_33.jpg",
@@ -329,6 +329,16 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/alinabelle/photo_40.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_4.mp4",
         "isTeaser": false
       }
     ],
@@ -1352,7 +1362,7 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "440K",
     "likes": "71.2K",
-    "photoCount": 25,
+    "photoCount": 40,
     "videoCount": 11,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo premium oficial com fotos de estúdio e glamour em altíssima definição e vídeos exclusivos em formato 60fps.",
@@ -1540,6 +1550,81 @@ const CREATORS_CATALOG = [
         "type": "image",
         "url": "/media/brandi/photo_25.jpg",
         "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_40.jpg",
+        "isTeaser": false
       }
     ],
     "reelsVideo": "/media/brandi/video_1.mp4"
@@ -1557,8 +1642,8 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "580K",
     "likes": "92.5K",
-    "photoCount": 30,
-    "videoCount": 16,
+    "photoCount": 40,
+    "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Coleção imperdível com ensaios temáticos, cosplay sensual de alta produção e vídeos privativos.",
     "cover": "/media/amayawaifu/photo_1.jpg",
@@ -1795,6 +1880,96 @@ const CREATORS_CATALOG = [
         "type": "image",
         "url": "/media/amayawaifu/photo_30.jpg",
         "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_40.jpg",
+        "isTeaser": false
       }
     ],
     "reelsVideo": "/media/amayawaifu/video_1.mp4"
@@ -1813,7 +1988,7 @@ const CREATORS_CATALOG = [
     "views": "370K",
     "likes": "59.4K",
     "photoCount": 16,
-    "videoCount": 16,
+    "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio moderno e urbano com visual ousado e acervo de vídeos exclusivos dos bastidores em alta definição.",
     "cover": "/media/fablazed/photo_2.jpg",
@@ -1979,6 +2154,46 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/fablazed/video_24.mp4",
         "isTeaser": false
       }
     ],
@@ -2308,7 +2523,7 @@ const CREATORS_CATALOG = [
     "views": "520K",
     "likes": "81.5K",
     "photoCount": 40,
-    "videoCount": 15,
+    "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio premium completo de Rachel L com acervo exuberante de fotos 4K e vídeos em 60fps dos bastidores mais cobiçados.",
     "cover": "/media/lrachel/photo_1.jpg",
@@ -2590,6 +2805,51 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/lrachel/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lrachel/video_24.mp4",
         "isTeaser": false
       }
     ]
