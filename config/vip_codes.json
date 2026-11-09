@@ -1809,5 +1809,170 @@
     "isLifetime": true,
     "status": "AVAILABLE",
     "createdAt": "2026-11-09T02:36:18.943Z"
+  },
+  {
+    "code": "VIP-KILAH-AEBC45",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-kilahslay",
+    "modelName": "Kilah Slay",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.644Z"
+  },
+  {
+    "code": "VIP-KILAH-BF1C46",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-kilahslay",
+    "modelName": "Kilah Slay",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.645Z"
+  },
+  {
+    "code": "VIP-KILAH-8057B2",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-kilahslay",
+    "modelName": "Kilah Slay",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.645Z"
+  },
+  {
+    "code": "VIP-KILAH-575277",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-kilahslay",
+    "modelName": "Kilah Slay",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.645Z"
+  },
+  {
+    "code": "VIP-KILAH-9085ED",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-kilahslay",
+    "modelName": "Kilah Slay",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.645Z"
+  },
+  {
+    "code": "VIP-MORGAN-F86259",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-morganalexandra",
+    "modelName": "Morgan Alexandra",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-MORGAN-0E1662",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-morganalexandra",
+    "modelName": "Morgan Alexandra",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-MORGAN-C16325",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-morganalexandra",
+    "modelName": "Morgan Alexandra",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-MORGAN-349B80",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-morganalexandra",
+    "modelName": "Morgan Alexandra",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-MORGAN-0E60E2",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-morganalexandra",
+    "modelName": "Morgan Alexandra",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-SKYLAR-E84425",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-skylarskywalker",
+    "modelName": "Skylar Skywalker",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-SKYLAR-346B39",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-skylarskywalker",
+    "modelName": "Skylar Skywalker",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-SKYLAR-93A8F9",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-skylarskywalker",
+    "modelName": "Skylar Skywalker",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-SKYLAR-DF274B",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-skylarskywalker",
+    "modelName": "Skylar Skywalker",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
+  },
+  {
+    "code": "VIP-SKYLAR-2D91F3",
+    "type": "SINGLE_MODEL",
+    "modelId": "ensaio-vip-skylarskywalker",
+    "modelName": "Skylar Skywalker",
+    "price": "9.90",
+    "durationDays": 3650,
+    "isLifetime": true,
+    "status": "AVAILABLE",
+    "createdAt": "2026-11-09T03:05:50.646Z"
   }
 ]
