@@ -32,6 +32,14 @@ const MIME_TYPES = {
   '.mov': 'video/quicktime'
 };
 
+// Rate limiting de proteção contra tentativas sucessivas de adivinhação de códigos
+const FAILED_ATTEMPTS = new Map();
+function getClientIp(req) {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) return forwarded.split(',')[0].trim();
+  return req.socket.remoteAddress || '127.0.0.1';
+}
+
 // Carrega códigos VIP
 function loadVipCodes() {
   try {
@@ -191,6 +199,20 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { success: false, error: 'Identificador do dispositivo ausente.' });
       }
 
+      // Bloqueio contra força bruta / adivinhação de códigos
+      const clientIp = getClientIp(req);
+      const attemptKey = `${clientIp}_${deviceId}`;
+      const now = Date.now();
+      const clientRecord = FAILED_ATTEMPTS.get(attemptKey);
+
+      if (clientRecord && clientRecord.count >= 6 && (now - clientRecord.lastAttempt) < 10 * 60 * 1000) {
+        const remainingMinutes = Math.ceil((10 * 60 * 1000 - (now - clientRecord.lastAttempt)) / 60000);
+        return sendJson(res, 429, {
+          success: false,
+          error: `⚠️ Muitas tentativas incorretas. Por segurança, aguarde ${remainingMinutes} minuto(s) antes de tentar novamente.`
+        });
+      }
+
       const norm = str => (str || '').replace(/[-\s_]/g, '').toUpperCase();
       const inputNorm = norm(code);
       const codes = loadVipCodes();
@@ -198,13 +220,19 @@ const server = http.createServer(async (req, res) => {
 
       // Código inexistente
       if (!codeRecord) {
+        const current = FAILED_ATTEMPTS.get(attemptKey) || { count: 0, lastAttempt: now };
+        current.count += 1;
+        current.lastAttempt = now;
+        FAILED_ATTEMPTS.set(attemptKey, current);
+
         return sendJson(res, 404, {
           success: false,
           error: 'Código inválido ou inexistente. Verifique se digitou corretamente.'
         });
       }
 
-      const now = Date.now();
+      // Limpa tentativas falhas se o código for válido
+      FAILED_ATTEMPTS.delete(attemptKey);
 
       // CÓDIGO MESTRE DE ADMINISTRADOR (Acesso permanente irrestrito)
       if (codeRecord.isMaster || codeRecord.type === 'ADMIN_MASTER') {
@@ -938,7 +966,7 @@ const server = http.createServer(async (req, res) => {
     let targetModelId = null;
 
     for (const m of catalog) {
-      if (cleanUrl === m.cover || cleanUrl === m.avatar || cleanUrl === m.reelsVideo) {
+      if (cleanUrl === m.cover || cleanUrl === m.avatar || cleanUrl === m.reelsVideo || cleanUrl.endsWith('_thumb.jpg')) {
         isPublicMedia = true;
         break;
       }

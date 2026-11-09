@@ -669,69 +669,75 @@ function renderPreviewContent(item) {
     `;
   });
 
-  // 4. MÍDIAS BLOQUEADAS BORRADAS (Fotos e Vídeos restantes visíveis com efeito blur e cadeado)
+  // 4. CARD SHOWCASE VIP BLOQUEADO COM VIDRO TRANSPARENTE E CONTEÚDOS REAIS EMBAÇADOS NO FUNDO
   if (!unlocked) {
-    const lockedPics = allPics.slice(displayPics.length);
-    const lockedVids = allVids.slice(displayVids.length);
+    const remainingPhotos = Math.max(1, item.photoCount - displayPics.length);
+    const remainingVideos = Math.max(1, (item.videoCount || 24) - displayVids.length);
 
-    if (lockedPics.length > 0 || lockedVids.length > 0) {
-      html += `
-        <div class="locked-section-divider">
-          <div class="divider-line"></div>
-          <div class="divider-badge">
-            <span>🔒 Conteúdo Exclusivo VIP (+${lockedPics.length} Fotos & +${lockedVids.length} Vídeos)</span>
-          </div>
-          <div class="divider-line"></div>
+    // Seleciona amostras REAIS e DIVERSIFICADAS de fotos e vídeos deste ensaio para o mosaico de fundo
+    const lockedPhotosList = allPics.slice(displayPics.length);
+    const lockedVideosList = allVids.slice(displayVids.length);
+
+    const mosaicSample = [];
+    // Pega até 6 fotos diferentes deste ensaio
+    for (let i = 0; i < Math.min(6, lockedPhotosList.length); i++) {
+      const p = lockedPhotosList[i];
+      const pUrl = typeof p === 'object' ? p.url : p;
+      const thumbUrl = pUrl.replace('.jpg', '_thumb.jpg');
+      mosaicSample.push({
+        url: thumbUrl,
+        fallback: pUrl,
+        type: 'photo',
+        label: `📸 Foto ${i + displayPics.length + 1}`
+      });
+    }
+
+    // Pega até 4 vídeos diferentes deste ensaio (usando thumbnails reais de vídeo)
+    for (let i = 0; i < Math.min(4, lockedVideosList.length); i++) {
+      const v = lockedVideosList[i];
+      const vUrl = typeof v === 'object' ? v.url : v;
+      const thumbUrl = vUrl.replace('.mp4', '_thumb.jpg');
+      mosaicSample.push({
+        url: thumbUrl,
+        fallback: item.cover,
+        type: 'video',
+        label: `🎬 Vídeo ${i + displayVids.length + 1}`
+      });
+    }
+
+    html += `
+      <div class="preview-item preview-locked-item preview-locked-showcase" style="grid-column: 1 / -1;" onclick="openCodeModal()" title="Toque para liberar o ensaio completo">
+        <!-- Mosaico de fundo com mídias REAIS embaçadas -->
+        <div class="locked-mosaic-grid">
+          ${mosaicSample.map(itemSample => `
+            <div class="mosaic-cell">
+              <img src="${itemSample.url}" class="mosaic-media" alt="${itemSample.label}" onerror="this.src='${itemSample.fallback}'" loading="lazy" />
+              <div class="mosaic-cell-badge">${itemSample.label}</div>
+            </div>
+          `).join('')}
         </div>
-      `;
 
-      // Vídeos bloqueados borrados
-      lockedVids.forEach((v, vIdx) => {
-        html += `
-          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Vídeo VIP Bloqueado — Toque para digitar código">
-            <img src="${item.cover}" class="preview-img media-blurred" alt="Vídeo VIP Bloqueado" loading="lazy" />
-            <div class="locked-blur-overlay">
-              <div class="locked-blur-pill">
-                <span class="lock-icon">🔒</span>
-                <span class="lock-text">VÍDEO ${vIdx + 2} VIP</span>
-              </div>
-            </div>
+        <!-- Camada de Vidro Fosco Transparente (Glassmorphism) -->
+        <div class="locked-glass-content">
+          <div class="locked-icon-wrapper">
+            <span class="locked-glow-icon">🔒</span>
           </div>
-        `;
-      });
-
-      // Fotos bloqueadas borradas
-      lockedPics.forEach((p, pIdx) => {
-        const url = typeof p === 'object' ? p.url : p;
-        html += `
-          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Foto 4K VIP Bloqueada — Toque para digitar código">
-            <img src="${url}" class="preview-img media-blurred" alt="Foto VIP Bloqueada" loading="lazy" />
-            <div class="locked-blur-overlay">
-              <div class="locked-blur-pill">
-                <span class="lock-icon">🔒</span>
-                <span class="lock-text">FOTO ${pIdx + displayPics.length + 1} VIP</span>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-
-      // Banner flutuante convidativo no final do grid
-      html += `
-        <div class="vip-floating-unlock-bar" onclick="openCodeModal()" title="Clique para liberar com código">
-          <div class="unlock-bar-content">
-            <span class="unlock-icon">🔐</span>
-            <div class="unlock-details">
-              <span class="unlock-main">+${lockedPics.length} Fotos 4K & +${lockedVids.length} Vídeos 60fps Bloqueados</span>
-              <span class="unlock-sub">Libere todo o acervo desta modelo por apenas R$ ${item.individualPrice || '9,90'} no PIX ou Plano Semanal VIP</span>
-            </div>
-            <button class="btn-unlock-action" onclick="event.stopPropagation(); openCodeModal();">
-              🔑 Digitar Código / Liberar
+          <span class="locked-count">+${remainingPhotos} FOTOS 4K & +${remainingVideos} VÍDEOS 60FPS</span>
+          <span class="locked-sub">Conteúdo Privado Exclusivo • Alta Resolução sem Marca d'Água</span>
+          
+          <div class="locked-action-group">
+            <button class="btn-locked-unlock" onclick="event.stopPropagation(); openCodeModal();">
+              <span>🔑 Digitar Código / Liberar</span>
+            </button>
+            <button class="btn-locked-pix-direct" onclick="event.stopPropagation(); buyCurrentSingle();">
+              <span>🔓 Liberar Só Esta Modelo (R$ ${item.individualPrice || '9,90'})</span>
             </button>
           </div>
+          
+          <span class="locked-bottom-note">🔒 Código único protegido antifraude • Acesso vitalício liberado na hora</span>
         </div>
-      `;
-    }
+      </div>
+    `;
   }
 
   previewGrid.innerHTML = html;

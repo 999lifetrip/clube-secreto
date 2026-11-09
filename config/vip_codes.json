@@ -748,10 +748,11 @@
     "price": "9,90",
     "durationDays": 7,
     "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
+    "status": "USED",
+    "usedByDeviceId": "cs_dev_kkm0ykzq_mw8ro8n3",
+    "usedAt": 1794198858083,
+    "expiresAt": null,
+    "isLifetime": true
   },
   {
     "code": "PACK3002",
@@ -2151,8 +2152,11 @@
     "price": "9.90",
     "durationDays": 3650,
     "isLifetime": true,
-    "status": "AVAILABLE",
-    "createdAt": "2026-11-09T03:47:06.713Z"
+    "status": "USED",
+    "createdAt": "2026-11-09T03:47:06.713Z",
+    "usedByDeviceId": "test-device-123",
+    "usedAt": 1794197007116,
+    "expiresAt": null
   },
   {
     "code": "VIP-MARIA-63EEF0",
@@ -2162,8 +2166,11 @@
     "price": "9.90",
     "durationDays": 3650,
     "isLifetime": true,
-    "status": "AVAILABLE",
-    "createdAt": "2026-11-09T03:47:06.714Z"
+    "status": "USED",
+    "createdAt": "2026-11-09T03:47:06.714Z",
+    "usedByDeviceId": "cs_dev_zdsbtrnb_mw8qkwdv",
+    "usedAt": 1794197023447,
+    "expiresAt": null
   },
   {
     "code": "VIP-MARIA-A68D7F",
@@ -2173,8 +2180,11 @@
     "price": "9.90",
     "durationDays": 3650,
     "isLifetime": true,
-    "status": "AVAILABLE",
-    "createdAt": "2026-11-09T03:47:06.714Z"
+    "status": "USED",
+    "createdAt": "2026-11-09T03:47:06.714Z",
+    "usedByDeviceId": "cs_dev_l6k13le6_mw8qllie",
+    "usedAt": 1794197053743,
+    "expiresAt": null
   },
   {
     "code": "VIP-MARIA-8FEA69",

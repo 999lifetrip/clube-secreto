@@ -1524,6 +1524,157 @@ h1, h2, h3, h4, .brand-font {
   border-color: #ff4d6d;
 }
 
+/* Card Showcase VIP Bloqueado com Mosaico Embaçado no Fundo */
+.preview-locked-showcase {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  min-height: 280px;
+  padding: 0 !important;
+  border: 1px solid rgba(225, 29, 72, 0.45);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  background: #080a0f;
+  transition: all 0.3s ease;
+}
+
+.preview-locked-showcase:hover {
+  border-color: #ff4d6d;
+  box-shadow: 0 10px 36px rgba(225, 29, 72, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Grade de Mosaico de Mídias Reais no Fundo */
+.locked-mosaic-grid {
+  position: absolute;
+  inset: -12px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 6px;
+  filter: blur(11px) brightness(0.65) saturate(1.2);
+  transform: scale(1.05);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mosaic-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.mosaic-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mosaic-cell-badge {
+  position: absolute;
+  bottom: 4px;
+  left: 4px;
+  font-size: 9px;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+
+/* Camada Frontal de Vidro Fosco Transparente (Glassmorphism) */
+.locked-glass-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(8, 10, 16, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.locked-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(225, 29, 72, 0.35) 0%, rgba(225, 29, 72, 0.05) 70%);
+  border: 1px solid rgba(225, 29, 72, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 0 20px rgba(225, 29, 72, 0.4);
+  animation: pulseLock 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseLock {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(225, 29, 72, 0.35); }
+  50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(225, 29, 72, 0.6); }
+}
+
+.locked-glow-icon {
+  font-size: 28px;
+}
+
+.locked-action-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.btn-locked-pix-direct {
+  background: linear-gradient(135deg, #059669, #047857);
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(5, 150, 105, 0.4);
+  transition: all 0.2s;
+}
+
+.btn-locked-pix-direct:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.6);
+}
+
+.locked-bottom-note {
+  font-size: 10px;
+  color: #a1a1aa;
+  margin-top: 10px;
+}
+
+@media (max-width: 640px) {
+  .locked-mosaic-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .preview-locked-showcase {
+    min-height: 240px;
+  }
+  .locked-glass-content {
+    min-height: 240px;
+    padding: 20px 14px;
+  }
+  .locked-count {
+    font-size: 13px;
+  }
+}
+
 /* Efeito Borrado e Overlay para Mídias VIP Bloqueadas */
 .media-blurred {
   filter: blur(14px) brightness(0.65) saturate(1.2);
@@ -2541,6 +2692,14 @@ h1, h2, h3, h4, .brand-font {
 .vip-code-input:focus {
   border-color: #ff4d6d;
   box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.25);
+}
+
+.vip-code-input::placeholder {
+  color: #52525b;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  font-family: inherit;
+  opacity: 0.8;
 }
 
 .btn-unlock-code {
