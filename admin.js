@@ -516,11 +516,17 @@ function populateModelMediaSelect() {
 let currentMediaFilter = 'all';
 let currentMediaPage = 1;
 let lastSelectedModelId = null;
-const MEDIA_PER_PAGE = 18;
+const MEDIA_PER_PAGE = 24;
 
 function loadMoreMedia() {
   currentMediaPage++;
   onSelectModelChange();
+}
+
+function showAllMedia() {
+  currentMediaPage = 999;
+  onSelectModelChange();
+  showToast('✅ Todas as mídias da modelo foram exibidas!');
 }
 
 function renderMediaManager() {
@@ -656,12 +662,23 @@ function onSelectModelChange() {
       const isAvatar = model.avatar === url;
       const isReels = model.reelsVideo === url;
       const mediaSrc = adminKey ? `${url}?key=${encodeURIComponent(adminKey)}` : url;
+      const thumbUrl = url.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
+      const posterSrc = adminKey ? `${thumbUrl}?key=${encodeURIComponent(adminKey)}` : thumbUrl;
+      const fallbackCover = adminKey ? `${model.cover}?key=${encodeURIComponent(adminKey)}` : model.cover;
 
       return `
         <div class="media-card" data-url="${url}" style="border: 1px solid ${isTeaser ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'};">
-          <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer;" title="Clique para ampliar e ver em tamanho real">
+          <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer; position: relative; background: #0b0d14;" title="Clique para ampliar e ver em tamanho real">
             ${isVideo 
-              ? `<video src="${mediaSrc}" class="media-card-vid" preload="metadata" muted loop playsinline onmouseenter="this.play()" onmouseleave="this.pause()"></video>`
+              ? `
+                <video src="${mediaSrc}" poster="${posterSrc}" class="media-card-vid" preload="none" muted loop playsinline 
+                  onmouseenter="try{this.play()}catch(e){}" 
+                  onmouseleave="try{this.pause();this.currentTime=0;}catch(e){}"
+                  onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.poster='${fallbackCover}';}"></video>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(0,0,0,0.22);">
+                  <div style="background: rgba(225, 29, 72, 0.9); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.4);">▶</div>
+                </div>
+              `
               : `<img src="${mediaSrc}" alt="Mídia" class="media-card-img" loading="lazy" />`
             }
             <span class="media-type-badge">${isVideo ? '🎬 VÍDEO' : '📷 FOTO'}</span>
@@ -693,9 +710,12 @@ function onSelectModelChange() {
 
     if (filteredPreviews.length > visibleCount) {
       gridHtml += `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 25px 0 10px 0;">
-          <button class="btn-primary" style="padding: 12px 30px; font-size: 14px; font-weight: 800; box-shadow: 0 4px 20px rgba(225,29,72,0.4);" onclick="loadMoreMedia()">
+        <div style="grid-column: 1 / -1; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; padding: 25px 0 15px 0;">
+          <button class="btn-primary" style="padding: 12px 28px; font-size: 14px; font-weight: 800; box-shadow: 0 4px 20px rgba(225,29,72,0.4);" onclick="loadMoreMedia()">
             ⬇️ Carregar Mais Mídias (${filteredPreviews.length - visibleCount} restantes)
+          </button>
+          <button class="btn-secondary" style="padding: 12px 28px; font-size: 14px; font-weight: 800; border-color: rgba(16,185,129,0.5); color: #10b981;" onclick="showAllMedia()">
+            ⚡ Mostrar Todas as Mídias (${filteredPreviews.length})
           </button>
         </div>
       `;
@@ -720,8 +740,10 @@ function openAdminMediaInspector(modelId, mediaUrl, isVideo, isTeaser, isReels, 
   if (urlText) urlText.textContent = mediaUrl;
 
   if (isVideo) {
+    const thumbUrl = mediaUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
+    const posterSrc = adminKey ? `${thumbUrl}?key=${encodeURIComponent(adminKey)}` : thumbUrl;
     container.innerHTML = `
-      <video src="${mediaSrc}" controls autoplay playsinline style="max-height: 480px; width: 100%; object-fit: contain; background: #000; border-radius: 6px;"></video>
+      <video src="${mediaSrc}" poster="${posterSrc}" controls autoplay playsinline style="max-height: 480px; width: 100%; object-fit: contain; background: #000; border-radius: 6px;"></video>
     `;
   } else {
     container.innerHTML = `
@@ -981,8 +1003,20 @@ function readFileAsBase64(file) {
 }
 
 // ═════════════════════════════════════════════════════════════════════════
-// GERENCIADOR DE CÓDIGOS DE VENDA PIX
+// GERENCIADOR DE CÓDIGOS DE VENDA PIX & AUDITORIA DE ATIVAÇÃO
 // ═════════════════════════════════════════════════════════════════════════
+
+function getRelativeTimeString(timeMs) {
+  if (!timeMs) return '';
+  const diffSec = Math.floor((Date.now() - timeMs) / 1000);
+  if (diffSec < 45) return 'Agora mesmo';
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `há ${diffMin} min`;
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `há ${diffHours} hora${diffHours > 1 ? 's' : ''}`;
+  const diffDays = Math.floor(diffHours / 24);
+  return `há ${diffDays} dia${diffDays > 1 ? 's' : ''}`;
+}
 
 async function loadAdminCodes() {
   const key = getAdminKey();
@@ -1001,9 +1035,29 @@ async function loadAdminCodes() {
     const data = await res.json();
     codesCache = data.codes || [];
 
-    document.getElementById('sumTotalCodes').textContent = data.total || 0;
-    document.getElementById('sumAvailCodes').textContent = data.availableCount || 0;
-    document.getElementById('sumUsedCodes').textContent = data.usedCount || 0;
+    const totalEl = document.getElementById('sumTotalCodes');
+    const availEl = document.getElementById('sumAvailCodes');
+    const usedEl = document.getElementById('sumUsedCodes');
+    const lastEl = document.getElementById('sumLastActivated');
+
+    if (totalEl) totalEl.textContent = data.total || 0;
+    if (availEl) availEl.textContent = data.availableCount || 0;
+    if (usedEl) usedEl.textContent = data.usedCount || 0;
+
+    // Localiza a última ativação registrada
+    const usedList = codesCache.filter(c => c.status === 'USED' && (c.activatedAt || c.usedAt));
+    usedList.sort((a, b) => (b.activatedAt || b.usedAt || 0) - (a.activatedAt || a.usedAt || 0));
+    if (lastEl) {
+      if (usedList.length > 0) {
+        const last = usedList[0];
+        const actTime = last.activatedAt || last.usedAt;
+        const d = new Date(actTime);
+        const rel = getRelativeTimeString(actTime);
+        lastEl.innerHTML = `<span style="color:#10b981; font-weight:900;">${last.code}</span> — ${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})} <span style="font-size:11px; color:#a7f3d0;">(${rel})</span>`;
+      } else {
+        lastEl.textContent = 'Nenhuma ativação registrada ainda';
+      }
+    }
 
     renderCodesTable();
   } catch (err) {
@@ -1014,10 +1068,13 @@ async function loadAdminCodes() {
 
 function setCodesFilter(filter) {
   currentCodesFilter = filter;
-  document.querySelectorAll('.btn-pill-filter').forEach(btn => {
-    btn.classList.toggle('active', btn.textContent.toLowerCase().includes(
-      filter === 'all' ? 'todos' : (filter === 'available' ? 'disponíveis' : 'resgatados')
-    ));
+  document.querySelectorAll('.codes-filter-buttons .btn-pill-filter').forEach(btn => {
+    const txt = btn.textContent.toLowerCase();
+    const active = (filter === 'all' && txt.includes('todos')) ||
+                   (filter === 'available' && txt.includes('disponíveis')) ||
+                   (filter === 'used' && txt.includes('já ativados')) ||
+                   (filter === 'recent' && txt.includes('recent'));
+    btn.classList.toggle('active', active);
   });
   renderCodesTable();
 }
@@ -1031,17 +1088,31 @@ function renderCodesTable() {
   let filtered = codesCache.filter(item => {
     if (currentCodesFilter === 'available' && item.status !== 'AVAILABLE') return false;
     if (currentCodesFilter === 'used' && item.status !== 'USED') return false;
+    if (currentCodesFilter === 'recent') {
+      if (item.status !== 'USED') return false;
+      const actTime = item.activatedAt || item.usedAt;
+      if (!actTime) return false;
+      return (Date.now() - actTime) < (48 * 60 * 60 * 1000); // últimas 48 horas
+    }
     if (search) {
       const matchCode = item.code.toUpperCase().includes(search);
       const matchLabel = (item.label || '').toUpperCase().includes(search);
       const matchStatus = (item.status || '').toUpperCase().includes(search);
-      if (!matchCode && !matchLabel && !matchStatus) return false;
+      const matchModel = (item.modelId || '').toUpperCase().includes(search);
+      const matchDevice = (item.usedByDeviceId || '').toUpperCase().includes(search);
+      const matchIp = (item.activatedIp || '').toUpperCase().includes(search);
+      if (!matchCode && !matchLabel && !matchStatus && !matchModel && !matchDevice && !matchIp) return false;
     }
     return true;
   });
 
+  // Ordenação por ativação mais recente quando filtrado por usados ou recentes
+  if (currentCodesFilter === 'recent' || currentCodesFilter === 'used') {
+    filtered.sort((a, b) => (b.activatedAt || b.usedAt || 0) - (a.activatedAt || a.usedAt || 0));
+  }
+
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">Nenhum código encontrado com os filtros atuais.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">Nenhum código encontrado com os filtros atuais.</td></tr>`;
     return;
   }
 
@@ -1056,38 +1127,205 @@ function renderCodesTable() {
     } else if (isAvail) {
       statusBadge = '<span class="code-badge-status available">🟢 DISPONÍVEL</span>';
     } else {
-      statusBadge = '<span class="code-badge-status used">🔴 RESGATADO</span>';
+      statusBadge = '<span class="code-badge-status used">🔴 ATIVADO</span>';
     }
 
-    let details = '—';
-    if (item.status === 'USED' && item.usedAt) {
-      const d = new Date(item.usedAt);
-      details = `Ativado em ${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'})}`;
-      if (item.modelId) details += ` (${item.modelId})`;
-    } else if (item.modelId) {
-      details = `Vinculado: ${item.modelId}`;
+    // Coluna 5: Data e Hora de Ativação
+    let activationHtml = '';
+    const actTime = item.activatedAt || item.usedAt;
+    if (item.status === 'USED' && actTime) {
+      const d = new Date(actTime);
+      const dateStr = d.toLocaleDateString('pt-BR');
+      const timeStr = d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const relTime = getRelativeTimeString(actTime);
+      activationHtml = `
+        <div style="display: flex; flex-direction: column; gap: 3px;">
+          <span style="display: inline-flex; align-items: center; gap: 5px; color: #10b981; font-weight: 800; font-size: 13px;">
+            <span>✅</span> ${dateStr} às ${timeStr}
+          </span>
+          <span style="font-size: 11px; color: #6ee7b7; font-weight: 600;">⏱️ ${relTime}</span>
+        </div>
+      `;
+    } else if (isMaster) {
+      activationHtml = '<span style="color:#fbbf24; font-size:12px; font-weight:700;">👑 Ativo Permanente</span>';
+    } else {
+      activationHtml = '<span style="color:var(--text-muted); font-size:12px;">⏳ Aguardando Venda</span>';
+    }
+
+    // Coluna 6: Dispositivo / IP / Validade
+    let infoHtml = '';
+    if (item.status === 'USED') {
+      const devSnippet = item.usedByDeviceId ? (item.usedByDeviceId.length > 16 ? item.usedByDeviceId.slice(0, 16) + '...' : item.usedByDeviceId) : 'Dispositivo Anônimo';
+      let expText = item.isLifetime ? 'Acesso Vitalício (Sem Expiração)' : '7 Dias';
+      if (!item.isLifetime && item.expiresAt) {
+        const leftMs = item.expiresAt - Date.now();
+        const days = Math.ceil(leftMs / (1000 * 60 * 60 * 24));
+        expText = days > 0 ? `Válido por mais ${days} dia(s)` : 'Expirado';
+      }
+      infoHtml = `
+        <div style="font-size: 11px; line-height: 1.45;">
+          <span style="color: #e2e8f0;">📱 <code style="background: rgba(255,255,255,0.06); padding: 1px 4px; border-radius: 3px;">${devSnippet}</code></span>
+          ${item.activatedIp ? `<br /><span style="color: #94a3b8;">🌐 IP: ${item.activatedIp}</span>` : ''}
+          <br /><span style="color: ${item.isLifetime ? '#10b981' : '#f59e0b'}; font-weight: 700;">⏳ ${expText}</span>
+          ${item.modelId ? `<br /><span style="color: #c084fc;">Modelo: ${item.modelId}</span>` : ''}
+        </div>
+      `;
+    } else {
+      infoHtml = item.modelId ? `<span style="font-size:12px; color:#c084fc;">Vinculado a: ${item.modelId}</span>` : '<span style="color:var(--text-muted); font-size:12px;">—</span>';
     }
 
     return `
       <tr>
         <td>
           <div style="display:flex; align-items:center; gap:8px;">
-            <code style="font-size:13px; font-weight:800; color:#fff; background:#040508; padding:4px 8px; border-radius:4px; letter-spacing:0.05em;">${item.code}</code>
+            <code style="font-size:13px; font-weight:800; color:#fff; background:#040508; padding:5px 9px; border-radius:4px; letter-spacing:0.05em; border: 1px solid rgba(255,255,255,0.1);">${item.code}</code>
             <button class="btn-copy-sm" onclick="copyCodeOnly('${item.code}')" title="Copiar apenas o código">Copiar</button>
           </div>
         </td>
         <td><strong>${item.label || item.type}</strong></td>
-        <td><strong style="color:var(--primary);">${priceText}</strong></td>
+        <td><strong style="color:var(--primary); font-size:13px;">${priceText}</strong></td>
         <td>${statusBadge}</td>
-        <td style="font-size:12px; color:var(--text-muted);">${details}</td>
+        <td>${activationHtml}</td>
+        <td>${infoHtml}</td>
         <td>
-          <button class="btn-copy-sm" style="background:linear-gradient(135deg, #25D366, #128C7E); color:#fff; border:none;" onclick="copyWhatsAppMessage('${item.code}', '${item.type}', '${priceText}')">
-            📲 Mensagem Pronta WhatsApp
-          </button>
+          <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+            <button class="btn-copy-sm" style="background:linear-gradient(135deg, #25D366, #128C7E); color:#fff; border:none; padding: 5px 10px;" onclick="copyWhatsAppMessage('${item.code}', '${item.type}', '${priceText}')" title="Copiar mensagem personalizada com link direto para o cliente no WhatsApp">
+              📲 WhatsApp
+            </button>
+            ${item.status === 'USED' ? `
+              <button class="btn-copy-sm" style="background:#1e293b; color:#38bdf8; border:1px solid rgba(56,189,248,0.3); padding: 5px 8px;" onclick="openCodeAuditModal('${item.code}')" title="Ver auditoria detalhada de ativação">
+                🔍 Auditoria
+              </button>
+            ` : ''}
+            ${!isMaster ? `
+              <button class="btn-copy-sm" style="background:#271017; color:#f43f5e; border:1px solid rgba(244,63,94,0.3); padding: 5px 8px;" onclick="deleteVipCode('${item.code}')" title="Excluir código">
+                ✕
+              </button>
+            ` : ''}
+          </div>
         </td>
       </tr>
     `;
   }).join('');
+}
+
+function openCodeAuditModal(code) {
+  const codeItem = codesCache.find(c => c.code === code);
+  if (!codeItem) return;
+
+  const modal = document.getElementById('modalCodeAudit');
+  const body = document.getElementById('codeAuditBody');
+  if (!modal || !body) return;
+
+  const actTime = codeItem.activatedAt || codeItem.usedAt;
+  const d = actTime ? new Date(actTime) : null;
+  const dateFormatted = d ? `${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR')} (Horário de Brasília)` : 'Não registrado';
+  const relTime = getRelativeTimeString(actTime);
+
+  let expInfo = codeItem.isLifetime ? 'Acesso Vitalício Permanente (Nunca Expira)' : '7 Dias';
+  if (!codeItem.isLifetime && codeItem.expiresAt) {
+    const leftMs = codeItem.expiresAt - Date.now();
+    const days = Math.ceil(leftMs / (1000 * 60 * 60 * 24));
+    const expDate = new Date(codeItem.expiresAt).toLocaleDateString('pt-BR');
+    expInfo = days > 0 ? `Ativo até ${expDate} (Restam ${days} dia(s))` : `Expirado em ${expDate}`;
+  }
+
+  body.innerHTML = `
+    <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px; margin-bottom: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px; margin-bottom: 14px;">
+        <div>
+          <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">Código de Acesso</span>
+          <h2 style="font-size: 22px; font-weight: 900; color: #fff; margin: 2px 0 0 0; letter-spacing: 0.05em;">${codeItem.code}</h2>
+        </div>
+        <div>
+          <span class="code-badge-status used" style="font-size: 13px; padding: 6px 14px;">🔴 ATIVADO / EM USO</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; font-size: 13px;">
+        <div>
+          <span style="color: var(--text-muted); font-size: 11px; display: block;">DATA E HORA DA ATIVAÇÃO</span>
+          <strong style="color: #10b981; font-size: 14px;">📅 ${dateFormatted}</strong>
+          <span style="display: block; font-size: 11px; color: #a7f3d0; margin-top: 2px;">⏱️ ${relTime}</span>
+        </div>
+
+        <div>
+          <span style="color: var(--text-muted); font-size: 11px; display: block;">TIPO / PLANO CONTRATADO</span>
+          <strong style="color: #fff; font-size: 14px;">${codeItem.label || codeItem.type}</strong>
+          <span style="display: block; font-size: 12px; color: var(--primary); font-weight: 700;">R$ ${codeItem.price || '9,90'}</span>
+        </div>
+
+        <div>
+          <span style="color: var(--text-muted); font-size: 11px; display: block;">ENDEREÇO IP DO CLIENTE</span>
+          <code style="color: #38bdf8; font-size: 13px; background: rgba(56,189,248,0.1); padding: 3px 6px; border-radius: 4px;">🌐 ${codeItem.activatedIp || '127.0.0.1 / Desconhecido'}</code>
+        </div>
+
+        <div>
+          <span style="color: var(--text-muted); font-size: 11px; display: block;">STATUS DO ACESSO / EXPIRAÇÃO</span>
+          <strong style="color: ${codeItem.isLifetime ? '#10b981' : '#f59e0b'}; font-size: 13px;">⏳ ${expInfo}</strong>
+        </div>
+
+        <div style="grid-column: 1 / -1;">
+          <span style="color: var(--text-muted); font-size: 11px; display: block;">IDENTIFICADOR ÚNICO DO APARELHO (DEVICE ID)</span>
+          <code style="color: #cbd5e1; font-size: 12px; word-break: break-all; background: rgba(255,255,255,0.05); padding: 5px 8px; border-radius: 4px; display: block; margin-top: 4px;">📱 ${codeItem.usedByDeviceId || '—'}</code>
+        </div>
+
+        ${codeItem.activatedUserAgent ? `
+          <div style="grid-column: 1 / -1;">
+            <span style="color: var(--text-muted); font-size: 11px; display: block;">NAVEGADOR / DISPOSITIVO DO CLIENTE</span>
+            <span style="color: #94a3b8; font-size: 11px; word-break: break-all; line-height: 1.4;">${codeItem.activatedUserAgent}</span>
+          </div>
+        ` : ''}
+
+        ${codeItem.modelId ? `
+          <div style="grid-column: 1 / -1;">
+            <span style="color: var(--text-muted); font-size: 11px; display: block;">MODELO VINCULADA</span>
+            <strong style="color: #c084fc; font-size: 14px;">⭐ ${codeItem.modelId}</strong>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 8px; justify-content: flex-end;">
+      <button class="btn-copy-sm" style="background: linear-gradient(135deg, #25D366, #128C7E); color: #fff; border: none; padding: 8px 16px; font-size: 12px;" onclick="copyWhatsAppMessage('${codeItem.code}', '${codeItem.type}', 'R$ ${codeItem.price || '9,90'}')">
+        📲 Copiar Mensagem WhatsApp
+      </button>
+      <button class="btn-secondary" style="font-size: 12px; padding: 8px 16px;" onclick="closeCodeAuditModal()">Fechar</button>
+    </div>
+  `;
+
+  modal.classList.add('open');
+}
+
+function closeCodeAuditModal() {
+  const modal = document.getElementById('modalCodeAudit');
+  if (modal) modal.classList.remove('open');
+}
+
+async function deleteVipCode(code) {
+  if (!confirm(`Deseja realmente excluir o código ${code}? Esta ação não pode ser desfeita.`)) return;
+  const key = getAdminKey();
+  if (!key) return;
+
+  try {
+    const res = await fetch('/api/admin/codes/delete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      },
+      body: JSON.stringify({ code })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showToast(`Código ${code} removido!`);
+      await loadAdminCodes();
+    } else {
+      showToast(data.error || 'Erro ao excluir código.');
+    }
+  } catch (e) {
+    showToast('Erro de conexão ao excluir código.');
+  }
 }
 
 function copyCodeOnly(code) {
