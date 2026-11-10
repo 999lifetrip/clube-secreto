@@ -624,7 +624,7 @@ function renderPreviewContent(item) {
         </div>
 
         <div class="preview-video-player-container" style="position: relative; background: #07090e;">
-          <video id="${playerId}" src="${url}" poster="${thumbUrl}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.poster='${item.cover}';}" controls playsinline preload="metadata" class="responsive-video"></video>
+          <video id="${playerId}" src="${url}#t=0.1" poster="${thumbUrl}" controls playsinline preload="metadata" class="responsive-video"></video>
           ${!unlocked ? `<div class="video-watermark-tag">CLUBE SECRETO VIP 🔒</div>` : ''}
         </div>
       </div>

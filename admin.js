@@ -664,18 +664,16 @@ function onSelectModelChange() {
       const mediaSrc = adminKey ? `${url}?key=${encodeURIComponent(adminKey)}` : url;
       const thumbUrl = url.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
       const posterSrc = adminKey ? `${thumbUrl}?key=${encodeURIComponent(adminKey)}` : thumbUrl;
-      const fallbackCover = adminKey ? `${model.cover}?key=${encodeURIComponent(adminKey)}` : model.cover;
 
       return `
         <div class="media-card" data-url="${url}" style="border: 1px solid ${isTeaser ? 'rgba(16,185,129,0.4)' : 'rgba(244,63,94,0.4)'};">
           <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer; position: relative; background: #0b0d14;" title="Clique para ampliar e ver em tamanho real">
             ${isVideo 
               ? `
-                <video src="${mediaSrc}" poster="${posterSrc}" class="media-card-vid" preload="none" muted loop playsinline 
+                <video src="${mediaSrc}#t=0.1" poster="${posterSrc}" class="media-card-vid" preload="metadata" muted loop playsinline 
                   onmouseenter="try{this.play()}catch(e){}" 
-                  onmouseleave="try{this.pause();this.currentTime=0;}catch(e){}"
-                  onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.poster='${fallbackCover}';}"></video>
-                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(0,0,0,0.22);">
+                  onmouseleave="try{this.pause();this.currentTime=0;}catch(e){}"></video>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(0,0,0,0.18);">
                   <div style="background: rgba(225, 29, 72, 0.9); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.4);">▶</div>
                 </div>
               `
