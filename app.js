@@ -844,7 +844,9 @@ function renderLightboxSlide() {
   const safeIdx = Math.max(0, Math.min(currentLightboxIndex, numAvailablePreviews - 1));
   const currentPhoto = currentLightboxPhotos[safeIdx];
 
-  lightboxImg.src = currentPhoto.url;
+  const devId = getDeviceId();
+  const rawPhotoUrl = currentPhoto.url;
+  lightboxImg.src = devId ? (rawPhotoUrl + (rawPhotoUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawPhotoUrl;
   lightboxCounter.textContent = `Foto ${safeIdx + 1} de ${totalPhotosInPack} ${!unlocked ? '(Modo Prévia)' : '(Liberada em Ultra HD)'}`;
 
   if (unlocked) {
@@ -1332,6 +1334,7 @@ function openReelsFeed(startModelId) {
         const slide = entry.target;
         const modelId = slide.getAttribute("data-model-id");
         if (modelId !== currentActiveReelModelId) {
+          updateReelsStickyBottom(modelId);
           playReelSlide(slide, modelId);
         }
       }
@@ -1500,15 +1503,14 @@ function updateReelsStickyBottom(modelId, videoIdx, totalVideos, isUnlocked) {
   }
 
   const unlocked = isUnlocked !== undefined ? isUnlocked : isModelUnlocked(model.id);
-  if (btn) {
-    if (unlocked) {
-      btn.innerHTML = `
-        <span class="reels-btn-text">👑 ACESSO VIP LIBERADO</span>
-        <span class="reels-btn-sub">Você tem acesso vitalício a todos os vídeos e fotos</span>
-      `;
-      btn.style.background = "linear-gradient(135deg, #059669, #047857)";
-      btn.onclick = () => closeReelsFeed();
-    } else {
+  const actionsDiv = document.querySelector(".reels-sticky-actions");
+  if (unlocked) {
+    if (btn) btn.style.display = "none";
+    if (actionsDiv) actionsDiv.style.display = "none";
+  } else {
+    if (actionsDiv) actionsDiv.style.display = "flex";
+    if (btn) {
+      btn.style.display = "flex";
       btn.innerHTML = `
         <span class="reels-btn-glow"></span>
         <span class="reels-btn-text">🔓 ACESSAR CONTEÚDO COMPLETO</span>

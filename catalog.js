@@ -4,1695 +4,6 @@
 
 const CREATORS_CATALOG = [
   {
-    "id": "ensaio-vip-rafabittencourt",
-    "creatorName": "Rafaela Bittencourt",
-    "username": "@rafabittencourt_",
-    "verified": true,
-    "title": "Rafaela Bittencourt — Ensaio Íntimo & Lifestyle Premium",
-    "category": "viagem",
-    "categoryLabel": "Lifestyle & Viagem",
-    "badge": "EXCLUSIVO VIP ✨",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "280K",
-    "likes": "44.6K",
-    "photoCount": 4,
-    "videoCount": 3,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
-    "cover": "/media/rafabittencourt/photo_3.jpg",
-    "avatar": "/media/rafabittencourt/photo_3.jpg",
-    "reelsVideo": "/media/rafabittencourt/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/rafabittencourt/video_1.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/rafabittencourt/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/rafabittencourt/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/rafabittencourt/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/rafabittencourt/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/rafabittencourt/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/rafabittencourt/photo_4.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 1
-  },
-  {
-    "id": "ensaio-vip-julianarios",
-    "creatorName": "Juliana Rios",
-    "username": "@julianarios.oficial",
-    "verified": true,
-    "title": "Coleção Exclusiva Juliana Rios — Ensaio Privado & Vídeos 4K",
-    "category": "estudio",
-    "categoryLabel": "Estúdio & Glamour",
-    "badge": "NOVO LANÇAMENTO VIP 🔥",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "480K",
-    "likes": "74.2K",
-    "photoCount": 8,
-    "videoCount": 25,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Acervo exclusivo de estúdio com Juliana Rios. Bastidores intimistas, poses deslumbrantes em alta definição 4K e vídeos sensuais 60fps sem censura.",
-    "cover": "/media/julianarios/photo_1.jpg",
-    "avatar": "/media/julianarios/photo_2.jpg",
-    "reelsVideo": "/media/julianarios/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_25.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/julianarios/photo_8.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 2
-  },
-  {
-    "id": "ensaio-vip-brunaalencar",
-    "creatorName": "Bruna Alencar",
-    "username": "@brunaalencar.vip",
-    "verified": true,
-    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
-    "category": "praia",
-    "categoryLabel": "Praia & Fitness",
-    "badge": "DESTAQUE BRONZE ☀️",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "310K",
-    "likes": "51.8K",
-    "photoCount": 6,
-    "videoCount": 5,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
-    "cover": "/media/brunaalencar/photo_1.jpg",
-    "avatar": "/media/brunaalencar/photo_2.jpg",
-    "reelsVideo": "/media/brunaalencar/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_6.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 3
-  },
-  {
-    "id": "ensaio-vip-lorenadrummond",
-    "creatorName": "Lorena Drummond",
-    "username": "@lorenadrummond.vip",
-    "verified": true,
-    "title": "Lorena Drummond — Ensaio Fantasia & Ensaio Artístico Completo",
-    "category": "cosplay",
-    "categoryLabel": "Cosplay & Geek",
-    "badge": "NOVA CRIADORA 💎",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "320K",
-    "likes": "53.1K",
-    "photoCount": 16,
-    "videoCount": 1,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "A delicadeza e a ousadia de Lorena Drummond em fotos temáticas e artísticas de tirar o fôlego. Cores vibrantes, produção impecável e alta resolução.",
-    "cover": "/media/lorenadrummond/photo_1.jpg",
-    "avatar": "/media/lorenadrummond/photo_2.jpg",
-    "reelsVideo": "/media/lorenadrummond/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/lorenadrummond/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lorenadrummond/photo_16.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 4
-  },
-  {
-    "id": "ensaio-vip-karentahe",
-    "creatorName": "Karentahe",
-    "username": "@karentahe",
-    "verified": true,
-    "title": "Coleção Completa Karentahe — Ensaio Golden Glamour & Sunset",
-    "category": "praia",
-    "categoryLabel": "Praia & Fitness",
-    "badge": "MAIS ACESSADO ⭐",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "510K",
-    "likes": "79.4K",
-    "photoCount": 40,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "A musa Karentahe em ensaios paradisíacos de tirar o fôlego. Fotos douradas ao pôr do sol, maiôs de alta costura e vídeos em alta resolução.",
-    "cover": "/media/karentahe/photo_9.jpg",
-    "avatar": "/media/karentahe/photo_27.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_1.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_2.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/karentahe/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_2.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_9.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_30.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/karentahe/photo_40.jpg",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/karentahe/video_2.mp4",
-    "order": 5
-  },
-  {
-    "id": "ensaio-vip-lovebyelenita",
-    "creatorName": "Lovebyelenita",
-    "username": "@lovebyelenita",
-    "verified": true,
-    "title": "Coleção Completa Lovebyelenita — Ensaio Privé & Bastidores VIP",
-    "category": "sensual",
-    "categoryLabel": "Sensual & Lifestyle",
-    "badge": "NOVO 🔥",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "290K",
-    "likes": "48.2K",
-    "photoCount": 6,
-    "videoCount": 8,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Acervo exclusivo oficial de Lovebyelenita com fotos em altíssima definição e vídeos dinâmicos em 60fps com exclusividade e glamour.",
-    "cover": "/media/lovebyelenita/photo_3.jpg",
-    "avatar": "/media/lovebyelenita/photo_1.jpg",
-    "reelsVideo": "/media/lovebyelenita/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/lovebyelenita/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lovebyelenita/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/lovebyelenita/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/lovebyelenita/photo_3.jpg",
-        "isTeaser": true
-      }
-    ],
-    "order": 6
-  },
-  {
-    "id": "ensaio-vip-alinabelle",
-    "creatorName": "Alina Belle",
-    "username": "@alinabelle",
-    "verified": true,
-    "title": "Coleção Completa Alina Belle — Ensaio Exclusivo & Bastidores VIP",
-    "category": "estudio",
-    "categoryLabel": "Estúdio & Glamour",
-    "badge": "DESTAQUE VIP 🔥",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "420K",
-    "likes": "68.3K",
-    "photoCount": 40,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Acervo oficial completo com fotos em alta resolução e vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
-    "cover": "/media/alinabelle/photo_33.jpg",
-    "avatar": "/media/alinabelle/photo_37.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_1.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_6.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_33.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/alinabelle/photo_40.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/alinabelle/video_4.mp4",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/alinabelle/video_6.mp4",
-    "order": 7
-  },
-  {
-    "id": "ensaio-vip-adiana",
-    "creatorName": "Adiana",
-    "username": "@adiana_exclusive",
-    "verified": true,
-    "title": "Coleção Completa Adiana — Fashion Editorial & Bastidores Privados",
-    "category": "moda",
-    "categoryLabel": "Moda & Editorial",
-    "badge": "PREMIUM 💎",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "330K",
-    "likes": "48.9K",
-    "photoCount": 40,
-    "videoCount": 18,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
-    "cover": "/media/adiana/photo_12.jpg",
-    "avatar": "/media/adiana/photo_2.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/adiana/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_18.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_12.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_40.jpg",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/adiana/video_18.mp4",
-    "order": 8
-  },
-  {
-    "id": "ensaio-vip-camilamedeiros",
-    "creatorName": "Camila Medeiros",
-    "username": "@camilamedeiros.exclusive",
-    "verified": true,
-    "title": "Camila Medeiros — Coleção Sensual Editorial & Vídeos 60fps",
-    "category": "moda",
-    "categoryLabel": "Moda & Editorial",
-    "badge": "NOVO LANÇAMENTO 💥",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "395K",
-    "likes": "62.4K",
-    "photoCount": 18,
-    "videoCount": 8,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Elegância e sensualidade com Camila Medeiros. Ensaio editorial de luxo, lingerie fina e vídeos exclusivos em altíssima resolução 4K.",
-    "cover": "/media/camilamedeiros/photo_4.jpg",
-    "avatar": "/media/camilamedeiros/photo_2.jpg",
-    "reelsVideo": "/media/camilamedeiros/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/camilamedeiros/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/opop.png",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/opop.png",
-        "isTeaser": true
-      }
-    ],
-    "order": 9
-  },
-  {
     "id": "ensaio-vip-mariadmar",
     "creatorName": "Maria D'Mar",
     "username": "@maria_dmar",
@@ -2016,7 +327,486 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 10
+    "order": 1
+  },
+  {
+    "id": "ensaio-vip-julianarios",
+    "creatorName": "Juliana Rios",
+    "username": "@julianarios.oficial",
+    "verified": true,
+    "title": "Coleção Exclusiva Juliana Rios — Ensaio Privado & Vídeos 4K",
+    "category": "estudio",
+    "categoryLabel": "Estúdio & Glamour",
+    "badge": "NOVO LANÇAMENTO VIP 🔥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "480K",
+    "likes": "74.2K",
+    "photoCount": 8,
+    "videoCount": 25,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Acervo exclusivo de estúdio com Juliana Rios. Bastidores intimistas, poses deslumbrantes em alta definição 4K e vídeos sensuais 60fps sem censura.",
+    "cover": "/media/julianarios/photo_1.jpg",
+    "avatar": "/media/julianarios/photo_2.jpg",
+    "reelsVideo": "/media/julianarios/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_25.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_8.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 2
+  },
+  {
+    "id": "ensaio-vip-brunaalencar",
+    "creatorName": "Bruna Alencar",
+    "username": "@brunaalencar.vip",
+    "verified": true,
+    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "DESTAQUE BRONZE ☀️",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "310K",
+    "likes": "51.8K",
+    "photoCount": 6,
+    "videoCount": 5,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
+    "cover": "/media/brunaalencar/photo_1.jpg",
+    "avatar": "/media/brunaalencar/photo_2.jpg",
+    "reelsVideo": "/media/brunaalencar/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_6.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 3
+  },
+  {
+    "id": "ensaio-vip-camilamedeiros",
+    "creatorName": "Camila Medeiros",
+    "username": "@camilamedeiros.exclusive",
+    "verified": true,
+    "title": "Camila Medeiros — Coleção Sensual Editorial & Vídeos 60fps",
+    "category": "moda",
+    "categoryLabel": "Moda & Editorial",
+    "badge": "NOVO LANÇAMENTO 💥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "395K",
+    "likes": "62.4K",
+    "photoCount": 16,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Elegância e sensualidade com Camila Medeiros. Ensaio editorial de luxo, lingerie fina e vídeos exclusivos em altíssima resolução 4K.",
+    "cover": "/media/camilamedeiros/photo_1.jpg",
+    "avatar": "/media/camilamedeiros/photo_2.jpg",
+    "reelsVideo": "/media/camilamedeiros/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_16.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 4
+  },
+  {
+    "id": "ensaio-vip-rafabittencourt",
+    "creatorName": "Rafaela Bittencourt",
+    "username": "@rafabittencourt_",
+    "verified": true,
+    "title": "Rafaela Bittencourt — Ensaio Íntimo & Lifestyle Premium",
+    "category": "viagem",
+    "categoryLabel": "Lifestyle & Viagem",
+    "badge": "EXCLUSIVO VIP ✨",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "280K",
+    "likes": "44.6K",
+    "photoCount": 4,
+    "videoCount": 3,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
+    "cover": "/media/rafabittencourt/photo_1.jpg",
+    "avatar": "/media/rafabittencourt/photo_2.jpg",
+    "reelsVideo": "/media/rafabittencourt/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_4.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 5
   },
   {
     "id": "ensaio-vip-leticiavasconcelos",
@@ -2107,7 +897,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 11
+    "order": 6
   },
   {
     "id": "ensaio-vip-gabrielafontes",
@@ -2633,7 +1423,464 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 12
+    "order": 7
+  },
+  {
+    "id": "ensaio-vip-lorenadrummond",
+    "creatorName": "Lorena Drummond",
+    "username": "@lorenadrummond.vip",
+    "verified": true,
+    "title": "Lorena Drummond — Ensaio Fantasia & Ensaio Artístico Completo",
+    "category": "cosplay",
+    "categoryLabel": "Cosplay & Geek",
+    "badge": "NOVA CRIADORA 💎",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "320K",
+    "likes": "53.1K",
+    "photoCount": 16,
+    "videoCount": 1,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "A delicadeza e a ousadia de Lorena Drummond em fotos temáticas e artísticas de tirar o fôlego. Cores vibrantes, produção impecável e alta resolução.",
+    "cover": "/media/lorenadrummond/photo_1.jpg",
+    "avatar": "/media/lorenadrummond/photo_2.jpg",
+    "reelsVideo": "/media/lorenadrummond/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/lorenadrummond/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_16.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 8
+  },
+  {
+    "id": "ensaio-vip-alinabelle",
+    "creatorName": "Alina Belle",
+    "username": "@alinabelle",
+    "verified": true,
+    "title": "Coleção Completa Alina Belle — Ensaio Exclusivo & Bastidores VIP",
+    "category": "estudio",
+    "categoryLabel": "Estúdio & Glamour",
+    "badge": "DESTAQUE VIP 🔥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "420K",
+    "likes": "68.3K",
+    "photoCount": 40,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Acervo oficial completo com fotos em alta resolução e vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
+    "cover": "/media/alinabelle/photo_33.jpg",
+    "avatar": "/media/alinabelle/photo_37.jpg",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_1.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_6.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_3.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_33.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/alinabelle/photo_40.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/alinabelle/video_4.mp4",
+        "isTeaser": false
+      }
+    ],
+    "reelsVideo": "/media/alinabelle/video_6.mp4",
+    "order": 9
   },
   {
     "id": "ensaio-vip-xspidergirl",
@@ -2979,7 +2226,669 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/xspidergirl/video_10.mp4",
-    "order": 13
+    "order": 10
+  },
+  {
+    "id": "ensaio-vip-karentahe",
+    "creatorName": "Karentahe",
+    "username": "@karentahe",
+    "verified": true,
+    "title": "Coleção Completa Karentahe — Ensaio Golden Glamour & Sunset",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "MAIS ACESSADO ⭐",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "510K",
+    "likes": "79.4K",
+    "photoCount": 40,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "A musa Karentahe em ensaios paradisíacos de tirar o fôlego. Fotos douradas ao pôr do sol, maiôs de alta costura e vídeos em alta resolução.",
+    "cover": "/media/karentahe/photo_9.jpg",
+    "avatar": "/media/karentahe/photo_27.jpg",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_1.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_2.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/karentahe/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_2.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_3.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_9.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_30.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/karentahe/photo_40.jpg",
+        "isTeaser": false
+      }
+    ],
+    "reelsVideo": "/media/karentahe/video_2.mp4",
+    "order": 11
+  },
+  {
+    "id": "ensaio-vip-adiana",
+    "creatorName": "Adiana",
+    "username": "@adiana_exclusive",
+    "verified": true,
+    "title": "Coleção Completa Adiana — Fashion Editorial & Bastidores Privados",
+    "category": "moda",
+    "categoryLabel": "Moda & Editorial",
+    "badge": "PREMIUM 💎",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "330K",
+    "likes": "48.9K",
+    "photoCount": 40,
+    "videoCount": 18,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
+    "cover": "/media/adiana/photo_12.jpg",
+    "avatar": "/media/adiana/photo_2.jpg",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/adiana/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_18.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_3.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_12.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_40.jpg",
+        "isTeaser": false
+      }
+    ],
+    "reelsVideo": "/media/adiana/video_18.mp4",
+    "order": 12
   },
   {
     "id": "ensaio-vip-brandi",
@@ -3003,6 +2912,11 @@ const CREATORS_CATALOG = [
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
+      {
+        "type": "image",
+        "url": "/media/brandi/photo_1.jpg",
+        "isTeaser": false
+      },
       {
         "type": "video",
         "url": "/media/brandi/video_1.mp4",
@@ -3255,7 +3169,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/brandi/video_1.mp4",
-    "order": 14
+    "order": 13
   },
   {
     "id": "ensaio-vip-amayawaifu",
@@ -3601,7 +3515,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/amayawaifu/video_1.mp4",
-    "order": 15
+    "order": 14
   },
   {
     "id": "ensaio-vip-fablazed",
@@ -3827,7 +3741,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/fablazed/video_1.mp4",
-    "order": 16
+    "order": 15
   },
   {
     "id": "ensaio-vip-minaveneta",
@@ -4043,6 +3957,102 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/minaveneta/video_1.mp4",
+    "order": 16
+  },
+  {
+    "id": "ensaio-vip-lovebyelenita",
+    "creatorName": "Lovebyelenita",
+    "username": "@lovebyelenita",
+    "verified": true,
+    "title": "Coleção Completa Lovebyelenita — Ensaio Privé & Bastidores VIP",
+    "category": "sensual",
+    "categoryLabel": "Sensual & Lifestyle",
+    "badge": "NOVO 🔥",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "290K",
+    "likes": "48.2K",
+    "photoCount": 6,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Acervo exclusivo oficial de Lovebyelenita com fotos em altíssima definição e vídeos dinâmicos em 60fps com exclusividade e glamour.",
+    "cover": "/media/lovebyelenita/photo_3.jpg",
+    "avatar": "/media/lovebyelenita/photo_1.jpg",
+    "reelsVideo": "/media/lovebyelenita/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/lovebyelenita/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lovebyelenita/photo_6.jpg",
+        "isTeaser": false
+      }
+    ],
     "order": 17
   },
   {
