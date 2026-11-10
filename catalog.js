@@ -337,6 +337,352 @@ const CREATORS_CATALOG = [
     "order": 3
   },
   {
+    "id": "ensaio-vip-amayawaifu",
+    "creatorName": "Amaya Waifu",
+    "username": "@amayawaifu",
+    "verified": true,
+    "title": "Coleção Completa Amaya Waifu — Cosplay & Sensual Geek",
+    "category": "cosplay",
+    "categoryLabel": "Cosplay & Geek",
+    "badge": "MUSA DO COSPLAY 💥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "580K",
+    "likes": "92.5K",
+    "photoCount": 40,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Coleção imperdível com ensaios temáticos, cosplay sensual de alta produção e vídeos privativos.",
+    "cover": "/media/amayawaifu/photo_1.jpg",
+    "avatar": "/media/amayawaifu/photo_29.jpg",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_40.jpg",
+        "isTeaser": false
+      }
+    ],
+    "reelsVideo": "/media/amayawaifu/video_1.mp4",
+    "order": 4
+  },
+  {
     "id": "ensaio-vip-lorenadrummond",
     "creatorName": "Lorena Drummond",
     "username": "@lorenadrummond.vip",
@@ -445,7 +791,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 4
+    "order": 5
   },
   {
     "id": "ensaio-vip-karentahe",
@@ -791,7 +1137,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/karentahe/video_2.mp4",
-    "order": 5
+    "order": 6
   },
   {
     "id": "ensaio-vip-lovebyelenita",
@@ -872,7 +1218,7 @@ const CREATORS_CATALOG = [
         "isTeaser": true
       }
     ],
-    "order": 6
+    "order": 7
   },
   {
     "id": "ensaio-vip-xspidergirl",
@@ -1218,7 +1564,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/xspidergirl/video_10.mp4",
-    "order": 7
+    "order": 8
   },
   {
     "id": "ensaio-vip-alinabelle",
@@ -1564,7 +1910,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/alinabelle/video_6.mp4",
-    "order": 8
+    "order": 9
   },
   {
     "id": "ensaio-vip-adiana",
@@ -1880,7 +2226,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/adiana/video_18.mp4",
-    "order": 9
+    "order": 10
   },
   {
     "id": "ensaio-vip-camilamedeiros",
@@ -2031,7 +2377,7 @@ const CREATORS_CATALOG = [
         "isTeaser": true
       }
     ],
-    "order": 10
+    "order": 11
   },
   {
     "id": "ensaio-vip-mariadmar",
@@ -2357,7 +2703,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 11
+    "order": 12
   },
   {
     "id": "ensaio-vip-leticiavasconcelos",
@@ -2448,7 +2794,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 12
+    "order": 13
   },
   {
     "id": "ensaio-vip-gabrielafontes",
@@ -2974,7 +3320,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 13
+    "order": 14
   },
   {
     "id": "ensaio-vip-brandi",
@@ -3245,352 +3591,6 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/brandi/video_1.mp4",
-    "order": 14
-  },
-  {
-    "id": "ensaio-vip-amayawaifu",
-    "creatorName": "Amaya Waifu",
-    "username": "@amayawaifu",
-    "verified": true,
-    "title": "Coleção Completa Amaya Waifu — Cosplay & Sensual Geek",
-    "category": "cosplay",
-    "categoryLabel": "Cosplay & Geek",
-    "badge": "MUSA DO COSPLAY 💥",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "580K",
-    "likes": "92.5K",
-    "photoCount": 40,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Coleção imperdível com ensaios temáticos, cosplay sensual de alta produção e vídeos privativos.",
-    "cover": "/media/amayawaifu/photo_1.jpg",
-    "avatar": "/media/amayawaifu/photo_29.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_40.jpg",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/amayawaifu/video_1.mp4",
     "order": 15
   },
   {
@@ -4906,7 +4906,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 21
+    "order": 20
   }
 ];
 
