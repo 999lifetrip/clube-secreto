@@ -302,6 +302,10 @@ const server = http.createServer(async (req, res) => {
       codeRecord.status = 'USED';
       codeRecord.usedByDeviceId = deviceId;
       codeRecord.usedAt = now;
+      codeRecord.activatedAt = now;
+      codeRecord.activatedAtFormatted = new Date(now).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+      codeRecord.activatedIp = clientIp;
+      codeRecord.activatedUserAgent = (req.headers['user-agent'] || '').slice(0, 150);
       codeRecord.expiresAt = isLifetime ? null : (now + durationMs);
       codeRecord.isLifetime = isLifetime;
 
@@ -941,6 +945,26 @@ const server = http.createServer(async (req, res) => {
       usedCount: codes.filter(c => c.status === 'USED').length,
       codes: codes
     });
+  }
+
+  // 11. EXCLUIR CÓDIGO
+  if (req.method === 'POST' && pathname === '/api/admin/codes/delete') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const { code } = await parseJsonBody(req);
+      let codes = loadVipCodes();
+      const codeRecord = codes.find(c => c.code === code);
+      if (codeRecord && (codeRecord.isMaster || codeRecord.type === 'ADMIN_MASTER')) {
+        return sendJson(res, 400, { success: false, error: 'Não é possível excluir o código Master.' });
+      }
+      codes = codes.filter(c => c.code !== code);
+      saveVipCodes(codes);
+      return sendJson(res, 200, { success: true, message: `Código ${code} removido!` });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao excluir código.' });
+    }
   }
 
   // ═════════════════════════════════════════════════════════════════════════
