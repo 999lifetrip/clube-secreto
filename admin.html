@@ -141,18 +141,22 @@
 
         <!-- Resumo de Códigos -->
         <div class="codes-summary-bar" id="codesSummaryBar">
-          <div class="summary-pill total">Total: <strong id="sumTotalCodes">0</strong></div>
+          <div class="summary-pill total">Total de Códigos: <strong id="sumTotalCodes">0</strong></div>
           <div class="summary-pill available">Disponíveis p/ Venda: <strong id="sumAvailCodes">0</strong></div>
-          <div class="summary-pill used">Já Usados: <strong id="sumUsedCodes">0</strong></div>
+          <div class="summary-pill used">Já Ativados: <strong id="sumUsedCodes">0</strong></div>
+          <div class="summary-pill highlight" style="background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4); color: #10b981;">
+            ⏱️ Última Ativação: <strong id="sumLastActivated" style="color: #fff; font-size: 13px;">—</strong>
+          </div>
         </div>
 
         <!-- Filtro Rápido -->
         <div class="codes-filter-bar">
-          <input type="text" id="filterCodesInput" placeholder="🔍 Buscar código..." oninput="renderCodesTable()" class="admin-input-search" />
+          <input type="text" id="filterCodesInput" placeholder="🔍 Buscar código, modelo ou dispositivo..." oninput="renderCodesTable()" class="admin-input-search" />
           <div class="codes-filter-buttons">
             <button class="btn-pill-filter active" onclick="setCodesFilter('all')">Todos</button>
-            <button class="btn-pill-filter" onclick="setCodesFilter('available')">Disponíveis</button>
-            <button class="btn-pill-filter" onclick="setCodesFilter('used')">Já Resgatados</button>
+            <button class="btn-pill-filter" onclick="setCodesFilter('available')">🟢 Disponíveis</button>
+            <button class="btn-pill-filter" onclick="setCodesFilter('used')">🔴 Já Ativados</button>
+            <button class="btn-pill-filter" onclick="setCodesFilter('recent')">⏱️ Ativados Recentemente</button>
           </div>
         </div>
 
@@ -165,7 +169,8 @@
                 <th>Tipo / Plano</th>
                 <th>Valor</th>
                 <th>Status</th>
-                <th>Vinculação / Detalhes</th>
+                <th>📅 Data & Hora de Ativação</th>
+                <th>📱 Dispositivo / IP / Validade</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -398,6 +403,26 @@ TTL: 300
       <div class="admin-modal-footer" style="justify-content: space-between;">
         <span id="inspectorMediaUrlText" style="font-size: 11px; color: var(--text-muted); word-break: break-all;"></span>
         <button class="btn-secondary" onclick="closeAdminMediaInspector()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Auditoria Detalhada de Ativação do Código -->
+  <div class="admin-modal-backdrop" id="modalCodeAudit">
+    <div class="admin-modal-box" style="max-width: 580px; width: 95%;">
+      <div class="admin-modal-header">
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <span>🔍</span> Detalhes & Auditoria de Ativação
+        </h3>
+        <button class="modal-close-btn" onclick="closeCodeAuditModal()">✕</button>
+      </div>
+
+      <div class="admin-modal-body" id="codeAuditBody" style="padding: 20px;">
+        <!-- Preenchido via admin.js -->
+      </div>
+
+      <div class="admin-modal-footer">
+        <button class="btn-secondary" onclick="closeCodeAuditModal()">Fechar</button>
       </div>
     </div>
   </div>
