@@ -490,7 +490,7 @@ const CREATORS_CATALOG = [
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
-    "cover": "/media/leticiavasconcelos/photo_1.jpg",
+    "cover": "/media/leticiavasconcelos/photo_2.jpg",
     "avatar": "/media/leticiavasconcelos/photo_2.jpg",
     "reelsVideo": "/media/leticiavasconcelos/video_5.mp4",
     "individualPrice": "9,90",
@@ -582,14 +582,14 @@ const CREATORS_CATALOG = [
     "description": "Um dos maiores acervos da plataforma! Gabriela Fontes reúne 100 mídias completas com dezenas de vídeos em 60fps, bastidores completos e fotos em resolução máxima.",
     "cover": "/media/gabrielafontes/photo_1.jpg",
     "avatar": "/media/gabrielafontes/photo_2.jpg",
-    "reelsVideo": "/media/gabrielafontes/video_1.mp4",
+    "reelsVideo": "/media/gabrielafontes/video_8.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/gabrielafontes/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -624,7 +624,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/gabrielafontes/video_8.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
