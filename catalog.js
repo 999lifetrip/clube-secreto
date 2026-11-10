@@ -430,8 +430,8 @@ const CREATORS_CATALOG = [
     "videoCount": 3,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
-    "cover": "/media/rafabittencourt/photo_1.jpg",
-    "avatar": "/media/rafabittencourt/photo_2.jpg",
+    "cover": "/media/rafabittencourt/photo_2.jpg",
+    "avatar": "/media/rafabittencourt/photo_3.jpg",
     "reelsVideo": "/media/rafabittencourt/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -439,7 +439,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/rafabittencourt/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -454,7 +454,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/rafabittencourt/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -492,7 +492,7 @@ const CREATORS_CATALOG = [
     "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
     "cover": "/media/leticiavasconcelos/photo_1.jpg",
     "avatar": "/media/leticiavasconcelos/photo_2.jpg",
-    "reelsVideo": "/media/leticiavasconcelos/video_1.mp4",
+    "reelsVideo": "/media/leticiavasconcelos/video_5.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -519,7 +519,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/leticiavasconcelos/video_5.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -539,7 +539,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/leticiavasconcelos/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
