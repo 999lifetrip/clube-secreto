@@ -67,6 +67,9 @@
       <button class="admin-tab" data-tab="codes" onclick="switchAdminTab('codes')">
         <span>🔑 Gerador de Códigos de Venda</span>
       </button>
+      <button class="admin-tab" data-tab="backups" onclick="switchAdminTab('backups')">
+        <span>💾 Banco de Dados & Backups</span>
+      </button>
       <button class="admin-tab" data-tab="deploy" onclick="switchAdminTab('deploy')">
         <span>🚀 Publicar na VPS / Domínio</span>
       </button>
@@ -85,6 +88,30 @@
           <button class="btn-primary" onclick="openNewModelModal()">
             <span>➕ Adicionar Nova Modelo</span>
           </button>
+        </div>
+
+        <!-- Barra de Ordenação da Vitrine & Ações Rápidas -->
+        <div class="models-order-toolbar">
+          <div class="order-toolbar-left">
+            <span style="font-size: 13px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px;">
+              <span>🔀</span> Ordem da Vitrine:
+            </span>
+            <select id="selectModelSortOrder" class="admin-select-sm" onchange="applyModelSortPreset(this.value)">
+              <option value="custom">⭐ Ordem Personalizada (Salva)</option>
+              <option value="trending">🔥 Mais Populares (Mais Vistas Primeiro)</option>
+              <option value="rating">💎 Melhores Avaliadas (5★ Primeiro)</option>
+              <option value="newest">🆕 Recentes Primeiro</option>
+              <option value="alpha">🔤 Nome da Criadora (A-Z)</option>
+            </select>
+            <button class="btn-secondary-sm" onclick="openReorderModal()" title="Abrir organizador visual da ordem das modelos">
+              <span>🔀 Reorganizar Ordem das Modelos</span>
+            </button>
+          </div>
+          <div class="order-toolbar-right">
+            <button class="btn-secondary-sm" style="border-color: #10b981; color: #34d399;" onclick="downloadDatabaseBackup()" title="Baixar backup instantâneo do banco para seu computador">
+              <span>💾 Baixar Backup do Banco</span>
+            </button>
+          </div>
         </div>
 
         <div class="models-grid" id="modelsGrid">
@@ -217,6 +244,114 @@ TTL: 300
               <li>Porta: <code>3008</code>.</li>
               <li>Clique em <strong>Deploy</strong>. O Coolify configura o SSL HTTPS e o site fica 100% no ar!</li>
             </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABA 5: BANCO DE DADOS & BACKUPS -->
+      <section id="tab-backups" class="admin-section">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">Banco de Dados & Backups de Segurança</h2>
+            <p class="section-desc">Proteção total dos dados de modelos, fotos, vídeos e códigos VIP gerados.</p>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn-primary" onclick="createManualBackup()">
+              <span>⚡ Criar Ponto de Restauração Agora</span>
+            </button>
+            <button class="btn-secondary" style="border-color: #10b981; color: #10b981;" onclick="downloadDatabaseBackup()">
+              <span>💾 Baixar Backup do Banco (JSON)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Estatísticas do Banco -->
+        <div class="backup-stats-grid" id="backupStatsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px;">
+          <div class="deploy-card" style="display: flex; align-items: center; gap: 14px; padding: 18px;">
+            <span style="font-size: 32px;">💃</span>
+            <div>
+              <div style="font-size: 22px; font-weight: 900; color: #fff;" id="backupModelsCount">24</div>
+              <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Modelos no Catálogo</div>
+            </div>
+          </div>
+          <div class="deploy-card" style="display: flex; align-items: center; gap: 14px; padding: 18px;">
+            <span style="font-size: 32px;">🔑</span>
+            <div>
+              <div style="font-size: 22px; font-weight: 900; color: #fff;" id="backupCodesCount">--</div>
+              <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Códigos VIP Registrados</div>
+            </div>
+          </div>
+          <div class="deploy-card" style="display: flex; align-items: center; gap: 14px; padding: 18px;">
+            <span style="font-size: 32px;">💾</span>
+            <div>
+              <div style="font-size: 22px; font-weight: 900; color: #38bdf8;" id="backupSnapshotsCount">--</div>
+              <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Snapshots em Disco</div>
+            </div>
+          </div>
+          <div class="deploy-card" style="display: flex; align-items: center; gap: 14px; padding: 18px;">
+            <span style="font-size: 32px;">🛡️</span>
+            <div>
+              <div style="font-size: 18px; font-weight: 900; color: #10b981;">100% Protegido</div>
+              <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Backup a cada alteração</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards de Ação: Exportar e Importar -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 24px;">
+          <!-- Card Exportar -->
+          <div class="deploy-card">
+            <h3 class="deploy-card-title">💾 Baixar Cópia Completa do Banco de Dados</h3>
+            <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6; margin-bottom: 15px;">
+              Gera um arquivo <code>.json</code> completo contendo todo o catálogo oficial, todas as fotos e vídeos configurados, e todos os códigos VIP de venda.
+            </p>
+            <button class="btn-primary" style="padding: 12px 24px; font-size: 13px; font-weight: 800; background: linear-gradient(135deg, #10b981, #059669);" onclick="downloadDatabaseBackup()">
+              <span>💾 Baixar Arquivo JSON Agora</span>
+            </button>
+          </div>
+
+          <!-- Card Importar -->
+          <div class="deploy-card">
+            <h3 class="deploy-card-title">📥 Restaurar Banco a partir de um Arquivo</h3>
+            <p style="font-size: 13px; color: #cbd5e1; line-height: 1.6; margin-bottom: 12px;">
+              Se você ou seu amigo quiser restaurar um backup salvo anteriormente no computador, selecione o arquivo <code>.json</code> abaixo. Um backup de segurança será criado antes de aplicar as mudanças.
+            </p>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+              <input type="file" id="backupFileInput" accept=".json" style="font-size: 12px; color: #94a3b8;" />
+              <button class="btn-secondary" style="border-color: #f59e0b; color: #fbbf24; font-weight: 800; padding: 10px 18px;" onclick="uploadAndRestoreBackup()">
+                <span>📥 Restaurar Este Arquivo</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabela de Pontos de Restauração Locais -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+            <h3 style="font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
+              <span>⏱️</span> Histórico de Backups Automáticos no Servidor (Últimos 30)
+            </h3>
+            <button class="btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="loadBackupsList()">
+              <span>🔄 Atualizar Lista</span>
+            </button>
+          </div>
+
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Data & Hora</th>
+                  <th>Gatilho / Motivo</th>
+                  <th>Modelos</th>
+                  <th>Códigos</th>
+                  <th>Tamanho</th>
+                  <th>Ações de Segurança</th>
+                </tr>
+              </thead>
+              <tbody id="backupsTableBody">
+                <!-- Preenchido via admin.js -->
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
@@ -423,6 +558,37 @@ TTL: 300
 
       <div class="admin-modal-footer">
         <button class="btn-secondary" onclick="closeCodeAuditModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Reorganizar Ordem das Modelos -->
+  <div class="admin-modal-backdrop" id="modalReorder">
+    <div class="admin-modal-box" style="max-width: 650px; width: 95%; max-height: 85vh; display: flex; flex-direction: column;">
+      <div class="admin-modal-header">
+        <div>
+          <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #fff;">🔀 Organizar Ordem das Modelos na Vitrine</h3>
+          <span style="font-size: 12px; color: var(--text-muted);">Defina a ordem em que as modelos aparecem na página inicial e no Reels</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeReorderModal()">✕</button>
+      </div>
+
+      <div class="admin-modal-body" style="overflow-y: auto; padding: 15px 20px; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; flex-wrap: wrap;">
+          <span style="font-size: 12px; color: #94a3b8;">💡 Use os botões ⬆ / ⬇ ou digite o número da posição</span>
+          <button class="btn-secondary" style="padding: 5px 12px; font-size: 12px;" onclick="resetReorderToCatalog()">Resetar Ordem</button>
+        </div>
+
+        <div id="reorderListContainer" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Itens injetados via admin.js -->
+        </div>
+      </div>
+
+      <div class="admin-modal-footer" style="padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center;">
+        <button class="btn-secondary" onclick="closeReorderModal()">Cancelar</button>
+        <button class="btn-primary" style="padding: 10px 24px; font-size: 14px; font-weight: 800;" onclick="saveReorderChanges()">
+          <span>💾 Salvar Nova Ordem na Vitrine</span>
+        </button>
       </div>
     </div>
   </div>

@@ -204,6 +204,8 @@ function switchAdminTab(tabName) {
     populateModelMediaSelect();
   } else if (tabName === 'codes') {
     loadAdminCodes();
+  } else if (tabName === 'backups') {
+    loadBackupsList();
   }
 }
 
@@ -267,7 +269,7 @@ function renderModelsGrid() {
     return;
   }
 
-  grid.innerHTML = catalogCache.map(model => {
+  grid.innerHTML = catalogCache.map((model, index) => {
     const previews = Array.isArray(model.previews) ? model.previews : [];
     const teasersCount = previews.filter(p => typeof p === 'object' && p.isTeaser).length;
     const vipsCount = previews.length - teasersCount;
@@ -282,11 +284,17 @@ function renderModelsGrid() {
           <img src="${coverSrc}" alt="${model.creatorName}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='assets/logo.jpg'" />
           <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(10,12,18,0.85) 100%);"></div>
           
-          <span style="position: absolute; top: 8px; left: 8px; font-size: 10px; font-weight: 800; background: rgba(0,0,0,0.75); color: #fff; padding: 3px 8px; border-radius: 20px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.15);">
-            ${catLabel}
+          <span class="model-position-badge" title="Posição na vitrine do site">
+            <span>#${index + 1}</span>
           </span>
 
-          <span style="position: absolute; top: 8px; right: 8px; font-size: 10px; font-weight: 800; background: linear-gradient(135deg, #e11d48, #be123c); color: #fff; padding: 3px 8px; border-radius: 20px; box-shadow: 0 2px 8px rgba(225,29,72,0.4);">
+          <div class="model-quick-order-btns">
+            ${index > 0 ? `<button class="btn-order-move" onclick="event.stopPropagation(); moveModel('${model.id}', -1)" title="Subir posição">⬆</button>` : ''}
+            ${index < catalogCache.length - 1 ? `<button class="btn-order-move" onclick="event.stopPropagation(); moveModel('${model.id}', 1)" title="Descer posição">⬇</button>` : ''}
+            ${index > 0 ? `<button class="btn-order-move" style="background: rgba(225,29,72,0.9); border-color: #ff4d6d;" onclick="event.stopPropagation(); moveModelToTop('${model.id}')" title="Promover para o 1º Lugar da Vitrine">🔝</button>` : ''}
+          </div>
+
+          <span style="position: absolute; bottom: 8px; right: 8px; font-size: 10px; font-weight: 800; background: linear-gradient(135deg, #e11d48, #be123c); color: #fff; padding: 3px 8px; border-radius: 20px; box-shadow: 0 2px 8px rgba(225,29,72,0.4);">
             ${model.badge || 'VIP 🔥'}
           </span>
         </div>
@@ -1384,6 +1392,344 @@ async function generateBatchCodes(type, modelId, count = 10) {
     console.error('Erro ao gerar códigos:', err);
     showToast('Erro de conexão ao gerar novos códigos.');
   }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// GERENCIAMENTO DA ORDEM DAS MODELOS NA VITRINE
+// ═════════════════════════════════════════════════════════════════════════
+
+let reorderDraft = [];
+
+async function saveModelsOrder(orderedIds) {
+  const key = getAdminKey();
+  if (!key) return;
+
+  try {
+    const res = await fetch('/api/admin/models/reorder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      },
+      body: JSON.stringify({ orderedIds })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      if (Array.isArray(data.catalog)) {
+        catalogCache = data.catalog;
+      }
+      renderModelsGrid();
+      populateModelMediaSelect();
+      showToast('✅ Nova ordem salva na vitrine!');
+    } else {
+      showToast(data.error || 'Erro ao salvar ordem.');
+    }
+  } catch (err) {
+    console.error('Erro ao salvar ordem:', err);
+    showToast('Erro de conexão ao salvar nova ordem.');
+  }
+}
+
+async function moveModel(modelId, delta) {
+  const idx = catalogCache.findIndex(m => m.id === modelId);
+  if (idx === -1) return;
+  const newIdx = idx + delta;
+  if (newIdx < 0 || newIdx >= catalogCache.length) return;
+
+  const item = catalogCache.splice(idx, 1)[0];
+  catalogCache.splice(newIdx, 0, item);
+  renderModelsGrid();
+
+  const orderedIds = catalogCache.map(m => m.id);
+  await saveModelsOrder(orderedIds);
+}
+
+async function moveModelToTop(modelId) {
+  const idx = catalogCache.findIndex(m => m.id === modelId);
+  if (idx === -1 || idx === 0) return;
+
+  const item = catalogCache.splice(idx, 1)[0];
+  catalogCache.unshift(item);
+  renderModelsGrid();
+
+  const orderedIds = catalogCache.map(m => m.id);
+  await saveModelsOrder(orderedIds);
+}
+
+function applyModelSortPreset(preset) {
+  if (preset === 'custom') return;
+
+  const copy = [...catalogCache];
+  if (preset === 'trending') {
+    copy.sort((a, b) => (parseInt(b.views) || 0) - (parseInt(a.views) || 0));
+  } else if (preset === 'rating') {
+    copy.sort((a, b) => (parseFloat(b.rating) || 0) - (parseFloat(a.rating) || 0));
+  } else if (preset === 'newest') {
+    copy.reverse();
+  } else if (preset === 'alpha') {
+    copy.sort((a, b) => (a.creatorName || '').localeCompare(b.creatorName || ''));
+  }
+
+  catalogCache = copy;
+  renderModelsGrid();
+  saveModelsOrder(catalogCache.map(m => m.id));
+}
+
+function openReorderModal() {
+  const modal = document.getElementById('modalReorder');
+  if (!modal) return;
+  reorderDraft = [...catalogCache];
+  renderReorderList();
+  modal.classList.add('open');
+}
+
+function closeReorderModal() {
+  const modal = document.getElementById('modalReorder');
+  if (modal) modal.classList.remove('open');
+}
+
+function resetReorderToCatalog() {
+  reorderDraft = [...catalogCache];
+  renderReorderList();
+}
+
+function renderReorderList() {
+  const container = document.getElementById('reorderListContainer');
+  if (!container) return;
+
+  container.innerHTML = reorderDraft.map((model, idx) => {
+    const avatar = model.avatar || model.cover || 'assets/logo.jpg';
+    return `
+      <div class="reorder-item-card">
+        <div class="reorder-item-left">
+          <input type="number" min="1" max="${reorderDraft.length}" value="${idx + 1}" class="reorder-pos-input" onchange="setReorderPosition(${idx}, parseInt(this.value, 10))" title="Digite a posição desejada" />
+          <img src="${avatar}" alt="${model.creatorName}" class="reorder-item-thumb" onerror="this.src='assets/logo.jpg'" />
+          <div class="reorder-item-info">
+            <span class="reorder-item-title">${model.creatorName}</span>
+            <span class="reorder-item-sub">${model.title || model.username || ''}</span>
+          </div>
+        </div>
+        <div class="reorder-item-controls">
+          ${idx > 0 ? `<button class="btn-order-move" onclick="moveReorderItem(${idx}, -1)" title="Subir">⬆</button>` : '<div style="width:26px;"></div>'}
+          ${idx < reorderDraft.length - 1 ? `<button class="btn-order-move" onclick="moveReorderItem(${idx}, 1)" title="Descer">⬇</button>` : '<div style="width:26px;"></div>'}
+          ${idx > 0 ? `<button class="btn-order-move" style="background:#e11d48;" onclick="moveReorderItemToTop(${idx})" title="1º Lugar">🔝</button>` : '<div style="width:26px;"></div>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function moveReorderItem(idx, delta) {
+  const newIdx = idx + delta;
+  if (newIdx < 0 || newIdx >= reorderDraft.length) return;
+  const item = reorderDraft.splice(idx, 1)[0];
+  reorderDraft.splice(newIdx, 0, item);
+  renderReorderList();
+}
+
+function moveReorderItemToTop(idx) {
+  if (idx <= 0) return;
+  const item = reorderDraft.splice(idx, 1)[0];
+  reorderDraft.unshift(item);
+  renderReorderList();
+}
+
+function setReorderPosition(fromIdx, targetPos) {
+  if (isNaN(targetPos) || targetPos < 1 || targetPos > reorderDraft.length) {
+    renderReorderList();
+    return;
+  }
+  const toIdx = targetPos - 1;
+  const item = reorderDraft.splice(fromIdx, 1)[0];
+  reorderDraft.splice(toIdx, 0, item);
+  renderReorderList();
+}
+
+async function saveReorderChanges() {
+  const orderedIds = reorderDraft.map(m => m.id);
+  closeReorderModal();
+  await saveModelsOrder(orderedIds);
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// GERENCIAMENTO DE BANCO DE DADOS & BACKUPS
+// ═════════════════════════════════════════════════════════════════════════
+
+function downloadDatabaseBackup() {
+  const key = getAdminKey();
+  if (!key) {
+    showToast('⚠️ Faça login como Administrador.');
+    return;
+  }
+  showToast('💾 Gerando download do backup do banco...');
+  const url = `/api/admin/backups/export?key=${encodeURIComponent(key)}`;
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `backup_clube_secreto_${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+async function createManualBackup() {
+  const key = getAdminKey();
+  if (!key) return;
+
+  try {
+    showToast('⚡ Criando ponto de restauração...');
+    const res = await fetch('/api/admin/backups/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+      body: JSON.stringify({})
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showToast('✅ ' + data.message);
+      await loadBackupsList();
+    } else {
+      showToast(data.error || 'Erro ao criar backup.');
+    }
+  } catch(e) {
+    showToast('Erro de conexão ao criar backup.');
+  }
+}
+
+async function loadBackupsList() {
+  const key = getAdminKey();
+  if (!key) return;
+
+  const tbody = document.getElementById('backupsTableBody');
+  const countModels = document.getElementById('backupModelsCount');
+  const countCodes = document.getElementById('backupCodesCount');
+  const countSnapshots = document.getElementById('backupSnapshotsCount');
+
+  if (countModels && catalogCache) countModels.textContent = catalogCache.length;
+  if (countCodes && codesCache) countCodes.textContent = codesCache.length;
+
+  try {
+    const res = await fetch('/api/admin/backups/list', {
+      headers: { 'x-admin-key': key }
+    });
+    const data = await res.json();
+    if (res.ok && data.success && Array.isArray(data.backups)) {
+      if (countSnapshots) countSnapshots.textContent = data.backups.length;
+      if (!tbody) return;
+
+      if (data.backups.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 25px; color: var(--text-muted);">Nenhum backup em disco ainda.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = data.backups.map(b => {
+        const reasonLabels = {
+          server_startup: '🚀 Inicialização do Servidor',
+          manual_admin: '⚡ Manual pelo Admin',
+          before_reorder_models: '🔀 Reordenação de Modelos',
+          catalog_update: '💃 Alteração no Catálogo',
+          codes_update: '🔑 Geração/Exclusão de Códigos',
+          pre_restore: '🛡️ Segurança Pré-Restauração',
+          pre_import: '🛡️ Segurança Pré-Importação'
+        };
+        const label = reasonLabels[b.reason] || `ℹ️ ${b.reason || 'Automático'}`;
+        return `
+          <tr>
+            <td>
+              <strong style="color: #fff; font-size: 13px;">${b.date}</strong>
+              <span style="display:block; font-size: 10px; color: var(--text-muted); font-family: monospace;">${b.filename}</span>
+            </td>
+            <td>
+              <span style="background: rgba(255,255,255,0.08); padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; color: #cbd5e1;">${label}</span>
+            </td>
+            <td><strong style="color: #fbbf24;">${b.modelsCount}</strong></td>
+            <td><strong style="color: #38bdf8;">${b.codesCount}</strong></td>
+            <td><span style="color: #94a3b8; font-size: 12px;">${b.sizeKb} KB</span></td>
+            <td>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn-copy-sm" style="background: #10b981; border: none;" onclick="restoreLocalBackup('${b.filename}')" title="Restaurar o banco para este ponto">
+                  <span>📥 Restaurar</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  } catch (err) {
+    console.error('Erro ao carregar backups:', err);
+  }
+}
+
+async function restoreLocalBackup(filename) {
+  if (!confirm(`Tem certeza que deseja restaurar o banco de dados para o ponto "${filename}"?\n\nUm backup de segurança do estado atual será criado antes da restauração.`)) {
+    return;
+  }
+  const key = getAdminKey();
+  if (!key) return;
+
+  try {
+    showToast('🔄 Restaurando banco de dados...');
+    const res = await fetch('/api/admin/backups/restore-local', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+      body: JSON.stringify({ filename })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showToast('🎉 ' + data.message);
+      await loadAdminCatalog();
+      await loadAdminCodes();
+      await loadBackupsList();
+    } else {
+      showToast(data.error || 'Erro ao restaurar backup.');
+    }
+  } catch (err) {
+    showToast('Erro de conexão ao restaurar.');
+  }
+}
+
+async function uploadAndRestoreBackup() {
+  const input = document.getElementById('backupFileInput');
+  if (!input || !input.files || input.files.length === 0) {
+    showToast('⚠️ Selecione um arquivo de backup .json primeiro.');
+    return;
+  }
+
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const backupData = JSON.parse(e.target.result);
+      if (!Array.isArray(backupData.catalog) || !Array.isArray(backupData.vipCodes)) {
+        showToast('❌ Arquivo inválido! Não contém catálogo ou códigos VIP.');
+        return;
+      }
+
+      if (!confirm(`Confirmar restauração de backup com ${backupData.catalog.length} modelos e ${backupData.vipCodes.length} códigos VIP?`)) {
+        return;
+      }
+
+      const key = getAdminKey();
+      showToast('🔄 Importando e aplicando backup...');
+      const res = await fetch('/api/admin/backups/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+        body: JSON.stringify({ backupData })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showToast('🎉 ' + data.message);
+        input.value = '';
+        await loadAdminCatalog();
+        await loadAdminCodes();
+        await loadBackupsList();
+      } else {
+        showToast(data.error || 'Erro ao importar backup.');
+      }
+    } catch(err) {
+      showToast('❌ Erro ao ler arquivo JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
 }
 
 // ═════════════════════════════════════════════════════════════════════════

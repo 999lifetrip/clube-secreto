@@ -429,7 +429,8 @@ function setupEventListeners() {
 }
 
 function renderCatalog() {
-  const filtered = CREATORS_CATALOG.filter(item => {
+  const sorted = [...CREATORS_CATALOG].sort((a, b) => (a.order || 999) - (b.order || 999));
+  const filtered = sorted.filter(item => {
     const matchesCategory = currentCategory === "all" || item.category === currentCategory;
     const matchesSearch = !currentSearch || 
       item.title.toLowerCase().includes(currentSearch) ||
@@ -1071,7 +1072,8 @@ function renderReelsCarousel() {
   const container = document.getElementById("reelsCarousel");
   if (!container || typeof CREATORS_CATALOG === "undefined") return;
 
-  const modelsWithMedia = CREATORS_CATALOG.filter(m => Array.isArray(m.previews) && m.previews.length > 0);
+  const sorted = [...CREATORS_CATALOG].sort((a, b) => (a.order || 999) - (b.order || 999));
+  const modelsWithMedia = sorted.filter(m => Array.isArray(m.previews) && m.previews.length > 0);
 
   container.innerHTML = modelsWithMedia.map(model => {
     // Busca prioritária do vídeo do Reels:

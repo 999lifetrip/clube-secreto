@@ -9,6 +9,11 @@ const PORT = process.env.PORT || 3008;
 const CONFIG_FILE = path.join(__dirname, 'config', 'vip_codes.json');
 const CATALOG_FILE = path.join(__dirname, 'catalog.js');
 const MEDIA_DIR = path.join(__dirname, 'media');
+const BACKUPS_DIR = path.join(__dirname, 'backups');
+
+if (!fs.existsSync(BACKUPS_DIR)) {
+  try { fs.mkdirSync(BACKUPS_DIR, { recursive: true }); } catch(e) {}
+}
 
 const ADMIN_KEYS = new Set([
   'ADM-CLUBE-98319-LUAN-X99',
@@ -52,9 +57,52 @@ function loadVipCodes() {
   return [];
 }
 
-// Salva códigos VIP
-function saveVipCodes(codes) {
+// Sistema de Backup Automático do Banco de Dados
+function createAutoBackup(reason = 'auto') {
   try {
+    if (!fs.existsSync(BACKUPS_DIR)) {
+      fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+    }
+    const catalog = loadCatalog();
+    const vipCodes = loadVipCodes();
+    const now = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const timestampStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+    const filename = `backup_${timestampStr}_${reason}.json`;
+    const filePath = path.join(BACKUPS_DIR, filename);
+    const data = {
+      timestamp: Date.now(),
+      date: now.toISOString(),
+      reason,
+      modelsCount: catalog.length,
+      codesCount: vipCodes.length,
+      catalog,
+      vipCodes
+    };
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+
+    // Mantém os 30 backups mais recentes
+    const files = fs.readdirSync(BACKUPS_DIR)
+      .filter(f => f.startsWith('backup_') && f.endsWith('.json'))
+      .map(f => ({ name: f, time: fs.statSync(path.join(BACKUPS_DIR, f)).mtimeMs }))
+      .sort((a, b) => b.time - a.time);
+
+    if (files.length > 30) {
+      files.slice(30).forEach(f => {
+        try { fs.unlinkSync(path.join(BACKUPS_DIR, f.name)); } catch(e) {}
+      });
+    }
+    return filename;
+  } catch (err) {
+    console.error('Erro ao criar backup automático:', err);
+    return null;
+  }
+}
+
+// Salva códigos VIP
+function saveVipCodes(codes, skipBackup = false) {
+  try {
+    if (!skipBackup) createAutoBackup('before_codes_save');
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(codes, null, 2), 'utf8');
     return true;
   } catch (err) {
@@ -77,8 +125,9 @@ function loadCatalog() {
 }
 
 // Salva Catálogo
-function saveCatalog(catalog) {
+function saveCatalog(catalog, skipBackup = false) {
   try {
+    if (!skipBackup) createAutoBackup('before_catalog_save');
     const code = `// ═════════════════════════════════════════════════════════════════════════\n// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (ENSAIOS & PORTFÓLIOS EXCLUSIVOS)\n// ═════════════════════════════════════════════════════════════════════════\n\nconst CREATORS_CATALOG = ${JSON.stringify(catalog, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = CREATORS_CATALOG;\n}\n`;
     fs.writeFileSync(CATALOG_FILE, code, 'utf8');
     return true;
@@ -544,6 +593,50 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, { success: true, catalog });
   }
 
+  // 2.1. REORDENAR MODELOS DO CATÁLOGO
+  if (req.method === 'POST' && pathname === '/api/admin/models/reorder') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const { orderedIds } = await parseJsonBody(req);
+      if (!Array.isArray(orderedIds)) {
+        return sendJson(res, 400, { success: false, error: 'Lista de IDs inválida.' });
+      }
+
+      const catalog = loadCatalog();
+      const modelMap = new Map(catalog.map(m => [m.id, m]));
+      const newCatalog = [];
+
+      // Adiciona na ordem solicitada
+      orderedIds.forEach((id, idx) => {
+        if (modelMap.has(id)) {
+          const m = modelMap.get(id);
+          m.order = idx + 1;
+          newCatalog.push(m);
+          modelMap.delete(id);
+        }
+      });
+
+      // Adiciona modelos restantes
+      for (const remaining of modelMap.values()) {
+        remaining.order = newCatalog.length + 1;
+        newCatalog.push(remaining);
+      }
+
+      createAutoBackup('before_reorder_models');
+      saveCatalog(newCatalog, true);
+
+      return sendJson(res, 200, { 
+        success: true, 
+        message: 'Ordem das modelos atualizada com sucesso!', 
+        catalog: newCatalog 
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao reordenar: ' + e.message });
+    }
+  }
+
   // 3. CRIAR OU EDITAR MODELO
   if (req.method === 'POST' && pathname === '/api/admin/model/save') {
     if (!checkAdminAuth(req, urlObj)) {
@@ -967,6 +1060,145 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
+  // 12. EXPORTAR / BAIXAR BACKUP COMPLETO DO BANCO (JSON)
+  if (req.method === 'GET' && pathname === '/api/admin/backups/export') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const catalog = loadCatalog();
+      const vipCodes = loadVipCodes();
+      const now = new Date();
+      const pad = n => String(n).padStart(2, '0');
+      const dateTag = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}`;
+      const payload = {
+        version: '2.0',
+        exportedAt: now.toISOString(),
+        timestamp: Date.now(),
+        modelsCount: catalog.length,
+        codesCount: vipCodes.length,
+        catalog,
+        vipCodes
+      };
+      const jsonBuf = Buffer.from(JSON.stringify(payload, null, 2), 'utf8');
+      res.writeHead(200, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Disposition': `attachment; filename="clube_secreto_backup_${dateTag}.json"`,
+        'Content-Length': jsonBuf.length
+      });
+      return res.end(jsonBuf);
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao exportar backup: ' + e.message });
+    }
+  }
+
+  // 13. LISTAR BACKUPS LOCAIS DO SERVIDOR
+  if (req.method === 'GET' && pathname === '/api/admin/backups/list') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      if (!fs.existsSync(BACKUPS_DIR)) fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+      const files = fs.readdirSync(BACKUPS_DIR)
+        .filter(f => f.startsWith('backup_') && f.endsWith('.json'))
+        .map(f => {
+          const fullPath = path.join(BACKUPS_DIR, f);
+          const st = fs.statSync(fullPath);
+          let meta = { modelsCount: '?', codesCount: '?', reason: 'auto' };
+          try {
+            const content = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+            meta.modelsCount = content.modelsCount || (content.catalog ? content.catalog.length : '?');
+            meta.codesCount = content.codesCount || (content.vipCodes ? content.vipCodes.length : '?');
+            meta.reason = content.reason || 'auto';
+          } catch(e) {}
+          return {
+            filename: f,
+            size: st.size,
+            sizeKb: (st.size / 1024).toFixed(1),
+            mtime: st.mtimeMs,
+            date: new Date(st.mtimeMs).toLocaleString('pt-BR'),
+            ...meta
+          };
+        })
+        .sort((a, b) => b.mtime - a.mtime);
+
+      return sendJson(res, 200, { success: true, backups: files });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao listar backups: ' + e.message });
+    }
+  }
+
+  // 14. CRIAR BACKUP MANUAL INSTANTÂNEO
+  if (req.method === 'POST' && pathname === '/api/admin/backups/create') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const filename = createAutoBackup('manual_admin');
+      return sendJson(res, 200, { success: true, filename, message: 'Ponto de restauração criado com sucesso!' });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao criar backup: ' + e.message });
+    }
+  }
+
+  // 15. RESTAURAR A PARTIR DE ARQUIVO LOCAL DO SERVIDOR
+  if (req.method === 'POST' && pathname === '/api/admin/backups/restore-local') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const { filename } = await parseJsonBody(req);
+      if (!filename) return sendJson(res, 400, { success: false, error: 'Nome do arquivo não informado.' });
+      const safeFilename = path.basename(filename);
+      const targetPath = path.join(BACKUPS_DIR, safeFilename);
+      if (!fs.existsSync(targetPath)) {
+        return sendJson(res, 404, { success: false, error: 'Arquivo de backup não encontrado no servidor.' });
+      }
+
+      const content = JSON.parse(fs.readFileSync(targetPath, 'utf8'));
+      if (!Array.isArray(content.catalog) || !Array.isArray(content.vipCodes)) {
+        return sendJson(res, 400, { success: false, error: 'Estrutura do arquivo de backup inválida.' });
+      }
+
+      // Salva backup de segurança antes da restauração
+      createAutoBackup('pre_restore');
+
+      saveCatalog(content.catalog, true);
+      saveVipCodes(content.vipCodes, true);
+
+      return sendJson(res, 200, {
+        success: true,
+        message: `Banco restaurado com sucesso! (${content.catalog.length} modelos e ${content.vipCodes.length} códigos)`
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao restaurar backup: ' + e.message });
+    }
+  }
+
+  // 16. IMPORTAR E RESTAURAR BACKUP (UPLOAD DE ARQUIVO JSON)
+  if (req.method === 'POST' && pathname === '/api/admin/backups/import') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const { backupData } = await parseJsonBody(req);
+      if (!backupData || !Array.isArray(backupData.catalog) || !Array.isArray(backupData.vipCodes)) {
+        return sendJson(res, 400, { success: false, error: 'Dados de backup inválidos ou corrompidos.' });
+      }
+
+      createAutoBackup('pre_import');
+      saveCatalog(backupData.catalog, true);
+      saveVipCodes(backupData.vipCodes, true);
+
+      return sendJson(res, 200, {
+        success: true,
+        message: `Backup importado com sucesso! (${backupData.catalog.length} modelos e ${backupData.vipCodes.length} códigos)`
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao importar backup: ' + e.message });
+    }
+  }
+
   // ═════════════════════════════════════════════════════════════════════════
   // SERVIDOR DE ARQUIVOS ESTÁTICOS
   // ═════════════════════════════════════════════════════════════════════════
@@ -1130,8 +1362,10 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
+  createAutoBackup('server_startup');
   console.log(`🚀 [Clube Secreto] Servidor rodando em: http://localhost:${PORT}`);
   console.log(`📁 Diretório: ${__dirname}`);
   console.log(`👑 Painel Administrativo Ativo em: http://localhost:${PORT}/admin`);
   console.log(`🔒 Sistema Anti-Fraude com Código Único Ativo.`);
+  console.log(`💾 Sistema de Backup Automático do Banco Ativo em: ${BACKUPS_DIR}`);
 });
