@@ -608,9 +608,10 @@ function renderPreviewContent(item) {
 
   let html = '';
 
-  // 1. VÍDEO PRINCIPAL EM DESTAQUE (Player nativo limpo, sem botões extras confusos)
+  // 1. VÍDEO PRINCIPAL EM DESTAQUE (Player nativo limpo com poster imediato, sem tela preta)
   displayVids.forEach((v, idx) => {
     const url = typeof v === 'object' ? v.url : v;
+    const thumbUrl = url.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
     const playerId = `player_${item.id}_${idx + 1}`;
     html += `
       <div class="preview-video-card">
@@ -622,8 +623,8 @@ function renderPreviewContent(item) {
           <span class="video-badge-hd">${unlocked ? '🔓 COMPLETO HD' : '🔒 PRÉVIA'}</span>
         </div>
 
-        <div class="preview-video-player-container">
-          <video id="${playerId}" src="${url}" controls playsinline preload="metadata" class="responsive-video"></video>
+        <div class="preview-video-player-container" style="position: relative; background: #07090e;">
+          <video id="${playerId}" src="${url}" poster="${thumbUrl}" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.poster='${item.cover}';}" controls playsinline preload="metadata" class="responsive-video"></video>
           ${!unlocked ? `<div class="video-watermark-tag">CLUBE SECRETO VIP 🔒</div>` : ''}
         </div>
       </div>
@@ -905,18 +906,29 @@ function openVipModal() {
 // ═════════════════════════════════════════════════════════════════════════
 
 function openCodeModal() {
-  if (codeModal) {
-    if (vipCodeInput) vipCodeInput.value = "";
-    codeModal.classList.add("open");
+  const modal = document.getElementById("codeModal") || codeModal;
+  const input = document.getElementById("vipCodeInput") || vipCodeInput;
+  if (modal) {
+    if (input) input.value = "";
+    modal.classList.add("open");
+    modal.style.display = "flex";
+    modal.style.zIndex = "99999";
     setTimeout(() => {
-      if (vipCodeInput) vipCodeInput.focus();
+      if (input) input.focus();
     }, 150);
   }
 }
 
 function closeCodeModal() {
-  if (codeModal) codeModal.classList.remove("open");
+  const modal = document.getElementById("codeModal") || codeModal;
+  if (modal) {
+    modal.classList.remove("open");
+    modal.style.display = "";
+  }
 }
+
+window.openCodeModal = openCodeModal;
+window.closeCodeModal = closeCodeModal;
 
 // Validação Segura do Código Único no Backend
 async function activateCode(rawCode) {
@@ -1026,6 +1038,7 @@ function submitVipCode(codeOverride) {
   const code = codeOverride || (vipCodeInput ? vipCodeInput.value : "");
   activateCode(code);
 }
+window.submitVipCode = submitVipCode;
 
 // ═════════════════════════════════════════════════════════════════════════
 // REELS FEED EM TELA CHEIA (ESTILO TIKTOK & INSTAGRAM REELS)
