@@ -1,5 +1,1205 @@
 const CREATORS_CATALOG = [
   {
+    "id": "ensaio-vip-julianarios",
+    "creatorName": "Juliana Rios",
+    "username": "@julianarios.oficial",
+    "verified": true,
+    "title": "Coleção Exclusiva Juliana Rios — Ensaio Privado & Vídeos 4K",
+    "category": "estudio",
+    "categoryLabel": "Estúdio & Glamour",
+    "badge": "NOVO LANÇAMENTO VIP 🔥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "480K",
+    "likes": "74.2K",
+    "photoCount": 8,
+    "videoCount": 25,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Acervo exclusivo de estúdio com Juliana Rios. Bastidores intimistas, poses deslumbrantes em alta definição 4K e vídeos sensuais 60fps sem censura.",
+    "cover": "/media/julianarios/photo_1.jpg",
+    "avatar": "/media/julianarios/photo_2.jpg",
+    "reelsVideo": "/media/julianarios/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/julianarios/video_25.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/julianarios/photo_8.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-brunaalencar",
+    "creatorName": "Bruna Alencar",
+    "username": "@brunaalencar.vip",
+    "verified": true,
+    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "DESTAQUE BRONZE ☀️",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "310K",
+    "likes": "51.8K",
+    "photoCount": 6,
+    "videoCount": 5,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
+    "cover": "/media/brunaalencar/photo_1.jpg",
+    "avatar": "/media/brunaalencar/photo_2.jpg",
+    "reelsVideo": "/media/brunaalencar/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_6.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-camilamedeiros",
+    "creatorName": "Camila Medeiros",
+    "username": "@camilamedeiros.exclusive",
+    "verified": true,
+    "title": "Camila Medeiros — Coleção Sensual Editorial & Vídeos 60fps",
+    "category": "moda",
+    "categoryLabel": "Moda & Editorial",
+    "badge": "NOVO LANÇAMENTO 💥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "395K",
+    "likes": "62.4K",
+    "photoCount": 16,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Elegância e sensualidade com Camila Medeiros. Ensaio editorial de luxo, lingerie fina e vídeos exclusivos em altíssima resolução 4K.",
+    "cover": "/media/camilamedeiros/photo_1.jpg",
+    "avatar": "/media/camilamedeiros/photo_2.jpg",
+    "reelsVideo": "/media/camilamedeiros/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/camilamedeiros/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/camilamedeiros/photo_16.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-rafabittencourt",
+    "creatorName": "Rafaela Bittencourt",
+    "username": "@rafabittencourt_",
+    "verified": true,
+    "title": "Rafaela Bittencourt — Ensaio Íntimo & Lifestyle Premium",
+    "category": "viagem",
+    "categoryLabel": "Lifestyle & Viagem",
+    "badge": "EXCLUSIVO VIP ✨",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "280K",
+    "likes": "44.6K",
+    "photoCount": 4,
+    "videoCount": 3,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
+    "cover": "/media/rafabittencourt/photo_1.jpg",
+    "avatar": "/media/rafabittencourt/photo_2.jpg",
+    "reelsVideo": "/media/rafabittencourt/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_4.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-leticiavasconcelos",
+    "creatorName": "Letícia Vasconcelos",
+    "username": "@leticiavasconcelos.vip",
+    "verified": true,
+    "title": "Letícia Vasconcelos — Ensaio Urbano & Glamour Privado",
+    "category": "streetwear",
+    "categoryLabel": "Streetwear & Urbana",
+    "badge": "SUPER EM ALTA 🔥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "415K",
+    "likes": "67.9K",
+    "photoCount": 5,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
+    "cover": "/media/leticiavasconcelos/photo_1.jpg",
+    "avatar": "/media/leticiavasconcelos/photo_2.jpg",
+    "reelsVideo": "/media/leticiavasconcelos/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_5.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-gabrielafontes",
+    "creatorName": "Gabriela Fontes",
+    "username": "@gabifontes.oficial",
+    "verified": true,
+    "title": "Mega Ensaio Gabriela Fontes — Super Acervo 100 Mídias 4K Ultra HD",
+    "category": "estudio",
+    "categoryLabel": "Estúdio & Glamour",
+    "badge": "MAIS ACESSADO ⭐",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "850K",
+    "likes": "142K",
+    "photoCount": 53,
+    "videoCount": 47,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Um dos maiores acervos da plataforma! Gabriela Fontes reúne 100 mídias completas com dezenas de vídeos em 60fps, bastidores completos e fotos em resolução máxima.",
+    "cover": "/media/gabrielafontes/photo_1.jpg",
+    "avatar": "/media/gabrielafontes/photo_2.jpg",
+    "reelsVideo": "/media/gabrielafontes/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_25.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_26.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_27.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_28.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_29.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_30.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_31.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_32.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_33.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_34.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_35.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_36.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_37.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_38.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_39.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_40.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_41.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_42.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_43.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_44.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_45.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_46.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/gabrielafontes/video_47.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_40.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_41.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_42.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_43.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_44.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_45.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_46.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_47.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_48.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_49.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_50.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_51.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_52.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/gabrielafontes/photo_53.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
+    "id": "ensaio-vip-lorenadrummond",
+    "creatorName": "Lorena Drummond",
+    "username": "@lorenadrummond.vip",
+    "verified": true,
+    "title": "Lorena Drummond — Ensaio Fantasia & Ensaio Artístico Completo",
+    "category": "cosplay",
+    "categoryLabel": "Cosplay & Geek",
+    "badge": "NOVA CRIADORA 💎",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "320K",
+    "likes": "53.1K",
+    "photoCount": 16,
+    "videoCount": 1,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "A delicadeza e a ousadia de Lorena Drummond em fotos temáticas e artísticas de tirar o fôlego. Cores vibrantes, produção impecável e alta resolução.",
+    "cover": "/media/lorenadrummond/photo_1.jpg",
+    "avatar": "/media/lorenadrummond/photo_2.jpg",
+    "reelsVideo": "/media/lorenadrummond/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/lorenadrummond/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_16.jpg",
+        "isTeaser": false
+      }
+    ]
+  },
+  {
     "id": "ensaio-vip-alinabelle",
     "creatorName": "Alina Belle",
     "username": "@alinabelle",
