@@ -4,6 +4,67 @@
 
 const CREATORS_CATALOG = [
   {
+    "id": "ensaio-vip-rafabittencourt",
+    "creatorName": "Rafaela Bittencourt",
+    "username": "@rafabittencourt_",
+    "verified": true,
+    "title": "Rafaela Bittencourt — Ensaio Íntimo & Lifestyle Premium",
+    "category": "viagem",
+    "categoryLabel": "Lifestyle & Viagem",
+    "badge": "EXCLUSIVO VIP ✨",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "280K",
+    "likes": "44.6K",
+    "photoCount": 4,
+    "videoCount": 3,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
+    "cover": "/media/rafabittencourt/photo_3.jpg",
+    "avatar": "/media/rafabittencourt/photo_3.jpg",
+    "reelsVideo": "/media/rafabittencourt/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_1.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/rafabittencourt/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/rafabittencourt/photo_4.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 1
+  },
+  {
     "id": "ensaio-vip-julianarios",
     "creatorName": "Juliana Rios",
     "username": "@julianarios.oficial",
@@ -192,7 +253,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 1
+    "order": 2
   },
   {
     "id": "ensaio-vip-brunaalencar",
@@ -273,7 +334,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 2
+    "order": 3
   },
   {
     "id": "ensaio-vip-lorenadrummond",
@@ -384,7 +445,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 3
+    "order": 4
   },
   {
     "id": "ensaio-vip-karentahe",
@@ -730,7 +791,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/karentahe/video_2.mp4",
-    "order": 4
+    "order": 5
   },
   {
     "id": "ensaio-vip-lovebyelenita",
@@ -811,7 +872,7 @@ const CREATORS_CATALOG = [
         "isTeaser": true
       }
     ],
-    "order": 5
+    "order": 6
   },
   {
     "id": "ensaio-vip-alinabelle",
@@ -1157,7 +1218,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/alinabelle/video_6.mp4",
-    "order": 6
+    "order": 7
   },
   {
     "id": "ensaio-vip-adiana",
@@ -1473,7 +1534,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/adiana/video_18.mp4",
-    "order": 7
+    "order": 8
   },
   {
     "id": "ensaio-vip-camilamedeiros",
@@ -1488,11 +1549,11 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "395K",
     "likes": "62.4K",
-    "photoCount": 16,
+    "photoCount": 18,
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Elegância e sensualidade com Camila Medeiros. Ensaio editorial de luxo, lingerie fina e vídeos exclusivos em altíssima resolução 4K.",
-    "cover": "/media/camilamedeiros/photo_1.jpg",
+    "cover": "/media/camilamedeiros/photo_4.jpg",
     "avatar": "/media/camilamedeiros/photo_2.jpg",
     "reelsVideo": "/media/camilamedeiros/video_1.mp4",
     "individualPrice": "9,90",
@@ -1617,67 +1678,16 @@ const CREATORS_CATALOG = [
         "type": "image",
         "url": "/media/camilamedeiros/photo_16.jpg",
         "isTeaser": false
-      }
-    ],
-    "order": 8
-  },
-  {
-    "id": "ensaio-vip-rafabittencourt",
-    "creatorName": "Rafaela Bittencourt",
-    "username": "@rafabittencourt_",
-    "verified": true,
-    "title": "Rafaela Bittencourt — Ensaio Íntimo & Lifestyle Premium",
-    "category": "viagem",
-    "categoryLabel": "Lifestyle & Viagem",
-    "badge": "EXCLUSIVO VIP ✨",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "280K",
-    "likes": "44.6K",
-    "photoCount": 4,
-    "videoCount": 3,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
-    "cover": "/media/rafabittencourt/photo_1.jpg",
-    "avatar": "/media/rafabittencourt/photo_2.jpg",
-    "reelsVideo": "/media/rafabittencourt/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/rafabittencourt/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/rafabittencourt/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/rafabittencourt/video_3.mp4",
-        "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/rafabittencourt/photo_1.jpg",
+        "url": "/media/camilamedeiros/opop.png",
         "isTeaser": true
       },
       {
         "type": "image",
-        "url": "/media/rafabittencourt/photo_2.jpg",
+        "url": "/media/camilamedeiros/opop.png",
         "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/rafabittencourt/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/rafabittencourt/photo_4.jpg",
-        "isTeaser": false
       }
     ],
     "order": 9

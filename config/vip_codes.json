@@ -337,10 +337,15 @@
     "price": "24,99",
     "durationDays": 7,
     "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
+    "status": "USED",
+    "usedByDeviceId": "cs_dev_tpe8go9q_mw7a36wl",
+    "usedAt": 1794349994760,
+    "expiresAt": 1794954794760,
+    "activatedAt": 1794349994760,
+    "activatedAtFormatted": "10/11/2026, 19:33:14",
+    "activatedIp": "177.5.26.193",
+    "activatedUserAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "isLifetime": false
   },
   {
     "code": "VIP1005",
