@@ -1116,11 +1116,12 @@ const server = http.createServer(async (req, res) => {
       return raw.pipe(gzip).pipe(res);
     }
 
+    const isVideo = ['.mp4', '.webm', '.mov'].includes(ext);
     res.writeHead(200, {
       'Content-Type': contentType,
       'Content-Length': stats.size,
       'ETag': etag,
-      'Cache-Control': 'no-cache, must-revalidate',
+      'Cache-Control': isVideo ? 'public, max-age=86400' : 'no-cache, must-revalidate',
       'Accept-Ranges': 'bytes'
     });
 

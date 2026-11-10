@@ -230,7 +230,7 @@
         <div class="code-input-group">
           <label class="code-input-label">SEU CÓDIGO DE ACESSO EXCLUSIVO:</label>
           <div class="code-input-wrapper">
-            <input type="text" id="vipCodeInput" class="vip-code-input" placeholder="DIGITE SEU CÓDIGO AQUI" autocomplete="off" autocapitalize="characters" />
+            <input type="text" id="vipCodeInput" class="vip-code-input" placeholder="DIGITE SEU CÓDIGO AQUI" autocomplete="off" autocapitalize="characters" onkeydown="if(event.key==='Enter') submitVipCode()" />
             <button class="btn-unlock-code" onclick="submitVipCode()">
               <span>🔓 Liberar Agora</span>
             </button>
@@ -309,7 +309,7 @@
         <div class="pix-inline-code-box">
           <span class="inline-code-title">🔑 Já recebeu seu código no WhatsApp?</span>
           <div class="inline-code-row">
-            <input type="text" id="pixInlineCode" placeholder="DIGITE SEU CÓDIGO AQUI" class="inline-code-input" autocapitalize="characters" />
+            <input type="text" id="pixInlineCode" placeholder="DIGITE SEU CÓDIGO AQUI" class="inline-code-input" autocapitalize="characters" onkeydown="if(event.key==='Enter') activateFromPixModal()" />
             <button class="btn-inline-activate" onclick="activateFromPixModal()">Liberar</button>
           </div>
         </div>

@@ -575,31 +575,13 @@ function renderPreviewContent(item) {
   const teaserVids = allVids.filter(v => typeof v === 'object' && v.isTeaser);
   const teaserPics = allPics.filter(p => typeof p === 'object' && p.isTeaser);
 
-  // Se o ensaio está desbloqueado: exibe TODOS os vídeos e fotos
-  // Se o ensaio está bloqueado: exibe ESTRITAMENTE o que o Admin marcou como prévia!
-  // Fallback de segurança: caso nenhuma mídia tenha sido marcada como prévia ainda, exibe o 1º vídeo e 3 fotos
-  let displayVids = unlocked 
-    ? allVids 
-    : (teaserVids.length > 0 ? teaserVids : (allVids.length > 0 ? [allVids[0]] : []));
-
-  // Se houver um reelsVideo definido pelo Admin e o modelo estiver bloqueado, garante ele como o 1º vídeo de destaque
-  if (!unlocked && item.reelsVideo) {
-    const reelsIdx = displayVids.findIndex(v => (typeof v === 'object' ? v.url : v) === item.reelsVideo);
-    if (reelsIdx > 0) {
-      const reelsItem = displayVids.splice(reelsIdx, 1)[0];
-      displayVids.unshift(reelsItem);
-    } else if (reelsIdx === -1) {
-      const reelsObj = item.previews.find(p => (typeof p === 'object' ? p.url : p) === item.reelsVideo) || { type: 'video', url: item.reelsVideo, isTeaser: true };
-      displayVids.unshift(reelsObj);
-    }
-  }
-
+  // Se o ensaio está desbloqueado: exibe TODAS as fotos
+  // Se o ensaio está bloqueado: exibe as fotos marcadas como prévia (mínimo 3)
   let displayPics = unlocked 
     ? allPics 
     : (teaserPics.length > 0 ? teaserPics : allPics.slice(0, 3));
 
   // Coleta fotos para o visualizador tela cheia (Lightbox)
-  // No modo bloqueado, apenas as fotos de prévia são navegáveis; ao final aparece o slide de bloqueio!
   const availablePics = unlocked ? allPics : displayPics;
   const photoPreviews = availablePics.map((p, idx) => ({
     url: typeof p === 'object' ? p.url : p,
@@ -610,34 +592,26 @@ function renderPreviewContent(item) {
   currentLightboxItem = item;
 
   let html = '';
-
   const devId = getDeviceId();
 
-  // 1. VÍDEOS (No modo desbloqueado: todos com autenticação; no modo prévia: o teaser principal)
-  displayVids.forEach((v, idx) => {
-    const rawUrl = typeof v === 'object' ? v.url : v;
-    const url = devId ? (rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawUrl;
-    const thumbUrl = rawUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
-    const playerId = `player_${item.id}_${idx + 1}`;
+  // 1. BANNER HERO MODO REELS (Atalho direto no topo para assistir todos os vídeos em tela cheia)
+  if (allVids.length > 0) {
     html += `
-      <div class="preview-video-card">
-        <div class="preview-video-header">
-          <div class="video-header-left">
-            <span class="video-icon">🎬</span>
-            <span class="video-title">Vídeo ${idx + 1} de ${allVids.length} • ${item.creatorName}</span>
-          </div>
-          <span class="video-badge-hd">${unlocked ? '🔓 COMPLETO HD' : '🔒 PRÉVIA'}</span>
+      <div class="model-reels-hero-banner" onclick="openModelReels('${item.id}', 0)" title="Toque para abrir todos os vídeos no Modo Reels">
+        <div class="hero-reels-left">
+          <span class="hero-reels-badge">NOVO MODO REELS 📱</span>
+          <h4 class="hero-reels-title">Assistir Todos os ${allVids.length} Vídeos em Tela Cheia</h4>
+          <p class="hero-reels-sub">Feed vertical arrastando para cima estilo TikTok/Instagram • 60 FPS</p>
         </div>
-
-        <div class="preview-video-player-container" style="position: relative; background: #07090e;">
-          <video id="${playerId}" src="${url}#t=0.1" poster="${thumbUrl}" controls playsinline preload="metadata" class="responsive-video"></video>
-          ${!unlocked ? `<div class="video-watermark-tag">CLUBE SECRETO VIP 🔒</div>` : ''}
-        </div>
+        <button class="hero-reels-cta" onclick="event.stopPropagation(); openModelReels('${item.id}', 0);">
+          <span class="reels-play-icon">▶</span>
+          <span>Assistir Reels</span>
+        </button>
       </div>
     `;
-  });
+  }
 
-  // 2. BLOCO DE AÇÃO DIRETO E LIMPO (Aparece logo abaixo do vídeo no modo prévia)
+  // 2. BLOCO DE AÇÃO DIRETO E LIMPO (Apenas no modo prévia bloqueado)
   if (!unlocked) {
     html += `
       <div class="modal-quick-actions">
@@ -664,51 +638,36 @@ function renderPreviewContent(item) {
     `;
   }
 
-  // 3. FOTOS DE PRÉVIA EM ALTA DEFINIÇÃO (Totalmente nítidas e navegáveis)
-  displayPics.forEach((p) => {
-    const rawUrl = typeof p === 'object' ? p.url : p;
-    const url = devId ? (rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawUrl;
-    const photoIdx = photoPreviews.findIndex(pi => pi.url === rawUrl);
+  // 3. FOTOS PRIMEIRO! (ENSAIO FOTOGRÁFICO EM DESTAQUE NO TOPO DA PÁGINA)
+  if (allPics.length > 0) {
     html += `
-      <div class="preview-item" onclick="openLightbox(${photoIdx >= 0 ? photoIdx : 0})" title="Toque para ampliar">
-        <img src="${url}" class="preview-img" alt="Foto do Ensaio" loading="lazy" />
-        ${!unlocked ? `<div class="watermark-overlay">CLUBE SECRETO</div>` : ''}
+      <div class="gallery-section-title">
+        <div>
+          <span class="section-title-main">📸 Fotos do Ensaio (${allPics.length} Fotos)</span>
+          <span class="section-title-sub"> • Toque em qualquer foto para ver em alta definição</span>
+        </div>
+        <button class="btn-sm-reels" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer;" onclick="openLightbox(0)">
+          🔍 Tela Cheia
+        </button>
       </div>
     `;
-  });
 
-  // 4. MÍDIAS VIP EXCLUSIVAS (Exibe TODAS as fotos e vídeos reais com efeito borrado fosco transparente individual)
-  if (!unlocked) {
-    const lockedVids = allVids.filter(v => !displayVids.some(dv => (typeof dv === 'object' ? dv.url : dv) === (typeof v === 'object' ? v.url : v)));
-    const lockedPics = allPics.filter(p => !displayPics.some(dp => (typeof dp === 'object' ? dp.url : dp) === (typeof p === 'object' ? p.url : p)));
-
-    if (lockedVids.length > 0 || lockedPics.length > 0) {
+    // Fotos de Prévia (ou todas se desbloqueado)
+    displayPics.forEach((p) => {
+      const rawUrl = typeof p === 'object' ? p.url : p;
+      const url = devId ? (rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawUrl;
+      const photoIdx = photoPreviews.findIndex(pi => pi.url === rawUrl);
       html += `
-        <div class="locked-section-divider">
-          <div class="divider-line"></div>
-          <div class="divider-badge">🔒 CONTEÚDO EXCLUSIVO VIP (${lockedVids.length} VÍDEOS & ${lockedPics.length} FOTOS)</div>
-          <div class="divider-line"></div>
+        <div class="preview-item" onclick="openLightbox(${photoIdx >= 0 ? photoIdx : 0})" title="Toque para ampliar">
+          <img src="${url}" class="preview-img" alt="Foto do Ensaio" loading="lazy" />
+          ${!unlocked ? `<div class="watermark-overlay">CLUBE SECRETO</div>` : ''}
         </div>
       `;
+    });
 
-      // Vídeos VIP Exclusivos com thumbnail real borrada no fundo
-      lockedVids.forEach((v, vIdx) => {
-        const vUrl = typeof v === 'object' ? v.url : v;
-        const thumbUrl = vUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
-        html += `
-          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Vídeo VIP Exclusivo • Toque para liberar">
-            <img src="${thumbUrl}" class="media-blurred" alt="Vídeo VIP" loading="lazy" onerror="this.src='${item.cover}'" />
-            <div class="locked-blur-overlay">
-              <div class="locked-blur-pill">
-                <span class="lock-icon">▶ 🔒</span>
-                <span class="lock-text">VÍDEO VIP ${vIdx + displayVids.length + 1}</span>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-
-      // Fotos VIP Exclusivas com thumbnail real borrada no fundo
+    // Se bloqueado: Fotos VIP restantes com blur e selo
+    if (!unlocked) {
+      const lockedPics = allPics.filter(p => !displayPics.some(dp => (typeof dp === 'object' ? dp.url : dp) === (typeof p === 'object' ? p.url : p)));
       lockedPics.forEach((p, pIdx) => {
         const pUrl = typeof p === 'object' ? p.url : p;
         const thumbUrl = pUrl.replace('.jpg', '_thumb.jpg');
@@ -724,27 +683,80 @@ function renderPreviewContent(item) {
           </div>
         `;
       });
+    }
+  }
 
-      // Barra Flutuante de Desbloqueio Rápido ao Final do Catálogo
-      html += `
-        <div class="vip-floating-unlock-bar" onclick="openCodeModal()" title="Toque para desbloquear">
-          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; width: 100%;">
-            <div style="text-align: left;">
-              <div style="font-weight: 900; font-size: 15px; color: #fff; letter-spacing: 0.3px;">👑 DESBLOQUEAR TODO O CONTEÚDO VIP</div>
-              <div style="font-size: 12px; color: #fda4af; margin-top: 3px;">+${lockedPics.length} Fotos 4K & +${lockedVids.length} Vídeos 60FPS liberados sem censura</div>
-            </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button class="btn-primary" style="padding: 10px 18px; font-size: 12px; font-weight: 800;" onclick="event.stopPropagation(); buyCurrentSingle();">
-                🔓 Liberar Só Esta Modelo (R$ ${item.individualPrice || '9,90'})
-              </button>
-              <button class="btn-secondary" style="padding: 10px 18px; font-size: 12px; font-weight: 800; border-color: rgba(225,29,72,0.6);" onclick="event.stopPropagation(); openCodeModal();">
-                🔑 Digitar Código
-              </button>
+  // 4. VÍDEOS & CENAS (CARDS INTERATIVOS QUE ABREM DIRETO NO MODO REELS)
+  if (allVids.length > 0) {
+    html += `
+      <div class="gallery-section-title">
+        <div>
+          <span class="section-title-main">🎬 Vídeos & Cenas (${allVids.length} Vídeos)</span>
+          <span class="section-title-sub"> • Toque para assistir no Modo Reels arrastando pra cima</span>
+        </div>
+        <button class="hero-reels-cta" style="padding: 6px 14px; font-size: 11px;" onclick="openModelReels('${item.id}', 0)">
+          ▶ Abrir Reels
+        </button>
+      </div>
+    `;
+
+    allVids.forEach((v, vIdx) => {
+      const isTeaser = typeof v === 'object' ? !!v.isTeaser : false;
+      const vUrl = typeof v === 'object' ? v.url : v;
+      const thumbUrl = vUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
+
+      if (unlocked || isTeaser) {
+        html += `
+          <div class="preview-item preview-video-tile" onclick="openModelReels('${item.id}', ${vIdx})" title="Toque para assistir este vídeo no Modo Reels">
+            <img src="${thumbUrl}" class="video-tile-thumb" alt="Vídeo ${vIdx + 1}" loading="lazy" onerror="this.src='${item.cover}'" />
+            <div class="video-tile-overlay">
+              <div class="video-tile-play-btn">▶</div>
+              <div class="video-tile-badges">
+                <span class="video-tile-num">🎬 Vídeo ${vIdx + 1}</span>
+                <span class="video-tile-quality">${unlocked ? '🔓 HD 60FPS' : '🔒 PRÉVIA'}</span>
+              </div>
             </div>
           </div>
+        `;
+      } else {
+        html += `
+          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Vídeo VIP Exclusivo • Toque para liberar">
+            <img src="${thumbUrl}" class="media-blurred" alt="Vídeo VIP" loading="lazy" onerror="this.src='${item.cover}'" />
+            <div class="locked-blur-overlay">
+              <div class="locked-blur-pill">
+                <span class="lock-icon">▶ 🔒</span>
+                <span class="lock-text">VÍDEO VIP ${vIdx + 1}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    });
+  }
+
+  // 5. BARRA FLUTUANTE DE DESBLOQUEIO VIP (Se bloqueado)
+  if (!unlocked) {
+    const lockedVidsCount = allVids.filter(v => !(typeof v === 'object' && v.isTeaser)).length;
+    const lockedPicsCount = allPics.filter(p => !(typeof p === 'object' && p.isTeaser)).length;
+
+    html += `
+      <div class="vip-floating-unlock-bar" onclick="openCodeModal()" title="Toque para desbloquear">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; width: 100%;">
+          <div style="text-align: left;">
+            <div style="font-weight: 900; font-size: 15px; color: #fff; letter-spacing: 0.3px;">👑 DESBLOQUEAR TODO O CONTEÚDO VIP</div>
+            <div style="font-size: 12px; color: #fda4af; margin-top: 3px;">+${lockedPicsCount} Fotos 4K & +${lockedVidsCount} Vídeos 60FPS liberados sem censura</div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-primary" style="padding: 10px 18px; font-size: 12px; font-weight: 800;" onclick="event.stopPropagation(); buyCurrentSingle();">
+              🔓 Liberar Só Esta Modelo (R$ ${item.individualPrice || '9,90'})
+            </button>
+            <button class="btn-secondary" style="padding: 10px 18px; font-size: 12px; font-weight: 800; border-color: rgba(225,29,72,0.6);" onclick="event.stopPropagation(); openCodeModal();">
+              🔑 Digitar Código
+            </button>
+          </div>
         </div>
-      `;
-    }
+      </div>
+    `;
   }
 
   previewGrid.innerHTML = html;
@@ -758,8 +770,8 @@ function renderPreviewContent(item) {
           <span style="font-size: 11px; color: #10b981; text-transform: uppercase; font-weight: 800;">Status do Acesso:</span>
           <span style="font-size: 15px; font-weight: 900; color: #10b981; display: block;">🔓 ${isAdminActive ? 'ACESSO MASTER ADMINISTRADOR' : (isVipActive ? 'VIP TOTAL LIBERADO (TODAS)' : 'PACK DESTA MODELO LIBERADO (ACESSO VITALÍCIO)')}</span>
         </div>
-        <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857); padding: 10px 16px;" onclick="openLightbox(0)">
-          <span>👁️ Ver Fotos em Tela Cheia</span>
+        <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857); padding: 10px 16px;" onclick="openModelReels('${item.id}', 0)">
+          <span>🎬 Assistir Vídeos no Modo Reels</span>
         </button>
       </div>
     `;
@@ -1107,6 +1119,130 @@ function renderReelsCarousel() {
   }).join("");
 }
 
+let currentReelsMode = 'global'; // 'global' ou 'model'
+let currentActiveVideoIndex = 0;
+
+function openModelReels(modelId, startVideoIndex = 0) {
+  if (typeof CREATORS_CATALOG === "undefined") return;
+  const model = CREATORS_CATALOG.find(m => m.id === modelId);
+  if (!model) return;
+
+  const overlay = document.getElementById("reelsFeedOverlay");
+  const container = document.getElementById("reelsFeedContainer");
+  if (!overlay || !container) return;
+
+  const unlocked = isModelUnlocked(model.id);
+  const devId = getDeviceId();
+
+  const allVids = model.previews.filter(p => (typeof p === 'object' && p.type === 'video') || (typeof p === 'string' && p.endsWith('.mp4')));
+  if (allVids.length === 0) {
+    showToast("Nenhum vídeo disponível para esta modelo.");
+    return;
+  }
+
+  currentReelsMode = 'model';
+  currentActiveReelModelId = model.id;
+  currentActiveVideoIndex = startVideoIndex;
+
+  const coverUrl = model.cover || model.avatar || "assets/logo.jpg";
+
+  container.innerHTML = allVids.map((v, idx) => {
+    const isTeaser = typeof v === 'object' ? !!v.isTeaser : false;
+    const isAvailable = unlocked || isTeaser;
+    const rawUrl = typeof v === 'object' ? v.url : v;
+    const thumbUrl = rawUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
+    const vidUrl = isAvailable
+      ? (devId ? (rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawUrl)
+      : '';
+    const likes = (14.2 + (idx * 2.1)).toFixed(1);
+
+    if (isAvailable) {
+      return `
+        <div class="reel-slide" data-model-id="${model.id}" data-video-idx="${idx}" id="modelReelSlide_${idx}">
+          <div class="reel-slide-backdrop" style="background-image: url('${thumbUrl}');"></div>
+          <img class="reel-slide-poster" src="${thumbUrl}" alt="${model.creatorName}" loading="eager" onerror="this.src='${coverUrl}'" />
+
+          <video class="reel-slide-video" data-src="${vidUrl}" poster="${thumbUrl}" playsinline webkit-playsinline="true" x5-playsinline="true" loop muted preload="none" onclick="toggleReelSlidePlayback(this)"></video>
+
+          <div class="reel-play-center-btn" onclick="toggleReelSlidePlayback(this.parentElement.querySelector('video'))">
+            <span class="reel-play-triangle">▶</span>
+            <span class="reel-play-text">Toque para Assistir</span>
+          </div>
+
+          <div class="reel-sidebar-actions">
+            <div class="reel-action-btn reel-sidebar-avatar-box" onclick="closeReelsFeed()" title="Ver Galeria de Fotos">
+              <img src="${model.avatar || coverUrl}" class="reel-sidebar-avatar" onerror="this.src='assets/logo.jpg'" />
+              <span class="reel-sidebar-badge">✓</span>
+            </div>
+            <div class="reel-action-btn" onclick="toggleReelHeart(this)">
+              <span class="reel-heart-icon">❤️</span>
+              <span class="reel-action-count">${likes}k</span>
+            </div>
+            <div class="reel-action-btn" onclick="closeReelsFeed()" title="Ver Fotos">
+              <span class="reel-action-icon">📸</span>
+              <span class="reel-action-count">Fotos</span>
+            </div>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="reel-slide" data-model-id="${model.id}" data-video-idx="${idx}" id="modelReelSlide_${idx}">
+          <div class="reel-slide-backdrop" style="background-image: url('${thumbUrl}');"></div>
+          <img class="reel-slide-poster media-blurred" src="${thumbUrl}" alt="${model.creatorName}" loading="eager" onerror="this.src='${coverUrl}'" />
+
+          <div class="locked-glass-content" style="position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 20px; text-align: center; background: rgba(8,10,16,0.75); backdrop-filter: blur(8px);">
+            <div class="locked-icon-wrapper" style="width: 58px; height: 58px; border-radius: 50%; background: rgba(225,29,72,0.3); border: 2px solid rgba(225,29,72,0.6); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px;">🔒</div>
+            <h3 style="color: #fff; font-size: 18px; font-weight: 900; margin-bottom: 6px;">Vídeo Exclusivo VIP • ${idx + 1} de ${allVids.length}</h3>
+            <p style="color: #cbd5e1; font-size: 13px; max-width: 320px; margin-bottom: 16px;">Este vídeo em 4K 60FPS faz parte do ensaio fechado de ${model.creatorName}.</p>
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 280px;">
+              <button class="btn-primary" style="padding: 12px 20px; font-size: 13px; font-weight: 800;" onclick="event.stopPropagation(); closeReelsFeed(); buyCurrentSingle();">
+                🔓 Liberar Só Esta Modelo (R$ ${model.individualPrice || '9,90'})
+              </button>
+              <button class="btn-secondary" style="padding: 10px 20px; font-size: 12px; font-weight: 800;" onclick="event.stopPropagation(); closeReelsFeed(); openCodeModal();">
+                🔑 Já Tenho Código VIP
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }).join("");
+
+  overlay.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  updateReelsStickyBottom(model.id, startVideoIndex, allVids.length, unlocked);
+
+  // IntersectionObserver para detectar qual slide está ativo ao rolar com CSS scroll-snap
+  if (reelsFeedObserver) reelsFeedObserver.disconnect();
+  reelsFeedObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.45) {
+        const slide = entry.target;
+        const vIdx = parseInt(slide.getAttribute("data-video-idx") || "0", 10);
+        currentActiveVideoIndex = vIdx;
+        updateReelsStickyBottom(model.id, vIdx, allVids.length, unlocked);
+        playReelSlide(slide, model.id);
+      }
+    });
+  }, {
+    root: container,
+    threshold: [0.45]
+  });
+
+  document.querySelectorAll(".reel-slide").forEach(slide => {
+    reelsFeedObserver.observe(slide);
+  });
+
+  const targetIdx = Math.max(0, Math.min(startVideoIndex, allVids.length - 1));
+  const targetSlide = document.getElementById(`modelReelSlide_${targetIdx}`) || document.querySelector(".reel-slide");
+  if (targetSlide) {
+    targetSlide.scrollIntoView({ behavior: "instant" });
+    playReelSlide(targetSlide, model.id);
+  }
+}
+
 function openReelsFeed(startModelId) {
   const overlay = document.getElementById("reelsFeedOverlay");
   const container = document.getElementById("reelsFeedContainer");
@@ -1121,6 +1257,8 @@ function openReelsFeed(startModelId) {
     showToast("Nenhum vídeo disponível no momento.");
     return;
   }
+
+  currentReelsMode = 'global';
 
   container.innerHTML = modelsWithVideos.map((model, idx) => {
     let vidUrl = model.reelsVideo;
@@ -1141,7 +1279,7 @@ function openReelsFeed(startModelId) {
         <img class="reel-slide-poster" src="${coverUrl}" alt="${model.creatorName}" loading="eager" />
 
         <!-- Vídeo otimizado com lazy-loading e suporte universal a mobile -->
-        <video class="reel-slide-video" data-src="${vidUrl}" playsinline webkit-playsinline="true" x5-playsinline="true" loop muted preload="metadata" onclick="toggleReelSlidePlayback(this)"></video>
+        <video class="reel-slide-video" data-src="${vidUrl}" playsinline webkit-playsinline="true" x5-playsinline="true" loop muted preload="none" onclick="toggleReelSlidePlayback(this)"></video>
 
         <!-- Botão Play Central (aparece se pausado ou se precisar de interação de toque) -->
         <div class="reel-play-center-btn" onclick="toggleReelSlidePlayback(this.parentElement.querySelector('video'))">
@@ -1222,7 +1360,6 @@ function playReelSlide(slide, modelId) {
   if (!slide) return;
   currentActiveReelModelId = modelId;
   window.currentActiveReelModelId = modelId;
-  updateReelsStickyBottom(modelId);
 
   const slides = [...document.querySelectorAll(".reel-slide")];
   const activeIdx = slides.indexOf(slide);
@@ -1273,7 +1410,6 @@ function playReelSlide(slide, modelId) {
     };
 
     vid.onerror = () => {
-      // Se houver qualquer falha de rede no vídeo, a capa permanece 100% visível sem tela preta
       slide.classList.remove("video-playing");
       if (playBtn) playBtn.style.display = "none";
     };
@@ -1285,7 +1421,6 @@ function playReelSlide(slide, modelId) {
           // Reproduzindo com sucesso
         })
         .catch(() => {
-          // Autoplay restrito pelo navegador mobile: a capa bonita continua visível e exibe o botão play
           slide.classList.remove("video-playing");
           if (playBtn) playBtn.style.display = "flex";
         });
@@ -1305,7 +1440,7 @@ function playReelSlide(slide, modelId) {
 function goToNextReel() {
   const slides = [...document.querySelectorAll(".reel-slide")];
   if (slides.length === 0) return;
-  const currentIdx = slides.findIndex(s => s.getAttribute("data-model-id") === currentActiveReelModelId);
+  const currentIdx = slides.findIndex(s => s.getAttribute("data-model-id") === currentActiveReelModelId && (currentReelsMode !== 'model' || parseInt(s.getAttribute("data-video-idx") || "0", 10) === currentActiveVideoIndex));
   const nextIdx = (currentIdx + 1) % slides.length;
   scrollToReelIndex(nextIdx);
 }
@@ -1313,7 +1448,7 @@ function goToNextReel() {
 function goToPrevReel() {
   const slides = [...document.querySelectorAll(".reel-slide")];
   if (slides.length === 0) return;
-  const currentIdx = slides.findIndex(s => s.getAttribute("data-model-id") === currentActiveReelModelId);
+  const currentIdx = slides.findIndex(s => s.getAttribute("data-model-id") === currentActiveReelModelId && (currentReelsMode !== 'model' || parseInt(s.getAttribute("data-video-idx") || "0", 10) === currentActiveVideoIndex));
   const prevIdx = (currentIdx - 1 + slides.length) % slides.length;
   scrollToReelIndex(prevIdx);
 }
@@ -1341,7 +1476,7 @@ function closeReelsFeed() {
   }
 }
 
-function updateReelsStickyBottom(modelId) {
+function updateReelsStickyBottom(modelId, videoIdx, totalVideos, isUnlocked) {
   if (typeof CREATORS_CATALOG === "undefined") return;
   const model = CREATORS_CATALOG.find(m => m.id === modelId);
   if (!model) return;
@@ -1349,12 +1484,37 @@ function updateReelsStickyBottom(modelId) {
   const avatar = document.getElementById("reelsStickyAvatar");
   const name = document.getElementById("reelsStickyName");
   const tag = document.getElementById("reelsStickyTag");
+  const btn = document.getElementById("btnReelsAccess");
 
   if (avatar) avatar.src = model.avatar || model.cover || "assets/logo.jpg";
   if (name) name.textContent = model.creatorName;
   if (tag) {
-    const numVids = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
-    tag.textContent = `🎬 ${numVids} Vídeos em Alta Resolução + Fotos 4K`;
+    if (videoIdx !== undefined && totalVideos) {
+      tag.textContent = `🎬 Vídeo ${videoIdx + 1} de ${totalVideos} • Alta Definição 60FPS`;
+    } else {
+      const numVids = model.previews.filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))).length;
+      tag.textContent = `🎬 ${numVids} Vídeos em Alta Resolução + Fotos 4K`;
+    }
+  }
+
+  const unlocked = isUnlocked !== undefined ? isUnlocked : isModelUnlocked(model.id);
+  if (btn) {
+    if (unlocked) {
+      btn.innerHTML = `
+        <span class="reels-btn-text">👑 ACESSO VIP LIBERADO</span>
+        <span class="reels-btn-sub">Você tem acesso vitalício a todos os vídeos e fotos</span>
+      `;
+      btn.style.background = "linear-gradient(135deg, #059669, #047857)";
+      btn.onclick = () => closeReelsFeed();
+    } else {
+      btn.innerHTML = `
+        <span class="reels-btn-glow"></span>
+        <span class="reels-btn-text">🔓 ACESSAR CONTEÚDO COMPLETO</span>
+        <span class="reels-btn-sub">Pack Individual Vitalício R$ ${model.individualPrice || '9,90'} ou Plano VIP Semanal</span>
+      `;
+      btn.style.background = "linear-gradient(135deg, #e11d48, #be123c)";
+      btn.onclick = () => accessCurrentReelModel();
+    }
   }
 }
 
