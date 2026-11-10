@@ -2913,11 +2913,6 @@ const CREATORS_CATALOG = [
     "comboPrice": "24,99",
     "previews": [
       {
-        "type": "image",
-        "url": "/media/brandi/photo_1.jpg",
-        "isTeaser": false
-      },
-      {
         "type": "video",
         "url": "/media/brandi/video_1.mp4",
         "isTeaser": true
