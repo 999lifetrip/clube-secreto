@@ -1008,7 +1008,12 @@ const server = http.createServer(async (req, res) => {
 
     if (!isPublicMedia) {
       const isAdmin = checkAdminAuth(req, urlObj);
-      const reqDeviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId') || urlObj.searchParams.get('dev');
+      let cookieDeviceId = null;
+      if (req.headers.cookie) {
+        const match = req.headers.cookie.match(/clube_device_id=([^;]+)/);
+        if (match) cookieDeviceId = decodeURIComponent(match[1].trim());
+      }
+      const reqDeviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId') || urlObj.searchParams.get('dev') || cookieDeviceId;
       let isAuthorized = false;
 
       if (isAdmin) {

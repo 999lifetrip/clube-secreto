@@ -670,8 +670,9 @@ function onSelectModelChange() {
           <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer; position: relative; background: #0b0d14;" title="Clique para ampliar e ver em tamanho real">
             ${isVideo 
               ? `
-                <video src="${mediaSrc}#t=0.1" poster="${posterSrc}" class="media-card-vid" preload="metadata" muted loop playsinline 
-                  onmouseenter="try{this.play()}catch(e){}" 
+                <video data-src="${mediaSrc}" poster="${posterSrc}" class="media-card-vid" preload="none" muted loop playsinline 
+                  onerror="if(!this.dataset.err){this.dataset.err='1'; this.poster='${model.cover || 'assets/logo.jpg'}';}"
+                  onmouseenter="if(!this.src){this.src=this.dataset.src;} try{this.play()}catch(e){}" 
                   onmouseleave="try{this.pause();this.currentTime=0;}catch(e){}"></video>
                 <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(0,0,0,0.18);">
                   <div style="background: rgba(225, 29, 72, 0.9); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.4);">▶</div>

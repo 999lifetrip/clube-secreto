@@ -12,6 +12,9 @@ function getDeviceId() {
     id = "cs_dev_" + Math.random().toString(36).substring(2, 10) + "_" + Date.now().toString(36);
     localStorage.setItem("clube_secreto_device_id", id);
   }
+  try {
+    document.cookie = "clube_device_id=" + encodeURIComponent(id) + "; path=/; max-age=31536000; SameSite=Lax";
+  } catch(e) {}
   return id;
 }
 
@@ -608,10 +611,13 @@ function renderPreviewContent(item) {
 
   let html = '';
 
-  // 1. VÍDEO PRINCIPAL EM DESTAQUE (Player nativo limpo com poster imediato, sem tela preta)
+  const devId = getDeviceId();
+
+  // 1. VÍDEOS (No modo desbloqueado: todos com autenticação; no modo prévia: o teaser principal)
   displayVids.forEach((v, idx) => {
-    const url = typeof v === 'object' ? v.url : v;
-    const thumbUrl = url.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
+    const rawUrl = typeof v === 'object' ? v.url : v;
+    const url = devId ? (rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawUrl;
+    const thumbUrl = rawUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
     const playerId = `player_${item.id}_${idx + 1}`;
     html += `
       <div class="preview-video-card">
@@ -658,10 +664,11 @@ function renderPreviewContent(item) {
     `;
   }
 
-  // 3. FOTOS DE PRÉVIA EM ALTA DEFINIÇÃO
+  // 3. FOTOS DE PRÉVIA EM ALTA DEFINIÇÃO (Totalmente nítidas e navegáveis)
   displayPics.forEach((p) => {
-    const url = typeof p === 'object' ? p.url : p;
-    const photoIdx = photoPreviews.findIndex(pi => pi.url === url);
+    const rawUrl = typeof p === 'object' ? p.url : p;
+    const url = devId ? (rawUrl + (rawUrl.includes('?') ? '&' : '?') + 'dev=' + encodeURIComponent(devId)) : rawUrl;
+    const photoIdx = photoPreviews.findIndex(pi => pi.url === rawUrl);
     html += `
       <div class="preview-item" onclick="openLightbox(${photoIdx >= 0 ? photoIdx : 0})" title="Toque para ampliar">
         <img src="${url}" class="preview-img" alt="Foto do Ensaio" loading="lazy" />
@@ -670,75 +677,74 @@ function renderPreviewContent(item) {
     `;
   });
 
-  // 4. CARD SHOWCASE VIP BLOQUEADO COM VIDRO TRANSPARENTE E CONTEÚDOS REAIS EMBAÇADOS NO FUNDO
+  // 4. MÍDIAS VIP EXCLUSIVAS (Exibe TODAS as fotos e vídeos reais com efeito borrado fosco transparente individual)
   if (!unlocked) {
-    const remainingPhotos = Math.max(1, item.photoCount - displayPics.length);
-    const remainingVideos = Math.max(1, (item.videoCount || 24) - displayVids.length);
+    const lockedVids = allVids.filter(v => !displayVids.some(dv => (typeof dv === 'object' ? dv.url : dv) === (typeof v === 'object' ? v.url : v)));
+    const lockedPics = allPics.filter(p => !displayPics.some(dp => (typeof dp === 'object' ? dp.url : dp) === (typeof p === 'object' ? p.url : p)));
 
-    // Seleciona amostras REAIS e DIVERSIFICADAS de fotos e vídeos deste ensaio para o mosaico de fundo
-    const lockedPhotosList = allPics.slice(displayPics.length);
-    const lockedVideosList = allVids.slice(displayVids.length);
+    if (lockedVids.length > 0 || lockedPics.length > 0) {
+      html += `
+        <div class="locked-section-divider">
+          <div class="divider-line"></div>
+          <div class="divider-badge">🔒 CONTEÚDO EXCLUSIVO VIP (${lockedVids.length} VÍDEOS & ${lockedPics.length} FOTOS)</div>
+          <div class="divider-line"></div>
+        </div>
+      `;
 
-    const mosaicSample = [];
-    // Pega até 6 fotos diferentes deste ensaio
-    for (let i = 0; i < Math.min(6, lockedPhotosList.length); i++) {
-      const p = lockedPhotosList[i];
-      const pUrl = typeof p === 'object' ? p.url : p;
-      const thumbUrl = pUrl.replace('.jpg', '_thumb.jpg');
-      mosaicSample.push({
-        url: thumbUrl,
-        fallback: pUrl,
-        type: 'photo',
-        label: `📸 Foto ${i + displayPics.length + 1}`
-      });
-    }
-
-    // Pega até 4 vídeos diferentes deste ensaio (usando thumbnails reais de vídeo)
-    for (let i = 0; i < Math.min(4, lockedVideosList.length); i++) {
-      const v = lockedVideosList[i];
-      const vUrl = typeof v === 'object' ? v.url : v;
-      const thumbUrl = vUrl.replace('.mp4', '_thumb.jpg');
-      mosaicSample.push({
-        url: thumbUrl,
-        fallback: item.cover,
-        type: 'video',
-        label: `🎬 Vídeo ${i + displayVids.length + 1}`
-      });
-    }
-
-    html += `
-      <div class="preview-item preview-locked-item preview-locked-showcase" style="grid-column: 1 / -1;" onclick="openCodeModal()" title="Toque para liberar o ensaio completo">
-        <!-- Mosaico de fundo com mídias REAIS embaçadas -->
-        <div class="locked-mosaic-grid">
-          ${mosaicSample.map(itemSample => `
-            <div class="mosaic-cell">
-              <img src="${itemSample.url}" class="mosaic-media" alt="${itemSample.label}" onerror="this.src='${itemSample.fallback}'" loading="lazy" />
-              <div class="mosaic-cell-badge">${itemSample.label}</div>
+      // Vídeos VIP Exclusivos com thumbnail real borrada no fundo
+      lockedVids.forEach((v, vIdx) => {
+        const vUrl = typeof v === 'object' ? v.url : v;
+        const thumbUrl = vUrl.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg');
+        html += `
+          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Vídeo VIP Exclusivo • Toque para liberar">
+            <img src="${thumbUrl}" class="media-blurred" alt="Vídeo VIP" loading="lazy" onerror="this.src='${item.cover}'" />
+            <div class="locked-blur-overlay">
+              <div class="locked-blur-pill">
+                <span class="lock-icon">▶ 🔒</span>
+                <span class="lock-text">VÍDEO VIP ${vIdx + displayVids.length + 1}</span>
+              </div>
             </div>
-          `).join('')}
-        </div>
+          </div>
+        `;
+      });
 
-        <!-- Camada de Vidro Fosco Transparente (Glassmorphism) -->
-        <div class="locked-glass-content">
-          <div class="locked-icon-wrapper">
-            <span class="locked-glow-icon">🔒</span>
+      // Fotos VIP Exclusivas com thumbnail real borrada no fundo
+      lockedPics.forEach((p, pIdx) => {
+        const pUrl = typeof p === 'object' ? p.url : p;
+        const thumbUrl = pUrl.replace('.jpg', '_thumb.jpg');
+        html += `
+          <div class="preview-item preview-item-locked" onclick="openCodeModal()" title="Foto VIP Exclusiva • Toque para liberar">
+            <img src="${thumbUrl}" class="media-blurred" alt="Foto VIP" loading="lazy" onerror="this.src='${pUrl}'" />
+            <div class="locked-blur-overlay">
+              <div class="locked-blur-pill">
+                <span class="lock-icon">🔒</span>
+                <span class="lock-text">FOTO VIP ${pIdx + displayPics.length + 1}</span>
+              </div>
+            </div>
           </div>
-          <span class="locked-count">+${remainingPhotos} FOTOS 4K & +${remainingVideos} VÍDEOS 60FPS</span>
-          <span class="locked-sub">Conteúdo Privado Exclusivo • Alta Resolução sem Marca d'Água</span>
-          
-          <div class="locked-action-group">
-            <button class="btn-locked-unlock" onclick="event.stopPropagation(); openCodeModal();">
-              <span>🔑 Digitar Código / Liberar</span>
-            </button>
-            <button class="btn-locked-pix-direct" onclick="event.stopPropagation(); buyCurrentSingle();">
-              <span>🔓 Liberar Só Esta Modelo (R$ ${item.individualPrice || '9,90'})</span>
-            </button>
+        `;
+      });
+
+      // Barra Flutuante de Desbloqueio Rápido ao Final do Catálogo
+      html += `
+        <div class="vip-floating-unlock-bar" onclick="openCodeModal()" title="Toque para desbloquear">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; width: 100%;">
+            <div style="text-align: left;">
+              <div style="font-weight: 900; font-size: 15px; color: #fff; letter-spacing: 0.3px;">👑 DESBLOQUEAR TODO O CONTEÚDO VIP</div>
+              <div style="font-size: 12px; color: #fda4af; margin-top: 3px;">+${lockedPics.length} Fotos 4K & +${lockedVids.length} Vídeos 60FPS liberados sem censura</div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-primary" style="padding: 10px 18px; font-size: 12px; font-weight: 800;" onclick="event.stopPropagation(); buyCurrentSingle();">
+                🔓 Liberar Só Esta Modelo (R$ ${item.individualPrice || '9,90'})
+              </button>
+              <button class="btn-secondary" style="padding: 10px 18px; font-size: 12px; font-weight: 800; border-color: rgba(225,29,72,0.6);" onclick="event.stopPropagation(); openCodeModal();">
+                🔑 Digitar Código
+              </button>
+            </div>
           </div>
-          
-          <span class="locked-bottom-note">🔒 Código único protegido antifraude • Acesso vitalício liberado na hora</span>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 
   previewGrid.innerHTML = html;
@@ -1164,27 +1170,6 @@ function openReelsFeed(startModelId) {
   overlay.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  // Gestos de Touch no Celular (arrastar para cima / arrastar para baixo)
-  let touchStartY = 0;
-  let touchStartX = 0;
-  container.ontouchstart = (e) => {
-    touchStartY = e.touches[0].clientY;
-    touchStartX = e.touches[0].clientX;
-  };
-
-  container.ontouchend = (e) => {
-    if (!e.changedTouches || e.changedTouches.length === 0) return;
-    const deltaY = e.changedTouches[0].clientY - touchStartY;
-    const deltaX = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(deltaY) > 40 && Math.abs(deltaY) > Math.abs(deltaX)) {
-      if (deltaY < 0) {
-        goToNextReel();
-      } else {
-        goToPrevReel();
-      }
-    }
-  };
-
   // Teclado (setas para cima e para baixo no computador)
   window.onkeydown = (e) => {
     if (overlay.style.display !== "flex") return;
@@ -1199,7 +1184,7 @@ function openReelsFeed(startModelId) {
     }
   };
 
-  // IntersectionObserver para detectar qual slide está ativo ao rolar
+  // IntersectionObserver para detectar qual slide está ativo ao rolar com CSS scroll-snap
   if (reelsFeedObserver) reelsFeedObserver.disconnect();
   reelsFeedObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1242,17 +1227,13 @@ function playReelSlide(slide, modelId) {
   const slides = [...document.querySelectorAll(".reel-slide")];
   const activeIdx = slides.indexOf(slide);
 
-  // Pausa e descarrega vídeos de outros slides
-  slides.forEach((s, idx) => {
+  // Pausa vídeos de outros slides preservando o buffer
+  slides.forEach((s) => {
     const vid = s.querySelector("video");
     const playBtn = s.querySelector(".reel-play-center-btn");
     if (s !== slide) {
-      if (vid) {
-        vid.pause();
-        if (Math.abs(idx - activeIdx) > 1 && vid.src) {
-          vid.removeAttribute("src");
-          vid.load();
-        }
+      if (vid && !vid.paused) {
+        try { vid.pause(); } catch(e) {}
       }
       s.classList.remove("video-playing");
       if (playBtn) playBtn.style.display = "none";
@@ -1270,18 +1251,29 @@ function playReelSlide(slide, modelId) {
     vid.muted = reelsAudioMuted;
     vid.defaultMuted = reelsAudioMuted;
 
+    // Transição suave: o poster só desaparece quando frames reais do vídeo começam a ser renderizados
+    vid.ontimeupdate = () => {
+      if (vid.currentTime > 0.05) {
+        slide.classList.add("video-playing");
+        if (playBtn) playBtn.style.display = "none";
+      }
+    };
+
     vid.onplaying = () => {
-      slide.classList.add("video-playing");
+      if (vid.currentTime > 0.05) {
+        slide.classList.add("video-playing");
+      }
       if (playBtn) playBtn.style.display = "none";
     };
 
     vid.onpause = () => {
-      if (currentActiveReelModelId === modelId) {
+      if (currentActiveReelModelId === modelId && vid.currentTime > 0) {
         if (playBtn) playBtn.style.display = "flex";
       }
     };
 
     vid.onerror = () => {
+      // Se houver qualquer falha de rede no vídeo, a capa permanece 100% visível sem tela preta
       slide.classList.remove("video-playing");
       if (playBtn) playBtn.style.display = "none";
     };
@@ -1290,11 +1282,10 @@ function playReelSlide(slide, modelId) {
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          slide.classList.add("video-playing");
-          if (playBtn) playBtn.style.display = "none";
+          // Reproduzindo com sucesso
         })
         .catch(() => {
-          // Autoplay bloqueado pelo celular: a capa bonita continua 100% visível e mostra botão play
+          // Autoplay restrito pelo navegador mobile: a capa bonita continua visível e exibe o botão play
           slide.classList.remove("video-playing");
           if (playBtn) playBtn.style.display = "flex";
         });
@@ -1306,7 +1297,7 @@ function playReelSlide(slide, modelId) {
     const nextVid = slides[activeIdx + 1].querySelector("video");
     if (nextVid && !nextVid.src && nextVid.dataset.src) {
       nextVid.src = nextVid.dataset.src;
-      nextVid.preload = "auto";
+      nextVid.preload = "metadata";
     }
   }
 }

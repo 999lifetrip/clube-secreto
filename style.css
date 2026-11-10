@@ -845,7 +845,7 @@ h1, h2, h3, h4, .brand-font {
 }
 
 .reel-slide.video-playing .reel-slide-poster {
-  opacity: 0;
+  opacity: 1; /* Mantém o poster carregado e estável sob o vídeo sem tela preta */
 }
 
 .reel-play-center-btn {
