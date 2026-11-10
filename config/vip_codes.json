@@ -363,10 +363,15 @@
     "price": "24,99",
     "durationDays": 7,
     "isMaster": false,
-    "status": "AVAILABLE",
-    "usedByDeviceId": null,
-    "usedAt": null,
-    "expiresAt": null
+    "status": "USED",
+    "usedByDeviceId": "cs_dev_xjpfgyao_mw7adm3n",
+    "usedAt": 1794332050243,
+    "expiresAt": 1794936850243,
+    "activatedAt": 1794332050243,
+    "activatedAtFormatted": "10/11/2026, 14:34:10",
+    "activatedIp": "177.5.26.193",
+    "activatedUserAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.7.5 Mobile/15E148 Safari/604.1",
+    "isLifetime": false
   },
   {
     "code": "VIP1007",

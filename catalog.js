@@ -1,3 +1,7 @@
+// ═════════════════════════════════════════════════════════════════════════
+// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (ENSAIOS & PORTFÓLIOS EXCLUSIVOS)
+// ═════════════════════════════════════════════════════════════════════════
+
 const CREATORS_CATALOG = [
   {
     "id": "ensaio-vip-julianarios",
@@ -22,11 +26,6 @@ const CREATORS_CATALOG = [
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
-      {
-        "type": "video",
-        "url": "/media/julianarios/video_1.mp4",
-        "isTeaser": true
-      },
       {
         "type": "video",
         "url": "/media/julianarios/video_2.mp4",
@@ -207,7 +206,7 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
     "cover": "/media/brunaalencar/photo_1.jpg",
-    "avatar": "/media/brunaalencar/photo_2.jpg",
+    "avatar": "/media/brunaalencar/photo_5.jpg",
     "reelsVideo": "/media/brunaalencar/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -215,7 +214,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/brunaalencar/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -5966,4 +5965,6 @@ const CREATORS_CATALOG = [
   }
 ];
 
-if (typeof module !== 'undefined') module.exports = CREATORS_CATALOG;
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = CREATORS_CATALOG;
+}
