@@ -20,8 +20,8 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio temático e bastidores exclusivos da ruiva Maria D'Mar com fotografia 4K cristalina e vídeos sensuais em 60fps.",
-    "cover": "/media/mariadmar/photo_4.jpg",
-    "avatar": "/media/mariadmar/photo_5.jpg",
+    "cover": "/media/mariadmar/photo_1.jpg",
+    "avatar": "/media/mariadmar/photo_2.jpg",
     "reelsVideo": "/media/mariadmar/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -69,6 +69,11 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/mariadmar/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/mariadmar/video_10.mp4",
         "isTeaser": false
       },
       {
@@ -143,7 +148,17 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
+        "url": "/media/mariadmar/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
         "url": "/media/mariadmar/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/mariadmar/photo_3.jpg",
         "isTeaser": true
       },
       {
@@ -331,8 +346,8 @@ const CREATORS_CATALOG = [
     "videoCount": 25,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo exclusivo de estúdio com Juliana Rios. Bastidores intimistas, poses deslumbrantes em alta definição 4K e vídeos sensuais 60fps sem censura.",
-    "cover": "/media/julianarios/photo_8.jpg",
-    "avatar": "/media/julianarios/photo_1.jpg",
+    "cover": "/media/julianarios/photo_1.jpg",
+    "avatar": "/media/julianarios/photo_2.jpg",
     "reelsVideo": "/media/julianarios/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -470,12 +485,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/julianarios/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/julianarios/photo_3.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -522,8 +537,8 @@ const CREATORS_CATALOG = [
     "videoCount": 5,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
-    "cover": "/media/brunaalencar/photo_2.jpg",
-    "avatar": "/media/brunaalencar/photo_1.jpg",
+    "cover": "/media/brunaalencar/photo_1.jpg",
+    "avatar": "/media/brunaalencar/photo_2.jpg",
     "reelsVideo": "/media/brunaalencar/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -531,7 +546,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/brunaalencar/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -749,8 +764,8 @@ const CREATORS_CATALOG = [
     "videoCount": 3,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
-    "cover": "/media/rafabittencourt/photo_2.jpg",
-    "avatar": "/media/rafabittencourt/photo_3.jpg",
+    "cover": "/media/rafabittencourt/photo_1.jpg",
+    "avatar": "/media/rafabittencourt/photo_2.jpg",
     "reelsVideo": "/media/rafabittencourt/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -773,12 +788,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/rafabittencourt/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/rafabittencourt/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -810,9 +825,9 @@ const CREATORS_CATALOG = [
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
-    "cover": "/media/leticiavasconcelos/photo_2.jpg",
+    "cover": "/media/leticiavasconcelos/photo_1.jpg",
     "avatar": "/media/leticiavasconcelos/photo_2.jpg",
-    "reelsVideo": "/media/leticiavasconcelos/video_5.mp4",
+    "reelsVideo": "/media/leticiavasconcelos/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -839,7 +854,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/leticiavasconcelos/video_5.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -859,7 +874,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/leticiavasconcelos/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -868,7 +883,17 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "image",
+        "url": "/media/leticiavasconcelos/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
         "url": "/media/leticiavasconcelos/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_5.jpg",
         "isTeaser": false
       }
     ],
@@ -891,16 +916,16 @@ const CREATORS_CATALOG = [
     "videoCount": 47,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Um dos maiores acervos da plataforma! Gabriela Fontes reúne 100 mídias completas com dezenas de vídeos em 60fps, bastidores completos e fotos em resolução máxima.",
-    "cover": "/media/gabrielafontes/photo_4.jpg",
-    "avatar": "/media/gabrielafontes/photo_21.jpg",
-    "reelsVideo": "/media/gabrielafontes/video_8.mp4",
+    "cover": "/media/gabrielafontes/photo_1.jpg",
+    "avatar": "/media/gabrielafontes/photo_2.jpg",
+    "reelsVideo": "/media/gabrielafontes/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/gabrielafontes/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -935,7 +960,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/gabrielafontes/video_8.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1135,17 +1160,17 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_3.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1417,8 +1442,8 @@ const CREATORS_CATALOG = [
     "videoCount": 1,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "A delicadeza e a ousadia de Lorena Drummond em fotos temáticas e artísticas de tirar o fôlego. Cores vibrantes, produção impecável e alta resolução.",
-    "cover": "/media/lorenadrummond/photo_12.jpg",
-    "avatar": "/media/lorenadrummond/photo_3.jpg",
+    "cover": "/media/lorenadrummond/photo_1.jpg",
+    "avatar": "/media/lorenadrummond/photo_2.jpg",
     "reelsVideo": "/media/lorenadrummond/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -1436,7 +1461,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lorenadrummond/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1461,6 +1486,11 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lorenadrummond/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/lorenadrummond/photo_8.jpg",
         "isTeaser": false
       },
       {
@@ -1523,8 +1553,8 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial completo com fotos em alta resolução e vídeos exclusivos. Ensaios temáticos, glamour, lifestyle e bastidores em altíssima definição.",
-    "cover": "/media/alinabelle/photo_24.jpg",
-    "avatar": "/media/alinabelle/photo_23.jpg",
+    "cover": "/media/alinabelle/photo_33.jpg",
+    "avatar": "/media/alinabelle/photo_37.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -1546,7 +1576,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_6.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1646,7 +1676,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/alinabelle/photo_2.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -1870,7 +1900,7 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Portfólio completo da sensação do cosplay temático e geek sensual. Ensaios com figurinos exclusivos, iluminação cinematográfica e vídeos 60fps.",
     "cover": "/media/xspidergirl/photo_6.jpg",
-    "avatar": "/media/xspidergirl/photo_1.jpg",
+    "avatar": "/media/xspidergirl/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -2561,7 +2591,7 @@ const CREATORS_CATALOG = [
     "videoCount": 18,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
-    "cover": "/media/adiana/photo_1.jpg",
+    "cover": "/media/adiana/photo_12.jpg",
     "avatar": "/media/adiana/photo_2.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -3505,14 +3535,14 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio moderno e urbano com visual ousado e acervo de vídeos exclusivos dos bastidores em alta definição.",
     "cover": "/media/fablazed/photo_2.jpg",
-    "avatar": "/media/fablazed/photo_13.jpg",
+    "avatar": "/media/fablazed/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/fablazed/video_1.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -3592,7 +3622,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_1.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -3602,7 +3632,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_3.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -3730,11 +3760,46 @@ const CREATORS_CATALOG = [
     "videoCount": 13,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio praiano e lifestyle dourado com fotos deslumbrantes em alta resolução e vídeos exclusivos.",
-    "cover": "/media/minaveneta/photo_6.jpg",
+    "cover": "/media/minaveneta/photo_7.jpg",
     "avatar": "/media/minaveneta/photo_13.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_1.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_2.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_3.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/minaveneta/photo_25.jpg",
+        "isTeaser": false
+      },
       {
         "type": "video",
         "url": "/media/minaveneta/video_1.mp4",
@@ -4355,7 +4420,7 @@ const CREATORS_CATALOG = [
     "description": "Acervo oficial exclusivo de Kilah Slay com ensaios estéticos em 4K e vídeos em 60fps dos momentos mais desejados.",
     "cover": "/media/kilahslay/photo_1.jpg",
     "avatar": "/media/kilahslay/photo_2.jpg",
-    "reelsVideo": "/media/kilahslay/video_16.mp4",
+    "reelsVideo": "/media/kilahslay/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -4437,7 +4502,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/kilahslay/video_16.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -4477,6 +4542,96 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/kilahslay/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kilahslay/photo_18.jpg",
         "isTeaser": false
       }
     ],
