@@ -1360,7 +1360,7 @@ const CREATORS_CATALOG = [
     "videoCount": 18,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
-    "cover": "/media/adiana/photo_12.jpg",
+    "cover": "/media/adiana/photo_1.jpg",
     "avatar": "/media/adiana/photo_2.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -1388,11 +1388,6 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/adiana/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_12.mp4",
         "isTeaser": false
       },
       {
