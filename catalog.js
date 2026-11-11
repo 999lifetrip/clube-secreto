@@ -3050,7 +3050,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_8.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -3060,12 +3060,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/karentahe/photo_10.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/karentahe/photo_11.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
