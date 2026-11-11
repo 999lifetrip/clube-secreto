@@ -3509,7 +3509,7 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio moderno e urbano com visual ousado e acervo de vídeos exclusivos dos bastidores em alta definição.",
-    "cover": "/media/fablazed/photo_2.jpg",
+    "cover": "/media/fablazed/photo_14.jpg",
     "avatar": "/media/fablazed/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -3517,7 +3517,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/fablazed/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -3552,7 +3552,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/fablazed/video_8.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -3597,7 +3597,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -3607,7 +3607,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -3627,7 +3627,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_7.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -3662,7 +3662,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/fablazed/photo_14.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -3715,7 +3715,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "reelsVideo": "/media/fablazed/video_1.mp4",
+    "reelsVideo": "/media/fablazed/video_8.mp4",
     "order": 15
   },
   {
