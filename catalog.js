@@ -2430,8 +2430,8 @@ const CREATORS_CATALOG = [
     "videoCount": 1,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "A delicadeza e a ousadia de Lorena Drummond em fotos temáticas e artísticas de tirar o fôlego. Cores vibrantes, produção impecável e alta resolução.",
-    "cover": "/media/lorenadrummond/photo_1.jpg",
-    "avatar": "/media/lorenadrummond/photo_2.jpg",
+    "cover": "/media/lorenadrummond/photo_14.jpg",
+    "avatar": "/media/lorenadrummond/photo_11.jpg",
     "reelsVideo": "/media/lorenadrummond/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -2439,7 +2439,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/lorenadrummond/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -2449,7 +2449,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lorenadrummond/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -2494,7 +2494,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lorenadrummond/photo_11.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2509,7 +2509,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lorenadrummond/photo_14.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
