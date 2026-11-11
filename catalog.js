@@ -2594,7 +2594,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_12.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -2609,7 +2609,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_15.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -2634,7 +2634,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_20.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -2644,7 +2644,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/alinabelle/video_22.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -2694,7 +2694,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/alinabelle/photo_8.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
