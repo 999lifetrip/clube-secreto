@@ -4353,9 +4353,9 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio premium completo de Rachel L com acervo exuberante de fotos 4K e vídeos em 60fps dos bastidores mais cobiçados.",
-    "cover": "/media/lrachel/photo_1.jpg",
-    "avatar": "/media/lrachel/photo_2.jpg",
-    "reelsVideo": "/media/lrachel/video_12.mp4",
+    "cover": "/media/lrachel/photo_3.jpg",
+    "avatar": "/media/lrachel/photo_14.jpg",
+    "reelsVideo": "/media/lrachel/video_23.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -4672,7 +4672,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/lrachel/video_23.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
