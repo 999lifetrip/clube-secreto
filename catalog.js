@@ -1032,7 +1032,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/amayawaifu/video_3.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1340,7 +1340,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "reelsVideo": "/media/amayawaifu/video_1.mp4",
+    "reelsVideo": "/media/amayawaifu/video_3.mp4",
     "order": 5
   },
   {
