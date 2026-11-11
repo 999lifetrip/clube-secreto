@@ -3991,6 +3991,352 @@ const CREATORS_CATALOG = [
     "order": 17
   },
   {
+    "id": "ensaio-vip-kerolaychaves",
+    "creatorName": "Kerolay Chaves",
+    "username": "@kerolay_chaves",
+    "verified": true,
+    "title": "Coleção Completa Kerolay Chaves — Acervo Privado & Bastidores VIP",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "DESTAQUE 💎",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "1.2M",
+    "likes": "184.2K",
+    "photoCount": 40,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "O acervo mais desejado do Brasil: ensaios exclusivos de Kerolay Chaves sem censura, fotografia 4K e vídeos VIP originais.",
+    "cover": "/media/kerolaychaves/photo_1.jpg",
+    "avatar": "/media/kerolaychaves/photo_2.jpg",
+    "reelsVideo": "/media/kerolaychaves/video_4.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_1.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_4.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_9.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_10.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_17.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_20.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/kerolaychaves/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/kerolaychaves/photo_40.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 18
+  },
+  {
     "id": "ensaio-vip-lrachel",
     "creatorName": "Rachel L",
     "username": "@l.rachel.l",
@@ -4334,7 +4680,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 18
+    "order": 19
   },
   {
     "id": "ensaio-vip-kilahslay",
@@ -4565,7 +4911,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 19
+    "order": 20
   },
   {
     "id": "ensaio-vip-morganalexandra",
@@ -4911,7 +5257,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 20
+    "order": 21
   },
   {
     "id": "ensaio-vip-skylarskywalker",
@@ -5227,7 +5573,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 21
+    "order": 22
   },
   {
     "id": "ensaio-vip-missmichelleyg",
@@ -5480,352 +5826,6 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/missmichelleyg/photo_22.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 22
-  },
-  {
-    "id": "ensaio-vip-kerolaychaves",
-    "creatorName": "Kerolay Chaves",
-    "username": "@kerolay_chaves",
-    "verified": true,
-    "title": "Coleção Completa Kerolay Chaves — Acervo Privado & Bastidores VIP",
-    "category": "praia",
-    "categoryLabel": "Praia & Fitness",
-    "badge": "DESTAQUE 💎",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "1.2M",
-    "likes": "184.2K",
-    "photoCount": 40,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "O acervo mais desejado do Brasil: ensaios exclusivos de Kerolay Chaves sem censura, fotografia 4K e vídeos VIP originais.",
-    "cover": "/media/kerolaychaves/photo_1.jpg",
-    "avatar": "/media/kerolaychaves/photo_2.jpg",
-    "reelsVideo": "/media/kerolaychaves/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kerolaychaves/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kerolaychaves/photo_40.jpg",
         "isTeaser": false
       }
     ],
