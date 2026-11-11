@@ -5361,16 +5361,16 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo oficial de Miss Michelle YG com ensaios estéticos em altíssima definição 4K e vídeos sensuais exclusivos em 60fps.",
-    "cover": "/media/missmichelleyg/photo_1.jpg",
+    "cover": "/media/missmichelleyg/photo_22.jpg",
     "avatar": "/media/missmichelleyg/photo_2.jpg",
-    "reelsVideo": "/media/missmichelleyg/video_1.mp4",
+    "reelsVideo": "/media/missmichelleyg/video_10.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/missmichelleyg/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -5415,7 +5415,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/missmichelleyg/video_10.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -5435,7 +5435,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/missmichelleyg/video_14.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
