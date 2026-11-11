@@ -2368,7 +2368,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/leticiavasconcelos/video_5.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -2378,7 +2378,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/leticiavasconcelos/video_7.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -2388,7 +2388,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/leticiavasconcelos/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
