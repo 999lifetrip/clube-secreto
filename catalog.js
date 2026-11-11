@@ -5139,7 +5139,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/skylarskywalker/video_18.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -5229,7 +5229,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/skylarskywalker/photo_18.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -5259,7 +5259,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/skylarskywalker/photo_24.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -5324,7 +5324,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/skylarskywalker/photo_37.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
