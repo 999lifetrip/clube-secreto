@@ -342,8 +342,8 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo exclusivo de estúdio com Juliana Rios. Bastidores intimistas, poses deslumbrantes em alta definição 4K e vídeos sensuais 60fps sem censura.",
     "cover": "/media/julianarios/photo_1.jpg",
-    "avatar": "/media/julianarios/photo_2.jpg",
-    "reelsVideo": "/media/julianarios/video_1.mp4",
+    "avatar": "/media/julianarios/photo_8.jpg",
+    "reelsVideo": "/media/julianarios/video_15.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -420,12 +420,12 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/julianarios/video_15.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
         "url": "/media/julianarios/video_16.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -480,7 +480,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/julianarios/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -510,7 +510,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/julianarios/photo_8.jpg",
-        "isTeaser": false
+        "isTeaser": true
       }
     ],
     "order": 2
