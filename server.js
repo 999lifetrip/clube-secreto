@@ -1401,9 +1401,10 @@ const server = http.createServer(async (req, res) => {
   const unlockedSlugPath = '/' + (currentSettings.unlockedSlug || 'vip-liberado').replace(/^\/+/, '').toLowerCase();
   const normalizedPath = cleanUrl.replace(/\/+$/, '').toLowerCase() || '/';
   const queryVipToken = urlObj.searchParams.get('vip');
-  const isUnlockedRoute = (normalizedPath === unlockedSlugPath) || !!(queryVipToken && currentSettings.vipAccessToken && queryVipToken === currentSettings.vipAccessToken);
+  const isPageEntry = (normalizedPath === '/' || normalizedPath === '/index.html' || normalizedPath === unlockedSlugPath);
+  const isUnlockedRoute = (normalizedPath === unlockedSlugPath) || (isPageEntry && !!(queryVipToken && currentSettings.vipAccessToken && queryVipToken === currentSettings.vipAccessToken));
 
-  if (cleanUrl === '/' || cleanUrl === '' || isUnlockedRoute) {
+  if (cleanUrl === '/' || cleanUrl === '' || (isPageEntry && isUnlockedRoute)) {
     cleanUrl = '/index.html';
   } else if (cleanUrl === '/admin' || cleanUrl === '/admin/') {
     cleanUrl = '/admin.html';

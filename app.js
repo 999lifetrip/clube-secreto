@@ -1427,16 +1427,14 @@ function playReelSlide(slide, modelId) {
     vid.defaultMuted = reelsAudioMuted;
 
     vid.ontimeupdate = () => {
-      if (vid.currentTime > 0.05) {
+      if (vid.currentTime > 0.02) {
         slide.classList.add("video-playing");
         if (playBtn) playBtn.style.display = "none";
       }
     };
 
     vid.onplaying = () => {
-      if (vid.currentTime > 0.05) {
-        slide.classList.add("video-playing");
-      }
+      slide.classList.add("video-playing");
       if (playBtn) playBtn.style.display = "none";
     };
 
@@ -1448,19 +1446,33 @@ function playReelSlide(slide, modelId) {
 
     vid.onerror = () => {
       slide.classList.remove("video-playing");
-      if (playBtn) playBtn.style.display = "none";
+      if (playBtn) playBtn.style.display = "flex";
     };
 
     const playPromise = vid.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        if (!vid.muted) {
-          vid.muted = true;
-          vid.play().catch(() => {});
-        }
-        slide.classList.remove("video-playing");
-        if (playBtn) playBtn.style.display = "flex";
-      });
+      playPromise
+        .then(() => {
+          slide.classList.add("video-playing");
+          if (playBtn) playBtn.style.display = "none";
+        })
+        .catch(() => {
+          if (!vid.muted) {
+            vid.muted = true;
+            vid.play()
+              .then(() => {
+                slide.classList.add("video-playing");
+                if (playBtn) playBtn.style.display = "none";
+              })
+              .catch(() => {
+                slide.classList.remove("video-playing");
+                if (playBtn) playBtn.style.display = "flex";
+              });
+          } else {
+            slide.classList.remove("video-playing");
+            if (playBtn) playBtn.style.display = "flex";
+          }
+        });
     }
   }
 
@@ -1606,10 +1618,17 @@ function toggleReelSlidePlayback(videoEl) {
     if (!videoEl.src && videoEl.dataset.src) {
       videoEl.src = videoEl.dataset.src;
     }
+    videoEl.muted = reelsAudioMuted;
     videoEl.play().then(() => {
       if (slide) slide.classList.add("video-playing");
       if (playBtn) playBtn.style.display = "none";
-    }).catch(() => {});
+    }).catch(() => {
+      videoEl.muted = true;
+      videoEl.play().then(() => {
+        if (slide) slide.classList.add("video-playing");
+        if (playBtn) playBtn.style.display = "none";
+      }).catch(() => {});
+    });
   } else {
     videoEl.pause();
     if (playBtn) playBtn.style.display = "flex";
