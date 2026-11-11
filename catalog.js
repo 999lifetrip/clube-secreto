@@ -3233,20 +3233,15 @@ const CREATORS_CATALOG = [
     "videoCount": 11,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo premium oficial com fotos de estúdio e glamour em altíssima definição e vídeos exclusivos em formato 60fps.",
-    "cover": "/media/brandi/photo_8.jpg",
+    "cover": "/media/brandi/photo_5.jpg",
     "avatar": "/media/brandi/photo_5.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
-        "type": "image",
-        "url": "/media/brandi/photo_1.jpg",
-        "isTeaser": false
-      },
-      {
         "type": "video",
         "url": "/media/brandi/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -3261,7 +3256,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/brandi/video_4.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -3301,7 +3296,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/brandi/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -3316,7 +3311,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/brandi/photo_5.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -3494,7 +3489,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "reelsVideo": "/media/brandi/video_1.mp4",
+    "reelsVideo": "/media/brandi/video_4.mp4",
     "order": 14
   },
   {
