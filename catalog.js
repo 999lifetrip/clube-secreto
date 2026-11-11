@@ -3741,41 +3741,6 @@ const CREATORS_CATALOG = [
     "comboPrice": "24,99",
     "previews": [
       {
-        "type": "image",
-        "url": "/media/minaveneta/photo_1.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_2.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/minaveneta/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
         "type": "video",
         "url": "/media/minaveneta/video_1.mp4",
         "isTeaser": true
@@ -3783,7 +3748,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/minaveneta/video_2.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -3818,7 +3783,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/minaveneta/video_9.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -3888,7 +3853,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/minaveneta/photo_13.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
