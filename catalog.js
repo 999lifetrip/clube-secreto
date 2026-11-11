@@ -1022,7 +1022,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/amayawaifu/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1107,12 +1107,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/amayawaifu/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
