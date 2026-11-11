@@ -4683,237 +4683,6 @@ const CREATORS_CATALOG = [
     "order": 19
   },
   {
-    "id": "ensaio-vip-kilahslay",
-    "creatorName": "Kilah Slay",
-    "username": "@kilahslay",
-    "verified": true,
-    "title": "Coleção Completa Kilah Slay — Ensaio Glamour & VIP Privé",
-    "category": "estudio",
-    "categoryLabel": "Estúdio & Glamour",
-    "badge": "NOVO 🔥",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "340K",
-    "likes": "52.8K",
-    "photoCount": 18,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Acervo oficial exclusivo de Kilah Slay com ensaios estéticos em 4K e vídeos em 60fps dos momentos mais desejados.",
-    "cover": "/media/kilahslay/photo_1.jpg",
-    "avatar": "/media/kilahslay/photo_2.jpg",
-    "reelsVideo": "/media/kilahslay/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/kilahslay/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_18.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 20
-  },
-  {
     "id": "ensaio-vip-morganalexandra",
     "creatorName": "Morgan Alexandra",
     "username": "@morganalexandra",
@@ -4930,16 +4699,16 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Portfólio de alta moda e ensaio editorial sensual de Morgan Alexandra com fotografia 4K cristalina e vídeos cinematográficos.",
-    "cover": "/media/morganalexandra/photo_1.jpg",
-    "avatar": "/media/morganalexandra/photo_2.jpg",
-    "reelsVideo": "/media/morganalexandra/video_1.mp4",
+    "cover": "/media/morganalexandra/photo_24.jpg",
+    "avatar": "/media/morganalexandra/photo_30.jpg",
+    "reelsVideo": "/media/morganalexandra/video_3.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/morganalexandra/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -4949,7 +4718,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/morganalexandra/video_3.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -5004,7 +4773,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/morganalexandra/video_14.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -5059,17 +4828,17 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/morganalexandra/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/morganalexandra/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/morganalexandra/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -5204,7 +4973,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/morganalexandra/photo_30.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
