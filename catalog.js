@@ -2339,7 +2339,7 @@ const CREATORS_CATALOG = [
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
-    "cover": "/media/leticiavasconcelos/photo_1.jpg",
+    "cover": "/media/leticiavasconcelos/photo_2.jpg",
     "avatar": "/media/leticiavasconcelos/photo_2.jpg",
     "reelsVideo": "/media/leticiavasconcelos/video_1.mp4",
     "individualPrice": "9,90",
