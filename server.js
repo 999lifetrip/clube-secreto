@@ -595,8 +595,13 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'GET' && pathname === '/api/catalog') {
     const catalog = loadCatalog();
     const settings = loadSettings();
-    const isAdmin = checkAdminAuth(req, urlObj);
     const pageMode = req.headers['x-page-mode'] || urlObj.searchParams.get('mode') || '';
+    const explicitAdminToken = (
+      (req.headers['x-admin-key'] || '').replace(/^Bearer\s+/i, '').trim() ||
+      (urlObj.searchParams.get('key') || '').trim()
+    );
+    const isExplicitAdmin = !!(explicitAdminToken && ADMIN_KEYS.has(explicitAdminToken));
+    const isAdmin = pageMode === 'blocked' ? isExplicitAdmin : checkAdminAuth(req, urlObj);
     const deviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId');
     const vipToken = getVipTokenFromRequest(req, urlObj);
     const hasValidVipToken = !!(vipToken && settings.vipAccessToken && vipToken === settings.vipAccessToken);

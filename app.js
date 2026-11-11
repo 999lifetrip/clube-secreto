@@ -595,21 +595,9 @@ function renderCatalog() {
           <h3 class="card-title" onclick="openPreviewModal('${item.id}')" style="cursor: pointer;">${item.title}</h3>
           <p class="card-desc">${item.description}</p>
 
-          <div class="card-meta">
+          <div class="card-meta" style="margin-bottom: 14px;">
             <span>🌟 ${item.rating} (${item.views} views)</span>
             <span>💎 ${item.resolution}</span>
-          </div>
-
-          <div class="card-price-box">
-            <div class="price-individual">
-              <span class="price-label">${unlocked ? "Status VIP" : "Acesso VIP Total"}</span>
-              <span class="price-val" style="color: ${unlocked ? "#10b981" : "var(--text-primary)"};">
-                ${unlocked ? "TUDO LIBERADO ✅" : `${oldPrice ? `<s style="font-size:12px; color:#94a3b8; font-weight:600; margin-right:5px;">R$ ${oldPrice}</s>` : ""}R$ ${price}`}
-              </span>
-            </div>
-            <span style="font-size: 11px; color: ${unlocked ? "#10b981" : "#34d399"}; font-weight: 700; text-align: right;">
-              ${unlocked ? "4K + Vídeos 60fps" : `Libera TODAS (${catalog.length})`}
-            </span>
           </div>
 
           <div class="card-actions">
@@ -672,9 +660,10 @@ function renderPreviewContent(item) {
   const allPics = previews.filter(p => !((typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4"))));
 
   const teaserPics = allPics.filter(p => typeof p === "object" && p.isTeaser && p.url);
+  const hasTeaserFlags = allPics.some(p => typeof p === "object" && "isTeaser" in p);
   let displayPics = unlocked
     ? allPics.filter(p => (typeof p === "object" ? !!p.url : !!p))
-    : (teaserPics.length > 0 ? teaserPics : allPics.filter(p => (typeof p === "object" ? !!p.url : !!p)).slice(0, 3));
+    : (hasTeaserFlags ? teaserPics : allPics.filter(p => (typeof p === "object" ? !!p.url : !!p)).slice(0, 3));
 
   const photoPreviews = displayPics.map((p, idx) => ({
     url: typeof p === "object" ? p.url : p,
