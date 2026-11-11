@@ -4355,14 +4355,14 @@ const CREATORS_CATALOG = [
     "description": "Ensaio premium completo de Rachel L com acervo exuberante de fotos 4K e vídeos em 60fps dos bastidores mais cobiçados.",
     "cover": "/media/lrachel/photo_1.jpg",
     "avatar": "/media/lrachel/photo_2.jpg",
-    "reelsVideo": "/media/lrachel/video_1.mp4",
+    "reelsVideo": "/media/lrachel/video_12.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/lrachel/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -4382,12 +4382,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lrachel/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/lrachel/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -4447,7 +4447,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lrachel/photo_14.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -4617,7 +4617,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/lrachel/video_12.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
