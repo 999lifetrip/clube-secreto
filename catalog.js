@@ -869,20 +869,20 @@ const CREATORS_CATALOG = [
     "rating": "5.0",
     "views": "395K",
     "likes": "62.4K",
-    "photoCount": 16,
+    "photoCount": 18,
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Elegância e sensualidade com Camila Medeiros. Ensaio editorial de luxo, lingerie fina e vídeos exclusivos em altíssima resolução 4K.",
-    "cover": "/media/camilamedeiros/photo_1.jpg",
-    "avatar": "/media/camilamedeiros/photo_2.jpg",
-    "reelsVideo": "/media/camilamedeiros/video_1.mp4",
+    "cover": "/media/camilamedeiros/photo_4.jpg",
+    "avatar": "/media/camilamedeiros/photo_4.jpg",
+    "reelsVideo": "/media/camilamedeiros/video_3.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/camilamedeiros/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -892,7 +892,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/camilamedeiros/video_3.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -922,17 +922,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/camilamedeiros/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/camilamedeiros/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/camilamedeiros/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
