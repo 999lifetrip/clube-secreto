@@ -1672,7 +1672,7 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
     "cover": "/media/brunaalencar/photo_1.jpg",
-    "avatar": "/media/brunaalencar/photo_2.jpg",
+    "avatar": "/media/brunaalencar/photo_5.jpg",
     "reelsVideo": "/media/brunaalencar/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -1680,7 +1680,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/brunaalencar/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1730,7 +1730,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/brunaalencar/photo_6.jpg",
-        "isTeaser": false
+        "isTeaser": true
       }
     ],
     "order": 7
