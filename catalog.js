@@ -533,7 +533,7 @@ const CREATORS_CATALOG = [
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Portfólio completo da sensação do cosplay temático e geek sensual. Ensaios com figurinos exclusivos, iluminação cinematográfica e vídeos 60fps.",
     "cover": "/media/xspidergirl/photo_6.jpg",
-    "avatar": "/media/xspidergirl/photo_7.jpg",
+    "avatar": "/media/xspidergirl/photo_34.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
@@ -550,7 +550,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/xspidergirl/video_3.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -559,13 +559,8 @@ const CREATORS_CATALOG = [
       },
       {
         "type": "video",
-        "url": "/media/xspidergirl/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
         "url": "/media/xspidergirl/video_6.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -600,7 +595,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/xspidergirl/video_13.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -660,7 +655,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/xspidergirl/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -858,7 +853,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "reelsVideo": "/media/xspidergirl/video_10.mp4",
+    "reelsVideo": "/media/xspidergirl/video_13.mp4",
     "order": 3
   },
   {
