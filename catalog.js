@@ -20,16 +20,16 @@ const CREATORS_CATALOG = [
     "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio temático e bastidores exclusivos da ruiva Maria D'Mar com fotografia 4K cristalina e vídeos sensuais em 60fps.",
-    "cover": "/media/mariadmar/photo_1.jpg",
-    "avatar": "/media/mariadmar/photo_2.jpg",
-    "reelsVideo": "/media/mariadmar/video_1.mp4",
+    "cover": "/media/mariadmar/photo_4.jpg",
+    "avatar": "/media/mariadmar/photo_36.jpg",
+    "reelsVideo": "/media/mariadmar/video_24.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/mariadmar/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -69,11 +69,6 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/mariadmar/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/mariadmar/video_10.mp4",
         "isTeaser": false
       },
       {
@@ -129,7 +124,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/mariadmar/video_21.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -144,22 +139,22 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/mariadmar/video_24.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/mariadmar/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/mariadmar/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/mariadmar/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -234,7 +229,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/mariadmar/photo_18.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -259,7 +254,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/mariadmar/photo_23.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -269,7 +264,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/mariadmar/photo_25.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -279,7 +274,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/mariadmar/photo_27.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -294,7 +289,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/mariadmar/photo_30.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -309,7 +304,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/mariadmar/photo_33.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -521,84 +516,349 @@ const CREATORS_CATALOG = [
     "order": 2
   },
   {
-    "id": "ensaio-vip-brunaalencar",
-    "creatorName": "Bruna Alencar",
-    "username": "@brunaalencar.vip",
+    "id": "ensaio-vip-xspidergirl",
+    "creatorName": "Xspidergirl",
+    "username": "@xspidergirl",
     "verified": true,
-    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
-    "category": "praia",
-    "categoryLabel": "Praia & Fitness",
-    "badge": "DESTAQUE BRONZE ☀️",
+    "title": "Coleção Completa Xspidergirl — Cosplay Exclusivo & Sensual Geek",
+    "category": "cosplay",
+    "categoryLabel": "Cosplay & Geek",
+    "badge": "TOP TENDÊNCIA 🕷️",
     "isTrending": true,
     "rating": "4.9",
-    "views": "310K",
-    "likes": "51.8K",
-    "photoCount": 6,
-    "videoCount": 5,
+    "views": "360K",
+    "likes": "57.8K",
+    "photoCount": 40,
+    "videoCount": 24,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
-    "cover": "/media/brunaalencar/photo_1.jpg",
-    "avatar": "/media/brunaalencar/photo_2.jpg",
-    "reelsVideo": "/media/brunaalencar/video_1.mp4",
+    "description": "Portfólio completo da sensação do cosplay temático e geek sensual. Ensaios com figurinos exclusivos, iluminação cinematográfica e vídeos 60fps.",
+    "cover": "/media/xspidergirl/photo_6.jpg",
+    "avatar": "/media/xspidergirl/photo_7.jpg",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
-        "url": "/media/brunaalencar/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_2.mp4",
+        "url": "/media/xspidergirl/video_1.mp4",
         "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/brunaalencar/video_3.mp4",
+        "url": "/media/xspidergirl/video_2.mp4",
         "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/brunaalencar/video_4.mp4",
+        "url": "/media/xspidergirl/video_3.mp4",
         "isTeaser": false
       },
       {
         "type": "video",
-        "url": "/media/brunaalencar/video_5.mp4",
+        "url": "/media/xspidergirl/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_10.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/xspidergirl/video_24.mp4",
         "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/brunaalencar/photo_1.jpg",
+        "url": "/media/xspidergirl/photo_1.jpg",
         "isTeaser": true
       },
       {
         "type": "image",
-        "url": "/media/brunaalencar/photo_2.jpg",
+        "url": "/media/xspidergirl/photo_2.jpg",
         "isTeaser": true
       },
       {
         "type": "image",
-        "url": "/media/brunaalencar/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_4.jpg",
+        "url": "/media/xspidergirl/photo_3.jpg",
         "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/brunaalencar/photo_5.jpg",
+        "url": "/media/xspidergirl/photo_4.jpg",
         "isTeaser": false
       },
       {
         "type": "image",
-        "url": "/media/brunaalencar/photo_6.jpg",
+        "url": "/media/xspidergirl/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_6.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/xspidergirl/photo_40.jpg",
         "isTeaser": false
       }
     ],
+    "reelsVideo": "/media/xspidergirl/video_10.mp4",
     "order": 3
   },
   {
@@ -748,6 +1008,749 @@ const CREATORS_CATALOG = [
     "order": 4
   },
   {
+    "id": "ensaio-vip-amayawaifu",
+    "creatorName": "Amaya Waifu",
+    "username": "@amayawaifu",
+    "verified": true,
+    "title": "Coleção Completa Amaya Waifu — Cosplay & Sensual Geek",
+    "category": "cosplay",
+    "categoryLabel": "Cosplay & Geek",
+    "badge": "MUSA DO COSPLAY 💥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "580K",
+    "likes": "92.5K",
+    "photoCount": 40,
+    "videoCount": 24,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Coleção imperdível com ensaios temáticos, cosplay sensual de alta produção e vídeos privativos.",
+    "cover": "/media/amayawaifu/photo_1.jpg",
+    "avatar": "/media/amayawaifu/photo_29.jpg",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_12.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_18.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/amayawaifu/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/amayawaifu/photo_40.jpg",
+        "isTeaser": false
+      }
+    ],
+    "reelsVideo": "/media/amayawaifu/video_1.mp4",
+    "order": 5
+  },
+  {
+    "id": "ensaio-vip-adiana",
+    "creatorName": "Adiana",
+    "username": "@adiana_exclusive",
+    "verified": true,
+    "title": "Coleção Completa Adiana — Fashion Editorial & Bastidores Privados",
+    "category": "moda",
+    "categoryLabel": "Moda & Editorial",
+    "badge": "PREMIUM 💎",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "330K",
+    "likes": "48.9K",
+    "photoCount": 40,
+    "videoCount": 18,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
+    "cover": "/media/adiana/photo_12.jpg",
+    "avatar": "/media/adiana/photo_2.jpg",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/adiana/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_9.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_10.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_11.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_12.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_13.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_14.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_15.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_16.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_17.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_18.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_19.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_20.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_21.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_22.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_23.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/adiana/video_24.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_3.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_6.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_7.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_8.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_9.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_10.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_11.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_12.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_13.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_14.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_15.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_16.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_17.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_18.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_19.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_20.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_21.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_22.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_23.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_24.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_25.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_26.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_27.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_28.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_29.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_30.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_31.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_32.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_33.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_34.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_35.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_36.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_37.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_38.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_39.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/adiana/photo_40.jpg",
+        "isTeaser": false
+      }
+    ],
+    "reelsVideo": "/media/adiana/video_18.mp4",
+    "order": 6
+  },
+  {
+    "id": "ensaio-vip-brunaalencar",
+    "creatorName": "Bruna Alencar",
+    "username": "@brunaalencar.vip",
+    "verified": true,
+    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "DESTAQUE BRONZE ☀️",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "310K",
+    "likes": "51.8K",
+    "photoCount": 6,
+    "videoCount": 5,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
+    "cover": "/media/brunaalencar/photo_1.jpg",
+    "avatar": "/media/brunaalencar/photo_2.jpg",
+    "reelsVideo": "/media/brunaalencar/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_6.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 7
+  },
+  {
     "id": "ensaio-vip-rafabittencourt",
     "creatorName": "Rafaela Bittencourt",
     "username": "@rafabittencourt_",
@@ -806,98 +1809,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 5
-  },
-  {
-    "id": "ensaio-vip-leticiavasconcelos",
-    "creatorName": "Letícia Vasconcelos",
-    "username": "@leticiavasconcelos.vip",
-    "verified": true,
-    "title": "Letícia Vasconcelos — Ensaio Urbano & Glamour Privado",
-    "category": "streetwear",
-    "categoryLabel": "Streetwear & Urbana",
-    "badge": "SUPER EM ALTA 🔥",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "415K",
-    "likes": "67.9K",
-    "photoCount": 5,
-    "videoCount": 8,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
-    "cover": "/media/leticiavasconcelos/photo_1.jpg",
-    "avatar": "/media/leticiavasconcelos/photo_2.jpg",
-    "reelsVideo": "/media/leticiavasconcelos/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/leticiavasconcelos/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/leticiavasconcelos/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/leticiavasconcelos/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/leticiavasconcelos/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/leticiavasconcelos/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/leticiavasconcelos/photo_5.jpg",
-        "isTeaser": false
-      }
-    ],
-    "order": 6
+    "order": 8
   },
   {
     "id": "ensaio-vip-gabrielafontes",
@@ -1423,7 +2335,98 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 7
+    "order": 9
+  },
+  {
+    "id": "ensaio-vip-leticiavasconcelos",
+    "creatorName": "Letícia Vasconcelos",
+    "username": "@leticiavasconcelos.vip",
+    "verified": true,
+    "title": "Letícia Vasconcelos — Ensaio Urbano & Glamour Privado",
+    "category": "streetwear",
+    "categoryLabel": "Streetwear & Urbana",
+    "badge": "SUPER EM ALTA 🔥",
+    "isTrending": true,
+    "rating": "5.0",
+    "views": "415K",
+    "likes": "67.9K",
+    "photoCount": 5,
+    "videoCount": 8,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "A atitude marcante de Letícia Vasconcelos em ensaio urbano e intimista. Alta voltagem, vídeos dinâmicos em 60fps e fotos Ultra HD.",
+    "cover": "/media/leticiavasconcelos/photo_1.jpg",
+    "avatar": "/media/leticiavasconcelos/photo_2.jpg",
+    "reelsVideo": "/media/leticiavasconcelos/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_1.mp4",
+        "isTeaser": true
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_6.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_7.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/leticiavasconcelos/video_8.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/leticiavasconcelos/photo_5.jpg",
+        "isTeaser": false
+      }
+    ],
+    "order": 10
   },
   {
     "id": "ensaio-vip-lorenadrummond",
@@ -1534,7 +2537,7 @@ const CREATORS_CATALOG = [
         "isTeaser": false
       }
     ],
-    "order": 8
+    "order": 11
   },
   {
     "id": "ensaio-vip-alinabelle",
@@ -1880,353 +2883,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/alinabelle/video_6.mp4",
-    "order": 9
-  },
-  {
-    "id": "ensaio-vip-xspidergirl",
-    "creatorName": "Xspidergirl",
-    "username": "@xspidergirl",
-    "verified": true,
-    "title": "Coleção Completa Xspidergirl — Cosplay Exclusivo & Sensual Geek",
-    "category": "cosplay",
-    "categoryLabel": "Cosplay & Geek",
-    "badge": "TOP TENDÊNCIA 🕷️",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "360K",
-    "likes": "57.8K",
-    "photoCount": 40,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Portfólio completo da sensação do cosplay temático e geek sensual. Ensaios com figurinos exclusivos, iluminação cinematográfica e vídeos 60fps.",
-    "cover": "/media/xspidergirl/photo_6.jpg",
-    "avatar": "/media/xspidergirl/photo_7.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_1.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_10.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/xspidergirl/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_6.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/xspidergirl/photo_40.jpg",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/xspidergirl/video_10.mp4",
-    "order": 10
+    "order": 12
   },
   {
     "id": "ensaio-vip-karentahe",
@@ -2572,323 +3229,7 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/karentahe/video_2.mp4",
-    "order": 11
-  },
-  {
-    "id": "ensaio-vip-adiana",
-    "creatorName": "Adiana",
-    "username": "@adiana_exclusive",
-    "verified": true,
-    "title": "Coleção Completa Adiana — Fashion Editorial & Bastidores Privados",
-    "category": "moda",
-    "categoryLabel": "Moda & Editorial",
-    "badge": "PREMIUM 💎",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "330K",
-    "likes": "48.9K",
-    "photoCount": 40,
-    "videoCount": 18,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Sensualidade e sofisticação em ensaios editoriais de alto padrão. Fotos estilizadas em estúdio e vídeos dos bastidores mais cobiçados.",
-    "cover": "/media/adiana/photo_12.jpg",
-    "avatar": "/media/adiana/photo_2.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/adiana/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_18.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/adiana/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_3.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_12.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/adiana/photo_40.jpg",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/adiana/video_18.mp4",
-    "order": 12
+    "order": 13
   },
   {
     "id": "ensaio-vip-brandi",
@@ -3169,352 +3510,6 @@ const CREATORS_CATALOG = [
       }
     ],
     "reelsVideo": "/media/brandi/video_1.mp4",
-    "order": 13
-  },
-  {
-    "id": "ensaio-vip-amayawaifu",
-    "creatorName": "Amaya Waifu",
-    "username": "@amayawaifu",
-    "verified": true,
-    "title": "Coleção Completa Amaya Waifu — Cosplay & Sensual Geek",
-    "category": "cosplay",
-    "categoryLabel": "Cosplay & Geek",
-    "badge": "MUSA DO COSPLAY 💥",
-    "isTrending": true,
-    "rating": "5.0",
-    "views": "580K",
-    "likes": "92.5K",
-    "photoCount": 40,
-    "videoCount": 24,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Coleção imperdível com ensaios temáticos, cosplay sensual de alta produção e vídeos privativos.",
-    "cover": "/media/amayawaifu/photo_1.jpg",
-    "avatar": "/media/amayawaifu/photo_29.jpg",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_1.mp4",
-        "isTeaser": true
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_6.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_7.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_8.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_9.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_10.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_11.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_12.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_13.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_14.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_15.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_16.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_6.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_7.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_8.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_9.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_10.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_11.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_12.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_13.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_14.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_15.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_16.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_17.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_18.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_19.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_20.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_21.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_22.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_23.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_24.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_25.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_26.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_27.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_28.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_29.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_30.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_17.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_18.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_19.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_20.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_21.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_22.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_23.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/amayawaifu/video_24.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_31.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_32.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_33.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_34.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_35.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_36.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_37.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_38.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_39.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/amayawaifu/photo_40.jpg",
-        "isTeaser": false
-      }
-    ],
-    "reelsVideo": "/media/amayawaifu/video_1.mp4",
     "order": 14
   },
   {
@@ -4543,11 +4538,6 @@ const CREATORS_CATALOG = [
         "type": "video",
         "url": "/media/kilahslay/video_24.mp4",
         "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/kilahslay/photo_1.jpg",
-        "isTeaser": true
       },
       {
         "type": "image",
