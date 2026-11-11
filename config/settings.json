@@ -1,0 +1,12 @@
+{
+  "vipPrice": "15,00",
+  "vipOldPrice": "29,90",
+  "vipPlanTitle": "ACESSO VIP COMPLETO",
+  "vipPlanSubtitle": "Todas as modelos, fotos 4K e vídeos 60fps sem censura",
+  "pixKey": "09658990983",
+  "pixHolder": "Luan Batista",
+  "whatsappNumber": "554195993007",
+  "whatsappMessage": "Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:",
+  "unlockedSlug": "vip-liberado",
+  "vipAccessToken": "CS-VIP-LIBERADO-2026"
+}

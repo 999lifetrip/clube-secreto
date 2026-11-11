@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="admin.css?v=12_ultra" />
+  <link rel="stylesheet" href="admin.css?v=13_vip" />
 </head>
 <body>
 
@@ -61,11 +61,14 @@
       <button class="admin-tab active" data-tab="models" onclick="switchAdminTab('models')">
         <span>💃 Modelos & Ensaios</span>
       </button>
+      <button class="admin-tab" data-tab="pricing" onclick="switchAdminTab('pricing')">
+        <span>💰 Preços, PIX & Página Liberada</span>
+      </button>
       <button class="admin-tab" data-tab="media" onclick="switchAdminTab('media')">
         <span>🎬 Fotos & Vídeos (Prévias vs. VIP)</span>
       </button>
       <button class="admin-tab" data-tab="codes" onclick="switchAdminTab('codes')">
-        <span>🔑 Gerador de Códigos de Venda</span>
+        <span>🔑 Códigos (Legado)</span>
       </button>
       <button class="admin-tab" data-tab="backups" onclick="switchAdminTab('backups')">
         <span>💾 Banco de Dados & Backups</span>
@@ -88,6 +91,30 @@
           <button class="btn-primary" onclick="openNewModelModal()">
             <span>➕ Adicionar Nova Modelo</span>
           </button>
+        </div>
+
+        <!-- Resumo Rápido de Preço & Link Liberado -->
+        <div class="models-order-toolbar" style="border-color: rgba(16,185,129,0.35); background: linear-gradient(90deg, rgba(16,185,129,0.08), rgba(9,12,18,0.95)); margin-bottom: 14px;">
+          <div class="order-toolbar-left">
+            <span style="font-size: 13px; font-weight: 800; color: #34d399;">
+              💰 Preço VIP Atual: <strong id="quickVipPriceBadge" style="color: #fff; font-size: 15px;">R$ 15,00</strong>
+            </span>
+            <span style="font-size: 12px; color: #94a3b8;">|</span>
+            <span style="font-size: 12px; color: #cbd5e1;">
+              🔓 Página Liberada: <code id="quickUnlockedPathBadge" style="color: #38bdf8; background: rgba(56,189,248,0.12); padding: 2px 7px; border-radius: 4px;">/vip-liberado</code>
+            </span>
+          </div>
+          <div class="order-toolbar-right">
+            <button class="btn-secondary-sm" style="border-color: #f59e0b; color: #fbbf24;" onclick="switchAdminTab('pricing')">
+              <span>✏️ Alterar Preços & PIX</span>
+            </button>
+            <button class="btn-secondary-sm" style="border-color: #25d366; color: #4ade80;" onclick="copyUnlockedWhatsappMessage()">
+              <span>📲 Copiar Msg Tudo Liberado</span>
+            </button>
+            <a id="quickOpenUnlockedLink" href="/vip-liberado" target="_blank" class="btn-secondary-sm" style="text-decoration: none; border-color: #10b981; color: #34d399;">
+              <span>👁️ Abrir Página Liberada</span>
+            </a>
+          </div>
         </div>
 
         <!-- Barra de Ordenação da Vitrine & Ações Rápidas -->
@@ -116,6 +143,140 @@
 
         <div class="models-grid" id="modelsGrid">
           <!-- Renderizado via admin.js -->
+        </div>
+      </section>
+
+      <!-- ABA 2: PREÇOS, PIX, WHATSAPP & PÁGINA TUDO LIBERADO -->
+      <section id="tab-pricing" class="admin-section">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">Preços, PIX, WhatsApp & Página Tudo Liberado</h2>
+            <p class="section-desc">Altere o preço único VIP do site, dados do PIX/WhatsApp e gerencie o link da página Tudo Liberado para enviar após o pagamento.</p>
+          </div>
+          <button class="btn-success" style="padding: 12px 22px; font-size: 14px;" onclick="saveAdminSettings()">
+            <span>💾 Salvar Preços & Configurações Agora</span>
+          </button>
+        </div>
+
+        <div class="deploy-guide-cards" style="margin-bottom: 20px;">
+          <!-- CARD: LINK PÁGINA TUDO LIBERADO -->
+          <div class="deploy-card" style="border-color: rgba(16,185,129,0.5); background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(13,16,23,0.98));">
+            <h3 class="deploy-card-title" style="color: #34d399;">🔓 Link da Página "Tudo Liberado" (Quem Pagou)</h3>
+            <p style="font-size: 13px; color: #cbd5e1; line-height: 1.55; margin-bottom: 12px;">
+              Quem pagar via PIX no WhatsApp recebe este link e abre o site <strong>100% liberado na hora</strong>, sem precisar digitar senha ou código!
+            </p>
+
+            <div class="form-group" style="margin-bottom: 12px;">
+              <label>ENDEREÇO (SLUG) DA PÁGINA LIBERADA:</label>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <input type="text" id="settingUnlockedSlug" value="vip-liberado" placeholder="vip-liberado" style="flex: 1; min-width: 160px; font-family: monospace; font-weight: 800; color: #34d399;" oninput="updateUnlockedPreviewUrl()" />
+                <button type="button" class="btn-secondary" style="border-color: rgba(245,158,11,0.5); color: #fbbf24; font-size: 12px;" onclick="regenerateUnlockedAccess()" title="Gera um novo link secreto caso o antigo vaze">
+                  <span>🔄 Trocar Link Secreto</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="code-snippet" id="unlockedFullUrlPreview" style="color: #38bdf8; word-break: break-all; font-size: 13px;">
+              https://clubesecreto.omelhorvendedoronline.com.br/vip-liberado
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+              <button type="button" class="btn-success" style="flex: 1; min-width: 170px; justify-content: center;" onclick="copyUnlockedLink()">
+                <span>📋 Copiar Link Liberado</span>
+              </button>
+              <button type="button" class="btn-primary" style="flex: 1; min-width: 190px; justify-content: center; background: linear-gradient(135deg, #25d366, #128c7e);" onclick="copyUnlockedWhatsappMessage()">
+                <span>📲 Copiar Msg WhatsApp</span>
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+              <a id="btnTestUnlockedPage" href="/vip-liberado" target="_blank" class="btn-secondary" style="flex: 1; justify-content: center; border-color: #10b981; color: #34d399; font-size: 12px;">
+                <span>🔓 Abrir Página Tudo Liberado</span>
+              </a>
+              <a href="/" target="_blank" class="btn-secondary" style="flex: 1; justify-content: center; border-color: rgba(225,29,72,0.5); color: #fb7185; font-size: 12px;">
+                <span>🔒 Abrir Página Bloqueada (Prévia)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- CARD: PREÇOS DO ACESSO VIP -->
+          <div class="deploy-card" style="border-color: rgba(225,29,72,0.45);">
+            <h3 class="deploy-card-title">💰 Alterar Preço Oficial do Acesso VIP</h3>
+            <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
+              Altere aqui o preço único exibido na página bloqueada, no botão do WhatsApp, no PIX e no Reels.
+            </p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>PREÇO DO ACESSO VIP (R$) *</label>
+                <input type="text" id="settingVipPrice" value="15,00" placeholder="15,00" style="font-size: 18px; font-weight: 900; color: #22c55e;" />
+              </div>
+              <div class="form-group">
+                <label>PREÇO ANTIGO RISCADO (OPCIONAL)</label>
+                <input type="text" id="settingVipOldPrice" value="29,90" placeholder="Deixe vazio para ocultar" />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+              <label>TÍTULO DO PACOTE VIP</label>
+              <input type="text" id="settingVipPlanTitle" value="ACESSO VIP COMPLETO" />
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+              <label>SUBTÍTULO / BENEFÍCIO</label>
+              <input type="text" id="settingVipPlanSubtitle" value="Todas as modelos, fotos 4K e vídeos 60fps sem censura" />
+            </div>
+
+            <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08);">
+              <label style="font-size: 11px; font-weight: 800; color: var(--text-muted); display: block; margin-bottom: 8px;">
+                💸 ALTERAR PREÇO INDIVIDUAL DE REFERÊNCIA (USO INTERNO P/ X1 NO WHATSAPP):
+              </label>
+              <div style="display: flex; gap: 8px;">
+                <input type="text" id="bulkIndividualPrice" placeholder="Ex: 9,90 ou 10,00" style="flex: 1; background: #050608; border: 1px solid var(--border-color); border-radius: 8px; padding: 9px 12px; color: #fff; font-size: 13px;" />
+                <button type="button" class="btn-secondary" onclick="bulkUpdateIndividualPrices()">
+                  <span>Aplicar em Todas</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD: DADOS DO PIX E WHATSAPP -->
+        <div class="deploy-card" style="margin-bottom: 20px;">
+          <h3 class="deploy-card-title">💠 Dados do PIX & WhatsApp de Recebimento</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>CHAVE PIX (CPF / ALEATÓRIA / E-MAIL)</label>
+              <input type="text" id="settingPixKey" value="09658990983" />
+            </div>
+            <div class="form-group">
+              <label>NOME DO FAVORECIDO / TITULAR DO PIX</label>
+              <input type="text" id="settingPixHolder" value="Luan Batista" />
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 12px;">
+            <div class="form-group">
+              <label>NÚMERO DO WHATSAPP (COM 55 + DDD)</label>
+              <input type="text" id="settingWhatsappNumber" value="554195993007" />
+            </div>
+            <div class="form-group">
+              <label>MENSAGEM PADRÃO AO CLICAR NO WHATSAPP</label>
+              <input type="text" id="settingWhatsappMessage" value="Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:" />
+            </div>
+          </div>
+          <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 6px;">
+            💡 Você pode usar <code>{PRICE}</code> e <code>{PIX}</code> dentro da mensagem para inserir automaticamente o preço e a chave PIX atuais.
+          </span>
+
+          <div style="margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn-success" style="padding: 12px 24px; font-size: 14px;" onclick="saveAdminSettings()">
+              <span>💾 Salvar Todas as Configurações</span>
+            </button>
+            <button class="btn-primary" style="background: linear-gradient(135deg, #059669, #047857); padding: 12px 20px;" onclick="syncAdminToGitHub()">
+              <span>🚀 Salvar no GitHub para VPS</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -148,20 +309,20 @@
         </div>
       </section>
 
-      <!-- ABA 3: GERADOR DE CÓDIGOS PIX -->
+      <!-- ABA 3: GERADOR DE CÓDIGOS PIX (LEGADO / OPCIONAL) -->
       <section id="tab-codes" class="admin-section">
         <div class="section-toolbar">
           <div>
-            <h2 class="section-title">Códigos de Acesso de Venda</h2>
-            <p class="section-desc">Gere lotes de códigos de uso único protegidos contra fraudes para enviar no WhatsApp.</p>
+            <h2 class="section-title">Códigos de Acesso (Sistema Legado / Opcional)</h2>
+            <p class="section-desc">O fluxo principal agora usa a Página Tudo Liberado sem exigir códigos. Aqui você pode consultar ou gerar códigos avulsos antigos se desejar.</p>
           </div>
 
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="btn-success" onclick="generateBatchCodes('WEEKLY_VIP', null, 10)">
-              <span>➕ Gerar 10x Semanal (R$ 24,99)</span>
+              <span>➕ Gerar 10x VIP Completo</span>
             </button>
             <button class="btn-primary" onclick="generateBatchCodes('SINGLE_MODEL', null, 10)">
-              <span>➕ Gerar 10x Pack Modelo (R$ 9,90)</span>
+              <span>➕ Gerar 10x Pack Individual</span>
             </button>
           </div>
         </div>
@@ -498,7 +659,7 @@ TTL: 300
             </label>
             <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #fff;">
               <input type="radio" name="uploadRole" value="vip" />
-              <span>🔒 <strong>Exclusivo VIP</strong> (Liberado só após comprar/código)</span>
+              <span>🔒 <strong>Exclusivo VIP</strong> (Liberado só na Página Tudo Liberado)</span>
             </label>
           </div>
         </div>
@@ -598,7 +759,7 @@ TTL: 300
     <span id="adminToastMsg">Sucesso</span>
   </div>
 
-  <script src="admin.js?v=12_ultra"></script>
+  <script src="admin.js?v=13_vip"></script>
 </body>
 </html>
 

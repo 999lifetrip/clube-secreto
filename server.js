@@ -7,9 +7,23 @@ const zlib = require('zlib');
 
 const PORT = process.env.PORT || 3008;
 const CONFIG_FILE = path.join(__dirname, 'config', 'vip_codes.json');
+const SETTINGS_FILE = path.join(__dirname, 'config', 'settings.json');
 const CATALOG_FILE = path.join(__dirname, 'catalog.js');
 const MEDIA_DIR = path.join(__dirname, 'media');
 const BACKUPS_DIR = path.join(__dirname, 'backups');
+
+const DEFAULT_SETTINGS = {
+  vipPrice: '15,00',
+  vipOldPrice: '29,90',
+  vipPlanTitle: 'ACESSO VIP COMPLETO',
+  vipPlanSubtitle: 'Todas as modelos, fotos 4K e vídeos 60fps sem censura',
+  pixKey: '09658990983',
+  pixHolder: 'Luan Batista',
+  whatsappNumber: '554195993007',
+  whatsappMessage: 'Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:',
+  unlockedSlug: 'vip-liberado',
+  vipAccessToken: 'CS-VIP-LIBERADO-2026'
+};
 
 if (!fs.existsSync(BACKUPS_DIR)) {
   try { fs.mkdirSync(BACKUPS_DIR, { recursive: true }); } catch(e) {}
@@ -57,6 +71,66 @@ function loadVipCodes() {
   return [];
 }
 
+// Carrega configurações globais de preços, PIX, WhatsApp e link liberado
+function loadSettings() {
+  try {
+    if (fs.existsSync(SETTINGS_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(SETTINGS_FILE, 'utf8'));
+      return { ...DEFAULT_SETTINGS, ...parsed };
+    }
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(DEFAULT_SETTINGS, null, 2), 'utf8');
+  } catch (err) {
+    console.error('Erro ao ler settings.json:', err);
+  }
+  return { ...DEFAULT_SETTINGS };
+}
+
+// Salva configurações globais
+function saveSettings(newSettings, skipBackup = false) {
+  try {
+    if (!skipBackup) createAutoBackup('before_settings_save');
+    const merged = { ...DEFAULT_SETTINGS, ...newSettings };
+    merged.unlockedSlug = (merged.unlockedSlug || 'vip-liberado')
+      .toLowerCase()
+      .replace(/^\/+/, '')
+      .replace(/[^a-z0-9_-]/g, '') || 'vip-liberado';
+    merged.whatsappNumber = String(merged.whatsappNumber || '554195993007').replace(/\D/g, '') || '554195993007';
+    if (!merged.vipAccessToken) {
+      merged.vipAccessToken = 'CS-VIP-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+    }
+    fs.writeFileSync(SETTINGS_FILE, JSON.stringify(merged, null, 2), 'utf8');
+    return merged;
+  } catch (err) {
+    console.error('Erro ao salvar settings.json:', err);
+    return null;
+  }
+}
+
+function getPublicSettings(settings) {
+  const s = settings || loadSettings();
+  return {
+    vipPrice: s.vipPrice,
+    vipOldPrice: s.vipOldPrice,
+    vipPlanTitle: s.vipPlanTitle,
+    vipPlanSubtitle: s.vipPlanSubtitle,
+    pixKey: s.pixKey,
+    pixHolder: s.pixHolder,
+    whatsappNumber: s.whatsappNumber,
+    whatsappMessage: s.whatsappMessage
+  };
+}
+
+function getVipTokenFromRequest(req, urlObj) {
+  const headerToken = req.headers['x-vip-token'];
+  const queryToken = urlObj ? (urlObj.searchParams.get('vipToken') || urlObj.searchParams.get('vip')) : null;
+  let cookieToken = null;
+  if (req.headers && req.headers.cookie) {
+    const match = req.headers.cookie.match(/(?:^|;\s*)cs_vip_token=([^;]+)/);
+    if (match) cookieToken = decodeURIComponent(match[1]).trim();
+  }
+  return headerToken || queryToken || cookieToken || null;
+}
+
 // Sistema de Backup Automático do Banco de Dados
 function createAutoBackup(reason = 'auto') {
   try {
@@ -65,6 +139,7 @@ function createAutoBackup(reason = 'auto') {
     }
     const catalog = loadCatalog();
     const vipCodes = loadVipCodes();
+    const settings = loadSettings();
     const now = new Date();
     const pad = n => String(n).padStart(2, '0');
     const timestampStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
@@ -77,7 +152,8 @@ function createAutoBackup(reason = 'auto') {
       modelsCount: catalog.length,
       codesCount: vipCodes.length,
       catalog,
-      vipCodes
+      vipCodes,
+      settings
     };
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
 
@@ -128,7 +204,7 @@ function loadCatalog() {
 function saveCatalog(catalog, skipBackup = false) {
   try {
     if (!skipBackup) createAutoBackup('before_catalog_save');
-    const code = `// ═════════════════════════════════════════════════════════════════════════\n// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (ENSAIOS & PORTFÓLIOS EXCLUSIVOS)\n// ═════════════════════════════════════════════════════════════════════════\n\nconst CREATORS_CATALOG = ${JSON.stringify(catalog, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = CREATORS_CATALOG;\n}\n`;
+    const code = `// ═════════════════════════════════════════════════════════════════════════\n// CATALOG.JS — CATÁLOGO OFICIAL CLUBE SECRETO (ENSAIOS & PORTFÓLIOS EXCLUSIVOS)\n// ═════════════════════════════════════════════════════════════════════════\n\nvar CREATORS_CATALOG = ${JSON.stringify(catalog, null, 2)};\n\nif (typeof module !== 'undefined' && module.exports) {\n  module.exports = CREATORS_CATALOG;\n}\n`;
     fs.writeFileSync(CATALOG_FILE, code, 'utf8');
     return true;
   } catch (e) {
@@ -222,7 +298,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Range, X-Admin-Key, Authorization'
+      'Access-Control-Allow-Headers': 'Content-Type, Range, X-Admin-Key, Authorization, X-Vip-Token, X-Page-Mode, X-Device-Id'
     });
     res.end();
     return;
@@ -230,6 +306,85 @@ const server = http.createServer(async (req, res) => {
 
   const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   const pathname = urlObj.pathname;
+
+  // ═════════════════════════════════════════════════════════════════════════
+  // ROTAS DE CONFIGURAÇÕES & PREÇOS (PÚBLICA E ADMIN)
+  // ═════════════════════════════════════════════════════════════════════════
+
+  if (req.method === 'GET' && pathname === '/api/settings') {
+    return sendJson(res, 200, { success: true, settings: getPublicSettings() }, req);
+  }
+
+  if (req.method === 'GET' && pathname === '/api/admin/settings') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    return sendJson(res, 200, { success: true, settings: loadSettings() }, req);
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/settings') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const body = await parseJsonBody(req);
+      const current = loadSettings();
+      const updated = {
+        ...current,
+        ...(body.vipPrice !== undefined ? { vipPrice: String(body.vipPrice).trim() || current.vipPrice } : {}),
+        ...(body.vipOldPrice !== undefined ? { vipOldPrice: String(body.vipOldPrice).trim() } : {}),
+        ...(body.vipPlanTitle !== undefined ? { vipPlanTitle: String(body.vipPlanTitle).trim() || current.vipPlanTitle } : {}),
+        ...(body.vipPlanSubtitle !== undefined ? { vipPlanSubtitle: String(body.vipPlanSubtitle).trim() } : {}),
+        ...(body.pixKey !== undefined ? { pixKey: String(body.pixKey).trim() || current.pixKey } : {}),
+        ...(body.pixHolder !== undefined ? { pixHolder: String(body.pixHolder).trim() || current.pixHolder } : {}),
+        ...(body.whatsappNumber !== undefined ? { whatsappNumber: String(body.whatsappNumber).trim() || current.whatsappNumber } : {}),
+        ...(body.whatsappMessage !== undefined ? { whatsappMessage: String(body.whatsappMessage) } : {}),
+        ...(body.unlockedSlug !== undefined ? { unlockedSlug: String(body.unlockedSlug).trim() } : {})
+      };
+      if (body.regenerateToken) {
+        updated.vipAccessToken = 'CS-VIP-' + crypto.randomBytes(4).toString('hex').toUpperCase();
+        if (!body.unlockedSlug || body.unlockedSlug === current.unlockedSlug) {
+          updated.unlockedSlug = 'vip-' + crypto.randomBytes(3).toString('hex');
+        }
+      }
+      const saved = saveSettings(updated);
+      if (!saved) {
+        return sendJson(res, 500, { success: false, error: 'Erro ao salvar configurações.' });
+      }
+      return sendJson(res, 200, {
+        success: true,
+        settings: saved,
+        message: '✅ Preços, PIX e configurações atualizados com sucesso!'
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao processar configurações: ' + e.message });
+    }
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/prices/bulk-individual') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const { individualPrice } = await parseJsonBody(req);
+      const cleanPrice = String(individualPrice || '').trim();
+      if (!cleanPrice) {
+        return sendJson(res, 400, { success: false, error: 'Informe um valor válido.' });
+      }
+      const catalog = loadCatalog();
+      catalog.forEach(m => {
+        m.individualPrice = cleanPrice;
+      });
+      saveCatalog(catalog);
+      return sendJson(res, 200, {
+        success: true,
+        catalog,
+        message: `✅ Preço de referência individual atualizado para R$ ${cleanPrice} em todas as ${catalog.length} modelos!`
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: 'Erro ao atualizar preços das modelos.' });
+    }
+  }
 
   // ═════════════════════════════════════════════════════════════════════════
   // ROTAS DE API DO SISTEMA ANTI-BURLA DE CÓDIGO ÚNICO
@@ -436,16 +591,35 @@ const server = http.createServer(async (req, res) => {
   }
 
   // 1.5. CATÁLOGO EM TEMPO REAL COM PROTEÇÃO ANTI-BURLA
-  // Usuários não-assinantes recebem apenas prévias públicas (as URLs de VIP são omitidas)
+  // Usuários na página bloqueada recebem apenas prévias públicas; na página VIP liberada recebem tudo
   if (req.method === 'GET' && pathname === '/api/catalog') {
     const catalog = loadCatalog();
+    const settings = loadSettings();
     const isAdmin = checkAdminAuth(req, urlObj);
+    const pageMode = req.headers['x-page-mode'] || urlObj.searchParams.get('mode') || '';
     const deviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId');
+    const vipToken = getVipTokenFromRequest(req, urlObj);
+    const hasValidVipToken = !!(vipToken && settings.vipAccessToken && vipToken === settings.vipAccessToken);
 
     let isWeekly = false;
     const unlockedSet = new Set();
 
-    if (isAdmin) {
+    if (pageMode === 'blocked' && !isAdmin) {
+      // Página de Prévia Bloqueada: mesmo que o admin/usuário já tenha cookie do /vip-liberado, exibe somente prévias!
+      if (deviceId) {
+        const codes = loadVipCodes();
+        const now = Date.now();
+        const activeCodes = codes.filter(c =>
+          c.status === 'USED' &&
+          c.usedByDeviceId === deviceId &&
+          (c.isLifetime || c.type === 'SINGLE_MODEL' || !c.expiresAt || c.expiresAt > now)
+        );
+        isWeekly = activeCodes.some(c => c.type === 'WEEKLY_VIP' || c.isMaster);
+        activeCodes.forEach(c => {
+          if (c.modelId) unlockedSet.add(c.modelId);
+        });
+      }
+    } else if (isAdmin || hasValidVipToken) {
       isWeekly = true;
     } else if (deviceId) {
       const codes = loadVipCodes();
@@ -461,12 +635,12 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
-    // Se é admin ou assinante semanal, devolve catálogo completo
-    if (isAdmin || isWeekly) {
+    // Se é admin, página VIP liberada ou código VIP total, devolve catálogo completo
+    if ((isAdmin || isWeekly) && pageMode !== 'blocked_preview') {
       return sendJson(res, 200, catalog, req);
     }
 
-    // Para visitantes ou packs individuais: sanitiza itens bloqueados (sem URLs reais)
+    // Para visitantes bloqueados: sanitiza itens bloqueados (sem URLs reais de fotos/vídeos VIP)
     const sanitized = catalog.map(model => {
       const isModelPurchased = unlockedSet.has(model.id);
       if (isModelPurchased) {
@@ -481,7 +655,8 @@ const server = http.createServer(async (req, res) => {
         if (isT) {
           return { type: isVid ? 'video' : 'image', url: url, isTeaser: true };
         } else {
-          return { type: isVid ? 'video' : 'image', url: '', isTeaser: false, isLocked: true };
+          const thumbUrl = isVid && url ? url.replace(/\.(mp4|webm|mov)$/i, '_thumb.jpg') : (model.cover || '');
+          return { type: isVid ? 'video' : 'image', url: '', thumbUrl, isTeaser: false, isLocked: true };
         }
       });
 
@@ -545,25 +720,38 @@ const server = http.createServer(async (req, res) => {
         encoding: 'base64'
       });
 
-      // 3. Upload blob vip_codes.json
-      const codesContent = fs.readFileSync(CONFIG_FILE, 'utf8');
-      const codesBlob = await doGh(`/repos/${ghOwner}/${ghRepo}/git/blobs`, 'POST', {
-        content: Buffer.from(codesContent).toString('base64'),
-        encoding: 'base64'
-      });
+      // 3. Upload blob vip_codes.json & settings.json
+      const treeItems = [
+        { path: 'catalog.js', mode: '100644', type: 'blob', sha: catBlob.body.sha }
+      ];
+
+      if (fs.existsSync(CONFIG_FILE)) {
+        const codesContent = fs.readFileSync(CONFIG_FILE, 'utf8');
+        const codesBlob = await doGh(`/repos/${ghOwner}/${ghRepo}/git/blobs`, 'POST', {
+          content: Buffer.from(codesContent).toString('base64'),
+          encoding: 'base64'
+        });
+        treeItems.push({ path: 'config/vip_codes.json', mode: '100644', type: 'blob', sha: codesBlob.body.sha });
+      }
+
+      if (fs.existsSync(SETTINGS_FILE)) {
+        const settingsContent = fs.readFileSync(SETTINGS_FILE, 'utf8');
+        const settingsBlob = await doGh(`/repos/${ghOwner}/${ghRepo}/git/blobs`, 'POST', {
+          content: Buffer.from(settingsContent).toString('base64'),
+          encoding: 'base64'
+        });
+        treeItems.push({ path: 'config/settings.json', mode: '100644', type: 'blob', sha: settingsBlob.body.sha });
+      }
 
       // 4. Cria tree
       const newTree = await doGh(`/repos/${ghOwner}/${ghRepo}/git/trees`, 'POST', {
         base_tree: baseTreeSha,
-        tree: [
-          { path: 'catalog.js', mode: '100644', type: 'blob', sha: catBlob.body.sha },
-          { path: 'config/vip_codes.json', mode: '100644', type: 'blob', sha: codesBlob.body.sha }
-        ]
+        tree: treeItems
       });
 
       // 5. Cria commit
       const newCommit = await doGh(`/repos/${ghOwner}/${ghRepo}/git/commits`, 'POST', {
-        message: 'Admin CMS Update: catálogo e códigos atualizados',
+        message: 'Admin CMS Update: catálogo, preços e configurações atualizados',
         tree: newTree.body.sha,
         parents: [currentCommit]
       });
@@ -576,7 +764,7 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, {
         success: true,
         commitSha: newCommit.body.sha,
-        message: '🚀 Catálogo e códigos sincronizados com sucesso no GitHub!'
+        message: '🚀 Catálogo, preços e configurações sincronizados com sucesso no GitHub!'
       });
     } catch (e) {
       console.error('Erro ao sincronizar com GitHub:', e);
@@ -680,7 +868,7 @@ const server = http.createServer(async (req, res) => {
           cover: data.cover || '',
           avatar: data.avatar || '',
           individualPrice: data.individualPrice || '9,90',
-          comboPrice: '24,99',
+          comboPrice: loadSettings().vipPrice || '15,00',
           previews: []
         };
 
@@ -978,19 +1166,20 @@ const server = http.createServer(async (req, res) => {
         return res;
       }
 
+      const currentSettings = loadSettings();
       const isLifetime = (type === 'SINGLE_MODEL');
       for (let i = 0; i < count; i++) {
         let codeStr = '';
         let label = '';
-        let price = '9,90';
+        let price = currentSettings.vipPrice || '15,00';
 
         if (type === 'WEEKLY_VIP') {
           codeStr = `VIP${randDigits(4)}`;
-          label = 'Plano Semanal VIP (7 Dias)';
-          price = '24,99';
+          label = 'Acesso VIP Completo';
+          price = currentSettings.vipPrice || '15,00';
         } else {
           codeStr = `PACK${randDigits(4)}`;
-          label = modelId ? `Pack Individual (${modelId}) — Acesso Vitalício` : 'Pack Individual (R$ 9,90 — Acesso Vitalício)';
+          label = modelId ? `Pack Individual (${modelId}) — Acesso Vitalício` : 'Pack Individual (WhatsApp x1)';
           price = '9,90';
         }
 
@@ -1068,17 +1257,19 @@ const server = http.createServer(async (req, res) => {
     try {
       const catalog = loadCatalog();
       const vipCodes = loadVipCodes();
+      const settings = loadSettings();
       const now = new Date();
       const pad = n => String(n).padStart(2, '0');
       const dateTag = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}`;
       const payload = {
-        version: '2.0',
+        version: '2.1',
         exportedAt: now.toISOString(),
         timestamp: Date.now(),
         modelsCount: catalog.length,
         codesCount: vipCodes.length,
         catalog,
-        vipCodes
+        vipCodes,
+        settings
       };
       const jsonBuf = Buffer.from(JSON.stringify(payload, null, 2), 'utf8');
       res.writeHead(200, {
@@ -1165,6 +1356,7 @@ const server = http.createServer(async (req, res) => {
 
       saveCatalog(content.catalog, true);
       saveVipCodes(content.vipCodes, true);
+      if (content.settings) saveSettings(content.settings, true);
 
       return sendJson(res, 200, {
         success: true,
@@ -1189,6 +1381,7 @@ const server = http.createServer(async (req, res) => {
       createAutoBackup('pre_import');
       saveCatalog(backupData.catalog, true);
       saveVipCodes(backupData.vipCodes, true);
+      if (backupData.settings) saveSettings(backupData.settings, true);
 
       return sendJson(res, 200, {
         success: true,
@@ -1200,14 +1393,27 @@ const server = http.createServer(async (req, res) => {
   }
 
   // ═════════════════════════════════════════════════════════════════════════
-  // SERVIDOR DE ARQUIVOS ESTÁTICOS
+  // SERVIDOR DE ARQUIVOS ESTÁTICOS & ROTA DA PÁGINA TUDO LIBERADO
   // ═════════════════════════════════════════════════════════════════════════
 
   let cleanUrl = decodeURIComponent(pathname);
-  if (cleanUrl === '/' || cleanUrl === '') {
+  const currentSettings = loadSettings();
+  const unlockedSlugPath = '/' + (currentSettings.unlockedSlug || 'vip-liberado').replace(/^\/+/, '').toLowerCase();
+  const normalizedPath = cleanUrl.replace(/\/+$/, '').toLowerCase() || '/';
+  const queryVipToken = urlObj.searchParams.get('vip');
+  const isUnlockedRoute = (normalizedPath === unlockedSlugPath) || !!(queryVipToken && currentSettings.vipAccessToken && queryVipToken === currentSettings.vipAccessToken);
+
+  if (cleanUrl === '/' || cleanUrl === '' || isUnlockedRoute) {
     cleanUrl = '/index.html';
-  } else if (cleanUrl === '/admin') {
+  } else if (cleanUrl === '/admin' || cleanUrl === '/admin/') {
     cleanUrl = '/admin.html';
+  }
+
+  // Bloqueia acesso direto a arquivos privados de configuração e backups
+  if (cleanUrl.startsWith('/config/') || cleanUrl.startsWith('/backups/') || cleanUrl.startsWith('/scratch/')) {
+    res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('403 Forbidden');
+    return;
   }
 
   const filePath = path.join(__dirname, cleanUrl);
@@ -1240,6 +1446,9 @@ const server = http.createServer(async (req, res) => {
 
     if (!isPublicMedia) {
       const isAdmin = checkAdminAuth(req, urlObj);
+      const reqVipToken = getVipTokenFromRequest(req, urlObj);
+      const hasValidVipToken = !!(reqVipToken && currentSettings.vipAccessToken && reqVipToken === currentSettings.vipAccessToken);
+
       let cookieDeviceId = null;
       if (req.headers.cookie) {
         const match = req.headers.cookie.match(/clube_device_id=([^;]+)/);
@@ -1248,7 +1457,7 @@ const server = http.createServer(async (req, res) => {
       const reqDeviceId = req.headers['x-device-id'] || urlObj.searchParams.get('deviceId') || urlObj.searchParams.get('dev') || cookieDeviceId;
       let isAuthorized = false;
 
-      if (isAdmin) {
+      if (isAdmin || hasValidVipToken) {
         isAuthorized = true;
       } else if (reqDeviceId) {
         const codes = loadVipCodes();
@@ -1272,10 +1481,55 @@ const server = http.createServer(async (req, res) => {
           'Access-Control-Allow-Origin': '*'
         });
         return res.end(JSON.stringify({
-          error: '⛔ CONTEÚDO VIP EXCLUSIVO: Esta foto ou vídeo em alta definição é reservado para membros com código ativo do Clube Secreto.'
+          error: '⛔ CONTEÚDO VIP EXCLUSIVO: Esta foto ou vídeo em alta definição é reservado para membros VIP do Clube Secreto.'
         }));
       }
     }
+  }
+
+  // Injeta estado dinâmico (Bloqueado vs. Tudo Liberado + Preços/PIX/WhatsApp) no index.html
+  if (cleanUrl === '/index.html') {
+    fs.readFile(filePath, 'utf8', (err, html) => {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('404 Not Found');
+        return;
+      }
+
+      const pageMode = isUnlockedRoute ? 'unlocked' : 'blocked';
+      const injectedToken = isUnlockedRoute ? currentSettings.vipAccessToken : '';
+      const bootScript = `<script>window.__CS_PAGE_MODE__=${JSON.stringify(pageMode)};window.__CS_VIP_TOKEN__=${JSON.stringify(injectedToken)};window.__CS_SETTINGS__=${JSON.stringify(getPublicSettings(currentSettings))};</script>`;
+      const renderedHtml = html.replace('</head>', `${bootScript}\n</head>`);
+      const acceptEncoding = req.headers['accept-encoding'] || '';
+
+      const headers = {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
+      };
+      if (isUnlockedRoute) {
+        headers['Set-Cookie'] = `cs_vip_token=${encodeURIComponent(currentSettings.vipAccessToken)}; Path=/; Max-Age=2592000; SameSite=Lax`;
+      }
+
+      if (acceptEncoding.includes('gzip')) {
+        zlib.gzip(Buffer.from(renderedHtml, 'utf8'), (zErr, zipped) => {
+          if (zErr) {
+            headers['Content-Length'] = Buffer.byteLength(renderedHtml);
+            res.writeHead(200, headers);
+            return res.end(renderedHtml);
+          }
+          headers['Content-Encoding'] = 'gzip';
+          headers['Vary'] = 'Accept-Encoding';
+          headers['Content-Length'] = zipped.length;
+          res.writeHead(200, headers);
+          res.end(zipped);
+        });
+      } else {
+        headers['Content-Length'] = Buffer.byteLength(renderedHtml);
+        res.writeHead(200, headers);
+        res.end(renderedHtml);
+      }
+    });
+    return;
   }
 
   fs.stat(filePath, (err, stats) => {
@@ -1362,10 +1616,11 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
+  const s = loadSettings();
   createAutoBackup('server_startup');
   console.log(`🚀 [Clube Secreto] Servidor rodando em: http://localhost:${PORT}`);
   console.log(`📁 Diretório: ${__dirname}`);
   console.log(`👑 Painel Administrativo Ativo em: http://localhost:${PORT}/admin`);
-  console.log(`🔒 Sistema Anti-Fraude com Código Único Ativo.`);
+  console.log(`🔓 Página Tudo Liberado Ativa em: http://localhost:${PORT}/${s.unlockedSlug}`);
   console.log(`💾 Sistema de Backup Automático do Banco Ativo em: ${BACKUPS_DIR}`);
 });

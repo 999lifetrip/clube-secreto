@@ -5,6 +5,18 @@
 
 let catalogCache = [];
 let codesCache = [];
+let settingsCache = {
+  vipPrice: '15,00',
+  vipOldPrice: '29,90',
+  vipPlanTitle: 'ACESSO VIP COMPLETO',
+  vipPlanSubtitle: 'Todas as modelos, fotos 4K e vídeos 60fps sem censura',
+  pixKey: '09658990983',
+  pixHolder: 'Luan Batista',
+  whatsappNumber: '554195993007',
+  whatsappMessage: 'Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:',
+  unlockedSlug: 'vip-liberado',
+  vipAccessToken: 'CS-VIP-LIBERADO-2026'
+};
 let currentCodesFilter = 'all';
 let selectedFilesToUpload = [];
 
@@ -161,6 +173,7 @@ async function doAdminLogin(keyOverride) {
       showToast('👑 Bem-vindo, AN0N! Painel Master liberado.');
       
       // Carregar dados iniciais
+      await loadAdminSettings();
       await loadAdminCatalog();
       await loadAdminCodes();
     } else {
@@ -199,13 +212,191 @@ function switchAdminTab(tabName) {
   });
 
   if (tabName === 'models') {
+    loadAdminSettings();
     loadAdminCatalog();
+  } else if (tabName === 'pricing') {
+    loadAdminSettings();
   } else if (tabName === 'media') {
     populateModelMediaSelect();
   } else if (tabName === 'codes') {
     loadAdminCodes();
   } else if (tabName === 'backups') {
     loadBackupsList();
+  }
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// GESTÃO DE PREÇOS, PIX, WHATSAPP & PÁGINA TUDO LIBERADO
+// ═════════════════════════════════════════════════════════════════════════
+
+function getUnlockedFullUrl(slugOverride) {
+  const slug = (slugOverride || settingsCache.unlockedSlug || 'vip-liberado').replace(/^\/+/, '');
+  const origin = window.location.origin && !window.location.origin.includes('localhost')
+    ? window.location.origin
+    : 'https://clubesecreto.omelhorvendedoronline.com.br';
+  return `${origin}/${slug}`;
+}
+
+function updateUnlockedPreviewUrl() {
+  const input = document.getElementById('settingUnlockedSlug');
+  const preview = document.getElementById('unlockedFullUrlPreview');
+  const btnTest = document.getElementById('btnTestUnlockedPage');
+  const quickBadge = document.getElementById('quickUnlockedPathBadge');
+  const quickLink = document.getElementById('quickOpenUnlockedLink');
+
+  const raw = input ? input.value : (settingsCache.unlockedSlug || 'vip-liberado');
+  const cleanSlug = raw.toLowerCase().replace(/^\/+/, '').replace(/[^a-z0-9_-]/g, '') || 'vip-liberado';
+
+  if (preview) preview.textContent = getUnlockedFullUrl(cleanSlug);
+  if (btnTest) btnTest.href = `/${cleanSlug}`;
+  if (quickBadge) quickBadge.textContent = `/${cleanSlug}`;
+  if (quickLink) quickLink.href = `/${cleanSlug}`;
+}
+
+async function loadAdminSettings() {
+  const key = getAdminKey();
+  if (!key) return;
+  try {
+    const res = await fetch('/api/admin/settings', {
+      headers: { 'x-admin-key': key }
+    });
+    const data = await res.json();
+    if (res.ok && data.success && data.settings) {
+      settingsCache = { ...settingsCache, ...data.settings };
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val !== undefined && val !== null ? val : '';
+      };
+      setVal('settingVipPrice', settingsCache.vipPrice);
+      setVal('settingVipOldPrice', settingsCache.vipOldPrice);
+      setVal('settingVipPlanTitle', settingsCache.vipPlanTitle);
+      setVal('settingVipPlanSubtitle', settingsCache.vipPlanSubtitle);
+      setVal('settingPixKey', settingsCache.pixKey);
+      setVal('settingPixHolder', settingsCache.pixHolder);
+      setVal('settingWhatsappNumber', settingsCache.whatsappNumber);
+      setVal('settingWhatsappMessage', settingsCache.whatsappMessage);
+      setVal('settingUnlockedSlug', settingsCache.unlockedSlug);
+
+      const quickPriceBadge = document.getElementById('quickVipPriceBadge');
+      if (quickPriceBadge) quickPriceBadge.textContent = `R$ ${settingsCache.vipPrice || '15,00'}`;
+      updateUnlockedPreviewUrl();
+    }
+  } catch (err) {
+    console.error('Erro ao carregar configurações:', err);
+  }
+}
+
+async function saveAdminSettings(regenerateToken = false) {
+  const key = getAdminKey();
+  if (!key) return;
+
+  const getVal = id => {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : undefined;
+  };
+
+  const payload = {
+    vipPrice: getVal('settingVipPrice') || settingsCache.vipPrice,
+    vipOldPrice: getVal('settingVipOldPrice') ?? settingsCache.vipOldPrice,
+    vipPlanTitle: getVal('settingVipPlanTitle') || settingsCache.vipPlanTitle,
+    vipPlanSubtitle: getVal('settingVipPlanSubtitle') ?? settingsCache.vipPlanSubtitle,
+    pixKey: getVal('settingPixKey') || settingsCache.pixKey,
+    pixHolder: getVal('settingPixHolder') || settingsCache.pixHolder,
+    whatsappNumber: getVal('settingWhatsappNumber') || settingsCache.whatsappNumber,
+    whatsappMessage: getVal('settingWhatsappMessage') ?? settingsCache.whatsappMessage,
+    unlockedSlug: getVal('settingUnlockedSlug') || settingsCache.unlockedSlug,
+    regenerateToken
+  };
+
+  showToast('⏳ Salvando preços e configurações...');
+  try {
+    const res = await fetch('/api/admin/settings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      settingsCache = { ...settingsCache, ...data.settings };
+      await loadAdminSettings();
+      showToast('✅ Preços e Página Liberada salvos! Clique em "Sincronizar Tudo" para publicar na VPS.');
+    } else {
+      showToast(data.error || 'Erro ao salvar configurações.');
+    }
+  } catch (err) {
+    showToast('Erro de conexão ao salvar configurações.');
+  }
+}
+
+async function regenerateUnlockedAccess() {
+  if (!confirm('Deseja gerar um NOVO endereço secreto para a Página Tudo Liberado?\n\nQuem tinha o link antigo deixará de entrar por ele.')) {
+    return;
+  }
+  await saveAdminSettings(true);
+}
+
+function copyUnlockedLink() {
+  const url = getUnlockedFullUrl();
+  navigator.clipboard.writeText(url).then(() => {
+    showToast(`📋 Link Tudo Liberado copiado: ${url}`);
+  }).catch(() => {
+    prompt('Copie o Link da Página Tudo Liberado:', url);
+  });
+}
+
+function copyUnlockedWhatsappMessage(modelHint) {
+  const url = getUnlockedFullUrl();
+  const intro = modelHint
+    ? `Oi! Seu pagamento foi confirmado! ✅\n\nO acesso completo da *${modelHint}* + TODAS as outras modelos do CLUBE SECRETO já está 100% liberado!`
+    : `Oi! Seu pagamento foi confirmado! ✅\n\nSeu acesso ao CLUBE SECRETO VIP já está 100% liberado!`;
+
+  const msg = `${intro}\n\n` +
+    `👉 É só TOCAR NO LINK AZUL ABAIXO para abrir tudo liberado na hora (não precisa digitar senha nem código!):\n` +
+    `${url}\n\n` +
+    `Pode abrir fotos 4K e vídeos completos à vontade. Qualquer dúvida me chama aqui! 🔥`;
+
+  navigator.clipboard.writeText(msg).then(() => {
+    showToast('📲 Mensagem pronta com Link Tudo Liberado copiada para colar no WhatsApp!');
+  }).catch(() => {
+    prompt('Copie a mensagem para enviar no WhatsApp:', msg);
+  });
+}
+
+async function bulkUpdateIndividualPrices() {
+  const key = getAdminKey();
+  if (!key) return;
+  const input = document.getElementById('bulkIndividualPrice');
+  const val = input ? input.value.trim() : '';
+  if (!val) {
+    showToast('⚠️ Digite o novo preço individual antes de aplicar.');
+    if (input) input.focus();
+    return;
+  }
+  if (!confirm(`Aplicar preço de referência individual "R$ ${val}" em todas as modelos?`)) return;
+
+  try {
+    const res = await fetch('/api/admin/prices/bulk-individual', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': key
+      },
+      body: JSON.stringify({ individualPrice: val })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      catalogCache = data.catalog || catalogCache;
+      renderModelsGrid();
+      showToast(data.message);
+    } else {
+      showToast(data.error || 'Erro ao atualizar preços.');
+    }
+  } catch (e) {
+    showToast('Erro de conexão.');
   }
 }
 
@@ -304,7 +495,7 @@ function renderModelsGrid() {
           <img src="${avatarSrc}" alt="${model.creatorName}" class="model-card-avatar" style="border: 3px solid #0f131d; box-shadow: 0 4px 12px rgba(0,0,0,0.5);" onerror="this.src='assets/logo.jpg'" />
           <div class="model-card-names">
             <div class="model-card-name" style="font-size: 15px;">${model.creatorName}</div>
-            <div class="model-card-username">${model.username || ''} • <strong style="color: #10b981;">R$ ${model.individualPrice || '9,90'}</strong></div>
+            <div class="model-card-username">${model.username || ''} • <strong style="color: #10b981;">VIP R$ ${settingsCache.vipPrice || '15,00'}</strong> <span style="opacity:0.75;">(x1: R$ ${model.individualPrice || '9,90'})</span></div>
           </div>
         </div>
 
@@ -318,13 +509,13 @@ function renderModelsGrid() {
           <span style="color:#f43f5e;">🔒 <strong>${vipsCount}</strong> VIPs</span>
         </div>
 
-        <!-- Linha 1 de Ações: Ver no Site & Gerar PIX R$ 9,90 WhatsApp -->
+        <!-- Linha 1 de Ações: Ver no Site & Enviar Página Tudo Liberado -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
           <a href="/?modelo=${model.id}" target="_blank" class="btn-secondary" style="font-size: 11px; padding: 8px 10px; justify-content: center; text-decoration: none; border-color: rgba(255,255,255,0.15);" title="Ver modelo no site oficial">
             <span>👁️ Ver no Site</span>
           </a>
-          <button class="btn-primary" style="font-size: 11px; padding: 8px 10px; justify-content: center; background: linear-gradient(135deg, #10b981, #059669); border: none;" onclick="generateAndCopySingleCode('${model.id}', '${model.creatorName}', '${model.individualPrice || '9,90'}')" title="Gera 1 código novo de R$ 9,90 (Vitalício) e copia mensagem pronta para WhatsApp">
-            <span>🔑 PIX Vitalício (R$ 9,90)</span>
+          <button class="btn-primary" style="font-size: 11px; padding: 8px 10px; justify-content: center; background: linear-gradient(135deg, #25d366, #128c7e); border: none;" onclick="copyUnlockedWhatsappMessage('${model.creatorName.replace(/'/g, "\\'")}')" title="Copia mensagem pronta com o link da Página Tudo Liberado para enviar no WhatsApp">
+            <span>📲 Enviar Liberado</span>
           </button>
         </div>
 
@@ -612,7 +803,7 @@ function onSelectModelChange() {
           <span>Modelo Selecionada: <strong style="color:#fff; font-size:15px;">${model.creatorName}</strong></span>
           <span style="margin-left: 14px;">Total: <strong>${previews.length}</strong> mídias</span>
           <span style="color:#10b981; margin-left: 14px;">👁️ Prévias Grátis: <strong>${teasers.length}</strong> (Visíveis no site)</span>
-          <span style="color:#e11d48; margin-left: 14px;">🔒 Exclusivos VIP: <strong>${vips.length}</strong> (Bloqueadas até ativar código)</span>
+          <span style="color:#e11d48; margin-left: 14px;">🔒 Exclusivos VIP: <strong>${vips.length}</strong> (Bloqueadas na página prévia)</span>
         </div>
 
         <div style="display: flex; gap: 8px;">
@@ -678,15 +869,13 @@ function onSelectModelChange() {
           <div class="media-card-preview" onclick="openAdminMediaInspector('${model.id}', '${url}', ${isVideo}, ${isTeaser}, ${isReels}, ${isCover}, ${isAvatar})" style="cursor: pointer; position: relative; background: #0b0d14;" title="Clique para ampliar e ver em tamanho real">
             ${isVideo 
               ? `
-                <video data-src="${mediaSrc}" poster="${posterSrc}" class="media-card-vid" preload="none" muted loop playsinline 
-                  onerror="if(!this.dataset.err){this.dataset.err='1'; this.poster='${model.cover || 'assets/logo.jpg'}';}"
-                  onmouseenter="if(!this.src){this.src=this.dataset.src;} try{this.play()}catch(e){}" 
-                  onmouseleave="try{this.pause();this.currentTime=0;}catch(e){}"></video>
-                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(0,0,0,0.18);">
-                  <div style="background: rgba(225, 29, 72, 0.9); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.4);">▶</div>
+                <img src="${posterSrc}" alt="Prévia Vídeo" class="media-card-img" loading="lazy"
+                  onerror="if(!this.dataset.err){this.dataset.err='1'; this.src='${model.cover || 'assets/logo.jpg'}';}" />
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; background: rgba(0,0,0,0.22);">
+                  <div style="background: rgba(225, 29, 72, 0.92); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 4px 14px rgba(0,0,0,0.7); border: 2px solid rgba(255,255,255,0.4);">▶</div>
                 </div>
               `
-              : `<img src="${mediaSrc}" alt="Mídia" class="media-card-img" loading="lazy" />`
+              : `<img src="${mediaSrc}" alt="Mídia" class="media-card-img" loading="lazy" onerror="if(!this.dataset.err){this.dataset.err='1'; this.src='${model.cover || 'assets/logo.jpg'}';}" />`
             }
             <span class="media-type-badge">${isVideo ? '🎬 VÍDEO' : '📷 FOTO'}</span>
             <span class="media-role-badge ${isTeaser ? 'teaser' : 'vip'}" onclick="event.stopPropagation(); toggleMediaTeaser('${model.id}', '${url}', ${!isTeaser})" title="Clique para alternar Prévia vs. VIP">
@@ -1625,6 +1814,9 @@ async function loadBackupsList() {
           server_startup: '🚀 Inicialização do Servidor',
           manual_admin: '⚡ Manual pelo Admin',
           before_reorder_models: '🔀 Reordenação de Modelos',
+          before_settings_save: '💰 Alteração de Preços & PIX',
+          before_catalog_save: '💃 Alteração no Catálogo',
+          before_codes_save: '🔑 Geração/Exclusão de Códigos',
           catalog_update: '💃 Alteração no Catálogo',
           codes_update: '🔑 Geração/Exclusão de Códigos',
           pre_restore: '🛡️ Segurança Pré-Restauração',

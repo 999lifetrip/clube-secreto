@@ -162,6 +162,30 @@ h1, h2, h3, h4, .brand-font {
   gap: 10px;
 }
 
+.btn-wpp-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #22c55e, #15803d);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+}
+
+.btn-wpp-header:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.65);
+  color: #fff;
+}
+
 .btn-code-header {
   display: flex;
   align-items: center;
@@ -309,6 +333,139 @@ h1, h2, h3, h4, .brand-font {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.hero-pix-practical-box {
+  background: rgba(6, 7, 10, 0.78);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.hero-price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.hero-old-price {
+  font-size: 13px;
+  color: #94a3b8;
+  text-decoration: line-through;
+  font-weight: 700;
+}
+
+.hero-vip-price {
+  font-family: 'Outfit', sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #22c55e;
+  letter-spacing: -0.01em;
+}
+
+.hero-plan-pill {
+  background: rgba(225, 29, 72, 0.2);
+  border: 1px solid rgba(225, 29, 72, 0.5);
+  color: #fb7185;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 3px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+.hero-pix-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.hero-pix-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.hero-pix-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #34d399;
+}
+
+.hero-pix-num {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.06em;
+}
+
+.hero-pix-holder {
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.btn-hero-copy-pix {
+  background: rgba(225, 29, 72, 0.2);
+  border: 1px solid rgba(225, 29, 72, 0.6);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-hero-copy-pix:hover {
+  background: #e11d48;
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp-hero {
+  background: linear-gradient(135deg, #25d366 0%, #15803d 100%);
+  color: #fff;
+  font-weight: 900;
+  font-size: 15px;
+  padding: 14px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 6px 24px rgba(34, 197, 94, 0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex: 1 1 auto;
+}
+
+.btn-whatsapp-hero:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.7);
+  color: #fff;
+}
+
+.hero-sub-hint {
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-top: 10px;
+  line-height: 1.45;
 }
 
 .btn-primary-glow {
@@ -775,9 +932,10 @@ h1, h2, h3, h4, .brand-font {
 
 .reels-feed-container {
   flex: 1;
+  min-height: 0;
   width: 100vw;
-  height: 100dvh;
   height: 100vh;
+  height: 100dvh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
@@ -792,8 +950,9 @@ h1, h2, h3, h4, .brand-font {
 .reel-slide {
   position: relative;
   width: 100vw;
-  height: 100dvh;
   height: 100vh;
+  height: 100dvh;
+  flex-shrink: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   background: #000;
@@ -801,6 +960,7 @@ h1, h2, h3, h4, .brand-font {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .reel-slide-backdrop {
@@ -825,6 +985,7 @@ h1, h2, h3, h4, .brand-font {
   transition: opacity 0.4s ease;
   pointer-events: none;
   user-select: none;
+  touch-action: pan-y;
 }
 
 .reel-slide-video {
@@ -838,6 +999,7 @@ h1, h2, h3, h4, .brand-font {
   transition: opacity 0.35s ease;
   display: block;
   cursor: pointer;
+  touch-action: pan-y;
 }
 
 .reel-slide.video-playing .reel-slide-video {
@@ -936,6 +1098,7 @@ h1, h2, h3, h4, .brand-font {
   .reel-slide-poster {
     max-width: 460px;
     height: 100vh;
+    height: 100dvh;
     border-radius: 20px;
     box-shadow: 0 0 50px rgba(0, 0, 0, 0.95);
   }
@@ -1503,7 +1666,7 @@ h1, h2, h3, h4, .brand-font {
   inset: 0;
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(14px);
-  z-index: 100;
+  z-index: 1500;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2429,6 +2592,113 @@ h1, h2, h3, h4, .brand-font {
   color: #fff;
 }
 
+/* Bloco Prático PIX + Botão Grande WhatsApp dentro do Modal */
+.practical-cta-box {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(18, 22, 33, 0.92)) !important;
+  border: 1.5px solid rgba(34, 197, 94, 0.5) !important;
+  gap: 12px !important;
+  padding: 16px !important;
+}
+
+.practical-cta-header {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.practical-cta-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+}
+
+.practical-cta-sub {
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.btn-quick-whatsapp-big {
+  background: linear-gradient(135deg, #25d366 0%, #15803d 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  color: #fff;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(34, 197, 94, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-quick-whatsapp-big:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.65);
+  color: #fff;
+}
+
+.practical-pix-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px dashed rgba(225, 29, 72, 0.55);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.practical-pix-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.practical-pix-badge {
+  font-size: 14px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.practical-pix-badge strong {
+  font-family: monospace;
+  font-size: 16px;
+  color: #34d399;
+  letter-spacing: 0.05em;
+}
+
+.practical-pix-holder {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.btn-quick-copy-pix {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s;
+  white-space: nowrap;
+}
+
+.btn-quick-copy-pix:hover {
+  transform: translateY(-1px);
+}
+
+.practical-single-note {
+  font-size: 12px;
+  color: #cbd5e1;
+  text-align: center;
+  line-height: 1.4;
+}
+
 .video-action-bar {
   display: none !important;
 }
@@ -2659,7 +2929,7 @@ h1, h2, h3, h4, .brand-font {
   inset: 0;
   background: rgba(0, 0, 0, 0.95);
   backdrop-filter: blur(16px);
-  z-index: 150;
+  z-index: 1600;
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -2821,6 +3091,10 @@ h1, h2, h3, h4, .brand-font {
    MODAL: PIX CHECKOUT
    ═══════════════════════════════════════════════════════════════════════════ */
 
+#pixModal {
+  z-index: 1700;
+}
+
 .pix-modal-box {
   max-width: 500px;
   background: #0d0f15;
@@ -2831,16 +3105,16 @@ h1, h2, h3, h4, .brand-font {
 .pix-summary {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 20px;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
 }
 
 .pix-summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-size: 13px;
   color: var(--text-secondary);
 }
@@ -2860,9 +3134,9 @@ h1, h2, h3, h4, .brand-font {
   background: #06070a;
   border: 1px dashed rgba(225, 29, 72, 0.45);
   border-radius: 14px;
-  padding: 16px;
+  padding: 12px 14px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .pix-key-val {
@@ -2871,7 +3145,7 @@ h1, h2, h3, h4, .brand-font {
   font-weight: 800;
   letter-spacing: 0.1em;
   color: #fff;
-  margin: 10px 0;
+  margin: 6px 0 8px 0;
   display: block;
 }
 
@@ -2940,7 +3214,7 @@ h1, h2, h3, h4, .brand-font {
   font-size: 13px;
   font-weight: 700;
   color: #fff;
-  z-index: 200;
+  z-index: 110000;
   transform: translateY(100px);
   opacity: 0;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3090,12 +3364,12 @@ h1, h2, h3, h4, .brand-font {
 
 /* In-line code section inside PIX modal */
 .pix-steps-box {
-  margin-bottom: 18px;
+  margin-bottom: 12px;
   font-size: 12px;
   color: var(--text-muted);
   line-height: 1.5;
   background: rgba(255, 255, 255, 0.02);
-  padding: 12px;
+  padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--border-color);
 }
@@ -3321,6 +3595,14 @@ h1, h2, h3, h4, .brand-font {
     gap: 6px;
     flex-shrink: 0;
   }
+  .btn-wpp-header {
+    font-size: 11px;
+    padding: 6px 10px;
+    white-space: nowrap;
+    border-radius: 999px;
+    gap: 4px;
+    flex-shrink: 0;
+  }
   .btn-code-header {
     font-size: 11px;
     padding: 6px 10px;
@@ -3328,6 +3610,26 @@ h1, h2, h3, h4, .brand-font {
     border-radius: 999px;
     gap: 4px;
     flex-shrink: 0;
+  }
+  .hero-pix-strip {
+    justify-content: center;
+  }
+  .btn-hero-copy-pix,
+  .btn-quick-copy-pix {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+  .btn-whatsapp-hero {
+    width: 100%;
+    font-size: 14px;
+    padding: 13px 16px;
+  }
+  .hero-price-row {
+    justify-content: center;
+  }
+  .hero-pix-info {
+    justify-content: center;
   }
   .btn-vip-header {
     font-size: 11px;
