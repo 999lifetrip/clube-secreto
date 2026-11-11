@@ -3916,7 +3916,7 @@ const CREATORS_CATALOG = [
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Acervo exclusivo oficial de Lovebyelenita com fotos em altíssima definição e vídeos dinâmicos em 60fps com exclusividade e glamour.",
-    "cover": "/media/lovebyelenita/photo_3.jpg",
+    "cover": "/media/lovebyelenita/photo_5.jpg",
     "avatar": "/media/lovebyelenita/photo_1.jpg",
     "reelsVideo": "/media/lovebyelenita/video_1.mp4",
     "individualPrice": "9,90",
@@ -3950,7 +3950,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/lovebyelenita/video_6.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -3975,7 +3975,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lovebyelenita/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -3985,12 +3985,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/lovebyelenita/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/lovebyelenita/photo_6.jpg",
-        "isTeaser": false
+        "isTeaser": true
       }
     ],
     "order": 17
