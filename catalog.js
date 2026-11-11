@@ -1655,87 +1655,6 @@ const CREATORS_CATALOG = [
     "order": 6
   },
   {
-    "id": "ensaio-vip-brunaalencar",
-    "creatorName": "Bruna Alencar",
-    "username": "@brunaalencar.vip",
-    "verified": true,
-    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
-    "category": "praia",
-    "categoryLabel": "Praia & Fitness",
-    "badge": "DESTAQUE BRONZE ☀️",
-    "isTrending": true,
-    "rating": "4.9",
-    "views": "310K",
-    "likes": "51.8K",
-    "photoCount": 6,
-    "videoCount": 5,
-    "resolution": "Ultra HD 4K + Vídeos 60fps",
-    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
-    "cover": "/media/brunaalencar/photo_1.jpg",
-    "avatar": "/media/brunaalencar/photo_5.jpg",
-    "reelsVideo": "/media/brunaalencar/video_1.mp4",
-    "individualPrice": "9,90",
-    "comboPrice": "24,99",
-    "previews": [
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_1.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_2.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_3.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_4.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "video",
-        "url": "/media/brunaalencar/video_5.mp4",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_1.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_2.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_3.jpg",
-        "isTeaser": true
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_4.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_5.jpg",
-        "isTeaser": false
-      },
-      {
-        "type": "image",
-        "url": "/media/brunaalencar/photo_6.jpg",
-        "isTeaser": true
-      }
-    ],
-    "order": 7
-  },
-  {
     "id": "ensaio-vip-rafabittencourt",
     "creatorName": "Rafaela Bittencourt",
     "username": "@rafabittencourt_",
@@ -1752,8 +1671,8 @@ const CREATORS_CATALOG = [
     "videoCount": 3,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Momentos privativos e viagens com Rafaela Bittencourt. Conteúdo quente e exclusivo com bastidores autênticos e produções artísticas em 4K.",
-    "cover": "/media/rafabittencourt/photo_1.jpg",
-    "avatar": "/media/rafabittencourt/photo_2.jpg",
+    "cover": "/media/rafabittencourt/photo_3.jpg",
+    "avatar": "/media/rafabittencourt/photo_4.jpg",
     "reelsVideo": "/media/rafabittencourt/video_1.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -1761,7 +1680,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/rafabittencourt/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1776,7 +1695,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/rafabittencourt/photo_1.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -1791,10 +1710,10 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/rafabittencourt/photo_4.jpg",
-        "isTeaser": false
+        "isTeaser": true
       }
     ],
-    "order": 8
+    "order": 7
   },
   {
     "id": "ensaio-vip-gabrielafontes",
@@ -2318,6 +2237,87 @@ const CREATORS_CATALOG = [
         "type": "image",
         "url": "/media/gabrielafontes/photo_53.jpg",
         "isTeaser": false
+      }
+    ],
+    "order": 8
+  },
+  {
+    "id": "ensaio-vip-brunaalencar",
+    "creatorName": "Bruna Alencar",
+    "username": "@brunaalencar.vip",
+    "verified": true,
+    "title": "Bruna Alencar — Ensaio Bronze de Verão & Bastidores VIP",
+    "category": "praia",
+    "categoryLabel": "Praia & Fitness",
+    "badge": "DESTAQUE BRONZE ☀️",
+    "isTrending": true,
+    "rating": "4.9",
+    "views": "310K",
+    "likes": "51.8K",
+    "photoCount": 6,
+    "videoCount": 5,
+    "resolution": "Ultra HD 4K + Vídeos 60fps",
+    "description": "Ensaio tropical e fitness com Bruna Alencar. Muita sensualidade ao ar livre, fotos 4K e vídeos exclusivos com clima de verão e mar.",
+    "cover": "/media/brunaalencar/photo_1.jpg",
+    "avatar": "/media/brunaalencar/photo_5.jpg",
+    "reelsVideo": "/media/brunaalencar/video_1.mp4",
+    "individualPrice": "9,90",
+    "comboPrice": "24,99",
+    "previews": [
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_1.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_2.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_3.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_4.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "video",
+        "url": "/media/brunaalencar/video_5.mp4",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_1.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_2.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_3.jpg",
+        "isTeaser": true
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_4.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_5.jpg",
+        "isTeaser": false
+      },
+      {
+        "type": "image",
+        "url": "/media/brunaalencar/photo_6.jpg",
+        "isTeaser": true
       }
     ],
     "order": 9
