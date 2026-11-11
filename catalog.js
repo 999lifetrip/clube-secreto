@@ -5617,8 +5617,8 @@ const CREATORS_CATALOG = [
     "videoCount": 8,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Ensaio editorial intimista e sensual de IamNailah com produções requintadas em 4K e vídeos cinematográficos dos bastidores.",
-    "cover": "/media/iamnailah/photo_1.jpg",
-    "avatar": "/media/iamnailah/photo_2.jpg",
+    "cover": "/media/iamnailah/photo_5.jpg",
+    "avatar": "/media/iamnailah/photo_3.jpg",
     "reelsVideo": "/media/iamnailah/video_6.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
@@ -5686,7 +5686,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/iamnailah/photo_5.jpg",
-        "isTeaser": false
+        "isTeaser": true
       }
     ],
     "order": 24
