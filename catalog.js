@@ -1732,16 +1732,16 @@ const CREATORS_CATALOG = [
     "videoCount": 47,
     "resolution": "Ultra HD 4K + Vídeos 60fps",
     "description": "Um dos maiores acervos da plataforma! Gabriela Fontes reúne 100 mídias completas com dezenas de vídeos em 60fps, bastidores completos e fotos em resolução máxima.",
-    "cover": "/media/gabrielafontes/photo_1.jpg",
-    "avatar": "/media/gabrielafontes/photo_2.jpg",
-    "reelsVideo": "/media/gabrielafontes/video_1.mp4",
+    "cover": "/media/gabrielafontes/photo_42.jpg",
+    "avatar": "/media/gabrielafontes/photo_29.jpg",
+    "reelsVideo": "/media/gabrielafontes/video_8.mp4",
     "individualPrice": "9,90",
     "comboPrice": "24,99",
     "previews": [
       {
         "type": "video",
         "url": "/media/gabrielafontes/video_1.mp4",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "video",
@@ -1776,7 +1776,7 @@ const CREATORS_CATALOG = [
       {
         "type": "video",
         "url": "/media/gabrielafontes/video_8.mp4",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "video",
@@ -1981,12 +1981,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_2.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_3.jpg",
-        "isTeaser": true
+        "isTeaser": false
       },
       {
         "type": "image",
@@ -1996,7 +1996,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_5.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2006,7 +2006,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_7.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2016,12 +2016,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_9.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_10.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2076,7 +2076,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_21.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2111,12 +2111,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_28.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_29.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2131,7 +2131,7 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_32.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
@@ -2181,12 +2181,12 @@ const CREATORS_CATALOG = [
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_42.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
         "url": "/media/gabrielafontes/photo_43.jpg",
-        "isTeaser": false
+        "isTeaser": true
       },
       {
         "type": "image",
