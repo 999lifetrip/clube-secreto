@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="/style.css?v=13_vip" />
+  <link rel="stylesheet" href="/style.css?v=14_vip" />
 </head>
 <body>
 
@@ -63,7 +63,24 @@
     <button id="btnVipBannerExit" class="btn-vip-exit" onclick="deactivateVip()" title="Encerrar sessão">Sair</button>
   </div>
 
-  <!-- Hero Spotlight -->
+  <!-- Carrossel de Reels / Shorts no Topo (Toque para assistir e ir direto na modelo) -->
+  <section class="reels-section" id="reelsSection">
+    <div class="reels-section-header" onclick="openReelsFeed()" style="cursor: pointer;" title="Abrir Modo Reels em Tela Cheia">
+      <div class="reels-title-box">
+        <span class="reels-live-pulse"></span>
+        <span class="reels-title-text">VÍDEOS & SHORTS VIP</span>
+        <span class="reels-badge-hot">EM ALTA 🔥</span>
+      </div>
+      <button class="btn-open-reels-header" onclick="event.stopPropagation(); openReelsFeed()">
+        <span>▶ Abrir Reels</span>
+      </button>
+    </div>
+    <div class="reels-carousel" id="reelsCarousel">
+      <!-- Injetado dinamicamente via app.js -->
+    </div>
+  </section>
+
+  <!-- Hero Spotlight: WhatsApp & PIX -->
   <section class="hero-banner">
     <div class="hero-card">
       <div class="hero-content">
@@ -113,23 +130,6 @@
       <div class="hero-logo-box">
         <img src="/assets/logo.jpg?v=4" alt="Logo Oficial Clube Secreto" class="hero-logo-large" />
       </div>
-    </div>
-  </section>
-
-  <!-- Carrossel de Reels / Shorts (Toque para assistir e ir direto na modelo) -->
-  <section class="reels-section" id="reelsSection">
-    <div class="reels-section-header" onclick="openReelsFeed()" style="cursor: pointer;" title="Abrir Modo Reels em Tela Cheia">
-      <div class="reels-title-box">
-        <span class="reels-live-pulse"></span>
-        <span class="reels-title-text">VÍDEOS & SHORTS VIP</span>
-        <span class="reels-badge-hot">EM ALTA 🔥</span>
-      </div>
-      <button class="btn-open-reels-header" onclick="event.stopPropagation(); openReelsFeed()">
-        <span>▶ Abrir Reels</span>
-      </button>
-    </div>
-    <div class="reels-carousel" id="reelsCarousel">
-      <!-- Injetado dinamicamente via app.js -->
     </div>
   </section>
 
@@ -345,7 +345,7 @@
   </a>
 
   <!-- Scripts -->
-  <script src="/catalog.js?v=13_vip"></script>
-  <script src="/app.js?v=13_vip"></script>
+  <script src="/catalog.js?v=14_vip"></script>
+  <script src="/app.js?v=14_vip"></script>
 </body>
 </html>
