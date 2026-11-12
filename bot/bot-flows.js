@@ -214,8 +214,9 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
   const explicitBuyOrPix = hasAny(norm, [
     'manda o pix', 'passa o pix', 'qual o pix', 'chave pix', 'pix', 'qr code',
     'quero comprar', 'vou pegar', 'quero o pack', 'quero esse', '1 foto', 'um foto',
-    '1 video', 'um video', '2 videos', 'dois videos', '14,99', '14.99', '9,99', '9.99',
-    '15 reais', '5 reais', 'pacote de', 'fechado', 'bora fechar', 'vou querer'
+    '3 fotos', '5 fotos', '10 fotos', '1 video', 'um video', '2 videos', 'dois videos',
+    '3 videos', 'tres videos', '5 videos', 'cinco videos', '14,99', '14.99',
+    '9,99', '9.99', '15 reais', '5 reais', 'pacote de', 'fechado', 'bora fechar', 'vou querer'
   ]);
 
   const asksPriceTable = hasAny(norm, [
@@ -370,7 +371,7 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   if (intents.tooExpensive) {
     const playedExp = p.pushAudio(
       'too_expensive_call',
-      'Poxa amor, a foto é só R$ 5,00 pra você conhecer meu trabalho! Vale muito a pena 💕'
+      'Poxa amor, o pacote inicial de R$ 5,00 já vem 1 vídeo + 3 fotos pra você conhecer meu trabalho! 💕'
     );
     if (!playedExp) {
       p.pushAudio('discount_close', 'Escolhe um dos packs que já vale super a pena amor 💜');

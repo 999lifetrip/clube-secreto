@@ -54,9 +54,9 @@ const DEFAULT_BOT_CONFIG = {
   priceTableText: [
     '💜 *TABELA DE PREÇOS*',
     '',
-    '📸 1 Foto — R$ 5,00',
-    '🎬 1 Vídeo — R$ 9,99',
-    '🎬 2 Vídeos + 1 Foto — R$ 14,99'
+    '📸 1 Vídeo + 3 Fotos — R$ 5,00',
+    '🎬 3 Vídeos + 5 Fotos — R$ 9,99',
+    '🎬 5 Vídeos + 10 Fotos — R$ 14,99'
   ].join('\n'),
   includeVipSiteOption: false,
   vipSiteOptionText: '💎 *Acesso VIP Completo (Site):* R$ 15,00\n👉 https://clubesecreto.omelhorvendedoronline.com.br',
