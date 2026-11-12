@@ -371,13 +371,6 @@ async function handleIncomingWebhook(payload, opts = {}) {
   if (!parsed) return { handled: false, reason: 'ignored_event' };
   if (parsed.ignoredReason) return { handled: false, reason: parsed.ignoredReason };
 
-  if (parsed.msgId && store.isMessageProcessed(parsed.msgId)) {
-    return { handled: false, reason: 'duplicate_msg' };
-  }
-  if (parsed.msgId) {
-    store.markMessageProcessed(parsed.msgId);
-  }
-
   const canonical = store.resolveCanonicalLead(parsed.remoteJid, parsed.remoteJidAlt);
   const cfg = store.loadBotConfig();
 
@@ -386,6 +379,13 @@ async function handleIncomingWebhook(payload, opts = {}) {
   }
   if (cfg.mode === 'pilot' && !isLeadAllowedByMode(canonical, cfg)) {
     return { handled: false, reason: 'mode_pilot_filtered', leadKey: canonical.leadKey };
+  }
+
+  if (parsed.msgId && store.isMessageProcessed(parsed.msgId)) {
+    return { handled: false, reason: 'duplicate_msg' };
+  }
+  if (parsed.msgId) {
+    store.markMessageProcessed(parsed.msgId);
   }
 
   // Intervenção humana / Echo das mensagens do próprio bot
