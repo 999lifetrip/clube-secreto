@@ -11,8 +11,12 @@ const DEFAULT_BOT_CONFIG = {
   // 'off' | 'pilot' (só responde números na lista de teste) | 'production' (todos os leads novos)
   mode: 'pilot',
   pollingEnabled: true,
-  pollIntervalMs: 4500,
-  backlogMaxMinutes: 1440,
+  pollIntervalMs: 5000,
+  backlogMaxMinutes: 60,
+  backlogDelayMinMs: 12000,
+  backlogDelayMaxMs: 25000,
+  batchPauseEvery: 8,
+  batchPauseMs: 90000,
   evolutionUrl: process.env.EVOLUTION_URL || 'https://evolution.omelhorvendedoronline.com.br',
   evolutionKey: process.env.EVOLUTION_API_KEY || process.env.EVOLUTION_KEY || '',
   evolutionInstance: process.env.EVOLUTION_INSTANCE || 'PROJETO COMBO',
@@ -131,8 +135,12 @@ function saveBotConfig(patch) {
   merged.mode = ['off', 'pilot', 'production'].includes(merged.mode) ? merged.mode : 'pilot';
   merged.enabled = merged.mode !== 'off';
   merged.pollingEnabled = merged.pollingEnabled !== false;
-  merged.pollIntervalMs = Math.max(2500, Math.min(30000, Number(merged.pollIntervalMs) || 4500));
-  merged.backlogMaxMinutes = Math.max(5, Math.min(1440, Number(merged.backlogMaxMinutes) || 180));
+  merged.pollIntervalMs = Math.max(2500, Math.min(30000, Number(merged.pollIntervalMs) || 5000));
+  merged.backlogMaxMinutes = Math.max(5, Math.min(1440, Number(merged.backlogMaxMinutes) || 60));
+  merged.backlogDelayMinMs = Math.max(1000, Math.min(120000, Number(merged.backlogDelayMinMs) || 12000));
+  merged.backlogDelayMaxMs = Math.max(merged.backlogDelayMinMs, Math.min(180000, Number(merged.backlogDelayMaxMs) || 25000));
+  merged.batchPauseEvery = Math.max(1, Math.min(50, Number(merged.batchPauseEvery) || 8));
+  merged.batchPauseMs = Math.max(5000, Math.min(600000, Number(merged.batchPauseMs) || 90000));
   merged.evolutionUrl = String(merged.evolutionUrl || DEFAULT_BOT_CONFIG.evolutionUrl).trim().replace(/\/+$/, '');
   const incomingKey = typeof patch.evolutionKey === 'string' ? patch.evolutionKey.trim() : '';
   merged.evolutionKey = incomingKey || current.evolutionKey || DEFAULT_BOT_CONFIG.evolutionKey;
