@@ -120,6 +120,15 @@ function parseEvolutionWebhook(payload) {
 /**
  * Fila global de envio com prioridade: mensagens novas em tempo real furam fila de backlog antigo.
  */
+async function sleepBacklogInterruptible(totalMs) {
+  let remaining = Math.max(0, Number(totalMs) || 0);
+  while (remaining > 0 && URGENT_JOBS.length === 0) {
+    const chunk = Math.min(1000, remaining);
+    await evo.sleep(chunk);
+    remaining -= chunk;
+  }
+}
+
 async function pumpOutboundQueue() {
   if (WORKER_ACTIVE) return;
   WORKER_ACTIVE = true;
@@ -136,25 +145,25 @@ async function pumpOutboundQueue() {
         QUEUED_LEAD_KEYS.delete(job.leadKey);
       }
 
-      // Pacing anti-ban para não derrubar chip em disparos em sequência
+      // Pacing anti-ban para não derrubar chip em disparos em sequência, mas acorda na hora se chegar lead urgente!
       const cfg = store.loadBotConfig();
       if (URGENT_JOBS.length > 0 || BACKLOG_JOBS.length > 0) {
-        if (!isUrgent) {
+        if (!isUrgent && URGENT_JOBS.length === 0) {
           processedInBatch++;
           const batchEvery = Number(cfg.batchPauseEvery) || 8;
           const batchPauseMs = Number(cfg.batchPauseMs) || 90000;
           if (processedInBatch >= batchEvery) {
             processedInBatch = 0;
-            addBotLog('info', `Pausa anti-ban de ${Math.round(batchPauseMs / 1000)}s após ${batchEvery} atendimentos na fila.`);
-            await evo.sleep(batchPauseMs);
+            addBotLog('info', `Pausa anti-ban de ${Math.round(batchPauseMs / 1000)}s após ${batchEvery} atendimentos na fila (acorda na hora para leads novos).`);
+            await sleepBacklogInterruptible(batchPauseMs);
           } else {
             const minD = Number(cfg.backlogDelayMinMs) || 12000;
             const maxD = Math.max(minD, Number(cfg.backlogDelayMaxMs) || 25000);
             const jitter = minD + Math.floor(Math.random() * (maxD - minD + 1));
-            await evo.sleep(jitter);
+            await sleepBacklogInterruptible(jitter);
           }
         } else {
-          await evo.sleep(1500);
+          await evo.sleep(1200);
         }
       }
     }
