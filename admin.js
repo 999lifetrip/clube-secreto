@@ -1998,6 +1998,8 @@ function fillBotConfigForm(cfg) {
   const keyBadge = document.getElementById('botEvoKeyStatus');
   if (keyBadge) keyBadge.textContent = cfg.hasEvolutionKey ? '(✅ Salva)' : '(⚠️ Pendente)';
   setVal('botDebounceMsInput', cfg.debounceMs || 5000);
+  setVal('botBacklogMaxMinInput', cfg.backlogMaxMinutes || 15);
+  setVal('botMaxRepliesHourInput', cfg.maxRepliesPerHour || 18);
   setVal('botPilotNumbersInput', (cfg.pilotNumbers || []).join('\n'));
   setVal('botAdminNumbersInput', (cfg.adminNumbers || []).join('\n'));
   setVal('botGreetingTextInput', cfg.greetingText || '');
@@ -2083,6 +2085,8 @@ async function saveAdminBotConfig(silent = false) {
     evolutionInstance: document.getElementById('botEvoInstanceInput')?.value.trim() || 'PROJETO COMBO',
     ...(evoKeyTyped ? { evolutionKey: evoKeyTyped } : {}),
     debounceMs: Number(document.getElementById('botDebounceMsInput')?.value) || 5000,
+    backlogMaxMinutes: Number(document.getElementById('botBacklogMaxMinInput')?.value) || 15,
+    maxRepliesPerHour: Number(document.getElementById('botMaxRepliesHourInput')?.value) || 18,
     pilotNumbers: document.getElementById('botPilotNumbersInput')?.value || '',
     adminNumbers: document.getElementById('botAdminNumbersInput')?.value || '',
     greetingText: document.getElementById('botGreetingTextInput')?.value || '',

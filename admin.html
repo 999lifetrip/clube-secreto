@@ -584,18 +584,26 @@ TTL: 300
                 </div>
                 <small style="color: #64748b; font-size: 11px;">Só clique em Conectar quando o site estiver publicado na VPS (HTTPS).</small>
               </div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr 120px; gap: 10px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr 100px 105px 105px; gap: 8px;">
                 <div>
                   <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Instância Evolution:</label>
                   <input type="text" id="botEvoInstanceInput" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
                 </div>
                 <div>
-                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">API Key Evolution: <span id="botEvoKeyStatus" style="color:#10b981;"></span></label>
-                  <input type="password" id="botEvoKeyInput" placeholder="Deixe vazio p/ manter atual" autocomplete="off" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">API Key: <span id="botEvoKeyStatus" style="color:#10b981;"></span></label>
+                  <input type="password" id="botEvoKeyInput" placeholder="Manter atual" autocomplete="off" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
                 </div>
                 <div>
                   <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Debounce (ms):</label>
                   <input type="number" id="botDebounceMsInput" min="1000" max="20000" step="500" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Janela Fila (min):</label>
+                  <input type="number" id="botBacklogMaxMinInput" min="5" max="10080" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Novos/Hora:</label>
+                  <input type="number" id="botMaxRepliesHourInput" min="1" max="200" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
                 </div>
               </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">

@@ -136,6 +136,19 @@ async function sendPresence(cfg, number, presence = 'recording', delayMs = 2000)
   });
 }
 
+/**
+ * Envia confirmação de leitura (tick azul) antes de iniciar digitação/gravação, simulando abertura real do chat.
+ */
+async function markMessageAsRead(cfg, items = []) {
+  const valid = (Array.isArray(items) ? items : [])
+    .filter((i) => i && i.remoteJid && i.id)
+    .map((i) => ({ remoteJid: i.remoteJid, fromMe: false, id: i.id }));
+  if (!valid.length) return { ok: true, skipped: true };
+  return evoRequest(cfg, 'POST', `/chat/markMessageAsRead/${instSeg(cfg)}`, {
+    readMessages: valid
+  });
+}
+
 async function sendText(cfg, number, text, simulateTyping = true) {
   if (simulateTyping) {
     const typingMs = Math.min(1200, Math.max(600, String(text || '').length * 15));
@@ -272,6 +285,7 @@ module.exports = {
   findWebhook,
   setWebhook,
   sendPresence,
+  markMessageAsRead,
   sendText,
   sendWhatsAppAudio,
   sendPixPayment,

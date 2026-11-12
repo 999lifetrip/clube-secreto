@@ -12,11 +12,12 @@ const DEFAULT_BOT_CONFIG = {
   mode: 'pilot',
   pollingEnabled: true,
   pollIntervalMs: 5000,
-  backlogMaxMinutes: 60,
-  backlogDelayMinMs: 12000,
-  backlogDelayMaxMs: 25000,
-  batchPauseEvery: 8,
-  batchPauseMs: 90000,
+  backlogMaxMinutes: 15,
+  backlogDelayMinMs: 22000,
+  backlogDelayMaxMs: 42000,
+  batchPauseEvery: 6,
+  batchPauseMs: 120000,
+  maxRepliesPerHour: 18,
   evolutionUrl: process.env.EVOLUTION_URL || 'https://evolution.omelhorvendedoronline.com.br',
   evolutionKey: process.env.EVOLUTION_API_KEY || process.env.EVOLUTION_KEY || '',
   evolutionInstance: process.env.EVOLUTION_INSTANCE || 'PROJETO COMBO',
@@ -137,11 +138,12 @@ function saveBotConfig(patch) {
   merged.enabled = merged.mode !== 'off';
   merged.pollingEnabled = merged.pollingEnabled !== false;
   merged.pollIntervalMs = Math.max(2500, Math.min(30000, Number(merged.pollIntervalMs) || 5000));
-  merged.backlogMaxMinutes = Math.max(5, Math.min(10080, Number(merged.backlogMaxMinutes) || 60));
-  merged.backlogDelayMinMs = Math.max(1000, Math.min(120000, Number(merged.backlogDelayMinMs) || 12000));
-  merged.backlogDelayMaxMs = Math.max(merged.backlogDelayMinMs, Math.min(180000, Number(merged.backlogDelayMaxMs) || 25000));
-  merged.batchPauseEvery = Math.max(1, Math.min(50, Number(merged.batchPauseEvery) || 8));
-  merged.batchPauseMs = Math.max(5000, Math.min(600000, Number(merged.batchPauseMs) || 90000));
+  merged.backlogMaxMinutes = Math.max(5, Math.min(10080, Number(merged.backlogMaxMinutes) || 15));
+  merged.backlogDelayMinMs = Math.max(1000, Math.min(120000, Number(merged.backlogDelayMinMs) || 22000));
+  merged.backlogDelayMaxMs = Math.max(merged.backlogDelayMinMs, Math.min(180000, Number(merged.backlogDelayMaxMs) || 42000));
+  merged.batchPauseEvery = Math.max(1, Math.min(50, Number(merged.batchPauseEvery) || 6));
+  merged.batchPauseMs = Math.max(5000, Math.min(600000, Number(merged.batchPauseMs) || 120000));
+  merged.maxRepliesPerHour = Math.max(1, Math.min(200, Number(merged.maxRepliesPerHour) || 18));
   merged.evolutionUrl = String(merged.evolutionUrl || DEFAULT_BOT_CONFIG.evolutionUrl).trim().replace(/\/+$/, '');
   const incomingKey = typeof patch.evolutionKey === 'string' ? patch.evolutionKey.trim() : '';
   merged.evolutionKey = incomingKey || current.evolutionKey || DEFAULT_BOT_CONFIG.evolutionKey;
@@ -171,6 +173,7 @@ function createEmptyState() {
     lidAliases: {},
     processedMsgIds: [],
     botSentIds: [],
+    hourlyNewReplies: [],
     leads: {},
     stats: {
       totalInbound: 0,
@@ -195,6 +198,7 @@ function loadBotState() {
         lidAliases: parsed.lidAliases || {},
         processedMsgIds: Array.isArray(parsed.processedMsgIds) ? parsed.processedMsgIds : [],
         botSentIds: Array.isArray(parsed.botSentIds) ? parsed.botSentIds : [],
+        hourlyNewReplies: Array.isArray(parsed.hourlyNewReplies) ? parsed.hourlyNewReplies : [],
         leads: parsed.leads || {},
         stats: { ...createEmptyState().stats, ...(parsed.stats || {}) }
       };
@@ -375,6 +379,26 @@ function isBotSentId(msgId) {
   return loadBotState().botSentIds.includes(msgId);
 }
 
+function pruneHourlyReplies(st, now = Date.now()) {
+  const cutoff = now - 3600 * 1000;
+  st.hourlyNewReplies = (Array.isArray(st.hourlyNewReplies) ? st.hourlyNewReplies : []).filter((ts) => ts >= cutoff);
+}
+
+function countNewLeadRepliesLastHour() {
+  const st = loadBotState();
+  pruneHourlyReplies(st);
+  return st.hourlyNewReplies.length;
+}
+
+function recordNewLeadReply() {
+  const st = loadBotState();
+  const now = Date.now();
+  pruneHourlyReplies(st, now);
+  st.hourlyNewReplies.push(now);
+  persistBotState();
+  return st.hourlyNewReplies.length;
+}
+
 function resetLeadState(leadKey) {
   const st = loadBotState();
   if (st.leads[leadKey]) {
@@ -421,6 +445,8 @@ module.exports = {
   isMessageProcessed,
   addBotSentId,
   isBotSentId,
+  countNewLeadRepliesLastHour,
+  recordNewLeadReply,
   resetLeadState,
   setLeadPaused,
   listLeadsSummary

@@ -126,12 +126,37 @@ function createTurnPlanner(leadState, cfg) {
   };
 }
 
-function buildFullPriceTableText(cfg) {
-  const base = String(cfg.priceTableText || '').trim();
-  if (cfg.includeVipSiteOption && cfg.vipSiteOptionText) {
-    return `${base}\n\n${String(cfg.vipSiteOptionText).trim()}`;
+const TABLE_INTROS = [
+  'Olha os pacotinhos meu amor 👇\n\n',
+  'Aqui tá minha tabelinha meu anjo 💜\n\n',
+  'Dá uma olhada nos valores vida 😘\n\n',
+  ''
+];
+
+const GREETING_VARIANTS = [
+  'Oi meu amor 💞',
+  'Estou aqui meu anjo 💕',
+  'Oii vida 😍',
+  'Oi meu bem 💖'
+];
+
+function pickVariant(seedStr, list) {
+  const s = String(seedStr || '0');
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = (h * 31 + s.charCodeAt(i)) >>> 0;
   }
-  return base;
+  return list[h % list.length];
+}
+
+function buildFullPriceTableText(cfg, seedStr = '') {
+  const base = String(cfg.priceTableText || '').trim();
+  const intro = seedStr ? pickVariant(seedStr, TABLE_INTROS) : '';
+  const body = `${intro}${base}`;
+  if (cfg.includeVipSiteOption && cfg.vipSiteOptionText) {
+    return `${body}\n\n${String(cfg.vipSiteOptionText).trim()}`;
+  }
+  return body;
 }
 
 /**
@@ -524,13 +549,14 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
 
   // 7. Primeira mensagem simples ("Oi", "Boa noite", figurinha, "Oi! Como podemos ajudar?")
   if (nextStage === 'NEW') {
-    p.pushText('greeting_txt', cfg.greetingText, false);
     if (intents.norm.includes('clube secreto') || intents.norm.includes('ajudar')) {
-      p.pushText('price_table', buildFullPriceTableText(cfg), false);
+      p.pushText('price_table', buildFullPriceTableText(cfg, leadState.leadKey), false);
       p.pushAudio('ask_interest_pack');
       nextStage = 'PRICING_SENT';
     } else {
-      p.pushAudio('greeting_save');
+      const greetingLine = pickVariant(leadState.leadKey, GREETING_VARIANTS);
+      const sentAudio = p.pushAudio('greeting_save', greetingLine);
+      if (!sentAudio) p.pushText('greeting_txt', greetingLine, false);
       nextStage = 'GREETED';
     }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
@@ -539,7 +565,7 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   // 8. Progressão natural de conversa pós-saudação ou rapport
   if (nextStage === 'GREETED') {
     if (!p.hasText('price_table')) {
-      p.pushText('price_table', buildFullPriceTableText(cfg), false);
+      p.pushText('price_table', buildFullPriceTableText(cfg, leadState.leadKey), false);
       p.pushAudio('ask_interest_pack', 'Quer dar uma olhada nos pacotes amor? 💜');
       nextStage = 'PRICING_SENT';
       return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };

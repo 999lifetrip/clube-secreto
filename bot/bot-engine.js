@@ -191,15 +191,26 @@ function enqueueLeadWork(leadKey, fn, urgent = true) {
   });
 }
 
+function randomGapMs(min = 1600, max = 3100) {
+  return min + Math.floor(Math.random() * (max - min + 1));
+}
+
 /**
  * Executa as ações planejadas (áudios PTT, prévia viewOnce, textos, PIX) contra Evolution API,
  * marcando cada áudio enviado imediatamente para nunca repetir.
  */
 async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pauseAfterTurn, needsHumanReview, cfg, sourceMsgIds = [] }) {
   const lead = store.getOrCreateLead(leadKey, { replyJid });
+  const stageBefore = lead.stage || 'NEW';
   let okCount = 0;
   let failCount = 0;
   let connectionClosed = false;
+
+  // Confirma leitura (tick azul) + pausa curta como humano lendo a conversa antes de responder
+  if (sourceMsgIds.length) {
+    await evo.markMessageAsRead(cfg, sourceMsgIds.map((id) => ({ remoteJid: replyJid, id })));
+    await evo.sleep(randomGapMs(1500, 2700));
+  }
 
   for (const act of actions) {
     if (act.type === 'audio') {
@@ -228,7 +239,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
         addBotLog('error', `Falha ao enviar áudio ${act.audioId}`, { leadKey, status: res.status, raw: res.raw || res.error });
         if (String(res.raw || res.error || '').includes('Connection Closed')) { connectionClosed = true; break; }
       }
-      await evo.sleep(650);
+      await evo.sleep(randomGapMs(1600, 2900));
     } else if (act.type === 'preview_image') {
       if (lead.sentPrevia) continue;
       const res = await evo.sendPreviewImage(cfg, replyJid, act.filePath, act.caption || '', act.viewOnce !== false);
@@ -255,7 +266,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
         addBotLog('error', `Falha ao enviar texto [${act.key}]`, { leadKey, status: res.status, raw: res.raw || res.error });
         if (String(res.raw || res.error || '').includes('Connection Closed')) { connectionClosed = true; break; }
       }
-      await evo.sleep(500);
+      await evo.sleep(randomGapMs(1500, 2700));
     } else if (act.type === 'pix') {
       const res = await evo.sendPixPayment(cfg, replyJid);
       if (res.ok) {
@@ -295,6 +306,9 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
 
   lead.stage = nextStage;
   lead.lastOutboundBotAt = Date.now();
+  if (stageBefore === 'NEW' && okCount > 0) {
+    store.recordNewLeadReply();
+  }
   if (pauseAfterTurn) {
     lead.paused = true;
     lead.pauseReason = 'Comprovante enviado — aguardando conferência';
@@ -322,6 +336,15 @@ function flushLeadBuffer(leadKey) {
     const lead = store.getOrCreateLead(leadKey, { replyJid: bucket.replyJid });
     if (lead.paused) return;
 
+    const sourceMsgIds = bucket.msgs.map((m) => m.msgId).filter(Boolean);
+    const maxPerHour = Number(cfg.maxRepliesPerHour) || 18;
+    // Limite anti-ban por hora só segura novos leads frios (compradores já em conversa passam livre!)
+    if ((lead.stage || 'NEW') === 'NEW' && store.countNewLeadRepliesLastHour() >= maxPerHour) {
+      if (sourceMsgIds.length) store.unmarkMessageProcessed(sourceMsgIds);
+      addBotLog('info', `Teto anti-ban (${maxPerHour} novos leads/hora) atingido — aguardando janela liberar`, { leadKey });
+      return;
+    }
+
     const combinedText = bucket.msgs.map((m) => m.text).filter(Boolean).join(' ').trim();
     const msgMeta = {
       hasImage: bucket.msgs.some((m) => m.hasImage),
@@ -347,7 +370,6 @@ function flushLeadBuffer(leadKey) {
 
     if (!plan.actions.length) return;
 
-    const sourceMsgIds = bucket.msgs.map((m) => m.msgId).filter(Boolean);
     await executePlannedActions({
       leadKey,
       replyJid: bucket.replyJid || lead.replyJid,
