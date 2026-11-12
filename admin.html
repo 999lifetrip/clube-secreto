@@ -73,6 +73,9 @@
       <button class="admin-tab" data-tab="backups" onclick="switchAdminTab('backups')">
         <span>💾 Banco de Dados & Backups</span>
       </button>
+      <button class="admin-tab" data-tab="bot" onclick="switchAdminTab('bot')">
+        <span>🤖 Bot WhatsApp (Áudios)</span>
+      </button>
       <button class="admin-tab" data-tab="deploy" onclick="switchAdminTab('deploy')">
         <span>🚀 Publicar na VPS / Domínio</span>
       </button>
@@ -517,6 +520,209 @@ TTL: 300
         </div>
       </section>
 
+      <!-- ABA BOT WHATSAPP (GRÁTIS / SEM IA PAGA) -->
+      <section id="tab-bot" class="admin-section">
+        <div class="section-toolbar">
+          <div>
+            <h2 class="section-title">🤖 Bot WhatsApp — Áudios Nativos (Sem Repetir & 100% Grátis)</h2>
+            <p class="section-desc">Funil automático sem custos de IA: envia os 21 áudios como gravação real do WhatsApp (PTT), no máximo 1x por lead, com botão PIX nativo e pausa automática quando um humano assume.</p>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-secondary" onclick="loadAdminBotTab()">
+              <span>🔄 Atualizar Status</span>
+            </button>
+            <button class="btn-primary" style="background: linear-gradient(135deg, #25d366, #128c7e);" onclick="saveAdminBotConfig()">
+              <span>💾 Salvar Configurações do Bot</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cards de Status Evolution & Métricas -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 12px; margin-bottom: 18px;">
+          <div class="deploy-card" style="padding: 16px;">
+            <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Evolution (PROJETO COMBO)</div>
+            <div id="botEvoConnBadge" style="font-size: 18px; font-weight: 900; margin-top: 6px; color: #fbbf24;">Verificando...</div>
+            <div id="botWebhookBadge" style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Webhook: --</div>
+          </div>
+          <div class="deploy-card" style="padding: 16px;">
+            <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Áudios Prontos (OGG/Opus)</div>
+            <div id="botAudiosCountBadge" style="font-size: 22px; font-weight: 900; margin-top: 6px; color: #38bdf8;">21</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 4px;">Trava 1x por lead ativa</div>
+          </div>
+          <div class="deploy-card" style="padding: 16px;">
+            <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Leads Atendidos</div>
+            <div id="botLeadsCountBadge" style="font-size: 22px; font-weight: 900; margin-top: 6px; color: #fff;">0</div>
+            <div id="botInboundStatsBadge" style="font-size: 11px; color: #64748b; margin-top: 4px;">Mensagens: 0</div>
+          </div>
+          <div class="deploy-card" style="padding: 16px;">
+            <div style="font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Áudios PTT / Repetições Barradas</div>
+            <div id="botAudiosSentBadge" style="font-size: 20px; font-weight: 900; margin-top: 6px; color: #10b981;">0 / 0</div>
+            <div style="font-size: 11px; color: #64748b; margin-top: 4px;">Zero áudio repetido</div>
+          </div>
+        </div>
+
+        <!-- Conexão, Modo e Números -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-bottom: 18px;">
+          <div class="deploy-card" style="padding: 18px;">
+            <h3 class="deploy-card-title">⚡ Modo de Operação & Webhook</h3>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+              <div>
+                <label style="display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 4px; font-weight: 700;">Modo Atual do Bot:</label>
+                <select id="botModeSelect" style="width: 100%; padding: 10px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-weight: 700;">
+                  <option value="pilot">🟡 Modo Piloto (Responde só os Números de Teste abaixo)</option>
+                  <option value="production">🟢 Produção (Responde Todos os Leads Novos no WhatsApp)</option>
+                  <option value="off">🔴 Desligado (Não responde ninguém)</option>
+                </select>
+              </div>
+              <div>
+                <label style="display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 4px; font-weight: 700;">URL do Webhook HTTPS (Para Evolution API chamar):</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="botWebhookUrlInput" style="flex: 1; padding: 9px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #38bdf8; font-size: 12px;" />
+                  <button class="btn-primary" style="padding: 8px 14px; font-size: 12px; white-space: nowrap;" onclick="connectEvolutionWebhook()">
+                    <span>🔗 Conectar na Evolution</span>
+                  </button>
+                </div>
+                <small style="color: #64748b; font-size: 11px;">Só clique em Conectar quando o site estiver publicado na VPS (HTTPS).</small>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 120px; gap: 10px;">
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Instância Evolution:</label>
+                  <input type="text" id="botEvoInstanceInput" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">API Key Evolution: <span id="botEvoKeyStatus" style="color:#10b981;"></span></label>
+                  <input type="password" id="botEvoKeyInput" placeholder="Deixe vazio p/ manter atual" autocomplete="off" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Debounce (ms):</label>
+                  <input type="number" id="botDebounceMsInput" min="1000" max="20000" step="500" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Números de Teste (Modo Piloto — 1 por linha ou vírgula):</label>
+                  <textarea id="botPilotNumbersInput" rows="3" placeholder="Ex: 5541999999999" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #4ade80; font-size: 12px;"></textarea>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Números Admin Ignorados (Rique/Equipe — não responde em Produção):</label>
+                  <textarea id="botAdminNumbersInput" rows="3" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #f87171; font-size: 12px;"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensagens, Tabela e PIX -->
+          <div class="deploy-card" style="padding: 18px;">
+            <h3 class="deploy-card-title">💬 Tabela de Preços, Mensagens & PIX</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+              <div>
+                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Saudação Inicial:</label>
+                <input type="text" id="botGreetingTextInput" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+              </div>
+              <div>
+                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Texto da Tabela de Preços (igual ao print — edite livremente):</label>
+                <textarea id="botPriceTableInput" rows="5" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px; font-family: inherit;"></textarea>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 110px 1fr; gap: 8px;">
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Chave PIX:</label>
+                  <input type="text" id="botPixKeyInput" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #4ade80; font-size: 12px;" />
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Tipo PIX:</label>
+                  <select id="botPixTypeSelect" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;">
+                    <option value="cpf">CPF</option>
+                    <option value="phone">Telefone</option>
+                    <option value="email">E-mail</option>
+                    <option value="cnpj">CNPJ</option>
+                    <option value="random">Aleatória</option>
+                  </select>
+                </div>
+                <div>
+                  <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Nome Recebedor:</label>
+                  <input type="text" id="botPixHolderInput" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+                </div>
+              </div>
+              <div>
+                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">Texto após mandar o PIX:</label>
+                <input type="text" id="botPostPixTextInput" style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: #cbd5e1; margin-top: 4px;">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="checkbox" id="botNativePixCheck" /> Cartão PIX Nativo (Copiar Chave)
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="checkbox" id="botFollowUpCheck" /> Follow-up 1x automático (15m / 2h)
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="checkbox" id="botIncludeVipSiteCheck" /> Incluir Clube Secreto R$ 15 na Tabela
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="checkbox" id="botUseBedTeaserCheck" /> Ativar áudio "vou te mandar um vídeo"
+                </label>
+              </div>
+              <div id="botTeaserUrlWrapper" style="display: none;">
+                <label style="display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px;">URL pública do vídeo prévia (.mp4) enviado junto com o áudio:</label>
+                <input type="text" id="botTeaserVideoUrlInput" placeholder="https://..." style="width: 100%; padding: 8px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulador e Disparo de Teste -->
+        <div class="deploy-card" style="padding: 18px; margin-bottom: 18px; border-color: rgba(56,189,248,0.35);">
+          <h3 class="deploy-card-title">🧪 Simulador de Fluxo & Teste em 1 Número</h3>
+          <p style="font-size: 12px; color: #94a3b8; margin-bottom: 10px;">Teste várias mensagens seguidas no mesmo lead para comprovar que os áudios vão na ordem certa e NUNCA repetem.</p>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <input type="text" id="botSimLeadInput" value="sim_test_lead" placeholder="ID ou WhatsApp (ex: 5541999999999)" style="width: 210px; padding: 9px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+            <input type="text" id="botSimMsgInput" value="Oi tudo bem? Quanto custa?" placeholder="Digite mensagem do lead..." style="flex: 1; min-width: 220px; padding: 9px; border-radius: 8px; background: #0f172a; border: 1px solid #334155; color: #fff; font-size: 12px;" />
+            <button class="btn-secondary" onclick="runBotSimulation(false)">🧪 Simular Offline</button>
+            <button class="btn-primary" style="background: #25d366; color: #052e16; font-weight: 800;" onclick="runBotSimulation(true)">📲 Enviar Teste Real WPP</button>
+            <button class="btn-danger" style="padding: 8px 12px;" onclick="resetSimulatedLead()">🔄 Zerar Teste</button>
+          </div>
+          <pre id="botSimOutputBox" style="margin-top: 12px; padding: 12px; border-radius: 8px; background: #020617; border: 1px solid #1e293b; color: #cbd5e1; font-size: 12px; max-height: 220px; overflow: auto; white-space: pre-wrap;">Aguardando teste...</pre>
+        </div>
+
+        <!-- Biblioteca dos 21 Áudios -->
+        <div style="margin-bottom: 22px;">
+          <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 10px;">🎙️ Biblioteca dos 21 Áudios Nativos (Clique no Play para ouvir)</h3>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Áudio / Frase</th>
+                  <th>Categoria</th>
+                  <th>Duração</th>
+                  <th>Quando dispara</th>
+                  <th>Ouvir Prévia</th>
+                  <th>Ativo</th>
+                </tr>
+              </thead>
+              <tbody id="botAudiosTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Leads e Controle Anti-Repetição -->
+        <div>
+          <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 10px;">📋 Leads & Trava Anti-Repetição de Áudios</h3>
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Lead / JID</th>
+                  <th>Estágio</th>
+                  <th>Áudios já enviados (Nunca repete)</th>
+                  <th>Status Bot</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="botLeadsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -759,7 +965,7 @@ TTL: 300
     <span id="adminToastMsg">Sucesso</span>
   </div>
 
-  <script src="admin.js?v=13_vip"></script>
+  <script src="admin.js?v=14_bot"></script>
 </body>
 </html>
 

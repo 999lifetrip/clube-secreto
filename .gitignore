@@ -1,0 +1,4 @@
+bot/data/
+bot/config/
+*.log
+

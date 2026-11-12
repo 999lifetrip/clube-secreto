@@ -4,6 +4,10 @@ const path = require('path');
 const vm = require('vm');
 const crypto = require('crypto');
 const zlib = require('zlib');
+const botAudios = require('./bot/audios-manifest');
+const botStore = require('./bot/bot-store');
+const botEvo = require('./bot/evolution-client');
+const botEngine = require('./bot/bot-engine');
 
 const PORT = process.env.PORT || 3008;
 const CONFIG_FILE = path.join(__dirname, 'config', 'vip_codes.json');
@@ -1398,6 +1402,181 @@ const server = http.createServer(async (req, res) => {
   }
 
   // ═════════════════════════════════════════════════════════════════════════
+  // ROTAS DO BOT WHATSAPP GRÁTIS (WEBHOOK EVOLUTION API + PAINEL ADMIN)
+  // ═════════════════════════════════════════════════════════════════════════
+
+  if (req.method === 'POST' && (pathname === '/api/bot/webhook' || pathname === '/api/bot/webhook/messages-upsert')) {
+    try {
+      const cfg = botStore.loadBotConfig();
+      if (cfg.webhookSecret) {
+        const providedSecret = urlObj.searchParams.get('secret') || req.headers['x-webhook-secret'] || '';
+        if (providedSecret !== cfg.webhookSecret) {
+          return sendJson(res, 403, { success: false, error: 'Webhook secret inválido.' });
+        }
+      }
+      const body = await parseJsonBody(req);
+      const result = await botEngine.handleIncomingWebhook(body);
+      return sendJson(res, 200, { success: true, ...result });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: e.message });
+    }
+  }
+
+  if (req.method === 'GET' && pathname === '/api/admin/bot/status') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    const cfg = botStore.loadBotConfig();
+    const st = botStore.loadBotState();
+    const [connRes, webhookRes] = await Promise.all([
+      botEvo.fetchConnectionState(cfg),
+      botEvo.findWebhook(cfg)
+    ]);
+    const safeCfg = {
+      ...cfg,
+      hasEvolutionKey: Boolean(cfg.evolutionKey),
+      evolutionKey: ''
+    };
+    return sendJson(res, 200, {
+      success: true,
+      config: safeCfg,
+      stats: st.stats,
+      leadsCount: Object.keys(st.leads || {}).length,
+      audiosCount: botAudios.listAudioMetadata(cfg.audioOverrides).filter(a => a.exists).length,
+      evolution: {
+        connected: connRes.data?.instance?.state === 'open',
+        state: connRes.data?.instance?.state || 'unknown',
+        webhook: webhookRes.data || null,
+        error: connRes.error || null
+      },
+      logs: botEngine.getLogs()
+    }, req);
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/bot/config') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const body = await parseJsonBody(req);
+      const updated = botStore.saveBotConfig(body);
+      return sendJson(res, 200, {
+        success: true,
+        config: { ...updated, hasEvolutionKey: Boolean(updated.evolutionKey), evolutionKey: '' },
+        message: 'Configurações do Bot salvas com sucesso!'
+      });
+    } catch (e) {
+      return sendJson(res, 400, { success: false, error: 'Erro ao salvar configuração do bot: ' + e.message });
+    }
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/bot/webhook/connect') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const body = await parseJsonBody(req);
+      const cfg = body.webhookUrl ? botStore.saveBotConfig({ webhookUrl: body.webhookUrl }) : botStore.loadBotConfig();
+      const evoRes = await botEvo.setWebhook(cfg, body.webhookUrl || cfg.webhookUrl);
+      return sendJson(res, evoRes.ok ? 200 : 502, {
+        success: evoRes.ok,
+        webhookUrl: cfg.webhookUrl,
+        evolutionResponse: evoRes.data || evoRes.raw || evoRes.error
+      });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: e.message });
+    }
+  }
+
+  if (req.method === 'GET' && pathname === '/api/admin/bot/audios') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    const cfg = botStore.loadBotConfig();
+    return sendJson(res, 200, {
+      success: true,
+      audios: botAudios.listAudioMetadata(cfg.audioOverrides)
+    }, req);
+  }
+
+  if (req.method === 'GET' && pathname === '/api/admin/bot/audio-preview') {
+    if (!checkAdminAuth(req, urlObj)) {
+      res.writeHead(401, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end('Unauthorized');
+    }
+    const audioId = urlObj.searchParams.get('id') || '';
+    const aud = botAudios.getAudioById(audioId);
+    if (!aud || !aud.exists || !fs.existsSync(aud.fullPath)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      return res.end('Audio not found');
+    }
+    const stat = fs.statSync(aud.fullPath);
+    res.writeHead(200, {
+      'Content-Type': 'audio/ogg; codecs=opus',
+      'Content-Length': stat.size,
+      'Cache-Control': 'no-cache'
+    });
+    fs.createReadStream(aud.fullPath).pipe(res);
+    return;
+  }
+
+  if (req.method === 'GET' && pathname === '/api/admin/bot/leads') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    const st = botStore.loadBotState();
+    return sendJson(res, 200, {
+      success: true,
+      leads: botStore.listLeadsSummary(),
+      stats: st.stats
+    }, req);
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/bot/lead-action') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    const { leadKey, action } = await parseJsonBody(req);
+    if (!leadKey) return sendJson(res, 400, { success: false, error: 'leadKey obrigatório.' });
+    if (action === 'pause') {
+      const lead = botStore.setLeadPaused(leadKey, true, 'Pausado pelo Admin');
+      return sendJson(res, 200, { success: true, lead });
+    }
+    if (action === 'resume') {
+      const lead = botStore.setLeadPaused(leadKey, false);
+      return sendJson(res, 200, { success: true, lead });
+    }
+    if (action === 'reset') {
+      const ok = botStore.resetLeadState(leadKey);
+      return sendJson(res, 200, { success: ok, message: ok ? 'Histórico e áudios do lead zerados.' : 'Lead não encontrado.' });
+    }
+    return sendJson(res, 400, { success: false, error: 'Ação inválida.' });
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/bot/simulate') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const body = await parseJsonBody(req);
+      if (body.realSend) {
+        const resReal = await botEngine.sendRealTestTurn(body.targetNumber, body.text || 'Oi tudo bem?');
+        return sendJson(res, 200, { success: true, realSend: true, ...resReal });
+      }
+      const simRes = botEngine.simulateLeadMessage({
+        leadKey: body.leadKey || 'sim_test_lead',
+        text: body.text || 'Oi',
+        hasImage: Boolean(body.hasImage),
+        hasDocument: Boolean(body.hasDocument),
+        commitState: body.commitState !== false
+      });
+      return sendJson(res, 200, { success: true, realSend: false, result: simRes });
+    } catch (e) {
+      return sendJson(res, 400, { success: false, error: e.message });
+    }
+  }
+
+  // ═════════════════════════════════════════════════════════════════════════
   // SERVIDOR DE ARQUIVOS ESTÁTICOS & ROTA DA PÁGINA TUDO LIBERADO
   // ═════════════════════════════════════════════════════════════════════════
 
@@ -1415,8 +1594,8 @@ const server = http.createServer(async (req, res) => {
     cleanUrl = '/admin.html';
   }
 
-  // Bloqueia acesso direto a arquivos privados de configuração e backups
-  if (cleanUrl.startsWith('/config/') || cleanUrl.startsWith('/backups/') || cleanUrl.startsWith('/scratch/')) {
+  // Bloqueia acesso direto a arquivos privados de configuração, bot e backups
+  if (cleanUrl.startsWith('/config/') || cleanUrl.startsWith('/backups/') || cleanUrl.startsWith('/scratch/') || cleanUrl.startsWith('/bot/')) {
     res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('403 Forbidden');
     return;
@@ -1624,6 +1803,7 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   const s = loadSettings();
   createAutoBackup('server_startup');
+  botEngine.startBotEngine();
   console.log(`🚀 [Clube Secreto] Servidor rodando em: http://localhost:${PORT}`);
   console.log(`📁 Diretório: ${__dirname}`);
   console.log(`👑 Painel Administrativo Ativo em: http://localhost:${PORT}/admin`);

@@ -222,6 +222,8 @@ function switchAdminTab(tabName) {
     loadAdminCodes();
   } else if (tabName === 'backups') {
     loadBackupsList();
+  } else if (tabName === 'bot') {
+    loadAdminBotTab();
   }
 }
 
@@ -1922,6 +1924,259 @@ async function uploadAndRestoreBackup() {
     }
   };
   reader.readAsText(file);
+}
+
+// ═════════════════════════════════════════════════════════════════════════
+// ABA BOT WHATSAPP GRÁTIS (EVOLUTION API + 21 ÁUDIOS OGG NATIVOS)
+// ═════════════════════════════════════════════════════════════════════════
+
+let botConfigCache = null;
+
+function escBotHtml(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+async function loadAdminBotTab() {
+  const key = getAdminKey();
+  if (!key) return;
+  try {
+    const [statusRes, audiosRes, leadsRes] = await Promise.all([
+      fetch('/api/admin/bot/status', { headers: { 'x-admin-key': key } }),
+      fetch('/api/admin/bot/audios', { headers: { 'x-admin-key': key } }),
+      fetch('/api/admin/bot/leads', { headers: { 'x-admin-key': key } })
+    ]);
+    const st = await statusRes.json();
+    const au = await audiosRes.json();
+    const ld = await leadsRes.json();
+
+    if (st.success) {
+      botConfigCache = st.config;
+      fillBotConfigForm(st.config);
+
+      const evoBadge = document.getElementById('botEvoConnBadge');
+      const whBadge = document.getElementById('botWebhookBadge');
+      const audCount = document.getElementById('botAudiosCountBadge');
+      const leadsCount = document.getElementById('botLeadsCountBadge');
+      const inStats = document.getElementById('botInboundStatsBadge');
+      const audSent = document.getElementById('botAudiosSentBadge');
+
+      if (evoBadge) {
+        evoBadge.textContent = st.evolution?.connected ? '🟢 Conectado' : `🔴 ${st.evolution?.state || 'Offline'}`;
+        evoBadge.style.color = st.evolution?.connected ? '#10b981' : '#f87171';
+      }
+      if (whBadge) {
+        const wh = st.evolution?.webhook;
+        const activeUrl = wh?.url || wh?.webhook?.url || '';
+        whBadge.textContent = activeUrl ? `Webhook: ${activeUrl}` : 'Webhook: Não configurado ainda';
+      }
+      if (audCount) audCount.textContent = String(st.audiosCount ?? 21);
+      if (leadsCount) leadsCount.textContent = String(st.leadsCount ?? 0);
+      if (inStats) inStats.textContent = `Recebidas: ${st.stats?.totalInbound || 0}`;
+      if (audSent) audSent.textContent = `${st.stats?.totalAudiosSent || 0} / ${st.stats?.blockedRepeats || 0}`;
+    }
+
+    if (au.success) renderBotAudiosTable(au.audios || [], key);
+    if (ld.success) renderBotLeadsTable(ld.leads || []);
+  } catch (err) {
+    showToast('❌ Erro ao carregar painel do Bot: ' + err.message);
+  }
+}
+
+function fillBotConfigForm(cfg) {
+  if (!cfg) return;
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+  const setChk = (id, val) => { const el = document.getElementById(id); if (el) el.checked = Boolean(val); };
+
+  setVal('botModeSelect', cfg.mode || 'pilot');
+  setVal('botWebhookUrlInput', cfg.webhookUrl || 'https://clubesecreto.omelhorvendedoronline.com.br/api/bot/webhook');
+  setVal('botEvoInstanceInput', cfg.evolutionInstance || 'PROJETO COMBO');
+  setVal('botEvoKeyInput', '');
+  const keyBadge = document.getElementById('botEvoKeyStatus');
+  if (keyBadge) keyBadge.textContent = cfg.hasEvolutionKey ? '(✅ Salva)' : '(⚠️ Pendente)';
+  setVal('botDebounceMsInput', cfg.debounceMs || 5000);
+  setVal('botPilotNumbersInput', (cfg.pilotNumbers || []).join('\n'));
+  setVal('botAdminNumbersInput', (cfg.adminNumbers || []).join('\n'));
+  setVal('botGreetingTextInput', cfg.greetingText || '');
+  setVal('botPriceTableInput', cfg.priceTableText || '');
+  setVal('botPixKeyInput', cfg.pixKey || '');
+  setVal('botPixTypeSelect', cfg.pixKeyType || 'cpf');
+  setVal('botPixHolderInput', cfg.pixHolder || '');
+  setVal('botPostPixTextInput', cfg.postPixText || '');
+  setVal('botTeaserVideoUrlInput', cfg.teaserVideoUrl || '');
+
+  setChk('botNativePixCheck', cfg.sendNativePixButton !== false);
+  setChk('botFollowUpCheck', cfg.followUpEnabled !== false);
+  setChk('botIncludeVipSiteCheck', cfg.includeVipSiteOption);
+  setChk('botUseBedTeaserCheck', cfg.useBedTeaserAudio);
+
+  const teaserWrap = document.getElementById('botTeaserUrlWrapper');
+  const bedChk = document.getElementById('botUseBedTeaserCheck');
+  if (teaserWrap && bedChk) {
+    teaserWrap.style.display = bedChk.checked ? 'block' : 'none';
+    bedChk.onchange = () => { teaserWrap.style.display = bedChk.checked ? 'block' : 'none'; };
+  }
+}
+
+function renderBotAudiosTable(audios, key) {
+  const tbody = document.getElementById('botAudiosTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = audios.map((a) => `
+    <tr>
+      <td><strong>${escBotHtml(a.title)}</strong><br><small style="color:#64748b">${escBotHtml(a.file)}</small></td>
+      <td><span class="badge-pill" style="background:rgba(56,189,248,0.12);color:#38bdf8;padding:3px 8px;border-radius:12px;font-size:11px;">${escBotHtml(a.category)}</span></td>
+      <td>${Number(a.durationSec || 0).toFixed(1)}s</td>
+      <td style="font-size:12px;color:#cbd5e1;">${escBotHtml(a.role)}</td>
+      <td>
+        <audio controls preload="none" style="height:30px;width:190px;" src="/api/admin/bot/audio-preview?id=${encodeURIComponent(a.id)}&key=${encodeURIComponent(key)}"></audio>
+      </td>
+      <td>
+        <input type="checkbox" ${a.enabled ? 'checked' : ''} onchange="toggleBotAudioEnabled('${escBotHtml(a.id)}', this.checked)" />
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderBotLeadsTable(leads) {
+  const tbody = document.getElementById('botLeadsTableBody');
+  if (!tbody) return;
+  if (!leads.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:20px;">Nenhum lead atendido ainda pelo bot.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = leads.map((l) => {
+    const statusHtml = l.paused
+      ? `<span style="color:#fbbf24;font-weight:700;">⏸️ Pausado (${escBotHtml(l.pauseReason || 'Manual')})</span>`
+      : `<span style="color:#10b981;font-weight:700;">▶️ Ativo</span>`;
+    return `
+      <tr>
+        <td><strong>${escBotHtml(l.pushName || l.leadKey)}</strong><br><small style="color:#64748b">${escBotHtml(l.replyJid || l.leadKey)}</small></td>
+        <td><code>${escBotHtml(l.stage)}</code></td>
+        <td style="font-size:12px;">
+          <strong>${(l.sentAudios || []).length}/21</strong><br>
+          <small style="color:#94a3b8;">${escBotHtml((l.sentAudios || []).join(', ') || 'nenhum ainda')}</small>
+        </td>
+        <td>${statusHtml}</td>
+        <td style="display:flex;gap:6px;flex-wrap:wrap;">
+          ${l.paused
+            ? `<button class="btn-secondary" style="padding:4px 9px;font-size:11px;" onclick="botLeadAction('${escBotHtml(l.leadKey)}','resume')">▶️ Retomar</button>`
+            : `<button class="btn-secondary" style="padding:4px 9px;font-size:11px;" onclick="botLeadAction('${escBotHtml(l.leadKey)}','pause')">⏸️ Pausar</button>`
+          }
+          <button class="btn-danger" style="padding:4px 9px;font-size:11px;" onclick="botLeadAction('${escBotHtml(l.leadKey)}','reset')">🔄 Zerar</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+async function saveAdminBotConfig(silent = false) {
+  const key = getAdminKey();
+  const evoKeyTyped = document.getElementById('botEvoKeyInput')?.value.trim() || '';
+  const payload = {
+    mode: document.getElementById('botModeSelect')?.value || 'pilot',
+    webhookUrl: document.getElementById('botWebhookUrlInput')?.value.trim() || '',
+    evolutionInstance: document.getElementById('botEvoInstanceInput')?.value.trim() || 'PROJETO COMBO',
+    ...(evoKeyTyped ? { evolutionKey: evoKeyTyped } : {}),
+    debounceMs: Number(document.getElementById('botDebounceMsInput')?.value) || 5000,
+    pilotNumbers: document.getElementById('botPilotNumbersInput')?.value || '',
+    adminNumbers: document.getElementById('botAdminNumbersInput')?.value || '',
+    greetingText: document.getElementById('botGreetingTextInput')?.value || '',
+    priceTableText: document.getElementById('botPriceTableInput')?.value || '',
+    pixKey: document.getElementById('botPixKeyInput')?.value.trim() || '',
+    pixKeyType: document.getElementById('botPixTypeSelect')?.value || 'cpf',
+    pixHolder: document.getElementById('botPixHolderInput')?.value.trim() || '',
+    postPixText: document.getElementById('botPostPixTextInput')?.value || '',
+    teaserVideoUrl: document.getElementById('botTeaserVideoUrlInput')?.value.trim() || '',
+    sendNativePixButton: Boolean(document.getElementById('botNativePixCheck')?.checked),
+    followUpEnabled: Boolean(document.getElementById('botFollowUpCheck')?.checked),
+    includeVipSiteOption: Boolean(document.getElementById('botIncludeVipSiteCheck')?.checked),
+    useBedTeaserAudio: Boolean(document.getElementById('botUseBedTeaserCheck')?.checked),
+    audioOverrides: botConfigCache?.audioOverrides || {}
+  };
+
+  const res = await fetch('/api/admin/bot/config', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json();
+  if (res.ok && data.success) {
+    botConfigCache = data.config;
+    if (!silent) showToast('✅ Configurações do Bot salvas!');
+  } else {
+    showToast('❌ ' + (data.error || 'Falha ao salvar bot'));
+  }
+}
+
+async function toggleBotAudioEnabled(audioId, enabled) {
+  if (!botConfigCache) botConfigCache = { audioOverrides: {} };
+  if (!botConfigCache.audioOverrides) botConfigCache.audioOverrides = {};
+  botConfigCache.audioOverrides[audioId] = { enabled };
+  await saveAdminBotConfig(false);
+}
+
+async function connectEvolutionWebhook() {
+  await saveAdminBotConfig(true);
+  const key = getAdminKey();
+  const webhookUrl = document.getElementById('botWebhookUrlInput')?.value.trim();
+  const res = await fetch('/api/admin/bot/webhook/connect', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+    body: JSON.stringify({ webhookUrl })
+  });
+  const data = await res.json();
+  if (data.success) {
+    showToast('🔗 Webhook conectado com sucesso na Evolution API!');
+    await loadAdminBotTab();
+  } else {
+    showToast('❌ Erro ao conectar webhook: ' + JSON.stringify(data.evolutionResponse || data.error));
+  }
+}
+
+async function runBotSimulation(realSend) {
+  const key = getAdminKey();
+  const leadVal = document.getElementById('botSimLeadInput')?.value.trim() || 'sim_test_lead';
+  const msgVal = document.getElementById('botSimMsgInput')?.value.trim() || 'Oi';
+  const out = document.getElementById('botSimOutputBox');
+
+  if (realSend && !confirm(`Enviar mensagem + áudios PTT REAIS pelo WhatsApp da instância para: ${leadVal}?`)) {
+    return;
+  }
+
+  if (out) out.textContent = realSend ? '📲 Enviando no WhatsApp (simulando gravando áudio)...' : '🧪 Simulando...';
+  const res = await fetch('/api/admin/bot/simulate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+    body: JSON.stringify({
+      leadKey: leadVal,
+      targetNumber: leadVal,
+      text: msgVal,
+      realSend
+    })
+  });
+  const data = await res.json();
+  if (out) out.textContent = JSON.stringify(data, null, 2);
+  await loadAdminBotTab();
+}
+
+async function resetSimulatedLead() {
+  const leadVal = document.getElementById('botSimLeadInput')?.value.trim() || 'sim_test_lead';
+  await botLeadAction(leadVal, 'reset');
+}
+
+async function botLeadAction(leadKey, action) {
+  const key = getAdminKey();
+  const res = await fetch('/api/admin/bot/lead-action', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': key },
+    body: JSON.stringify({ leadKey, action })
+  });
+  const data = await res.json();
+  showToast(data.message || (data.success ? '✅ Ação concluída!' : '⚠️ Não encontrado'));
+  await loadAdminBotTab();
 }
 
 // ═════════════════════════════════════════════════════════════════════════
