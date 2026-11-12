@@ -102,7 +102,7 @@ function createTurnPlanner(leadState, cfg) {
       });
       return true;
     },
-    pushText(key, text, allowRepeat = true) {
+    pushText(key, text, allowRepeat = false) {
       const clean = String(text || '').trim();
       if (!clean) return false;
       if (!allowRepeat && plannedTexts.has(key)) return false;
@@ -157,7 +157,8 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
   const isRealQuestion = hasAny(norm, [
     'fake', 'robo', 'e bot', 'vc e bot', 'voce e bot', 'inteligencia artificial',
     'automatico', 'e real', 'voce e real', 'vc e real', 'de verdade', 'golpe',
-    'catfish', 'e mulher mesmo', 'audio gravado', 'mensagem pronta'
+    'catfish', 'e mulher mesmo', 'audio gravado', 'mensagem pronta',
+    'serio mesmo', 'e serio', 'verdade mesmo'
   ]);
 
   const asksPrograma = hasAny(norm, [
@@ -181,11 +182,13 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
   ]);
 
   const asksFreeSample = hasAny(norm, [
-    'gratis', 'de graca', 'amostra', 'previa', 'manda uma foto', 'manda foto',
-    'mandar foto', 'foto sua', 'manda um video', 'ver voce', 'nude', 'nua',
+    'gratis', 'de graca', 'amostra', 'previa', 'brinde', 'me mostra',
+    'manda uma foto', 'manda foto', 'mandar foto', 'foto sua', 'manda um video',
+    'um video seu', 'uma foto sua', 'ver voce', 'nude', 'nua',
     'pelada', 'peladinha', 'gostinho', 'mostra um pouco', 'sem pagar',
     'primeiro depois pago', 'confianca', 'visualizacao unica', 'foto pra mim ver',
-    'uma foto pra eu ver', 'quero ver voce primeiro', 'ver primeiro'
+    'uma foto pra eu ver', 'quero ver voce primeiro', 'ver primeiro',
+    'nao vejo nada', 'nao vi nada', 'sem ver nada', 'ver nada ainda', 'vai depender de voce'
   ]);
 
   const hagglingPrice = hasAny(norm, [
@@ -199,8 +202,26 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     'nao tenho esse'
   ]);
 
+  const laterOrNoMoney = hasAny(norm, [
+    'nao tem grana', 'nao tenho grana', 'sem grana', 'to sem grana', 'sem dinheiro',
+    'nao tenho dinheiro', 'to duro', 'sem condicoes', 'vou dormir', 'ta muito tarde',
+    'ta tarde', 'amanha eu', 'depois eu', 'outro dia', 'mais tarde', 'quando receber',
+    'dia de pagamento', 'fim do mes', 'sem saldo', 'to liso'
+  ]);
+
+  const politeGoodbye = hasAny(norm, [
+    'beijo no seu coracao', 'fique com deus', 'fica com deus', 'ate mais', 'tchau',
+    'nao tenho interesse', 'nao quero', 'agora nao', 'desculpa incomodar', 'boa noite ta',
+    'bom descanso', 'obrigado pela atencao'
+  ]);
+
+  const casualCompliment = hasAny(norm, [
+    'topy', 'muito top', 'gata', 'linda', 'maravilhosa', 'gostosa', 'delicia',
+    'princesa', 'perfeita', 'apaixonei', 'tesao'
+  ]);
+
   const tooExpensive = hasAny(norm, [
-    'ta caro', 'caro', 'sem dinheiro', 'liso', 'apertado', 'salgado', 'pesado'
+    'ta caro', 'caro', 'apertado', 'salgado', 'pesado'
   ]);
 
   const asksWhyCharge = hasAny(norm, [
@@ -211,12 +232,13 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     'tudo bem', 'tudo bom', 'como voce esta', 'como vai', 'como ta', 'b noite', 't bem'
   ]);
 
-  const explicitBuyOrPix = hasAny(norm, [
+  const explicitBuyOrPix = !asksFreeSample && !laterOrNoMoney && !politeGoodbye && hasAny(norm, [
     'manda o pix', 'passa o pix', 'qual o pix', 'chave pix', 'pix', 'qr code',
-    'quero comprar', 'vou pegar', 'quero o pack', 'quero esse', '1 foto', 'um foto',
-    '3 fotos', '5 fotos', '10 fotos', '1 video', 'um video', '2 videos', 'dois videos',
-    '3 videos', 'tres videos', '5 videos', 'cinco videos', '14,99', '14.99',
-    '9,99', '9.99', '15 reais', '5 reais', 'pacote de', 'fechado', 'bora fechar', 'vou querer'
+    'quero comprar', 'vou pegar', 'quero o pack', 'quero esse', 'quero o de', 'o de 5',
+    'o de 9', 'o de 10', 'o de 14', 'o de 15', '3 fotos', '5 fotos', '10 fotos',
+    '3 videos', 'tres videos', '5 videos', 'cinco videos', '2 videos', 'dois videos',
+    '14,99', '14.99', '9,99', '9.99', '15 reais', '5 reais', 'pacote de',
+    'fechado', 'bora fechar', 'vou querer'
   ]);
 
   const asksPriceTable = hasAny(norm, [
@@ -226,7 +248,8 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
 
   const hasObjectionOrInfoQuestion = Boolean(
     isRealQuestion || asksPrograma || asksFreeSample || hagglingPrice ||
-    wantsDiscount || tooExpensive || asksWhyCharge || asksWhereLive || asksWhoAreYou
+    wantsDiscount || tooExpensive || laterOrNoMoney || politeGoodbye ||
+    asksWhyCharge || asksWhereLive || asksWhoAreYou
   );
 
   const positiveConfirmAfterPricing =
@@ -257,6 +280,9 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     asksFreeSample,
     hagglingPrice,
     wantsDiscount,
+    laterOrNoMoney,
+    politeGoodbye,
+    casualCompliment,
     tooExpensive,
     asksWhyCharge,
     asksHowAreYou,
@@ -304,8 +330,35 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
     }
 
     p.pushPix(true);
-    p.pushText('post_pix', cfg.postPixText);
+    p.pushText('post_pix', cfg.postPixText, true);
     nextStage = 'PIX_SENT';
+    return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
+  }
+
+  // 2.5 Despedida educada ou sem grana/dormindo agora (responder com carinho sem insistir nem floodar!)
+  if (intents.politeGoodbye) {
+    p.pushText(
+      'goodbye_ack',
+      'Tranquilo meu anjo, fica com Deus e boa noite! 😘 Quando quiser já sabe onde me achar 💕',
+      false
+    );
+    return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
+  }
+
+  if (intents.laterOrNoMoney) {
+    if (intents.norm.includes('dormir') || intents.norm.includes('tarde')) {
+      p.pushText(
+        'later_sleep_ack',
+        'Tá certinho meu anjo, vai descansar! 😘 Amanhã ou quando quiser me chama por aqui 💕',
+        false
+      );
+    } else {
+      p.pushText(
+        'later_money_ack',
+        'Sem problema nenhum meu amor! 💕 Quando der uma folgadinha vc me chama, o de R$ 5,00 já vem 1 vídeo + 3 fotos 😘',
+        false
+      );
+    }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
@@ -453,10 +506,17 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
       p.pushAudio('how_are_you', 'Tô ótima meu amor e você? 💜');
     } else if (!p.hasAudio('ask_interest_pack')) {
       p.pushAudio('ask_interest_pack', 'Qual pacote você vai querer fechar comigo amor? 💜');
-    } else {
+    } else if (!p.hasText('price_reminder')) {
       p.pushText(
         'price_reminder',
-        'Os valores tão ali em cima meu amor 💜 Me diz qual opção vc quer que já mando o PIX!'
+        'Os valores tão ali em cima meu amor 💜 Me diz qual opção vc quer que já mando o PIX!',
+        false
+      );
+    } else {
+      p.pushText(
+        'price_reminder_2',
+        'Se quiser experimentar, o de R$ 5,00 (1 vídeo + 3 fotos) já libera rapidinho no PIX 😘',
+        false
       );
     }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
@@ -501,28 +561,40 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
-  // Fallback quando o lead manda algo genérico depois de receber a tabela
+  // Fallback quando o lead manda algo genérico depois de receber a tabela (sem repetir nem insistir demais!)
   if (['PRICING_SENT', 'PIX_SENT'].includes(nextStage)) {
-    if (!p.hasAudio('only_pay_attention_clients')) {
-      p.pushAudio(
-        'only_pay_attention_clients',
-        'Qual dos pacotes você quer fechar comigo meu amor? Já te mando tudo certinho 💜'
-      );
-    } else if (!p.hasAudio('ask_where_live') && nextStage === 'PRICING_SENT') {
+    if (intents.casualCompliment) {
+      if (!p.pushText('compliment_1', 'Obrigada meu amor 😍 Fico toda boba assim! Se quiser começar devagarinho tem o de R$ 5,00 com 1 vídeo + 3 fotos 😘', false)) {
+        p.pushText('compliment_2', 'Que carinho gostoso amor 💕 Qualquer coisa é só me chamar quando animar de escolher um pacote!', false);
+      }
+      return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
+    }
+
+    if (!p.hasAudio('ask_where_live') && nextStage === 'PRICING_SENT') {
       p.pushAudio(
         'ask_where_live',
-        'Qual pacote te interessou mais meu amor (R$ 5,00 / R$ 9,99 / R$ 14,99)?'
+        'De onde você é meu amor? 😘'
       );
-    } else {
+    } else if (!p.hasText('nudge_v1')) {
       p.pushText(
-        'close_loop',
-        'Me diz qual pacote você quer amor (R$ 5,00 / R$ 9,99 / R$ 14,99) que já mando o PIX 💜'
+        'nudge_v1',
+        'Qual dos pacotes você gostou mais meu amor? O de R$ 5,00 já vem 1 vídeo + 3 fotos 💜',
+        false
+      );
+    } else if (!p.hasAudio('only_pay_attention_clients') && (leadState.messagesCount || 0) >= 3) {
+      p.pushAudio('only_pay_attention_clients');
+    } else if (!p.hasText('nudge_v2')) {
+      p.pushText(
+        'nudge_v2',
+        'Qualquer coisa tô online por aqui amor, é só me chamar quando quiser fechar 😘',
+        false
       );
     }
+    // Depois que já variou os textos e mandou áudio, não insiste mais (actions fica [] = silêncio educado)
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
-  p.pushText('default_fallback', 'Me diz o que você tá procurando meu amor 😘');
+  p.pushText('default_fallback', 'Me diz o que você tá procurando meu amor 😘', false);
   return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
 }
 
