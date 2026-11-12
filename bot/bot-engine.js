@@ -4,8 +4,10 @@ const evo = require('./evolution-client');
 const { planTurnActions } = require('./bot-flows');
 
 const PENDING_DEBOUNCE = new Map();
-const IN_FLIGHT_CHAINS = new Map();
-let GLOBAL_OUTBOUND_CHAIN = Promise.resolve();
+const URGENT_JOBS = [];
+const BACKLOG_JOBS = [];
+const QUEUED_LEAD_KEYS = new Set();
+let WORKER_ACTIVE = false;
 const BOT_LOGS = [];
 let FOLLOWUP_TIMER = null;
 let POLL_TIMER = null;
@@ -100,6 +102,7 @@ function parseEvolutionWebhook(payload) {
 
   return {
     msgId: String(key.id || ''),
+    msgTimestampSec: Number(data.messageTimestamp || 0),
     fromMe: Boolean(key.fromMe === true),
     remoteJid,
     remoteJidAlt,
@@ -114,27 +117,45 @@ function parseEvolutionWebhook(payload) {
 }
 
 /**
- * Serializa execução assíncrona por lead e em fila global calma para evitar rajada no WhatsApp.
+ * Fila global de envio com prioridade: mensagens novas em tempo real furam fila de backlog antigo.
  */
-function enqueueLeadWork(leadKey, fn) {
-  const leadPrev = IN_FLIGHT_CHAINS.get(leadKey) || Promise.resolve();
-  const next = leadPrev.then(() => {
-    const gPrev = GLOBAL_OUTBOUND_CHAIN;
-    const job = gPrev.then(fn, fn).then(async (res) => {
-      await evo.sleep(1600);
-      return res;
-    });
-    GLOBAL_OUTBOUND_CHAIN = job.catch(() => {});
-    return job;
-  }, () => fn());
-
-  IN_FLIGHT_CHAINS.set(leadKey, next);
-  next.finally(() => {
-    if (IN_FLIGHT_CHAINS.get(leadKey) === next) {
-      IN_FLIGHT_CHAINS.delete(leadKey);
+async function pumpOutboundQueue() {
+  if (WORKER_ACTIVE) return;
+  WORKER_ACTIVE = true;
+  try {
+    while (URGENT_JOBS.length > 0 || BACKLOG_JOBS.length > 0) {
+      const job = URGENT_JOBS.length > 0 ? URGENT_JOBS.shift() : BACKLOG_JOBS.shift();
+      try {
+        await job.fn();
+      } catch (err) {
+        addBotLog('error', 'Erro na execução de fila do lead', { leadKey: job.leadKey, err: err.message });
+      } finally {
+        QUEUED_LEAD_KEYS.delete(job.leadKey);
+      }
+      await evo.sleep(450);
     }
+  } finally {
+    WORKER_ACTIVE = false;
+  }
+}
+
+function enqueueLeadWork(leadKey, fn, urgent = true) {
+  return new Promise((resolve, reject) => {
+    const wrapped = {
+      leadKey,
+      fn: async () => {
+        try { resolve(await fn()); } catch (e) { reject(e); }
+      }
+    };
+    if (urgent) {
+      URGENT_JOBS.push(wrapped);
+    } else {
+      if (QUEUED_LEAD_KEYS.has(leadKey)) return resolve(null);
+      QUEUED_LEAD_KEYS.add(leadKey);
+      BACKLOG_JOBS.push(wrapped);
+    }
+    pumpOutboundQueue().catch(() => {});
   });
-  return next;
 }
 
 /**
@@ -281,14 +302,14 @@ function flushLeadBuffer(leadKey) {
 
     await executePlannedActions({
       leadKey,
-      replyJid: lead.replyJid || bucket.replyJid,
+      replyJid: bucket.replyJid || lead.replyJid,
       actions: plan.actions,
       nextStage: plan.nextStage,
       pauseAfterTurn: plan.pauseAfterTurn,
       needsHumanReview: plan.needsHumanReview,
       cfg
     });
-  });
+  }, bucket.urgent !== false);
 }
 
 /**
@@ -423,6 +444,12 @@ async function handleIncomingWebhook(payload, opts = {}) {
       return { handled: true, reason: 'human_cmd_bot_reset' };
     }
 
+    // Echo pós-reinício de envio recente do bot (ex: @s.whatsapp.net vs @lid)
+    const msgTsMs = parsed.msgTimestampSec ? parsed.msgTimestampSec * 1000 : Date.now();
+    if (lead.lastOutboundBotAt && Math.abs(msgTsMs - lead.lastOutboundBotAt) < 90000) {
+      return { handled: true, reason: 'own_bot_recent_echo' };
+    }
+
     const pending = PENDING_DEBOUNCE.get(canonical.leadKey);
     if (pending) {
       clearTimeout(pending.timer);
@@ -487,6 +514,7 @@ async function handleIncomingWebhook(payload, opts = {}) {
   }
 
   bucket.replyJid = canonical.replyJid || bucket.replyJid;
+  bucket.urgent = bucket.urgent || !opts.isBacklog;
   bucket.msgs.push(parsed);
   bucket.timer = setTimeout(() => {
     flushLeadBuffer(canonical.leadKey);
@@ -713,7 +741,8 @@ async function runPollTick() {
 
       const out = await handleIncomingWebhook(syntheticPayload, {
         hydrateHistory: true,
-        immediate: ageSec > 18
+        immediate: ageSec > 18,
+        isBacklog: ageSec > 120
       });
 
       if (out?.queued) queuedCount++;
@@ -758,6 +787,14 @@ function getLogs() {
   return BOT_LOGS.slice(0, 60);
 }
 
+function getQueueStatus() {
+  return {
+    workerActive: WORKER_ACTIVE,
+    urgentPending: URGENT_JOBS.length,
+    backlogPending: BACKLOG_JOBS.length
+  };
+}
+
 module.exports = {
   startBotEngine,
   handleIncomingWebhook,
@@ -767,5 +804,6 @@ module.exports = {
   sendRealTestTurn,
   runFollowUpTick,
   runPollTick,
+  getQueueStatus,
   getLogs
 };

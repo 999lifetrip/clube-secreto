@@ -12,7 +12,7 @@ const DEFAULT_BOT_CONFIG = {
   mode: 'pilot',
   pollingEnabled: true,
   pollIntervalMs: 4500,
-  backlogMaxMinutes: 180,
+  backlogMaxMinutes: 1440,
   evolutionUrl: process.env.EVOLUTION_URL || 'https://evolution.omelhorvendedoronline.com.br',
   evolutionKey: process.env.EVOLUTION_API_KEY || process.env.EVOLUTION_KEY || '',
   evolutionInstance: process.env.EVOLUTION_INSTANCE || 'PROJETO COMBO',
@@ -28,8 +28,8 @@ const DEFAULT_BOT_CONFIG = {
     '23871579246654@lid'
   ],
   debounceMs: 5000,
-  recMinMs: 2200,
-  recMaxMs: 6500,
+  recMinMs: 1400,
+  recMaxMs: 3200,
   humanPauseHours: 24,
   followUpEnabled: false,
   followUp1Minutes: 15,
@@ -161,6 +161,7 @@ function createEmptyState() {
     version: 1,
     lidAliases: {},
     processedMsgIds: [],
+    botSentIds: [],
     leads: {},
     stats: {
       totalInbound: 0,
@@ -184,6 +185,7 @@ function loadBotState() {
         ...parsed,
         lidAliases: parsed.lidAliases || {},
         processedMsgIds: Array.isArray(parsed.processedMsgIds) ? parsed.processedMsgIds : [],
+        botSentIds: Array.isArray(parsed.botSentIds) ? parsed.botSentIds : [],
         leads: parsed.leads || {},
         stats: { ...createEmptyState().stats, ...(parsed.stats || {}) }
       };
@@ -202,6 +204,9 @@ function persistBotState() {
   // Mantém apenas últimos 2000 IDs deduplicados para não crescer infinito
   if (st.processedMsgIds.length > 2000) {
     st.processedMsgIds = st.processedMsgIds.slice(-2000);
+  }
+  if (st.botSentIds.length > 2000) {
+    st.botSentIds = st.botSentIds.slice(-2000);
   }
   writeJsonAtomic(BOT_STATE_FILE, st);
   return st;
@@ -247,10 +252,8 @@ function resolveCanonicalLead(remoteJid, remoteJidAlt) {
     persistBotState();
   }
 
-  // Para responder na Evolution API: @s.whatsapp.net é preferido quando disponível, senão rJid (@lid)
-  const replyJid = (altJid.endsWith('@s.whatsapp.net') ? altJid : null)
-    || (rJid.endsWith('@s.whatsapp.net') ? rJid : null)
-    || (phoneDigits ? `${phoneDigits}@s.whatsapp.net` : rJid);
+  // Para responder na Evolution API sem duplicar thread: usa exatamente o remoteJid original (@lid ou @s.whatsapp.net)
+  const replyJid = rJid || altJid || (phoneDigits ? `${phoneDigits}@s.whatsapp.net` : '');
 
   return { leadKey, replyJid, phoneDigits, lidJid };
 }
@@ -339,6 +342,20 @@ function isMessageProcessed(msgId) {
   return loadBotState().processedMsgIds.includes(msgId);
 }
 
+function addBotSentId(msgId) {
+  if (!msgId) return;
+  const st = loadBotState();
+  if (!st.botSentIds.includes(msgId)) {
+    st.botSentIds.push(msgId);
+    persistBotState();
+  }
+}
+
+function isBotSentId(msgId) {
+  if (!msgId) return false;
+  return loadBotState().botSentIds.includes(msgId);
+}
+
 function resetLeadState(leadKey) {
   const st = loadBotState();
   if (st.leads[leadKey]) {
@@ -382,6 +399,8 @@ module.exports = {
   markTextSent,
   markMessageProcessed,
   isMessageProcessed,
+  addBotSentId,
+  isBotSentId,
   resetLeadState,
   setLeadPaused,
   listLeadsSummary

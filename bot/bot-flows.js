@@ -166,7 +166,7 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
   ]);
 
   const asksVideoCall = hasAny(norm, [
-    'chamada', 'videochamada', 'video chamada', 'cam ', 'ao vivo', '79,90', '79.90', 'call'
+    'chamada', 'chamado', 'videochamada', 'video chamada', 'cam ', 'ao vivo', '79,90', '79.90', 'call'
   ]);
 
   const asksWhereLive = hasAny(norm, [

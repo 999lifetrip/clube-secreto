@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const store = require('./bot-store');
 
 const BOT_SENT_MSG_IDS = new Map();
 const BOT_SENT_TTL_MS = 10 * 60 * 1000;
@@ -10,8 +11,10 @@ function sleep(ms) {
 
 function registerBotMessageId(msgId) {
   if (!msgId) return;
+  const id = String(msgId);
   const now = Date.now();
-  BOT_SENT_MSG_IDS.set(String(msgId), now);
+  BOT_SENT_MSG_IDS.set(id, now);
+  try { store.addBotSentId(id); } catch (e) {}
   if (BOT_SENT_MSG_IDS.size > 500) {
     for (const [k, ts] of BOT_SENT_MSG_IDS.entries()) {
       if (now - ts > BOT_SENT_TTL_MS) BOT_SENT_MSG_IDS.delete(k);
@@ -21,13 +24,14 @@ function registerBotMessageId(msgId) {
 
 function wasSentByBot(msgId) {
   if (!msgId) return false;
-  const ts = BOT_SENT_MSG_IDS.get(String(msgId));
-  if (!ts) return false;
-  if (Date.now() - ts > BOT_SENT_TTL_MS) {
-    BOT_SENT_MSG_IDS.delete(String(msgId));
+  const id = String(msgId);
+  const ts = BOT_SENT_MSG_IDS.get(id);
+  if (ts && (Date.now() - ts <= BOT_SENT_TTL_MS)) return true;
+  try {
+    return store.isBotSentId(id);
+  } catch (e) {
     return false;
   }
-  return true;
 }
 
 /**
@@ -134,7 +138,7 @@ async function sendPresence(cfg, number, presence = 'recording', delayMs = 2000)
 
 async function sendText(cfg, number, text, simulateTyping = true) {
   if (simulateTyping) {
-    const typingMs = Math.min(2400, Math.max(900, String(text || '').length * 22));
+    const typingMs = Math.min(1200, Math.max(600, String(text || '').length * 15));
     await sendPresence(cfg, number, 'composing', typingMs);
     await sleep(typingMs);
   }
