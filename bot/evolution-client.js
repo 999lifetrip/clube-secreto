@@ -175,7 +175,12 @@ async function sendWhatsAppAudio(cfg, number, base64Ogg, durationSec = 5) {
  * @param {string} number
  */
 async function sendPixPayment(cfg, number) {
-  if (cfg.sendNativePixButton !== false) {
+  const holder = cfg.pixHolder || 'Luan Batista';
+  const roleNote = cfg.pixHolderRole ? ` (${cfg.pixHolderRole})` : '';
+  const keyTypeLabel = String(cfg.pixKeyType || 'cpf').toUpperCase();
+  const cleanKey = String(cfg.pixKey || '09658990983').trim();
+
+  if (cfg.sendNativePixButton === true) {
     const btnRes = await evoRequest(cfg, 'POST', `/message/sendButtons/${instSeg(cfg)}`, {
       number,
       title: cfg.pixCardTitle || 'Pagamento PIX',
@@ -185,9 +190,9 @@ async function sendPixPayment(cfg, number) {
         {
           type: 'pix',
           currency: 'BRL',
-          name: cfg.pixHolder || 'Luan Batista',
+          name: `${holder} (Gerente)`,
           keyType: cfg.pixKeyType || 'cpf',
-          key: cfg.pixKey || '09658990983'
+          key: cleanKey
         }
       ]
     });
@@ -195,14 +200,22 @@ async function sendPixPayment(cfg, number) {
     console.warn('[EvolutionClient] sendButtons PIX falhou, usando fallback texto:', btnRes.status, btnRes.raw);
   }
 
-  const fallbackText = [
-    `💠 *CHAVE PIX (${String(cfg.pixKeyType || 'cpf').toUpperCase()})*`,
-    `👤 *Nome:* ${cfg.pixHolder || 'Luan Batista'}`,
-    `🔑 *Chave:* \`${cfg.pixKey || '09658990983'}\``
+  const infoText = [
+    '💜 *DADOS DO PIX*',
+    '',
+    `👤 *Nome:* ${holder}${roleNote}`,
+    `🧾 *Tipo:* ${keyTypeLabel}`,
+    '',
+    '👇 Vou mandar só a chave aqui embaixo pra vc copiar e colar fácil:'
   ].join('\n');
 
-  const txtRes = await sendText(cfg, number, fallbackText, true);
-  return { ...txtRes, usedFallback: true };
+  const infoRes = await sendText(cfg, number, infoText, true);
+  if (!infoRes.ok) return { ...infoRes, usedFallback: true };
+
+  await sleep(450);
+  // Mensagem isolada só com os dígitos da chave para o cliente segurar e copiar em 1 toque
+  const keyRes = await sendText(cfg, number, cleanKey, false);
+  return { ...keyRes, usedFallback: true };
 }
 
 async function sendMediaUrl(cfg, number, mediaUrl, mediatype = 'video', caption = '') {
