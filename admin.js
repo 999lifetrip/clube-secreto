@@ -2008,8 +2008,10 @@ function fillBotConfigForm(cfg) {
   setVal('botPostPixTextInput', cfg.postPixText || '');
   setVal('botTeaserVideoUrlInput', cfg.teaserVideoUrl || '');
 
+  setChk('botPollingCheck', cfg.pollingEnabled !== false);
+  setChk('botPreviewPhotoCheck', cfg.sendViewOncePreview !== false);
   setChk('botNativePixCheck', cfg.sendNativePixButton !== false);
-  setChk('botFollowUpCheck', cfg.followUpEnabled !== false);
+  setChk('botFollowUpCheck', cfg.followUpEnabled === true);
   setChk('botIncludeVipSiteCheck', cfg.includeVipSiteOption);
   setChk('botUseBedTeaserCheck', cfg.useBedTeaserAudio);
 
@@ -2090,6 +2092,8 @@ async function saveAdminBotConfig(silent = false) {
     pixHolder: document.getElementById('botPixHolderInput')?.value.trim() || '',
     postPixText: document.getElementById('botPostPixTextInput')?.value || '',
     teaserVideoUrl: document.getElementById('botTeaserVideoUrlInput')?.value.trim() || '',
+    pollingEnabled: Boolean(document.getElementById('botPollingCheck')?.checked),
+    sendViewOncePreview: Boolean(document.getElementById('botPreviewPhotoCheck')?.checked),
     sendNativePixButton: Boolean(document.getElementById('botNativePixCheck')?.checked),
     followUpEnabled: Boolean(document.getElementById('botFollowUpCheck')?.checked),
     includeVipSiteOption: Boolean(document.getElementById('botIncludeVipSiteCheck')?.checked),

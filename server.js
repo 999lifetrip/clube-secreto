@@ -1553,6 +1553,18 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 400, { success: false, error: 'Ação inválida.' });
   }
 
+  if (req.method === 'POST' && pathname === '/api/admin/bot/poll-now') {
+    if (!checkAdminAuth(req, urlObj)) {
+      return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
+    }
+    try {
+      const result = await botEngine.runPollTick();
+      return sendJson(res, 200, { success: true, result });
+    } catch (e) {
+      return sendJson(res, 500, { success: false, error: e.message });
+    }
+  }
+
   if (req.method === 'POST' && pathname === '/api/admin/bot/simulate') {
     if (!checkAdminAuth(req, urlObj)) {
       return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });

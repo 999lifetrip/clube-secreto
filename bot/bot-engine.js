@@ -5,8 +5,11 @@ const { planTurnActions } = require('./bot-flows');
 
 const PENDING_DEBOUNCE = new Map();
 const IN_FLIGHT_CHAINS = new Map();
+let GLOBAL_OUTBOUND_CHAIN = Promise.resolve();
 const BOT_LOGS = [];
 let FOLLOWUP_TIMER = null;
+let POLL_TIMER = null;
+let POLL_IN_PROGRESS = false;
 
 function addBotLog(level, msg, extra = null) {
   const entry = {
@@ -79,6 +82,8 @@ function parseEvolutionWebhook(payload) {
   const text = String(
     msg.conversation ||
     msg.extendedTextMessage?.text ||
+    msg.interactiveMessage?.body?.text ||
+    msg.interactiveMessage?.contextInfo?.externalAdReply?.greetingMessageBody ||
     msg.imageMessage?.caption ||
     msg.videoMessage?.caption ||
     docMsg?.caption ||
@@ -109,25 +114,37 @@ function parseEvolutionWebhook(payload) {
 }
 
 /**
- * Serializa execução assíncrona por lead para impedir envios simultâneos/duplicados.
+ * Serializa execução assíncrona por lead e em fila global calma para evitar rajada no WhatsApp.
  */
 function enqueueLeadWork(leadKey, fn) {
-  const prev = IN_FLIGHT_CHAINS.get(leadKey) || Promise.resolve();
-  const next = prev.then(fn, fn).finally(() => {
+  const leadPrev = IN_FLIGHT_CHAINS.get(leadKey) || Promise.resolve();
+  const next = leadPrev.then(() => {
+    const gPrev = GLOBAL_OUTBOUND_CHAIN;
+    const job = gPrev.then(fn, fn).then(async (res) => {
+      await evo.sleep(1600);
+      return res;
+    });
+    GLOBAL_OUTBOUND_CHAIN = job.catch(() => {});
+    return job;
+  }, () => fn());
+
+  IN_FLIGHT_CHAINS.set(leadKey, next);
+  next.finally(() => {
     if (IN_FLIGHT_CHAINS.get(leadKey) === next) {
       IN_FLIGHT_CHAINS.delete(leadKey);
     }
   });
-  IN_FLIGHT_CHAINS.set(leadKey, next);
   return next;
 }
 
 /**
- * Executa as ações planejadas (áudios PTT, textos, PIX) contra Evolution API,
+ * Executa as ações planejadas (áudios PTT, prévia viewOnce, textos, PIX) contra Evolution API,
  * marcando cada áudio enviado imediatamente para nunca repetir.
  */
 async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pauseAfterTurn, needsHumanReview, cfg }) {
   const lead = store.getOrCreateLead(leadKey, { replyJid });
+  let okCount = 0;
+  let failCount = 0;
 
   for (const act of actions) {
     if (act.type === 'audio') {
@@ -147,39 +164,61 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
 
       const res = await evo.sendWhatsAppAudio(cfg, replyJid, aud.base64, aud.durationSec);
       if (res.ok) {
+        okCount++;
         store.markAudioSent(leadKey, act.audioId);
         store.appendLeadHistory(lead, 'bot_audio', `🎙️ ${aud.title} (${aud.durationSec}s)`);
         addBotLog('info', `Áudio PTT enviado: ${aud.title}`, { leadKey, durationSec: aud.durationSec });
       } else {
+        failCount++;
         addBotLog('error', `Falha ao enviar áudio ${act.audioId}`, { leadKey, status: res.status, raw: res.raw || res.error });
       }
       await evo.sleep(650);
+    } else if (act.type === 'preview_image') {
+      if (lead.sentPrevia) continue;
+      const res = await evo.sendPreviewImage(cfg, replyJid, act.filePath, act.caption || '', act.viewOnce !== false);
+      if (res.ok) {
+        okCount++;
+        lead.sentPrevia = true;
+        store.persistBotState();
+        store.appendLeadHistory(lead, 'bot_preview', res.usedViewOnce ? '🖼️ Prévia visualização única' : '🖼️ Prévia foto');
+        addBotLog('info', res.usedViewOnce ? 'Prévia viewOnce enviada (1x)' : 'Prévia foto enviada (1x)', { leadKey });
+      } else {
+        failCount++;
+        addBotLog('error', 'Falha ao enviar foto prévia', { leadKey, status: res.status, raw: res.raw || res.error });
+      }
+      await evo.sleep(600);
     } else if (act.type === 'text') {
       const res = await evo.sendText(cfg, replyJid, act.text, true);
       if (res.ok) {
+        okCount++;
         store.markTextSent(leadKey, act.key);
         store.appendLeadHistory(lead, 'bot_text', act.text);
         addBotLog('info', `Texto enviado [${act.key}]`, { leadKey });
       } else {
+        failCount++;
         addBotLog('error', `Falha ao enviar texto [${act.key}]`, { leadKey, status: res.status, raw: res.raw || res.error });
       }
       await evo.sleep(500);
     } else if (act.type === 'pix') {
       const res = await evo.sendPixPayment(cfg, replyJid);
       if (res.ok) {
+        okCount++;
         store.markTextSent(leadKey, 'pix_card');
         store.appendLeadHistory(lead, 'bot_pix', res.usedFallback ? '💠 Chave PIX (Texto)' : '💠 Cartão PIX Nativo');
         addBotLog('info', res.usedFallback ? 'PIX enviado via texto fallback' : 'Cartão PIX nativo enviado', { leadKey });
       } else {
+        failCount++;
         addBotLog('error', 'Falha ao enviar PIX', { leadKey, status: res.status, raw: res.raw || res.error });
       }
       await evo.sleep(500);
     } else if (act.type === 'video' && act.url) {
       const res = await evo.sendMediaUrl(cfg, replyJid, act.url, 'video', act.caption || '');
       if (res.ok) {
+        okCount++;
         store.appendLeadHistory(lead, 'bot_video', act.url);
         addBotLog('info', 'Vídeo prévia enviado', { leadKey });
       } else {
+        failCount++;
         addBotLog('error', 'Falha ao enviar vídeo prévia', { leadKey, status: res.status });
       }
       await evo.sleep(500);
@@ -197,6 +236,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
     lead.needsHumanReview = true;
   }
   store.persistBotState();
+  return { okCount, failCount };
 }
 
 /**
@@ -260,17 +300,73 @@ function isLeadAllowedByMode(canonical, cfg) {
   if (cfg.mode === 'pilot') {
     return phoneMatchesList(candidate, cfg.pilotNumbers) || (canonical.lidJid && cfg.pilotNumbers.includes(canonical.lidJid));
   }
+  const isAdmin =
+    phoneMatchesList(candidate, cfg.adminNumbers) ||
+    (canonical.lidJid && phoneMatchesList(canonical.lidJid, cfg.adminNumbers));
+  const isPilot =
+    phoneMatchesList(candidate, cfg.pilotNumbers) ||
+    (canonical.lidJid && cfg.pilotNumbers.includes(canonical.lidJid));
   // Em produção: nunca responde números administrativos internos (ex: Rique/equipe), a menos que estejam na whitelist de teste
-  if (phoneMatchesList(candidate, cfg.adminNumbers) && !phoneMatchesList(candidate, cfg.pilotNumbers)) {
+  if (isAdmin && !isPilot) {
     return false;
   }
   return true;
 }
 
 /**
- * Ponto de entrada principal para webhooks recebidos em /api/bot/webhook.
+ * Hidrata o estado de um chat desconhecido direto do histórico da Evolution API
+ * para nunca repetir áudios já enviados e respeitar conversas manuais (X1/pessoal).
  */
-async function handleIncomingWebhook(payload) {
+async function hydrateLeadFromEvolution(cfg, remoteJid, lead, canonical) {
+  if (lead.hydratedFromHistory || !cfg.evolutionKey) return true;
+  const msgRes = await evo.findMessages(cfg, remoteJid, 20);
+  if (!msgRes.ok) {
+    addBotLog('warn', `Não foi possível ler histórico de ${remoteJid}; pulando por segurança`, { status: msgRes.status });
+    return false;
+  }
+
+  const records = Array.isArray(msgRes.data?.messages?.records)
+    ? msgRes.data.messages.records
+    : (Array.isArray(msgRes.data) ? msgRes.data : []);
+
+  const manualFromMe = records.filter((r) => r?.key?.fromMe === true && !evo.wasSentByBot(r?.key?.id));
+  if (manualFromMe.length > 0) {
+    for (const r of manualFromMe) {
+      const m = r.message || {};
+      const t = String(m.conversation || m.extendedTextMessage?.text || '');
+      if (t.includes('TABELA DE PREÇOS') && !lead.sentTexts.includes('price_table')) {
+        lead.sentTexts.push('price_table');
+        if (lead.stage === 'NEW') lead.stage = 'PRICING_SENT';
+      }
+      if (m.interactiveMessage?.nativeFlowMessage?.buttons?.some((b) => b.name === 'payment_info') || t.includes(cfg.pixKey)) {
+        if (!lead.sentTexts.includes('pix_card')) lead.sentTexts.push('pix_card');
+        lead.stage = 'PIX_SENT';
+      }
+      if (m.imageMessage?.viewOnce) lead.sentPrevia = true;
+      const sec = Number(m.audioMessage?.seconds || 0);
+      if (sec === 6 && !lead.sentAudios.includes('ask_interest_pack')) lead.sentAudios.push('ask_interest_pack');
+      if (sec === 3 && !lead.sentAudios.includes('how_are_you')) lead.sentAudios.push('how_are_you');
+      if ((sec === 10 || sec === 11) && !lead.sentAudios.includes('greeting_save')) lead.sentAudios.push('greeting_save');
+    }
+    const pauseHours = Number(cfg.humanPauseHours) || 24;
+    lead.paused = true;
+    lead.pauseReason = 'Conversa manual prévia (X1)';
+    lead.pausedUntil = Date.now() + pauseHours * 3600 * 1000;
+    lead.hydratedFromHistory = true;
+    store.persistBotState();
+    addBotLog('info', 'Chat já tinha atendimento manual — pausado automaticamente', { leadKey: canonical.leadKey });
+    return false;
+  }
+
+  lead.hydratedFromHistory = true;
+  store.persistBotState();
+  return true;
+}
+
+/**
+ * Ponto de entrada principal para webhooks e eventos do poller Evolution.
+ */
+async function handleIncomingWebhook(payload, opts = {}) {
   const parsed = parseEvolutionWebhook(payload);
   if (!parsed) return { handled: false, reason: 'ignored_event' };
   if (parsed.ignoredReason) return { handled: false, reason: parsed.ignoredReason };
@@ -285,6 +381,13 @@ async function handleIncomingWebhook(payload) {
   const canonical = store.resolveCanonicalLead(parsed.remoteJid, parsed.remoteJidAlt);
   const cfg = store.loadBotConfig();
 
+  if (cfg.mode === 'off' || !cfg.enabled) {
+    return { handled: false, reason: 'mode_off' };
+  }
+  if (cfg.mode === 'pilot' && !isLeadAllowedByMode(canonical, cfg)) {
+    return { handled: false, reason: 'mode_pilot_filtered', leadKey: canonical.leadKey };
+  }
+
   // Intervenção humana / Echo das mensagens do próprio bot
   if (parsed.fromMe) {
     if (parsed.msgId && evo.wasSentByBot(parsed.msgId)) {
@@ -293,6 +396,21 @@ async function handleIncomingWebhook(payload) {
 
     const txtLower = parsed.text.toLowerCase().trim();
     const lead = store.getOrCreateLead(canonical.leadKey, canonical);
+    lead.hydratedFromHistory = true;
+
+    // Se o próprio bot respondeu a menos de 12s e Evolution devolveu echo sem key.id conhecido, não pausa o lead
+    if (
+      lead.lastOutboundBotAt &&
+      (Date.now() - lead.lastOutboundBotAt) < 12000 &&
+      (
+        parsed.text.includes('TABELA DE PREÇOS') ||
+        parsed.text.includes(cfg.postPixText) ||
+        parsed.text === cfg.greetingText ||
+        (parsed.hasAudio && !parsed.text)
+      )
+    ) {
+      return { handled: true, reason: 'own_bot_recent_echo' };
+    }
 
     if (txtLower === '/bot on') {
       store.setLeadPaused(canonical.leadKey, false);
@@ -305,7 +423,6 @@ async function handleIncomingWebhook(payload) {
       return { handled: true, reason: 'human_cmd_bot_reset' };
     }
 
-    // Cancelar debounce se humano assumiu no meio da espera
     const pending = PENDING_DEBOUNCE.get(canonical.leadKey);
     if (pending) {
       clearTimeout(pending.timer);
@@ -332,6 +449,13 @@ async function handleIncomingWebhook(payload) {
     pushName: parsed.pushName
   });
 
+  if (!lead.hydratedFromHistory && opts.hydrateHistory !== false) {
+    const canAutoAttend = await hydrateLeadFromEvolution(cfg, parsed.remoteJid, lead, canonical);
+    if (!canAutoAttend) {
+      return { handled: false, reason: 'hydrated_manual_paused', leadKey: canonical.leadKey };
+    }
+  }
+
   // Auto-retomada se o tempo de pausa humana expirou (exceto quando há comprovante aguardando)
   if (lead.paused && lead.pausedUntil && Date.now() >= lead.pausedUntil && lead.stage !== 'PAYMENT_REVIEW') {
     lead.paused = false;
@@ -348,7 +472,8 @@ async function handleIncomingWebhook(payload) {
     return { handled: false, reason: 'lead_paused', leadKey: canonical.leadKey };
   }
 
-  // Buffer anti-rajada (agrupa mensagens em sequência do mesmo lead)
+  const delayMs = opts.immediate ? 50 : (Number(cfg.debounceMs) || 5000);
+
   let bucket = PENDING_DEBOUNCE.get(canonical.leadKey);
   if (bucket) {
     clearTimeout(bucket.timer);
@@ -365,13 +490,13 @@ async function handleIncomingWebhook(payload) {
   bucket.msgs.push(parsed);
   bucket.timer = setTimeout(() => {
     flushLeadBuffer(canonical.leadKey);
-  }, Number(cfg.debounceMs) || 5000);
+  }, delayMs);
 
   return {
     handled: true,
     queued: true,
     leadKey: canonical.leadKey,
-    debounceMs: Number(cfg.debounceMs) || 5000
+    debounceMs: delayMs
   };
 }
 
@@ -477,6 +602,8 @@ function simulateLeadMessage({ leadKey = 'sim_test_lead', text = 'Oi', hasImage 
     for (const act of plan.actions) {
       if (act.type === 'audio' && !baseLead.sentAudios.includes(act.audioId)) {
         baseLead.sentAudios.push(act.audioId);
+      } else if (act.type === 'preview_image') {
+        baseLead.sentPrevia = true;
       } else if ((act.type === 'text' || act.type === 'pix') && act.key && !baseLead.sentTexts.includes(act.key)) {
         baseLead.sentTexts.push(act.key);
       }
@@ -537,16 +664,94 @@ async function sendRealTestTurn(targetNumber, text = 'Oi tudo bem?') {
   };
 }
 
+/**
+ * Polling ativo na Evolution API: dispensa redeploy/webhook e também zera fila de leads esperando.
+ */
+async function runPollTick() {
+  if (POLL_IN_PROGRESS) return { skipped: true };
+  const cfg = store.loadBotConfig();
+  if (!cfg.enabled || cfg.mode === 'off' || cfg.pollingEnabled === false || !cfg.evolutionKey) {
+    return { skipped: true };
+  }
+
+  POLL_IN_PROGRESS = true;
+  let queuedCount = 0;
+  try {
+    const res = await evo.findChats(cfg);
+    if (!res.ok || !Array.isArray(res.data)) {
+      return { ok: false, status: res.status };
+    }
+
+    const nowSec = Math.floor(Date.now() / 1000);
+    const maxAgeSec = (Number(cfg.backlogMaxMinutes) || 180) * 60;
+
+    // Mais recentes primeiro para priorizar quem acabou de mandar mensagem
+    const candidates = res.data
+      .filter((c) => c?.lastMessage?.key?.remoteJid)
+      .filter((c) => {
+        const jid = String(c.lastMessage.key.remoteJid);
+        if (jid.endsWith('@g.us') || jid === 'status@broadcast' || jid.endsWith('@newsletter')) return false;
+        const ts = Number(c.lastMessage.messageTimestamp || 0);
+        return ts > 0 && (nowSec - ts) <= maxAgeSec;
+      })
+      .sort((a, b) => Number(b.lastMessage.messageTimestamp || 0) - Number(a.lastMessage.messageTimestamp || 0));
+
+    for (const chat of candidates) {
+      const lm = chat.lastMessage;
+      const msgId = String(lm.key?.id || '');
+      if (msgId && store.isMessageProcessed(msgId)) continue;
+
+      const ts = Number(lm.messageTimestamp || 0);
+      const ageSec = nowSec - ts;
+      const syntheticPayload = {
+        event: 'messages.upsert',
+        data: {
+          ...lm,
+          pushName: lm.pushName || chat.pushName || ''
+        }
+      };
+
+      const out = await handleIncomingWebhook(syntheticPayload, {
+        hydrateHistory: true,
+        immediate: ageSec > 18
+      });
+
+      if (out?.queued) queuedCount++;
+    }
+    return { ok: true, queuedCount };
+  } catch (err) {
+    addBotLog('error', 'Erro no polling Evolution', { err: err.message });
+    return { ok: false, error: err.message };
+  } finally {
+    POLL_IN_PROGRESS = false;
+  }
+}
+
 function startBotEngine() {
   loadAudioCatalog();
+  const cfg = store.loadBotConfig();
+
   if (!FOLLOWUP_TIMER) {
     FOLLOWUP_TIMER = setInterval(() => {
       runFollowUpTick().catch((err) => addBotLog('error', 'Erro no agendador de follow-up', { err: err.message }));
     }, 60 * 1000);
     if (typeof FOLLOWUP_TIMER.unref === 'function') FOLLOWUP_TIMER.unref();
   }
-  const cfg = store.loadBotConfig();
-  addBotLog('info', `Bot WhatsApp inicializado (modo: ${cfg.mode}, instância: ${cfg.evolutionInstance})`);
+
+  if (!POLL_TIMER) {
+    const intervalMs = Math.max(3000, Number(cfg.pollIntervalMs) || 4500);
+    POLL_TIMER = setInterval(() => {
+      runPollTick().catch(() => {});
+    }, intervalMs);
+    if (typeof POLL_TIMER.unref === 'function') POLL_TIMER.unref();
+
+    // Primeira varredura 2.5s após subir o servidor
+    setTimeout(() => {
+      runPollTick().catch(() => {});
+    }, 2500).unref();
+  }
+
+  addBotLog('info', `Bot WhatsApp inicializado (modo: ${cfg.mode}, polling: ${cfg.pollingEnabled !== false}, instância: ${cfg.evolutionInstance})`);
 }
 
 function getLogs() {
@@ -561,5 +766,6 @@ module.exports = {
   simulateLeadMessage,
   sendRealTestTurn,
   runFollowUpTick,
+  runPollTick,
   getLogs
 };

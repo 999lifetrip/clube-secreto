@@ -10,6 +10,9 @@ const DEFAULT_BOT_CONFIG = {
   enabled: true,
   // 'off' | 'pilot' (só responde números na lista de teste) | 'production' (todos os leads novos)
   mode: 'pilot',
+  pollingEnabled: true,
+  pollIntervalMs: 4500,
+  backlogMaxMinutes: 180,
   evolutionUrl: process.env.EVOLUTION_URL || 'https://evolution.omelhorvendedoronline.com.br',
   evolutionKey: process.env.EVOLUTION_API_KEY || process.env.EVOLUTION_KEY || '',
   evolutionInstance: process.env.EVOLUTION_INSTANCE || 'PROJETO COMBO',
@@ -21,15 +24,19 @@ const DEFAULT_BOT_CONFIG = {
     '5541998818471',
     '554191914551',
     '5541991914551',
-    '554195993007'
+    '554195993007',
+    '23871579246654@lid'
   ],
   debounceMs: 5000,
   recMinMs: 2200,
   recMaxMs: 6500,
   humanPauseHours: 24,
-  followUpEnabled: true,
+  followUpEnabled: false,
   followUp1Minutes: 15,
   followUp2Minutes: 120,
+  sendViewOncePreview: true,
+  previewImagePath: path.join(__dirname, 'previews', 'previa_modelo4.jpg'),
+  previewCaption: '',
   useBedTeaserAudio: false,
   teaserVideoUrl: '',
   sendNativePixButton: true,
@@ -83,7 +90,12 @@ function normalizeNumberList(rawList) {
     ? rawList
     : String(rawList || '').split(/[\n,;]+/);
   const cleaned = arr
-    .map((item) => String(item || '').replace(/@.*$/, '').replace(/\D/g, '').trim())
+    .map((item) => {
+      const s = String(item || '').trim();
+      if (!s) return '';
+      if (s.endsWith('@lid')) return s;
+      return s.replace(/@.*$/, '').replace(/\D/g, '');
+    })
     .filter((n) => n.length >= 8);
   return Array.from(new Set(cleaned));
 }
@@ -118,6 +130,9 @@ function saveBotConfig(patch) {
 
   merged.mode = ['off', 'pilot', 'production'].includes(merged.mode) ? merged.mode : 'pilot';
   merged.enabled = merged.mode !== 'off';
+  merged.pollingEnabled = merged.pollingEnabled !== false;
+  merged.pollIntervalMs = Math.max(2500, Math.min(30000, Number(merged.pollIntervalMs) || 4500));
+  merged.backlogMaxMinutes = Math.max(5, Math.min(1440, Number(merged.backlogMaxMinutes) || 180));
   merged.evolutionUrl = String(merged.evolutionUrl || DEFAULT_BOT_CONFIG.evolutionUrl).trim().replace(/\/+$/, '');
   const incomingKey = typeof patch.evolutionKey === 'string' ? patch.evolutionKey.trim() : '';
   merged.evolutionKey = incomingKey || current.evolutionKey || DEFAULT_BOT_CONFIG.evolutionKey;
@@ -252,10 +267,12 @@ function getOrCreateLead(leadKey, meta = {}) {
       stage: 'NEW',
       sentAudios: [],
       sentTexts: [],
+      sentPrevia: false,
       followUpSent: [],
       paused: false,
       pauseReason: '',
       pausedUntil: null,
+      hydratedFromHistory: false,
       needsHumanReview: false,
       lastInboundAt: null,
       lastOutboundBotAt: null,

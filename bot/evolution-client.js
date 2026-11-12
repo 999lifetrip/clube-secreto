@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const BOT_SENT_MSG_IDS = new Map();
 const BOT_SENT_TTL_MS = 10 * 60 * 1000;
 
@@ -55,8 +58,9 @@ async function evoRequest(cfg, method, endpointPath, body = null) {
     let json = null;
     try { json = text ? JSON.parse(text) : null; } catch (e) {}
 
-    if (res.ok && json?.key?.id) {
-      registerBotMessageId(json.key.id);
+    const sentKeyId = json?.key?.id || json?.message?.key?.id || (Array.isArray(json) ? json[0]?.key?.id : null);
+    if (res.ok && sentKeyId) {
+      registerBotMessageId(sentKeyId);
     }
 
     return {
@@ -83,6 +87,18 @@ function instSeg(cfg) {
 
 async function fetchConnectionState(cfg) {
   return evoRequest(cfg, 'GET', `/instance/connectionState/${instSeg(cfg)}`);
+}
+
+async function findChats(cfg) {
+  return evoRequest(cfg, 'POST', `/chat/findChats/${instSeg(cfg)}`, {});
+}
+
+async function findMessages(cfg, remoteJid, offset = 20) {
+  return evoRequest(cfg, 'POST', `/chat/findMessages/${instSeg(cfg)}`, {
+    where: { key: { remoteJid } },
+    page: 1,
+    offset
+  });
 }
 
 async function findWebhook(cfg) {
@@ -194,16 +210,54 @@ async function sendMediaUrl(cfg, number, mediaUrl, mediatype = 'video', caption 
   });
 }
 
+/**
+ * Envia foto de prévia do disco em modo visualização única (viewOnce) com fallback sem viewOnce.
+ */
+async function sendPreviewImage(cfg, number, filePath, caption = '', viewOnce = true) {
+  if (!filePath || !fs.existsSync(filePath)) {
+    return { ok: false, status: 404, error: `Arquivo de prévia não encontrado: ${filePath}` };
+  }
+  const ext = path.extname(filePath).toLowerCase();
+  const mimetype = ext === '.png' ? 'image/png' : (ext === '.webp' ? 'image/webp' : 'image/jpeg');
+  const b64 = fs.readFileSync(filePath).toString('base64');
+
+  await sendPresence(cfg, number, 'composing', 1400);
+  await sleep(1400);
+
+  const basePayload = {
+    number,
+    mediatype: 'image',
+    mimetype,
+    caption: String(caption || ''),
+    media: b64,
+    fileName: path.basename(filePath) || 'previa.jpg'
+  };
+
+  if (viewOnce) {
+    const voRes = await evoRequest(cfg, 'POST', `/message/sendMedia/${instSeg(cfg)}`, {
+      ...basePayload,
+      viewOnce: true
+    });
+    if (voRes.ok) return { ...voRes, usedViewOnce: true };
+  }
+
+  const normalRes = await evoRequest(cfg, 'POST', `/message/sendMedia/${instSeg(cfg)}`, basePayload);
+  return { ...normalRes, usedViewOnce: false };
+}
+
 module.exports = {
   sleep,
   wasSentByBot,
   registerBotMessageId,
   fetchConnectionState,
+  findChats,
+  findMessages,
   findWebhook,
   setWebhook,
   sendPresence,
   sendText,
   sendWhatsAppAudio,
   sendPixPayment,
-  sendMediaUrl
+  sendMediaUrl,
+  sendPreviewImage
 };

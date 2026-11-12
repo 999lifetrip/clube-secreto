@@ -60,6 +60,7 @@ function createTurnPlanner(leadState, cfg) {
   const actions = [];
   const plannedAudios = new Set(leadState.sentAudios || []);
   const plannedTexts = new Set(leadState.sentTexts || []);
+  let plannedPrevia = Boolean(leadState.sentPrevia);
   let audioCountThisTurn = 0;
 
   return {
@@ -70,8 +71,12 @@ function createTurnPlanner(leadState, cfg) {
     hasText(textKey) {
       return plannedTexts.has(textKey);
     },
+    hasPrevia() {
+      return plannedPrevia;
+    },
     pushAudio(audioId, fallbackText = '') {
-      if (audioCountThisTurn >= 2) {
+      // Anti-flood estrito: máximo 1 áudio por turno/resposta e nunca repetido no mesmo lead
+      if (audioCountThisTurn >= 1) {
         if (fallbackText) actions.push({ type: 'text', key: `fb_${audioId}`, text: fallbackText });
         return false;
       }
@@ -82,6 +87,19 @@ function createTurnPlanner(leadState, cfg) {
       plannedAudios.add(audioId);
       audioCountThisTurn++;
       actions.push({ type: 'audio', audioId });
+      return true;
+    },
+    pushPreviewImage() {
+      if (plannedPrevia || cfg.sendViewOncePreview === false || !cfg.previewImagePath) {
+        return false;
+      }
+      plannedPrevia = true;
+      actions.push({
+        type: 'preview_image',
+        filePath: cfg.previewImagePath,
+        caption: cfg.previewCaption || '',
+        viewOnce: true
+      });
       return true;
     },
     pushText(key, text, allowRepeat = true) {
@@ -164,8 +182,10 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
 
   const asksFreeSample = hasAny(norm, [
     'gratis', 'de graca', 'amostra', 'previa', 'manda uma foto', 'manda foto',
-    'mandar foto', 'foto sua', 'manda um video', 'ver voce', 'nude', 'pelada',
-    'gostinho', 'mostra um pouco', 'sem pagar', 'primeiro depois pago', 'confianca'
+    'mandar foto', 'foto sua', 'manda um video', 'ver voce', 'nude', 'nua',
+    'pelada', 'peladinha', 'gostinho', 'mostra um pouco', 'sem pagar',
+    'primeiro depois pago', 'confianca', 'visualizacao unica', 'foto pra mim ver',
+    'uma foto pra eu ver', 'quero ver voce primeiro', 'ver primeiro'
   ]);
 
   const hagglingPrice = hasAny(norm, [
@@ -175,7 +195,8 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
 
   const wantsDiscount = hasAny(norm, [
     'desconto', 'faz menos', 'mais barato', 'promocao', 'abaixa', 'faz por menos',
-    'nao tenho tudo', 'so tenho'
+    'nao tenho tudo', 'so tenho', 'valor eu nao tenho', 'nao tenho esse valor',
+    'nao tenho esse'
   ]);
 
   const tooExpensive = hasAny(norm, [
@@ -366,18 +387,22 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   }
 
   if (intents.asksFreeSample) {
-    if (cfg.useBedTeaserAudio && cfg.teaserVideoUrl && !p.hasAudio('bed_teaser_video')) {
+    if (!p.hasPrevia() && p.pushPreviewImage()) {
+      p.pushAudio('need_be_client', 'Olha essa prévia amor 😈 Para ver mais tem que virar meu cliente!');
+      if (!p.hasText('price_table')) {
+        p.pushText('price_table', buildFullPriceTableText(cfg), false);
+      }
+      nextStage = 'PRICING_SENT';
+    } else if (cfg.useBedTeaserAudio && cfg.teaserVideoUrl && !p.hasAudio('bed_teaser_video')) {
       p.pushAudio('bed_teaser_video');
       p.pushTeaserVideo();
-      p.pushAudio('ask_interest_pack');
       nextStage = 'PRICING_SENT';
     } else if (!p.hasAudio('need_be_client')) {
       p.pushAudio('need_be_client', 'Para ver mais tem que virar meu cliente amor 😈');
       if (!p.hasText('price_table')) {
         p.pushText('price_table', buildFullPriceTableText(cfg), false);
-        p.pushAudio('ask_interest_pack');
-        nextStage = 'PRICING_SENT';
       }
+      nextStage = 'PRICING_SENT';
     } else {
       p.pushAudio(
         'help_me_help_you',
@@ -395,7 +420,6 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   // 5. Informações pessoais / persona / onde mora
   if (intents.asksWhereLive) {
     p.pushAudio('where_live_barueri', 'Moro em Barueri, SP meu amor 💕');
-    p.pushAudio('ask_where_live');
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
@@ -409,31 +433,30 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
     }
     if (!p.hasText('price_table')) {
       p.pushText('price_table', buildFullPriceTableText(cfg), false);
-      p.pushAudio('ask_interest_pack');
       nextStage = 'PRICING_SENT';
     }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
-  // 6. Pedido de tabela / "O que é o Clube Secreto?" / Cumprimento completo igual ao print
+  // 6. Pedido de tabela / "O que é o Clube Secreto?" / "Tudo bem?" (sem flood — máx 1 áudio)
   if (intents.asksPriceTable || intents.asksHowAreYou) {
-    if (intents.asksHowAreYou) {
-      p.pushAudio('how_are_you', cfg.greetingText);
-    } else if (nextStage === 'NEW') {
-      p.pushText('greeting_txt', cfg.greetingText, false);
-    }
-
-    if (intents.asksPriceTable || intents.asksHowAreYou) {
-      if (!p.hasText('price_table')) {
-        p.pushText('price_table', buildFullPriceTableText(cfg), false);
-        p.pushAudio('ask_interest_pack', 'Qual pacote ou opção te chamou mais atenção meu amor?');
-        nextStage = 'PRICING_SENT';
+    if (!p.hasText('price_table')) {
+      p.pushText('price_table', buildFullPriceTableText(cfg), false);
+      if (intents.asksHowAreYou && !p.hasAudio('how_are_you')) {
+        p.pushAudio('how_are_you', cfg.greetingText);
       } else {
-        p.pushText(
-          'price_reminder',
-          'Os valores tão ali em cima meu amor 💜 Me diz qual opção vc quer que já mando o PIX!'
-        );
+        p.pushAudio('ask_interest_pack', 'Qual pacote te interessou mais meu amor?');
       }
+      nextStage = 'PRICING_SENT';
+    } else if (intents.asksHowAreYou && !p.hasAudio('how_are_you')) {
+      p.pushAudio('how_are_you', 'Tô ótima meu amor e você? 💜');
+    } else if (!p.hasAudio('ask_interest_pack')) {
+      p.pushAudio('ask_interest_pack', 'Qual pacote você vai querer fechar comigo amor? 💜');
+    } else {
+      p.pushText(
+        'price_reminder',
+        'Os valores tão ali em cima meu amor 💜 Me diz qual opção vc quer que já mando o PIX!'
+      );
     }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
@@ -441,12 +464,12 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   // 7. Primeira mensagem simples ("Oi", "Boa noite", figurinha, "Oi! Como podemos ajudar?")
   if (nextStage === 'NEW') {
     p.pushText('greeting_txt', cfg.greetingText, false);
-    const playedGreeting = p.pushAudio('greeting_save');
-    if (intents.norm.includes('clube secreto') || intents.norm.includes('ajudar') || !playedGreeting) {
+    if (intents.norm.includes('clube secreto') || intents.norm.includes('ajudar')) {
       p.pushText('price_table', buildFullPriceTableText(cfg), false);
       p.pushAudio('ask_interest_pack');
       nextStage = 'PRICING_SENT';
     } else {
+      p.pushAudio('greeting_save');
       nextStage = 'GREETED';
     }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
