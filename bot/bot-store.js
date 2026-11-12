@@ -342,6 +342,16 @@ function isMessageProcessed(msgId) {
   return loadBotState().processedMsgIds.includes(msgId);
 }
 
+function unmarkMessageProcessed(msgIds = []) {
+  const arr = Array.isArray(msgIds) ? msgIds : [msgIds];
+  if (!arr.length) return;
+  const set = new Set(arr.filter(Boolean));
+  if (!set.size) return;
+  const st = loadBotState();
+  st.processedMsgIds = st.processedMsgIds.filter((id) => !set.has(id));
+  persistBotState();
+}
+
 function addBotSentId(msgId) {
   if (!msgId) return;
   const st = loadBotState();
@@ -398,6 +408,7 @@ module.exports = {
   markAudioSent,
   markTextSent,
   markMessageProcessed,
+  unmarkMessageProcessed,
   isMessageProcessed,
   addBotSentId,
   isBotSentId,

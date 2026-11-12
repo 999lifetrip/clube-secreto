@@ -12,6 +12,7 @@ const BOT_LOGS = [];
 let FOLLOWUP_TIMER = null;
 let POLL_TIMER = null;
 let POLL_IN_PROGRESS = false;
+let LAST_DISCONNECTED_LOG_AT = 0;
 
 function addBotLog(level, msg, extra = null) {
   const entry = {
@@ -162,10 +163,11 @@ function enqueueLeadWork(leadKey, fn, urgent = true) {
  * Executa as ações planejadas (áudios PTT, prévia viewOnce, textos, PIX) contra Evolution API,
  * marcando cada áudio enviado imediatamente para nunca repetir.
  */
-async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pauseAfterTurn, needsHumanReview, cfg }) {
+async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pauseAfterTurn, needsHumanReview, cfg, sourceMsgIds = [] }) {
   const lead = store.getOrCreateLead(leadKey, { replyJid });
   let okCount = 0;
   let failCount = 0;
+  let connectionClosed = false;
 
   for (const act of actions) {
     if (act.type === 'audio') {
@@ -192,6 +194,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
       } else {
         failCount++;
         addBotLog('error', `Falha ao enviar áudio ${act.audioId}`, { leadKey, status: res.status, raw: res.raw || res.error });
+        if (String(res.raw || res.error || '').includes('Connection Closed')) { connectionClosed = true; break; }
       }
       await evo.sleep(650);
     } else if (act.type === 'preview_image') {
@@ -218,6 +221,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
       } else {
         failCount++;
         addBotLog('error', `Falha ao enviar texto [${act.key}]`, { leadKey, status: res.status, raw: res.raw || res.error });
+        if (String(res.raw || res.error || '').includes('Connection Closed')) { connectionClosed = true; break; }
       }
       await evo.sleep(500);
     } else if (act.type === 'pix') {
@@ -246,6 +250,17 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
     }
   }
 
+  if (okCount === 0 && failCount > 0) {
+    if (sourceMsgIds.length) store.unmarkMessageProcessed(sourceMsgIds);
+    if (connectionClosed) {
+      URGENT_JOBS.length = 0;
+      BACKLOG_JOBS.length = 0;
+      QUEUED_LEAD_KEYS.clear();
+      addBotLog('error', 'Conexão WhatsApp fechada (Evolution) — fila pausada automaticamente até reconectar!', { leadKey });
+    }
+    return { okCount, failCount, connectionClosed };
+  }
+
   lead.stage = nextStage;
   lead.lastOutboundBotAt = Date.now();
   if (pauseAfterTurn) {
@@ -257,7 +272,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
     lead.needsHumanReview = true;
   }
   store.persistBotState();
-  return { okCount, failCount };
+  return { okCount, failCount, connectionClosed };
 }
 
 /**
@@ -300,6 +315,7 @@ function flushLeadBuffer(leadKey) {
 
     if (!plan.actions.length) return;
 
+    const sourceMsgIds = bucket.msgs.map((m) => m.msgId).filter(Boolean);
     await executePlannedActions({
       leadKey,
       replyJid: bucket.replyJid || lead.replyJid,
@@ -307,7 +323,8 @@ function flushLeadBuffer(leadKey) {
       nextStage: plan.nextStage,
       pauseAfterTurn: plan.pauseAfterTurn,
       needsHumanReview: plan.needsHumanReview,
-      cfg
+      cfg,
+      sourceMsgIds
     });
   }, bucket.urgent !== false);
 }
@@ -705,6 +722,16 @@ async function runPollTick() {
   POLL_IN_PROGRESS = true;
   let queuedCount = 0;
   try {
+    const conn = await evo.fetchConnectionState(cfg);
+    const connState = conn.data?.instance?.state;
+    if (connState !== 'open') {
+      if (Date.now() - LAST_DISCONNECTED_LOG_AT > 60000) {
+        LAST_DISCONNECTED_LOG_AT = Date.now();
+        addBotLog('error', `Instância "${cfg.evolutionInstance}" offline na Evolution (state: ${connState || 'desconhecido'}). Aguardando reconexão...`);
+      }
+      return { ok: false, disconnected: true, state: connState };
+    }
+
     const res = await evo.findChats(cfg);
     if (!res.ok || !Array.isArray(res.data)) {
       return { ok: false, status: res.status };
