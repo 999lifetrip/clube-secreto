@@ -2,6 +2,7 @@ const { loadAudioCatalog, getAudioById } = require('./audios-manifest');
 const store = require('./bot-store');
 const evo = require('./evolution-client');
 const { planTurnActions, normalizeText } = require('./bot-flows');
+const { transcribeAudioFromEvolution } = require('./audio-transcriber');
 
 const PENDING_DEBOUNCE = new Map();
 const URGENT_JOBS = [];
@@ -352,6 +353,21 @@ function flushLeadBuffer(leadKey) {
       return;
     }
 
+    // Transcreve notas de voz recebidas se houver áudio
+    for (const m of bucket.msgs) {
+      if (m.hasAudio && !m.text && cfg.transcribeAudioEnabled !== false) {
+        addBotLog('info', `Transcrevendo áudio do lead ${leadKey} [${m.msgId}]...`);
+        const tr = await transcribeAudioFromEvolution(cfg, m.msgId);
+        if (tr?.ok && tr?.text) {
+          m.text = tr.text;
+          m.transcribedAudio = true;
+          addBotLog('info', `Áudio transcrito com sucesso [${leadKey}]: "${tr.text}"`);
+        } else {
+          addBotLog('warn', `Falha na transcrição do áudio [${leadKey}]`, { error: tr?.error });
+        }
+      }
+    }
+
     const combinedText = bucket.msgs.map((m) => m.text).filter(Boolean).join(' ').trim();
     const msgMeta = {
       hasImage: bucket.msgs.some((m) => m.hasImage),
@@ -361,11 +377,16 @@ function flushLeadBuffer(leadKey) {
       hasVideo: bucket.msgs.some((m) => m.hasVideo)
     };
 
-    // Se o lead mandou apenas um áudio sem legenda na primeira abordagem, trata como saudação natural
-    const effectiveText = combinedText || (msgMeta.hasAudio ? 'oi tudo bem como funciona' : 'oi');
+    const hasTranscribedAudio = bucket.msgs.some((m) => m.transcribedAudio);
+    const hasUnresolvedAudio = msgMeta.hasAudio && !hasTranscribedAudio && !combinedText;
+
+    const effectiveText = combinedText || (hasUnresolvedAudio ? 'audio_inaudivel' : 'oi');
 
     lead.messagesCount = (lead.messagesCount || 0) + bucket.msgs.length;
-    store.appendLeadHistory(lead, 'lead', effectiveText || (msgMeta.hasImage ? '[Imagem enviada]' : '[Mídia]'));
+    const historySummary = hasTranscribedAudio
+      ? `🎙️ "${combinedText.slice(0, 180)}"`
+      : (effectiveText || (msgMeta.hasImage ? '[Imagem enviada]' : '[Mídia]'));
+    store.appendLeadHistory(lead, 'lead', historySummary);
     store.persistBotState();
 
     const plan = planTurnActions({
@@ -561,11 +582,19 @@ async function handleIncomingWebhook(payload, opts = {}) {
     }
   }
 
-  // Auto-retomada se o tempo de pausa humana expirou (exceto quando há comprovante aguardando)
-  if (lead.paused && lead.pausedUntil && Date.now() >= lead.pausedUntil && lead.stage !== 'PAYMENT_REVIEW') {
-    lead.paused = false;
-    lead.pauseReason = '';
-    lead.pausedUntil = null;
+  // Auto-retomada de pausa humana: se o tempo expirou OU se o atendente humano está inativo há mais de 15 minutos e o lead chamou novamente!
+  if (lead.paused && lead.stage !== 'PAYMENT_REVIEW') {
+    const isHumanPause = lead.pauseReason?.includes('humano') || lead.pauseReason?.includes('manual') || lead.pauseReason?.includes('X1');
+    const humanIdleMs = Date.now() - (lead.lastHumanAt || 0);
+    const expiredByTime = lead.pausedUntil && Date.now() >= lead.pausedUntil;
+    const expiredByLeadActivity = isHumanPause && humanIdleMs >= 15 * 60 * 1000;
+
+    if (expiredByTime || expiredByLeadActivity) {
+      lead.paused = false;
+      lead.pauseReason = '';
+      lead.pausedUntil = null;
+      addBotLog('info', `Pausa humana liberada para o lead ${canonical.leadKey} (atendente inativo há ${Math.round(humanIdleMs/60000)}m)`);
+    }
   }
 
   lead.lastInboundAt = Date.now();
@@ -799,7 +828,7 @@ async function runPollTick() {
     }
 
     const nowSec = Math.floor(Date.now() / 1000);
-    const maxAgeSec = (Number(cfg.backlogMaxMinutes) || 180) * 60;
+    const maxAgeSec = (Number(cfg.backlogMaxMinutes) || 720) * 60;
 
     // Mais recentes primeiro para priorizar quem acabou de mandar mensagem
     const candidates = res.data

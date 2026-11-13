@@ -313,7 +313,7 @@ function createTurnPlanner(leadState, cfg) {
       actions.push({ type: 'text', key, text: clean });
       return true;
     },
-    pushPix(allowRepeat = false) {
+    pushPix(allowRepeat = true) {
       if (!allowRepeat && plannedTexts.has('pix_card')) return false;
       plannedTexts.add('pix_card');
       actions.push({ type: 'pix', key: 'pix_card' });
@@ -458,6 +458,9 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     'tudo bem', 'tudo bom', 'como voce esta', 'como vai', 'como ta', 'b noite', 't bem'
   ]);
 
+  // Áudio inaudível / falha técnica de áudio
+  const audioInaudivel = hasAny(norm, ['audio inaudivel', 'audio_inaudivel', 'audio nao audivel', 'nao consegui ouvir']);
+
   // Pedido explícito de compra / PIX
   const explicitBuyOrPix = !asksFreeSample && !strictlyNoMoney && !laterOrWait && !sleepOrLate && !politeGoodbye && hasAny(norm, [
     'manda o pix', 'passa o pix', 'qual o pix', 'chave pix', 'pix', 'qr code',
@@ -499,6 +502,7 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     hasMediaComprovante,
     wantsReceipt,
     saidPaymentProof,
+    audioInaudivel,
     religiousBlessing,
     sleepOrLate,
     strictlyNoMoney,
@@ -547,6 +551,16 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
       if (!p.hasText('pix_card')) p.pushPix(false);
       nextStage = 'PIX_SENT';
     }
+    return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
+  }
+
+  // 1.5 Áudio inaudível / falha técnica no áudio
+  if (intents.audioInaudivel) {
+    p.pushText(
+      'audio_inaudivel_ack',
+      'Poxa meu amor, meu sinal tá meio fraquinho aqui e não consegui ouvir o seu áudio direito 🙈 Me manda em texto ou me diz qual pacote você prefere vida? 💜',
+      false
+    );
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
@@ -611,7 +625,19 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
       if (!p.hasText('price_table') && (leadState.messagesCount || 0) <= 1) {
         p.pushText('price_table', buildDynamicPriceTableText(cfg, leadState), false);
       }
-      p.pushPix(false);
+
+      // Esclarece/confirma o pacote pedido pelo lead de forma carinhosa
+      if (hasAny(intents.norm, ['5', 'cinco', '3 foto', 'tres foto', '1 video', 'um video'])) {
+        p.pushText('pix_chosen_ack', 'Fechado amor! O pacotinho de R$ 5,00 (1 vídeo + 3 fotos) 💕 Segue a chave:', false);
+      } else if (hasAny(intents.norm, ['9', 'nove', 'dez', '10', '5 foto', 'cinco foto', '3 video', 'tres video'])) {
+        p.pushText('pix_chosen_ack', 'Maravilha vida! O pacote de R$ 9,99 (3 vídeos + 5 fotos) 💕 Segue a chave:', false);
+      } else if (hasAny(intents.norm, ['14', '15', 'quatorze', 'quinze', '10 foto', 'dez foto', '5 video', 'cinco video'])) {
+        p.pushText('pix_chosen_ack', 'Show de bola amor! O pacote completão de R$ 14,99 (5 vídeos + 10 fotos) 🔥 Segue a chave:', false);
+      } else {
+        p.pushText('pix_chosen_ack', 'Pode escolher o pacote que você preferir amor (R$ 5,00 / R$ 9,99 / R$ 14,99) 👇 Segue a chave:', false);
+      }
+
+      p.pushPix(true);
       const postPixText = pickUnsentVariant(leadState, POST_PIX_VARIANTS, cfg.postPixText || 'Assim que enviar o comprovante eu já libero o acesso amor 💕');
       p.pushText('post_pix', postPixText, false);
       nextStage = 'PIX_SENT';

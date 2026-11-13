@@ -66,6 +66,8 @@ const DEFAULT_BOT_CONFIG = {
   postPixText: 'Assim que enviar o comprovante libero o acesso',
   receiptPendingText: 'Recebi seu comprovante amor! Vou conferir rapidinho aqui e já te libero 💕',
   receiptMissingMediaText: 'Pode me mandar a foto ou PDF do comprovante aqui amor? Assim que enviar eu já libero o acesso! 💕',
+  openaiApiKey: process.env.OPENAI_API_KEY || '',
+  transcribeAudioEnabled: true,
   audioOverrides: {}
 };
 
@@ -162,6 +164,8 @@ function saveBotConfig(patch) {
     ? merged.pixKeyType
     : 'cpf';
   merged.pixHolder = String(merged.pixHolder || DEFAULT_BOT_CONFIG.pixHolder).trim();
+  merged.openaiApiKey = typeof patch.openaiApiKey === 'string' ? patch.openaiApiKey.trim() : (current.openaiApiKey || '');
+  merged.transcribeAudioEnabled = patch.transcribeAudioEnabled !== undefined ? Boolean(patch.transcribeAudioEnabled) : (current.transcribeAudioEnabled !== false);
 
   writeJsonAtomic(BOT_CONFIG_FILE, merged);
   return merged;
