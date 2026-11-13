@@ -271,6 +271,16 @@ function resolveCanonicalLead(remoteJid, remoteJidAlt) {
   return { leadKey, replyJid, phoneDigits, lidJid };
 }
 
+function normalizeTextBasic(raw) {
+  return String(raw || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s.,$0-9]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 function getOrCreateLead(leadKey, meta = {}) {
   const st = loadBotState();
   if (!st.leads[leadKey]) {
@@ -283,6 +293,8 @@ function getOrCreateLead(leadKey, meta = {}) {
       stage: 'NEW',
       sentAudios: [],
       sentTexts: [],
+      sentTextStrings: [],
+      sentTextVariants: [],
       sentPrevia: false,
       followUpSent: [],
       paused: false,
@@ -298,6 +310,10 @@ function getOrCreateLead(leadKey, meta = {}) {
     };
   }
   const lead = st.leads[leadKey];
+  if (!Array.isArray(lead.sentTextStrings)) lead.sentTextStrings = [];
+  if (!Array.isArray(lead.sentTextVariants)) lead.sentTextVariants = [];
+  if (!Array.isArray(lead.sentAudios)) lead.sentAudios = [];
+  if (!Array.isArray(lead.sentTexts)) lead.sentTexts = [];
   if (meta.replyJid) lead.replyJid = meta.replyJid;
   if (meta.phoneDigits) lead.phoneDigits = meta.phoneDigits;
   if (meta.lidJid) lead.lidJid = meta.lidJid;
@@ -329,11 +345,20 @@ function markAudioSent(leadKey, audioId) {
   return false;
 }
 
-function markTextSent(leadKey, textKey) {
+function markTextSent(leadKey, textKey, textContent = '') {
   const st = loadBotState();
   const lead = getOrCreateLead(leadKey);
   if (textKey && !lead.sentTexts.includes(textKey)) {
     lead.sentTexts.push(textKey);
+  }
+  if (textContent) {
+    const norm = normalizeTextBasic(textContent);
+    if (norm && !lead.sentTextStrings.includes(norm)) {
+      lead.sentTextStrings.push(norm);
+    }
+    if (norm && !lead.sentTextVariants.includes(norm)) {
+      lead.sentTextVariants.push(norm);
+    }
   }
   if (textKey === 'pix_card') {
     st.stats.totalPixSent = (st.stats.totalPixSent || 0) + 1;

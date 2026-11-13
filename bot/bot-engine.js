@@ -1,7 +1,7 @@
 const { loadAudioCatalog, getAudioById } = require('./audios-manifest');
 const store = require('./bot-store');
 const evo = require('./evolution-client');
-const { planTurnActions } = require('./bot-flows');
+const { planTurnActions, normalizeText } = require('./bot-flows');
 
 const PENDING_DEBOUNCE = new Map();
 const URGENT_JOBS = [];
@@ -255,10 +255,17 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
       }
       await evo.sleep(600);
     } else if (act.type === 'text') {
+      const normText = normalizeText(act.text);
+      const sentStrings = Array.isArray(lead.sentTextStrings) ? lead.sentTextStrings : [];
+      if (sentStrings.includes(normText)) {
+        addBotLog('info', `Bloqueado reenvio de texto duplicado ao lead ${leadKey}: "${act.text.slice(0, 35)}..."`);
+        continue;
+      }
+
       const res = await evo.sendText(cfg, replyJid, act.text, true);
       if (res.ok) {
         okCount++;
-        store.markTextSent(leadKey, act.key);
+        store.markTextSent(leadKey, act.key, act.text);
         store.appendLeadHistory(lead, 'bot_text', act.text);
         addBotLog('info', `Texto enviado [${act.key}]`, { leadKey });
       } else {
