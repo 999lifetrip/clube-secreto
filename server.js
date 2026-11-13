@@ -26,7 +26,14 @@ const DEFAULT_SETTINGS = {
   whatsappNumber: '554195993007',
   whatsappMessage: 'Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:',
   unlockedSlug: 'vip-liberado',
-  vipAccessToken: 'CS-VIP-LIBERADO-2026'
+  vipAccessToken: 'CS-VIP-LIBERADO-2026',
+  secretGroupUrl: 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL',
+  secretGroupTitle: 'GRUPO SECRETO VIP',
+  secretGroupDesc: 'Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!',
+  secretGroupButtonText: 'Entrar no Grupo do Clube Secreto 📲',
+  secretGroupBadge: 'GRUPO VIP EXCLUSIVO',
+  secretGroupEnabled: true,
+  secretGroupBanner: '/assets/grupo-secreto.jpg'
 };
 
 if (!fs.existsSync(BACKUPS_DIR)) {
@@ -120,7 +127,14 @@ function getPublicSettings(settings) {
     pixKey: s.pixKey,
     pixHolder: s.pixHolder,
     whatsappNumber: s.whatsappNumber,
-    whatsappMessage: s.whatsappMessage
+    whatsappMessage: s.whatsappMessage,
+    secretGroupUrl: s.secretGroupUrl || 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL',
+    secretGroupTitle: s.secretGroupTitle || 'GRUPO SECRETO VIP',
+    secretGroupDesc: s.secretGroupDesc || 'Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!',
+    secretGroupButtonText: s.secretGroupButtonText || 'Entrar no Grupo do Clube Secreto 📲',
+    secretGroupBadge: s.secretGroupBadge || 'GRUPO VIP EXCLUSIVO',
+    secretGroupEnabled: s.secretGroupEnabled !== false,
+    secretGroupBanner: s.secretGroupBanner || '/assets/grupo-secreto.jpg'
   };
 }
 

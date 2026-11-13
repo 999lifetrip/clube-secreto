@@ -281,6 +281,57 @@
             </button>
           </div>
         </div>
+
+        <!-- CARD: ABA & BOTÃO DO GRUPO SECRETO (WHATSAPP) -->
+        <div class="deploy-card" style="margin-bottom: 20px; border-color: rgba(34,197,94,0.45); background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(13,16,23,0.98));">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+            <h3 class="deploy-card-title" style="color: #4ade80; margin-bottom: 0;">🔒 Aba & Botão do Grupo Secreto (WhatsApp)</h3>
+            <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; background: rgba(0,0,0,0.4); padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(74,222,128,0.35);">
+              <input type="checkbox" id="settingSecretGroupEnabled" checked />
+              <span>Exibir Aba & Botão no Site</span>
+            </label>
+          </div>
+          <p style="font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 14px;">
+            Configure o link do grupo de WhatsApp, título, descrição e o texto do botão CTA que direciona os clientes para entrar no grupo secreto.
+          </p>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label>LINK OFICIAL DO GRUPO DE WHATSAPP *</label>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <input type="text" id="settingSecretGroupUrl" value="https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL" placeholder="https://chat.whatsapp.com/..." style="font-family: monospace; font-size: 13px; color: #4ade80; flex: 1; min-width: 240px;" />
+              <a id="btnTestGroupLink" href="https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="border-color: #22c55e; color: #4ade80; font-size: 12px; white-space: nowrap;">
+                <span>↗ Testar Link do Grupo</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-bottom: 12px;">
+            <div class="form-group">
+              <label>TÍTULO DA SEÇÃO / ABA</label>
+              <input type="text" id="settingSecretGroupTitle" value="GRUPO SECRETO VIP" />
+            </div>
+            <div class="form-group">
+              <label>TEXTO DO BOTÃO (CTA)</label>
+              <input type="text" id="settingSecretGroupButtonText" value="Entrar no Grupo do Clube Secreto 📲" />
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label>DESCRIÇÃO / CHAMADA DO GRUPO</label>
+            <textarea id="settingSecretGroupDesc" rows="2" style="width: 100%; background: #050608; border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 13px; resize: vertical;">Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!</textarea>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 10px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">
+            <img src="/assets/grupo-secreto.jpg" alt="Banner Grupo Secreto" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #334155;" />
+            <div style="font-size: 12px; color: #94a3b8; flex: 1;">
+              <span style="color: #cbd5e1; font-weight: 700; display: block;">Imagem Oficial do Grupo:</span>
+              <code>/assets/grupo-secreto.jpg</code> (Visual enviado pelo usuário ativo)
+            </div>
+            <button type="button" class="btn-success" style="padding: 10px 18px; font-size: 13px;" onclick="saveAdminSettings()">
+              <span>💾 Salvar Configurações do Grupo</span>
+            </button>
+          </div>
+        </div>
       </section>
 
       <!-- ABA 2: FOTOS & VÍDEOS (PRÉVIAS VS. VIP) -->

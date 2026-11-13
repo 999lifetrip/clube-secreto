@@ -40,6 +40,12 @@
       </div>
 
       <div class="nav-actions" id="navActions">
+        <!-- Botão Grupo Secreto VIP -->
+        <button id="btnHeaderGroup" class="btn-group-header" onclick="switchMainTab('secret-group')" title="Entrar no Grupo Secreto VIP">
+          <span class="group-live-pulse"></span>
+          <span>🔒 Grupo VIP</span>
+        </button>
+
         <!-- Botão direto do WhatsApp -->
         <a id="btnHeaderWhatsapp" href="https://wa.me/554195993007?text=Ol%C3%A1!%20Quero%20liberar%20meu%20Acesso%20VIP%20no%20Clube%20Secreto%20por%20R%24%2015%2C00!" target="_blank" rel="noopener noreferrer" class="btn-wpp-header">
           <span>💬</span>
@@ -125,11 +131,38 @@
         <p id="heroSubHint" class="hero-sub-hint">
           ⚡ Enviou o PIX de R$ 15,00? Mande o comprovante no WhatsApp e receba o link com <strong>TUDO LIBERADO</strong> na hora! (Quer só 1 modelo específica? Chame no WhatsApp!)
         </p>
+
+        <!-- Chamada Rápida para o Grupo Secreto -->
+        <div class="hero-group-strip" id="heroGroupStrip" onclick="switchMainTab('secret-group')" role="button" tabindex="0">
+          <span class="group-strip-icon">📲</span>
+          <div class="group-strip-text">
+            <span>Quer ver <strong>prévias diárias e novidades</strong> no WhatsApp?</span>
+            <strong class="group-strip-highlight">Acessar Grupo Secreto VIP ➔</strong>
+          </div>
+        </div>
       </div>
 
       <div class="hero-logo-box">
         <img src="/assets/logo.jpg?v=4" alt="Logo Oficial Clube Secreto" class="hero-logo-large" />
       </div>
+    </div>
+  </section>
+
+  <!-- Navegação de Abas: Coleções vs Grupo Secreto VIP -->
+  <section class="site-tabs-section" id="siteTabsSection">
+    <div class="site-tabs-container">
+      <button class="site-tab-pill active" id="tabNavCatalog" onclick="switchMainTab('catalog')">
+        <span class="site-tab-icon">🔥</span>
+        <span class="site-tab-label">Coleções & Ensaios</span>
+        <span class="site-tab-badge" id="tabCatalogCount">10</span>
+      </button>
+
+      <button class="site-tab-pill" id="tabNavSecretGroup" onclick="switchMainTab('secret-group')">
+        <span class="group-live-pulse-sm"></span>
+        <span class="site-tab-icon">🔒</span>
+        <span class="site-tab-label" id="tabSecretGroupLabel">Grupo Secreto VIP</span>
+        <span class="site-tab-tag-hot">WHATSAPP 📲</span>
+      </button>
     </div>
   </section>
 
@@ -147,6 +180,87 @@
       <!-- Injetado dinamicamente via app.js -->
     </div>
   </main>
+
+  <!-- Seção da Aba: Grupo Secreto VIP (WhatsApp) -->
+  <section class="secret-group-section" id="secretGroupSection" style="display: none;">
+    <div class="secret-group-card">
+      <div class="secret-group-topbar">
+        <div class="secret-badge-box">
+          <span class="secret-badge-pulse" id="secretGroupBadge">🔒 GRUPO VIP EXCLUSIVO</span>
+          <span class="secret-badge-status"><span class="status-live-dot"></span> Vagas Abertas</span>
+        </div>
+        <button class="btn-back-to-catalog" onclick="switchMainTab('catalog')">
+          <span>← Voltar aos Ensaios</span>
+        </button>
+      </div>
+
+      <div class="secret-group-grid">
+        <!-- Visual do Grupo -->
+        <div class="secret-group-media-wrap">
+          <div class="secret-group-media-frame">
+            <img id="secretGroupBannerImg" src="/assets/grupo-secreto.jpg" alt="Banner Grupo Secreto VIP" class="secret-group-banner-img" />
+            <div class="secret-group-media-floating-tag">
+              <span class="live-dot-green"></span>
+              <span>VIP WhatsApp Oficial</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informações e Benefícios -->
+        <div class="secret-group-info">
+          <h2 class="secret-group-title" id="secretGroupTitle">GRUPO SECRETO VIP</h2>
+          <p class="secret-group-desc" id="secretGroupDesc">
+            Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!
+          </p>
+
+          <div class="secret-group-perks">
+            <div class="secret-perk-item">
+              <span class="perk-icon">🔞</span>
+              <div class="perk-text">
+                <strong>Prévias & Bastidores Exclusivos</strong>
+                <span>Fotos e cortes em primeira mão antes de saírem no catálogo</span>
+              </div>
+            </div>
+            <div class="secret-perk-item">
+              <span class="perk-icon">⚡</span>
+              <div class="perk-text">
+                <strong>Alertas Imediatos de Novos Ensaios</strong>
+                <span>Fique sabendo no segundo em que novas criadoras forem lançadas</span>
+              </div>
+            </div>
+            <div class="secret-perk-item">
+              <span class="perk-icon">💬</span>
+              <div class="perk-text">
+                <strong>Interação Direta & Enquetes</strong>
+                <span>Opine sobre os próximos ensaios e participe de enquetes restritas</span>
+              </div>
+            </div>
+            <div class="secret-perk-item">
+              <span class="perk-icon">🎁</span>
+              <div class="perk-text">
+                <strong>Sorteios & Mimos Exclusivos</strong>
+                <span>Acesso a bônus, prévias e ensaios sorteados apenas entre os membros</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botão Principal de Entrada -->
+          <div class="secret-group-cta-box">
+            <a id="btnSecretGroupCta" href="https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL" target="_blank" rel="noopener noreferrer" class="btn-secret-group-cta">
+              <div class="secret-cta-icon-circle">💬</div>
+              <div class="secret-cta-labels">
+                <strong class="secret-cta-title" id="secretGroupBtnText">Entrar no Grupo do Clube Secreto 📲</strong>
+                <span class="secret-cta-subtitle">Toque para entrar direto no WhatsApp Oficial • Vagas Abertas</span>
+              </div>
+            </a>
+            <div class="secret-group-security-note">
+              <span>🔒 Grupo 100% oficial e discreto do Clube Secreto. Acesso direto no WhatsApp.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Modal: Preview Gallery -->
   <div class="modal-backdrop" id="previewModal">

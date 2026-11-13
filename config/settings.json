@@ -8,5 +8,12 @@
   "whatsappNumber": "554195993007",
   "whatsappMessage": "Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:",
   "unlockedSlug": "vip-liberado",
-  "vipAccessToken": "CS-VIP-LIBERADO-2026"
+  "vipAccessToken": "CS-VIP-LIBERADO-2026",
+  "secretGroupUrl": "https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL",
+  "secretGroupTitle": "GRUPO SECRETO VIP",
+  "secretGroupDesc": "Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!",
+  "secretGroupButtonText": "Entrar no Grupo do Clube Secreto 📲",
+  "secretGroupBadge": "GRUPO VIP EXCLUSIVO",
+  "secretGroupEnabled": true,
+  "secretGroupBanner": "/assets/grupo-secreto.jpg"
 }

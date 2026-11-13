@@ -12,7 +12,14 @@ let SITE_SETTINGS = {
   pixKey: INITIAL_SETTINGS.pixKey || "09658990983",
   pixHolder: INITIAL_SETTINGS.pixHolder || "Luan Batista",
   whatsappNumber: INITIAL_SETTINGS.whatsappNumber || "554195993007",
-  whatsappMessage: INITIAL_SETTINGS.whatsappMessage || "Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:"
+  whatsappMessage: INITIAL_SETTINGS.whatsappMessage || "Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:",
+  secretGroupUrl: INITIAL_SETTINGS.secretGroupUrl || "https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL",
+  secretGroupTitle: INITIAL_SETTINGS.secretGroupTitle || "GRUPO SECRETO VIP",
+  secretGroupDesc: INITIAL_SETTINGS.secretGroupDesc || "Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!",
+  secretGroupButtonText: INITIAL_SETTINGS.secretGroupButtonText || "Entrar no Grupo do Clube Secreto 📲",
+  secretGroupBadge: INITIAL_SETTINGS.secretGroupBadge || "GRUPO VIP EXCLUSIVO",
+  secretGroupEnabled: INITIAL_SETTINGS.secretGroupEnabled !== false,
+  secretGroupBanner: INITIAL_SETTINGS.secretGroupBanner || "/assets/grupo-secreto.jpg"
 };
 
 const IS_UNLOCKED_ROUTE = (typeof window !== "undefined" && window.__CS_PAGE_MODE__ === "unlocked");
@@ -144,6 +151,19 @@ document.addEventListener("DOMContentLoaded", () => {
       await activateCode(autoCode.trim());
     }, 450);
   }
+
+  // Ativação da aba Grupo Secreto caso chamada por link direto / hash
+  if (window.location.hash === "#grupo-secreto" || window.location.hash === "#grupo" || urlParams.get("aba") === "grupo") {
+    switchMainTab("secret-group");
+  }
+
+  window.addEventListener("hashchange", () => {
+    if (window.location.hash === "#grupo-secreto" || window.location.hash === "#grupo") {
+      switchMainTab("secret-group");
+    } else if (!window.location.hash || window.location.hash === "#catalog") {
+      switchMainTab("catalog");
+    }
+  });
 });
 
 async function syncLiveSettings() {
@@ -215,7 +235,81 @@ function applySettingsToDOM() {
   if (pixItemValue && (!pixModal || !pixModal.classList.contains("open"))) {
     pixItemValue.textContent = `R$ ${price}`;
   }
+
+  // ── Atualização do Grupo Secreto VIP ──
+  const groupUrl = SITE_SETTINGS.secretGroupUrl || "https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL";
+  const groupTitle = SITE_SETTINGS.secretGroupTitle || "GRUPO SECRETO VIP";
+  const groupDesc = SITE_SETTINGS.secretGroupDesc || "Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!";
+  const groupBtnText = SITE_SETTINGS.secretGroupButtonText || "Entrar no Grupo do Clube Secreto 📲";
+  const groupBadge = SITE_SETTINGS.secretGroupBadge || "🔒 GRUPO VIP EXCLUSIVO";
+  const groupBanner = SITE_SETTINGS.secretGroupBanner || "/assets/grupo-secreto.jpg";
+  const groupEnabled = SITE_SETTINGS.secretGroupEnabled !== false;
+
+  const secretGroupTitleEl = document.getElementById("secretGroupTitle");
+  const secretGroupDescEl = document.getElementById("secretGroupDesc");
+  const secretGroupBtnTextEl = document.getElementById("secretGroupBtnText");
+  const secretGroupBadgeEl = document.getElementById("secretGroupBadge");
+  const secretGroupBannerImgEl = document.getElementById("secretGroupBannerImg");
+  const btnSecretGroupCtaEl = document.getElementById("btnSecretGroupCta");
+  const tabNavSecretGroupEl = document.getElementById("tabNavSecretGroup");
+  const btnHeaderGroupEl = document.getElementById("btnHeaderGroup");
+  const heroGroupStripEl = document.getElementById("heroGroupStrip");
+  const secretGroupSectionEl = document.getElementById("secretGroupSection");
+  const tabCatalogCountEl = document.getElementById("tabCatalogCount");
+
+  if (secretGroupTitleEl) secretGroupTitleEl.textContent = groupTitle;
+  if (secretGroupDescEl) secretGroupDescEl.textContent = groupDesc;
+  if (secretGroupBtnTextEl) secretGroupBtnTextEl.textContent = groupBtnText;
+  if (secretGroupBadgeEl) secretGroupBadgeEl.textContent = groupBadge;
+  if (secretGroupBannerImgEl) secretGroupBannerImgEl.src = groupBanner;
+  if (btnSecretGroupCtaEl) btnSecretGroupCtaEl.href = groupUrl;
+  if (tabCatalogCountEl) tabCatalogCountEl.textContent = String(getCatalog().length || 10);
+
+  if (!groupEnabled) {
+    if (tabNavSecretGroupEl) tabNavSecretGroupEl.style.display = "none";
+    if (btnHeaderGroupEl) btnHeaderGroupEl.style.display = "none";
+    if (heroGroupStripEl) heroGroupStripEl.style.display = "none";
+    if (secretGroupSectionEl) secretGroupSectionEl.style.display = "none";
+  } else {
+    if (tabNavSecretGroupEl) tabNavSecretGroupEl.style.display = "";
+    if (btnHeaderGroupEl) btnHeaderGroupEl.style.display = "";
+    if (heroGroupStripEl) heroGroupStripEl.style.display = "";
+  }
 }
+
+// Alternar entre abas principais: Coleções vs Grupo Secreto
+function switchMainTab(tabName) {
+  const catalogSec = document.getElementById("catalogSection");
+  const secretSec = document.getElementById("secretGroupSection");
+  const tabCatalog = document.getElementById("tabNavCatalog");
+  const tabSecret = document.getElementById("tabNavSecretGroup");
+  const tabsSection = document.getElementById("siteTabsSection");
+
+  if (tabName === "secret-group") {
+    if (catalogSec) catalogSec.style.display = "none";
+    if (secretSec) secretSec.style.display = "block";
+    if (tabCatalog) tabCatalog.classList.remove("active");
+    if (tabSecret) tabSecret.classList.add("active");
+    try {
+      history.replaceState(null, "", "#grupo-secreto");
+    } catch (e) {}
+    if (tabsSection) {
+      tabsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  } else {
+    if (catalogSec) catalogSec.style.display = "block";
+    if (secretSec) secretSec.style.display = "none";
+    if (tabCatalog) tabCatalog.classList.add("active");
+    if (tabSecret) tabSecret.classList.remove("active");
+    try {
+      history.replaceState(null, "", window.location.pathname);
+    } catch (e) {}
+    if (tabsSection) {
+      tabsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+}
+window.switchMainTab = switchMainTab;
 
 // Verifica se um modelo específico está desbloqueado
 function isModelUnlocked(itemId) {

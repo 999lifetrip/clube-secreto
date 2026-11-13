@@ -279,6 +279,14 @@ async function loadAdminSettings() {
       setVal('settingWhatsappNumber', settingsCache.whatsappNumber);
       setVal('settingWhatsappMessage', settingsCache.whatsappMessage);
       setVal('settingUnlockedSlug', settingsCache.unlockedSlug);
+      setVal('settingSecretGroupUrl', settingsCache.secretGroupUrl || 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL');
+      setVal('settingSecretGroupTitle', settingsCache.secretGroupTitle || 'GRUPO SECRETO VIP');
+      setVal('settingSecretGroupDesc', settingsCache.secretGroupDesc || 'Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!');
+      setVal('settingSecretGroupButtonText', settingsCache.secretGroupButtonText || 'Entrar no Grupo do Clube Secreto 📲');
+      const groupCheck = document.getElementById('settingSecretGroupEnabled');
+      if (groupCheck) groupCheck.checked = settingsCache.secretGroupEnabled !== false;
+      const testLink = document.getElementById('btnTestGroupLink');
+      if (testLink) testLink.href = settingsCache.secretGroupUrl || 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL';
 
       const quickPriceBadge = document.getElementById('quickVipPriceBadge');
       if (quickPriceBadge) quickPriceBadge.textContent = `R$ ${settingsCache.vipPrice || '15,00'}`;
@@ -308,6 +316,11 @@ async function saveAdminSettings(regenerateToken = false) {
     whatsappNumber: getVal('settingWhatsappNumber') || settingsCache.whatsappNumber,
     whatsappMessage: getVal('settingWhatsappMessage') ?? settingsCache.whatsappMessage,
     unlockedSlug: getVal('settingUnlockedSlug') || settingsCache.unlockedSlug,
+    secretGroupUrl: getVal('settingSecretGroupUrl') || settingsCache.secretGroupUrl || 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL',
+    secretGroupTitle: getVal('settingSecretGroupTitle') || settingsCache.secretGroupTitle || 'GRUPO SECRETO VIP',
+    secretGroupDesc: getVal('settingSecretGroupDesc') ?? settingsCache.secretGroupDesc,
+    secretGroupButtonText: getVal('settingSecretGroupButtonText') || settingsCache.secretGroupButtonText || 'Entrar no Grupo do Clube Secreto 📲',
+    secretGroupEnabled: document.getElementById('settingSecretGroupEnabled') ? document.getElementById('settingSecretGroupEnabled').checked : true,
     regenerateToken
   };
 
