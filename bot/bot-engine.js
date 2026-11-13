@@ -218,7 +218,9 @@ async function pumpOutboundQueue() {
       } catch (err) {
         addBotLog('error', 'Erro na execução de fila do lead', { leadKey: job.leadKey, err: err.message });
       } finally {
+        const cleanKey = String(job.leadKey).replace(/@.*$/, '');
         QUEUED_LEAD_KEYS.delete(job.leadKey);
+        QUEUED_LEAD_KEYS.delete(cleanKey);
       }
 
       // Pacing anti-ban para não derrubar chip em disparos em sequência, mas acorda na hora se chegar lead urgente!
@@ -261,8 +263,10 @@ function enqueueLeadWork(leadKey, fn, urgent = true) {
     if (urgent) {
       URGENT_JOBS.push(wrapped);
     } else {
-      if (QUEUED_LEAD_KEYS.has(leadKey)) return resolve(null);
+      const cleanKey = String(leadKey).replace(/@.*$/, '');
+      if (QUEUED_LEAD_KEYS.has(leadKey) || QUEUED_LEAD_KEYS.has(cleanKey)) return resolve(null);
       QUEUED_LEAD_KEYS.add(leadKey);
+      QUEUED_LEAD_KEYS.add(cleanKey);
       BACKLOG_JOBS.push(wrapped);
     }
     pumpOutboundQueue().catch(() => {});
@@ -949,8 +953,15 @@ async function runPollTick() {
       const personalCheck = await isPersonalOrSavedContact({ leadKey: key, phoneDigits: key, replyJid: jid }, cfg);
       if (personalCheck) continue;
 
-      // Trava absoluta: mensagem já processada NUNCA é reprocessada no polling
-      if (msgId && store.isMessageProcessed(msgId)) continue;
+      const st = store.loadBotState();
+      const lead = st.leads[key] || st.leads[jid];
+      const neverAnswered = (!lead || !lead.lastOutboundBotAt) && lm.key?.fromMe === false;
+
+      // Se já está na fila de envio, pula para não duplicar!
+      if (QUEUED_LEAD_KEYS.has(key) || QUEUED_LEAD_KEYS.has(jid)) continue;
+
+      // Se já foi respondido pelo bot e a mensagem já foi processada, pula!
+      if (msgId && store.isMessageProcessed(msgId) && !neverAnswered) continue;
 
       const ts = Number(lm.messageTimestamp || 0);
       const ageSec = nowSec - ts;
