@@ -79,7 +79,7 @@ async function refreshSavedContactsCache(cfg) {
         const cleanPhone = jid.replace(/@.*$/, '').replace(/\D/g, '');
 
         const isAutostilo = /autostilo/i.test(pushName);
-        const isFamilyOrFriend = /mae|mãe|pai|irmao|irmão|tia|tio|primo|prima|pessoal|loja|clio|patio|lanche|sauce|financiamento|ganja|dev|barão|barao|cogu|fejao|vine|pah|boquinha|samuka|derick|luan moraes/i.test(pushName);
+        const isFamilyOrFriend = /\b(autostilo|mae|mãe|pai|irmao|irmão|tia|tio|primo|prima|pessoal|loja|clio|patio|lanche|sauce|financiamento|ganja|dev|barão|barao|cogu|fejao|vine|pah|boquinha|samuka|derick|luan moraes)\b/i.test(pushName);
 
         // Bloqueia contatos da AutoStilo, família, administradores e contatos pessoais salvos
         if (isAutostilo || isFamilyOrFriend) {
