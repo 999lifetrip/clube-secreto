@@ -15,5 +15,7 @@
   "secretGroupButtonText": "Entrar no Grupo do Clube Secreto 📲",
   "secretGroupBadge": "GRUPO VIP EXCLUSIVO",
   "secretGroupEnabled": true,
-  "secretGroupBanner": "/assets/grupo-secreto.jpg"
+  "secretGroupBanner": "/assets/grupo-secreto.jpg",
+  "secretGroupSlug": "grupo",
+  "metaPixelId": ""
 }

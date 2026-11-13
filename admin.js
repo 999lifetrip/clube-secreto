@@ -255,6 +255,39 @@ function updateUnlockedPreviewUrl() {
   if (quickLink) quickLink.href = `/${cleanSlug}`;
 }
 
+function getGroupAdFullUrl(slug) {
+  const currentOrigin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : 'https://clubesecreto.omelhorvendedoronline.com.br';
+  const cleanSlug = (slug || settingsCache.secretGroupSlug || 'grupo').toLowerCase().replace(/^\/+/, '').replace(/[^a-z0-9_-]/g, '') || 'grupo';
+  return `${currentOrigin}/${cleanSlug}`;
+}
+
+function updateGroupAdUrlPreview() {
+  const input = document.getElementById('settingSecretGroupSlug');
+  const preview = document.getElementById('groupAdUrlPreview');
+  const btnOpen = document.getElementById('btnOpenGroupAdPage');
+  const slug = input ? input.value.trim() : (settingsCache.secretGroupSlug || 'grupo');
+  const url = getGroupAdFullUrl(slug);
+  if (preview) preview.textContent = url;
+  if (btnOpen) btnOpen.href = `/${(slug || 'grupo').toLowerCase().replace(/^\/+/, '')}`;
+}
+
+function copyGroupAdLink() {
+  const input = document.getElementById('settingSecretGroupSlug');
+  const slug = input ? input.value.trim() : (settingsCache.secretGroupSlug || 'grupo');
+  const url = getGroupAdFullUrl(slug);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      showToast(`📋 Link para Anúncios copiado: ${url}`);
+    }).catch(() => {
+      prompt('Copie o Link para Campanhas de Tráfego Pago:', url);
+    });
+  } else {
+    prompt('Copie o Link para Campanhas de Tráfego Pago:', url);
+  }
+}
+window.copyGroupAdLink = copyGroupAdLink;
+window.updateGroupAdUrlPreview = updateGroupAdUrlPreview;
+
 async function loadAdminSettings() {
   const key = getAdminKey();
   if (!key) return;
@@ -283,6 +316,8 @@ async function loadAdminSettings() {
       setVal('settingSecretGroupTitle', settingsCache.secretGroupTitle || 'GRUPO SECRETO VIP');
       setVal('settingSecretGroupDesc', settingsCache.secretGroupDesc || 'Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!');
       setVal('settingSecretGroupButtonText', settingsCache.secretGroupButtonText || 'Entrar no Grupo do Clube Secreto 📲');
+      setVal('settingSecretGroupSlug', settingsCache.secretGroupSlug || 'grupo');
+      setVal('settingMetaPixelId', settingsCache.metaPixelId || '');
       const groupCheck = document.getElementById('settingSecretGroupEnabled');
       if (groupCheck) groupCheck.checked = settingsCache.secretGroupEnabled !== false;
       const testLink = document.getElementById('btnTestGroupLink');
@@ -291,6 +326,7 @@ async function loadAdminSettings() {
       const quickPriceBadge = document.getElementById('quickVipPriceBadge');
       if (quickPriceBadge) quickPriceBadge.textContent = `R$ ${settingsCache.vipPrice || '15,00'}`;
       updateUnlockedPreviewUrl();
+      updateGroupAdUrlPreview();
     }
   } catch (err) {
     console.error('Erro ao carregar configurações:', err);
@@ -320,6 +356,8 @@ async function saveAdminSettings(regenerateToken = false) {
     secretGroupTitle: getVal('settingSecretGroupTitle') || settingsCache.secretGroupTitle || 'GRUPO SECRETO VIP',
     secretGroupDesc: getVal('settingSecretGroupDesc') ?? settingsCache.secretGroupDesc,
     secretGroupButtonText: getVal('settingSecretGroupButtonText') || settingsCache.secretGroupButtonText || 'Entrar no Grupo do Clube Secreto 📲',
+    secretGroupSlug: getVal('settingSecretGroupSlug') || settingsCache.secretGroupSlug || 'grupo',
+    metaPixelId: getVal('settingMetaPixelId') ?? settingsCache.metaPixelId ?? '',
     secretGroupEnabled: document.getElementById('settingSecretGroupEnabled') ? document.getElementById('settingSecretGroupEnabled').checked : true,
     regenerateToken
   };

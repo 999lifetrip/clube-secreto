@@ -4091,6 +4091,28 @@ h1, h2, h3, h4, .brand-font {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+.btn-open-dedicated-group {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-open-dedicated-group:hover {
+  background: rgba(34, 197, 94, 0.22);
+  border-color: #22c55e;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
 .secret-group-grid {
   display: grid;
   grid-template-columns: 340px 1fr;

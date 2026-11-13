@@ -33,7 +33,9 @@ const DEFAULT_SETTINGS = {
   secretGroupButtonText: 'Entrar no Grupo do Clube Secreto 📲',
   secretGroupBadge: 'GRUPO VIP EXCLUSIVO',
   secretGroupEnabled: true,
-  secretGroupBanner: '/assets/grupo-secreto.jpg'
+  secretGroupBanner: '/assets/grupo-secreto.jpg',
+  secretGroupSlug: 'grupo',
+  metaPixelId: ''
 };
 
 if (!fs.existsSync(BACKUPS_DIR)) {
@@ -105,6 +107,10 @@ function saveSettings(newSettings, skipBackup = false) {
       .toLowerCase()
       .replace(/^\/+/, '')
       .replace(/[^a-z0-9_-]/g, '') || 'vip-liberado';
+    merged.secretGroupSlug = (merged.secretGroupSlug || 'grupo')
+      .toLowerCase()
+      .replace(/^\/+/, '')
+      .replace(/[^a-z0-9_-]/g, '') || 'grupo';
     merged.whatsappNumber = String(merged.whatsappNumber || '554195993007').replace(/\D/g, '') || '554195993007';
     if (!merged.vipAccessToken) {
       merged.vipAccessToken = 'CS-VIP-' + crypto.randomBytes(4).toString('hex').toUpperCase();
@@ -134,7 +140,9 @@ function getPublicSettings(settings) {
     secretGroupButtonText: s.secretGroupButtonText || 'Entrar no Grupo do Clube Secreto 📲',
     secretGroupBadge: s.secretGroupBadge || 'GRUPO VIP EXCLUSIVO',
     secretGroupEnabled: s.secretGroupEnabled !== false,
-    secretGroupBanner: s.secretGroupBanner || '/assets/grupo-secreto.jpg'
+    secretGroupBanner: s.secretGroupBanner || '/assets/grupo-secreto.jpg',
+    secretGroupSlug: s.secretGroupSlug || 'grupo',
+    metaPixelId: s.metaPixelId || ''
   };
 }
 
@@ -1609,12 +1617,16 @@ const server = http.createServer(async (req, res) => {
   let cleanUrl = decodeURIComponent(pathname);
   const currentSettings = loadSettings();
   const unlockedSlugPath = '/' + (currentSettings.unlockedSlug || 'vip-liberado').replace(/^\/+/, '').toLowerCase();
+  const groupSlugPath = '/' + (currentSettings.secretGroupSlug || 'grupo').replace(/^\/+/, '').toLowerCase();
   const normalizedPath = cleanUrl.replace(/\/+$/, '').toLowerCase() || '/';
   const queryVipToken = urlObj.searchParams.get('vip');
   const isPageEntry = (normalizedPath === '/' || normalizedPath === '/index.html' || normalizedPath === unlockedSlugPath);
   const isUnlockedRoute = (normalizedPath === unlockedSlugPath) || (isPageEntry && !!(queryVipToken && currentSettings.vipAccessToken && queryVipToken === currentSettings.vipAccessToken));
+  const isGroupRoute = (normalizedPath === groupSlugPath || normalizedPath === '/grupo' || normalizedPath === '/grupo-secreto' || normalizedPath === '/entrar-grupo' || normalizedPath === '/wpp');
 
-  if (cleanUrl === '/' || cleanUrl === '' || (isPageEntry && isUnlockedRoute)) {
+  if (isGroupRoute) {
+    cleanUrl = '/grupo.html';
+  } else if (cleanUrl === '/' || cleanUrl === '' || (isPageEntry && isUnlockedRoute)) {
     cleanUrl = '/index.html';
   } else if (cleanUrl === '/admin' || cleanUrl === '/admin/') {
     cleanUrl = '/admin.html';
@@ -1696,6 +1708,65 @@ const server = http.createServer(async (req, res) => {
         }));
       }
     }
+  }
+
+  // Injeta estado dinâmico no grupo.html (Página dedicada para Tráfego Pago / Anúncios)
+  if (cleanUrl === '/grupo.html') {
+    fs.readFile(filePath, 'utf8', (err, html) => {
+      if (err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        return res.end('404 Not Found');
+      }
+
+      const publicSettings = getPublicSettings(currentSettings);
+      const pixelId = (publicSettings.metaPixelId || '').replace(/\D/g, '');
+      const pixelScript = pixelId ? `
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${pixelId}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"
+/></noscript>
+` : '';
+
+      const bootScript = `${pixelScript}<script>window.__CS_SETTINGS__=${JSON.stringify(publicSettings)};</script>`;
+      const renderedHtml = html.replace('</head>', `${bootScript}\n</head>`);
+      const acceptEncoding = req.headers['accept-encoding'] || '';
+
+      const headers = {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
+      };
+
+      if (acceptEncoding.includes('gzip')) {
+        zlib.gzip(Buffer.from(renderedHtml, 'utf8'), (zErr, zipped) => {
+          if (zErr) {
+            headers['Content-Length'] = Buffer.byteLength(renderedHtml);
+            res.writeHead(200, headers);
+            return res.end(renderedHtml);
+          }
+          headers['Content-Encoding'] = 'gzip';
+          headers['Vary'] = 'Accept-Encoding';
+          headers['Content-Length'] = zipped.length;
+          res.writeHead(200, headers);
+          return res.end(zipped);
+        });
+      } else {
+        headers['Content-Length'] = Buffer.byteLength(renderedHtml);
+        res.writeHead(200, headers);
+        return res.end(renderedHtml);
+      }
+    });
+    return;
   }
 
   // Injeta estado dinâmico (Bloqueado vs. Tudo Liberado + Preços/PIX/WhatsApp) no index.html
