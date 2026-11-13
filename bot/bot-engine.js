@@ -105,9 +105,15 @@ async function isPersonalOrSavedContact(canonical, cfg) {
 
   const phone = String(canonical.phoneDigits || canonical.leadKey || '').replace(/\D/g, '');
   const jid = String(canonical.replyJid || canonical.remoteJid || '');
+  const pushName = String(canonical.pushName || '');
 
   // 1. Verifica lista de administradores
   if (phoneMatchesList(phone, cfg.adminNumbers || [])) return { name: 'Admin' };
+
+  // 1.5. Verifica pushName contra nomes pessoais, familiares e AutoStilo
+  if (pushName && /\b(autostilo|mae|mãe|pai|irmao|irmão|tia|tio|primo|prima|pessoal|loja|clio|patio|lanche|sauce|financiamento|ganja|dev|barão|barao|cogu|fejao|vine|pah|boquinha|samuka|derick|luan moraes)\b/i.test(pushName)) {
+    return { name: pushName };
+  }
 
   // 2. Verifica no mapa de contatos salvos na agenda do telefone
   const map = await refreshSavedContactsCache(cfg);
@@ -594,6 +600,7 @@ async function handleIncomingWebhook(payload, opts = {}) {
   if (parsed.ignoredReason) return { handled: false, reason: parsed.ignoredReason };
 
   const canonical = store.resolveCanonicalLead(parsed.remoteJid, parsed.remoteJidAlt);
+  canonical.pushName = parsed.pushName || '';
   const cfg = store.loadBotConfig();
 
   if (cfg.mode === 'off' || !cfg.enabled) {
@@ -610,7 +617,12 @@ async function handleIncomingWebhook(payload, opts = {}) {
     return { handled: false, reason: 'ignored_personal_contact', name: personalCheck.name, leadKey: canonical.leadKey };
   }
 
-  if (parsed.msgId && store.isMessageProcessed(parsed.msgId)) {
+  const existingLead = store.loadBotState().leads[canonical.leadKey];
+  const isBacklogUnanswered = Boolean(
+    opts.isBacklog && (parsed.msgTimestampSec ? parsed.msgTimestampSec * 1000 : Date.now()) > (existingLead?.lastOutboundBotAt || 0)
+  );
+
+  if (parsed.msgId && store.isMessageProcessed(parsed.msgId) && !isBacklogUnanswered) {
     return { handled: false, reason: 'duplicate_msg' };
   }
   if (parsed.msgId) {
@@ -696,7 +708,7 @@ async function handleIncomingWebhook(payload, opts = {}) {
     const isHumanPause = lead.pauseReason?.includes('humano') || lead.pauseReason?.includes('manual') || lead.pauseReason?.includes('X1');
     const humanIdleMs = Date.now() - (lead.lastHumanAt || 0);
     const expiredByTime = lead.pausedUntil && Date.now() >= lead.pausedUntil;
-    const expiredByLeadActivity = isHumanPause && humanIdleMs >= 15 * 60 * 1000;
+    const expiredByLeadActivity = isHumanPause && (humanIdleMs >= 15 * 60 * 1000 || !lead.lastHumanAt);
 
     if (expiredByTime || expiredByLeadActivity) {
       lead.paused = false;
@@ -949,6 +961,8 @@ async function runPollTick() {
       .filter((c) => {
         const jid = String(c.lastMessage.key.remoteJid);
         if (jid.endsWith('@g.us') || jid === 'status@broadcast' || jid.endsWith('@newsletter')) return false;
+        // Pula chats onde a última mensagem foi enviada por nós (não é lead aguardando resposta)
+        if (c.lastMessage.key?.fromMe === true) return false;
         const ts = Number(c.lastMessage.messageTimestamp || 0);
         return ts > 0 && (nowSec - ts) <= maxAgeSec;
       })
@@ -959,20 +973,39 @@ async function runPollTick() {
       const msgId = String(lm.key?.id || '');
       const jid = String(lm.key?.remoteJid || '');
       const key = jid.replace(/@.*$/, '');
+      const pushName = lm.pushName || chat.pushName || '';
 
       // Trava absoluta: contatos salvos da agenda pessoal (família, amigos, AutoStilo) são ignorados!
-      const personalCheck = await isPersonalOrSavedContact({ leadKey: key, phoneDigits: key, replyJid: jid }, cfg);
+      const personalCheck = await isPersonalOrSavedContact({ leadKey: key, phoneDigits: key, replyJid: jid, pushName }, cfg);
       if (personalCheck) continue;
 
       const st = store.loadBotState();
       const lead = st.leads[key] || st.leads[jid];
-      const neverAnswered = (!lead || !lead.lastOutboundBotAt) && lm.key?.fromMe === false;
 
       // Se já está na fila de envio, pula para não duplicar!
       if (QUEUED_LEAD_KEYS.has(key) || QUEUED_LEAD_KEYS.has(jid)) continue;
 
-      // Se já foi respondido pelo bot e a mensagem já foi processada, pula!
-      if (msgId && store.isMessageProcessed(msgId) && !neverAnswered) continue;
+      const msgTsMs = Number(lm.messageTimestamp || 0) * 1000;
+      const lastBotAt = Number(lead?.lastOutboundBotAt || 0);
+
+      // Se o bot já enviou uma resposta DEPOIS que essa mensagem do lead chegou, o lead já foi atendido!
+      if (lastBotAt > 0 && lastBotAt >= msgTsMs) {
+        continue;
+      }
+
+      // Se o lead estava com pausa manual antiga (> 20min) ou de histórico, despausa para atender
+      if (lead && lead.paused && lead.stage !== 'PAYMENT_REVIEW') {
+        const humanIdleMs = Date.now() - (lead.lastHumanAt || 0);
+        if (humanIdleMs > 20 * 60 * 1000 || !lead.lastHumanAt) {
+          lead.paused = false;
+          lead.pauseReason = '';
+          lead.pausedUntil = null;
+          store.persistBotState();
+        }
+      }
+
+      // Se ainda estiver pausado (ex: PAYMENT_REVIEW aguardando conferência de comprovante), não responde
+      if (lead && lead.paused) continue;
 
       const ts = Number(lm.messageTimestamp || 0);
       const ageSec = nowSec - ts;
@@ -980,7 +1013,7 @@ async function runPollTick() {
         event: 'messages.upsert',
         data: {
           ...lm,
-          pushName: lm.pushName || chat.pushName || ''
+          pushName
         }
       };
 
