@@ -273,6 +273,14 @@ function createTurnPlanner(leadState, cfg) {
   const plannedAudios = new Set(leadState.sentAudios || []);
   const plannedTexts = new Set(leadState.sentTexts || []);
   const sentStrings = new Set((leadState.sentTextStrings || []).map(normalizeText));
+
+  // Trava anti-duplicação retroativa com base em todo o histórico gravado
+  for (const h of (leadState.history || [])) {
+    if ((h.role === 'bot_text' || h.role === 'bot_pix') && h.summary) {
+      sentStrings.add(normalizeText(h.summary));
+    }
+  }
+
   let plannedPrevia = Boolean(leadState.sentPrevia);
   let audioCountThisTurn = 0;
 
@@ -363,11 +371,10 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     (hasMediaComprovante && ['PRICING_SENT', 'PIX_SENT', 'PAYMENT_REVIEW'].includes(stage)) ||
     saidPaymentProof;
 
-  // Bênçãos / Deus te abençoe / Deus proteja
+  // Bênçãos / Deus te abençoe / Deus proteja / Deus pro ter ja (typos comuns)
   const religiousBlessing = hasAny(norm, [
-    'deus te abencoe', 'deus abencoe', 'deus te guarde', 'deus te proteja',
-    'deus proteja', 'fica com deus', 'fique com deus', 'va com deus',
-    'amem', 'gloria a deus'
+    'deus', 'abencoe', 'abençoe', 'proteja', 'proterja', 'pro ter ja', 'guarde',
+    'fica com deus', 'fique com deus', 'va com deus', 'amem', 'gloria a deus'
   ]);
 
   // Indo dormir / tarde da noite
@@ -377,10 +384,11 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
 
   // Sem dinheiro / sem grana estrito (NUNCA insistir após isso!)
   const strictlyNoMoney = hasAny(norm, [
-    'nao tem grana', 'nao tenho grana', 'sem grana', 'to sem grana', 'sem dinheiro',
-    'nao tenho dinheiro', 'to duro', 'sem condicoes', 'sem saldo', 'to liso',
-    'to sem nada', 'sem um real', 'nao tenho um tostao', 'to quebrado', 'to zerado',
-    'to sem limite', 'sem um puto', 'eu falei que to sem dinheiro', 'falei que to sem'
+    'nao tem grana', 'nao tenho grana', 'sem grana', 'to sem grana', 'tor sem grana',
+    'sem dinheiro', 'nao tenho dinheiro', 'to duro', 'tor duro', 'sem condicoes',
+    'sem saldo', 'to liso', 'tor liso', 'to sem nada', 'sem um real', 'nao tenho um tostao',
+    'to quebrado', 'to zerado', 'to sem limite', 'sem um puto', 'eu falei que to sem dinheiro',
+    'falei que to sem', 'nao tem grana agora', 'sem grana agora', 'tor sem dinheiro', 'tor sem grana'
   ]);
 
   // Deixar para depois / aguardar
@@ -399,8 +407,8 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
 
   // Elogios casuais (tratar com carinho sem forçar venda)
   const casualCompliment = hasAny(norm, [
-    'top', 'gata', 'linda', 'maravilhosa', 'gostosa', 'delicia',
-    'princesa', 'perfeita', 'apaixonei', 'tesao'
+    'top', 'topy', 'gata', 'linda', 'maravilhosa', 'gostosa', 'delicia',
+    'princesa', 'perfeita', 'apaixonei', 'tesao', 'muito gata', 'muito linda'
   ]);
 
   // Pergunta sobre ser real / fake / bot
@@ -499,7 +507,11 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
   const positiveConfirmAfterPricing =
     !hasObjectionOrInfoQuestion &&
     ['PRICING_SENT', 'GREETED'].includes(stage) &&
-    /^(sim|quero|quero sim|com certeza|com toda certeza|claro|pode mandar|manda ai|bora|fechou|tenho interesse|tenho|aceito|ok|blz|beleza|show|vamos|por favor|pode ser)(\s+(meu amor|amor|bb|linda|sim|entao|por favor))?$/.test(norm);
+    /^(sim|quero|quero sim|com certeza|com toda certeza|claro|pode mandar|manda o pix|passa a chave|bora fechar|fechou|tenho interesse|vamos fechar)(\s+(meu amor|amor|bb|linda|sim|entao|por favor))?$/.test(norm);
+
+  // Reconhecimento casual neutro (ex: "ok", "beleza", "blz", "show", "tranquilo") — NÃO empurrar PIX!
+  const casualAck = !hasObjectionOrInfoQuestion && !positiveConfirmAfterPricing &&
+    /^(ok|blz|beleza|show|tranquilo|combinado|entendi|pode crer|ta bom|ta certo|certo)(\s+(meu amor|amor|bb|linda))?$/.test(norm);
 
   const isGreetingOnly = hasAny(norm, [
     /^(oi|ola|opa|eae|e ai|salve|bom dia|boa tarde|boa noite|hey|hello|oii+)\b/,
@@ -537,6 +549,7 @@ function classifyIntents(combinedText, msgMeta = {}, leadState = {}) {
     explicitBuyOrPix,
     asksPriceTable,
     positiveConfirmAfterPricing,
+    casualAck,
     isGreetingOnly,
     gaveLocationOrJob
   };
@@ -599,7 +612,7 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   // 4. Sem grana / sem dinheiro estrito ("tô sem dinheiro", "não tem grana agora")
   // REGRA DE OURO: responde 1x com compreensão total e para de insistir. Se repetir, silêncio absoluto!
   if (intents.strictlyNoMoney) {
-    if (p.hasText('no_money_ack')) {
+    if (p.hasText('no_money_ack') || (leadState.sentTexts || []).includes('no_money_ack')) {
       // Já avisou que compreende — silêncio educado para não parecer bot chato nem levar denúncia de spam!
       return { actions: [], nextStage, pauseAfterTurn: false, needsHumanReview, intents };
     }
@@ -667,6 +680,19 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
     } else if (!p.hasText('compliment_ack_2')) {
       const compText2 = pickUnsentVariant(leadState, COMPLIMENT_VARIANTS, 'Aww fico toda boba assim vidinha haha 🙈 muito obrigada!');
       p.pushText('compliment_ack_2', compText2, false);
+    }
+    return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
+  }
+
+  // 8.5 Reconhecimento casual neutro ("ok", "beleza", "blz", "show", "tranquilo") — acolher carinhosamente SEM forçar PIX
+  if (intents.casualAck) {
+    if (!p.hasText('casual_ack')) {
+      const ackText = pickUnsentVariant(leadState, [
+        'Combinado amorzinho 💕 se quiser escolher um dos pacotes me dá um toque aqui tá bom? 😘',
+        'Fechou vidinha! Qualquer coisa tô por aqui no Whats 🥰',
+        'Beleza meu amor! Se quiser experimentar o de R$ 5,00 só me avisar 💕'
+      ], 'Combinado amorzinho 💕 Qualquer coisa tô por aqui tá? 😘');
+      p.pushText('casual_ack', ackText, false);
     }
     return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
@@ -868,14 +894,17 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   // 16. Fallback suave pós-tabela (PRICING_SENT / PIX_SENT)
   // Varia as abordagens e cessa totalmente após 2 interações para não cansar o lead nem ser banido
   if (['PRICING_SENT', 'PIX_SENT'].includes(nextStage)) {
+    const alreadySentVariants = (leadState.sentTexts || []).includes('ask_package_variant');
+    const alreadyNudge = (leadState.sentTexts || []).includes('final_soft_nudge');
+
     if (!p.hasAudio('ask_where_live') && nextStage === 'PRICING_SENT') {
       p.pushAudio('ask_where_live', 'De onde você é meu amor? 😘');
-    } else if (!p.hasText('ask_package_variant')) {
+    } else if (!p.hasText('ask_package_variant') && !alreadySentVariants) {
       const askVariant = pickUnsentVariant(leadState, ASK_WHICH_PACKAGE_VARIANTS, 'Qual pacotinho te agradou mais meu amor? 💜');
       p.pushText('ask_package_variant', askVariant, false);
     } else if (!p.hasAudio('only_pay_attention_clients') && (leadState.messagesCount || 0) >= 3) {
       p.pushAudio('only_pay_attention_clients');
-    } else if (!p.hasText('final_soft_nudge')) {
+    } else if (!p.hasText('final_soft_nudge') && !alreadyNudge) {
       const nudge = pickUnsentVariant(leadState, NUDGE_VARIANTS, 'Qualquer coisa tô por aqui amorzinho 😘');
       p.pushText('final_soft_nudge', nudge, false);
     }

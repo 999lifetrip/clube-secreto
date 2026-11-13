@@ -258,7 +258,11 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
     } else if (act.type === 'text') {
       const normText = normalizeText(act.text);
       const sentStrings = Array.isArray(lead.sentTextStrings) ? lead.sentTextStrings : [];
-      if (sentStrings.includes(normText)) {
+      const historyTexts = (lead.history || [])
+        .filter((h) => h.role === 'bot_text' || h.role === 'bot_pix')
+        .map((h) => normalizeText(h.summary));
+
+      if (sentStrings.includes(normText) || historyTexts.includes(normText)) {
         addBotLog('info', `Bloqueado reenvio de texto duplicado ao lead ${leadKey}: "${act.text.slice(0, 35)}..."`);
         continue;
       }
@@ -267,6 +271,9 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
       if (res.ok) {
         okCount++;
         store.markTextSent(leadKey, act.key, act.text);
+        if (!lead.sentTexts.includes(act.key)) lead.sentTexts.push(act.key);
+        if (!Array.isArray(lead.sentTextStrings)) lead.sentTextStrings = [];
+        if (!lead.sentTextStrings.includes(normText)) lead.sentTextStrings.push(normText);
         store.appendLeadHistory(lead, 'bot_text', act.text);
         addBotLog('info', `Texto enviado [${act.key}]`, { leadKey });
       } else {
@@ -833,7 +840,9 @@ async function runPollTick() {
     }
 
     const nowSec = Math.floor(Date.now() / 1000);
-    const maxAgeSec = (Number(cfg.backlogMaxMinutes) || 720) * 60;
+    const configuredBacklogMin = Number(cfg.backlogMaxMinutes);
+    // Modo seguro anti-ban: se backlogMaxMinutes <= 0, atende apenas quem mandou mensagem nos últimos 3 minutos
+    const maxAgeSec = configuredBacklogMin > 0 ? configuredBacklogMin * 60 : 180;
 
     // Mais recentes primeiro para priorizar quem acabou de mandar mensagem
     const candidates = res.data
@@ -849,13 +858,8 @@ async function runPollTick() {
     for (const chat of candidates) {
       const lm = chat.lastMessage;
       const msgId = String(lm.key?.id || '');
-      const key = String(lm.key?.remoteJid || '').replace(/@.*$/, '');
-      const st = store.loadBotState();
-      const lead = st.leads[key] || st.leads[lm.key?.remoteJid];
-      const neverAnswered = (!lead || !lead.lastOutboundBotAt) && lm.key?.fromMe === false;
-
-      // Se já foi processado e já respondemos antes, pula; se nunca foi respondido e é do lead, atende!
-      if (msgId && store.isMessageProcessed(msgId) && !neverAnswered) continue;
+      // Trava absoluta: mensagem já processada NUNCA é reprocessada no polling
+      if (msgId && store.isMessageProcessed(msgId)) continue;
 
       const ts = Number(lm.messageTimestamp || 0);
       const ageSec = nowSec - ts;
