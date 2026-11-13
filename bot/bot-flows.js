@@ -202,6 +202,20 @@ const NUDGE_VARIANTS = [
   'Se quiser dar uma olhadinha nos pacotinhos qualquer hora, tô por aqui amorzinho 😘 Beijinho!'
 ];
 
+// Variações ricas para reengajar conversas antigas / visualizadas sem resposta ("Oi", "Opa", "Tudo bem?")
+const REENGAGEMENT_VARIANTS = [
+  'Oi meu amor, tudo bem por aí? 💕 Passando só pra te dar um oizinho!',
+  'Opa vidinha, tudo certinho com você? 😘 Desculpa a correria!',
+  'Oii meu anjo, como você tá? 🥰 Tava na correria e passei pra ver como vc tá!',
+  'Opa amor, tudo bem? Vi que sua mensagem ficou aqui 🙈 tudo em paz por aí?',
+  'Oi amorzinho 💕 como estão as coisas por aí? Tudo certinho?',
+  'Oie meu bem! 😘 Passando pra te desejar uma ótima tarde, tudo bem?',
+  'Opa vida, tudo jóia? 💕 Tava aqui organizando meus conteúdos e lembrei de você!',
+  'Oi amor, tudo certinho? ✨ Qualquer coisa que precisar tô por aqui tá bom?',
+  'Oii vida, como estão as coisas? 💕 Qualquer coisa tô por aqui viu!',
+  'Opa meu anjo, passei pra te mandar um beijo! Como tá seu dia? 😘'
+];
+
 /**
  * Seleciona uma variação que o lead ainda NÃO tenha recebido.
  * @param {object} leadState
@@ -816,8 +830,10 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
       p.pushAudio('ask_interest_pack');
       nextStage = 'PRICING_SENT';
     } else {
-      const greetingLine = pickUnsentVariant(leadState, GREETING_VARIANTS, 'Oi meu amor 💞');
-      const sentAudio = p.pushAudio('greeting_save', greetingLine);
+      const isOldBacklog = Boolean(leadState.isBacklog || leadState.isReengagement);
+      const greetingPool = isOldBacklog ? REENGAGEMENT_VARIANTS : GREETING_VARIANTS;
+      const greetingLine = pickUnsentVariant(leadState, greetingPool, 'Oi meu amor 💞');
+      const sentAudio = !isOldBacklog ? p.pushAudio('greeting_save', greetingLine) : false;
       if (!sentAudio) p.pushText('greeting_txt', greetingLine, false);
       nextStage = 'GREETED';
     }
@@ -888,5 +904,6 @@ module.exports = {
   SLEEP_LATE_VARIANTS,
   BLESSING_VARIANTS,
   GOODBYE_VARIANTS,
-  NUDGE_VARIANTS
+  NUDGE_VARIANTS,
+  REENGAGEMENT_VARIANTS
 };

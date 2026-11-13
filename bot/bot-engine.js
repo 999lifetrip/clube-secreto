@@ -389,6 +389,9 @@ function flushLeadBuffer(leadKey) {
     store.appendLeadHistory(lead, 'lead', historySummary);
     store.persistBotState();
 
+    lead.isBacklog = Boolean(bucket.isBacklog);
+    lead.isReengagement = Boolean(bucket.isReengagement);
+
     const plan = planTurnActions({
       leadState: lead,
       combinedText: effectiveText,
@@ -622,6 +625,8 @@ async function handleIncomingWebhook(payload, opts = {}) {
 
   bucket.replyJid = canonical.replyJid || bucket.replyJid;
   bucket.urgent = bucket.urgent || !opts.isBacklog;
+  bucket.isBacklog = Boolean(bucket.isBacklog || opts.isBacklog);
+  bucket.isReengagement = Boolean(bucket.isReengagement || opts.isReengagement);
   bucket.msgs.push(parsed);
   bucket.timer = setTimeout(() => {
     flushLeadBuffer(canonical.leadKey);
@@ -844,7 +849,13 @@ async function runPollTick() {
     for (const chat of candidates) {
       const lm = chat.lastMessage;
       const msgId = String(lm.key?.id || '');
-      if (msgId && store.isMessageProcessed(msgId)) continue;
+      const key = String(lm.key?.remoteJid || '').replace(/@.*$/, '');
+      const st = store.loadBotState();
+      const lead = st.leads[key] || st.leads[lm.key?.remoteJid];
+      const neverAnswered = (!lead || !lead.lastOutboundBotAt) && lm.key?.fromMe === false;
+
+      // Se já foi processado e já respondemos antes, pula; se nunca foi respondido e é do lead, atende!
+      if (msgId && store.isMessageProcessed(msgId) && !neverAnswered) continue;
 
       const ts = Number(lm.messageTimestamp || 0);
       const ageSec = nowSec - ts;
@@ -858,8 +869,9 @@ async function runPollTick() {
 
       const out = await handleIncomingWebhook(syntheticPayload, {
         hydrateHistory: true,
-        immediate: ageSec > 18,
-        isBacklog: ageSec > 120
+        immediate: ageSec < 30,
+        isBacklog: ageSec >= 30,
+        isReengagement: ageSec > 1800
       });
 
       if (out?.queued) queuedCount++;
