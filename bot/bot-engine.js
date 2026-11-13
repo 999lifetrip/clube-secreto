@@ -79,14 +79,12 @@ async function refreshSavedContactsCache(cfg) {
         const cleanPhone = jid.replace(/@.*$/, '').replace(/\D/g, '');
 
         const isAutostilo = /autostilo/i.test(pushName);
-        const isFamilyOrFriend = /mae|mãe|pai|irmao|irmão|tia|tio|primo|prima|pessoal|loja|clio|patio|lanche|sauce|financiamento/i.test(pushName);
-        const isMachineLead = /^lead\s*\d+$/i.test(pushName);
-        const hasRealName = pushName && !isMachineLead && !/^\+?\d+$/.test(pushName);
+        const isFamilyOrFriend = /mae|mãe|pai|irmao|irmão|tia|tio|primo|prima|pessoal|loja|clio|patio|lanche|sauce|financiamento|ganja|dev|barão|barao|cogu|fejao|vine|pah|boquinha|samuka|derick|luan moraes/i.test(pushName);
 
-        // Se é contato da AutoStilo/Família ou tem isSaved com nome real salvo
-        if (isAutostilo || isFamilyOrFriend || (c.isSaved === true && hasRealName)) {
-          if (cleanPhone) newMap.set(cleanPhone, pushName || 'Contato Salvo');
-          if (jid) newMap.set(jid, pushName || 'Contato Salvo');
+        // Bloqueia contatos da AutoStilo, família, administradores e contatos pessoais salvos
+        if (isAutostilo || isFamilyOrFriend) {
+          if (cleanPhone) newMap.set(cleanPhone, pushName);
+          if (jid) newMap.set(jid, pushName);
         }
       }
       SAVED_PERSONAL_CONTACTS_MAP = newMap;
@@ -542,6 +540,10 @@ async function hydrateLeadFromEvolution(cfg, remoteJid, lead, canonical) {
 
   const manualFromMe = records.filter((r) => r?.key?.fromMe === true && !evo.wasSentByBot(r?.key?.id));
   if (manualFromMe.length > 0) {
+    const lastManual = manualFromMe[manualFromMe.length - 1];
+    const lastTs = Number(lastManual?.messageTimestamp || 0) * 1000;
+    const minutesSinceManual = lastTs > 0 ? (Date.now() - lastTs) / 60000 : 9999;
+
     for (const r of manualFromMe) {
       const m = r.message || {};
       const t = String(m.conversation || m.extendedTextMessage?.text || '');
@@ -559,14 +561,23 @@ async function hydrateLeadFromEvolution(cfg, remoteJid, lead, canonical) {
       if (sec === 3 && !lead.sentAudios.includes('how_are_you')) lead.sentAudios.push('how_are_you');
       if ((sec === 10 || sec === 11) && !lead.sentAudios.includes('greeting_save')) lead.sentAudios.push('greeting_save');
     }
-    const pauseHours = Number(cfg.humanPauseHours) || 24;
-    lead.paused = true;
-    lead.pauseReason = 'Conversa manual prévia (X1)';
-    lead.pausedUntil = Date.now() + pauseHours * 3600 * 1000;
-    lead.hydratedFromHistory = true;
-    store.persistBotState();
-    addBotLog('info', 'Chat já tinha atendimento manual — pausado automaticamente', { leadKey: canonical.leadKey });
-    return false;
+
+    // Se o humano falou há menos de 20 minutos, pausa para não atropelar atendimento manual ativo
+    if (minutesSinceManual < 20) {
+      lead.paused = true;
+      lead.pauseReason = 'Atendimento manual recente (< 20m)';
+      lead.pausedUntil = Date.now() + 2 * 3600 * 1000;
+      lead.lastHumanAt = lastTs;
+      lead.hydratedFromHistory = true;
+      store.persistBotState();
+      addBotLog('info', 'Chat com atendimento manual recente (< 20m) — mantido pausado', { leadKey: canonical.leadKey });
+      return false;
+    } else {
+      // Conversa manual ocorreu há mais de 20 minutos: libera o bot para dar sequência ao lead
+      lead.paused = false;
+      lead.pauseReason = '';
+      lead.pausedUntil = null;
+    }
   }
 
   lead.hydratedFromHistory = true;

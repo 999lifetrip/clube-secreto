@@ -566,19 +566,22 @@ function planTurnActions({ leadState, combinedText, msgMeta, cfg }) {
   let pauseAfterTurn = false;
   let needsHumanReview = Boolean(leadState.needsHumanReview);
 
-  // 1. Pagamento / Comprovante (prioridade máxima)
+  // 1. Pagamento / Imagem / Comprovante
   if (intents.wantsReceipt) {
     if (intents.hasMediaComprovante) {
-      p.pushText('receipt_received', cfg.receiptPendingText || 'Recebi seu comprovante amor! Vou conferir rapidinho aqui e já te libero 💕');
+      // O usuário solicitou explicitamente NÃO enviar mensagem automática de comprovante recebido,
+      // pois clientes mandam fotos e imagens avulsas e percebem que é um bot robótico.
+      // O bot silencia e marca o lead para conferência humana sem entregar respostas prontas.
       nextStage = 'PAYMENT_REVIEW';
       pauseAfterTurn = true;
       needsHumanReview = true;
+      return { actions: [], nextStage, pauseAfterTurn, needsHumanReview, intents };
     } else {
-      p.pushText('ask_receipt_media', cfg.receiptMissingMediaText || 'Pode me mandar a fotinha do comprovante aqui amor? Assim que enviar eu já libero tudo! 💕');
-      if (!p.hasText('pix_card')) p.pushPix(false);
-      nextStage = 'PIX_SENT';
+      nextStage = 'PAYMENT_REVIEW';
+      pauseAfterTurn = false;
+      needsHumanReview = true;
+      return { actions: [], nextStage, pauseAfterTurn, needsHumanReview, intents };
     }
-    return { actions: p.actions, nextStage, pauseAfterTurn, needsHumanReview, intents };
   }
 
   // 1.5 Áudio inaudível / falha técnica no áudio
