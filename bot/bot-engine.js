@@ -58,6 +58,81 @@ function phoneMatchesList(target, list = []) {
   return false;
 }
 
+let SAVED_PERSONAL_CONTACTS_MAP = new Map();
+let LAST_CONTACTS_SYNC = 0;
+
+/**
+ * Carrega a lista de contatos da agenda pessoal do WhatsApp (Evolution API /chat/findContacts).
+ * Protege contatos pessoais, familiares e comerciais da AutoStilo contra qualquer resposta do bot.
+ */
+async function refreshSavedContactsCache(cfg) {
+  if (Date.now() - LAST_CONTACTS_SYNC < 300000 && SAVED_PERSONAL_CONTACTS_MAP.size > 0) {
+    return SAVED_PERSONAL_CONTACTS_MAP;
+  }
+  try {
+    const res = await evo.findContacts(cfg);
+    if (res.ok && Array.isArray(res.data)) {
+      const newMap = new Map();
+      for (const c of res.data) {
+        const pushName = String(c.pushName || '').trim();
+        const jid = String(c.remoteJid || '');
+        const cleanPhone = jid.replace(/@.*$/, '').replace(/\D/g, '');
+
+        const isAutostilo = /autostilo/i.test(pushName);
+        const isFamilyOrFriend = /mae|mãe|pai|irmao|irmão|tia|tio|primo|prima|pessoal|loja|clio|patio|lanche|sauce|financiamento/i.test(pushName);
+        const isMachineLead = /^lead\s*\d+$/i.test(pushName);
+        const hasRealName = pushName && !isMachineLead && !/^\+?\d+$/.test(pushName);
+
+        // Se é contato da AutoStilo/Família ou tem isSaved com nome real salvo
+        if (isAutostilo || isFamilyOrFriend || (c.isSaved === true && hasRealName)) {
+          if (cleanPhone) newMap.set(cleanPhone, pushName || 'Contato Salvo');
+          if (jid) newMap.set(jid, pushName || 'Contato Salvo');
+        }
+      }
+      SAVED_PERSONAL_CONTACTS_MAP = newMap;
+      LAST_CONTACTS_SYNC = Date.now();
+      addBotLog('info', `Filtro de contatos pessoais atualizado: ${newMap.size} contatos da agenda protegidos contra resposta do bot.`);
+    }
+  } catch (err) {
+    addBotLog('error', 'Falha ao sincronizar contatos salvos da agenda', { err: err.message });
+  }
+  return SAVED_PERSONAL_CONTACTS_MAP;
+}
+
+/**
+ * Verifica se um lead é contato salvo na agenda pessoal do usuário.
+ */
+async function isPersonalOrSavedContact(canonical, cfg) {
+  if (cfg.ignoreSavedContacts === false) return false;
+
+  const phone = String(canonical.phoneDigits || canonical.leadKey || '').replace(/\D/g, '');
+  const jid = String(canonical.replyJid || canonical.remoteJid || '');
+
+  // 1. Verifica lista de administradores
+  if (phoneMatchesList(phone, cfg.adminNumbers || [])) return { name: 'Admin' };
+
+  // 2. Verifica no mapa de contatos salvos na agenda do telefone
+  const map = await refreshSavedContactsCache(cfg);
+  if (phone && map.has(phone)) {
+    return { name: map.get(phone) };
+  }
+  if (jid && map.has(jid)) {
+    return { name: map.get(jid) };
+  }
+
+  // 3. Tolerância para variação do 9º dígito BR
+  if (phone.length === 12 || phone.length === 13) {
+    const tail8 = phone.slice(-8);
+    for (const [savedPhone, name] of map.entries()) {
+      if (savedPhone.endsWith(tail8)) {
+        return { name };
+      }
+    }
+  }
+
+  return false;
+}
+
 /**
  * Normaliza eventos de webhook recebidos da Evolution API v2.3.7.
  */
@@ -513,6 +588,13 @@ async function handleIncomingWebhook(payload, opts = {}) {
     return { handled: false, reason: 'mode_pilot_filtered', leadKey: canonical.leadKey };
   }
 
+  // Trava de segurança: contatos salvos da agenda pessoal (família, amigos, AutoStilo) são sumariamente ignorados!
+  const personalCheck = await isPersonalOrSavedContact(canonical, cfg);
+  if (personalCheck) {
+    addBotLog('info', `Mensagem ignorada: contato pessoal salvo na agenda (${personalCheck.name || 'Contato Salvo'})`, { leadKey: canonical.leadKey });
+    return { handled: false, reason: 'ignored_personal_contact', name: personalCheck.name, leadKey: canonical.leadKey };
+  }
+
   if (parsed.msgId && store.isMessageProcessed(parsed.msgId)) {
     return { handled: false, reason: 'duplicate_msg' };
   }
@@ -860,6 +942,13 @@ async function runPollTick() {
     for (const chat of candidates) {
       const lm = chat.lastMessage;
       const msgId = String(lm.key?.id || '');
+      const jid = String(lm.key?.remoteJid || '');
+      const key = jid.replace(/@.*$/, '');
+
+      // Trava absoluta: contatos salvos da agenda pessoal (família, amigos, AutoStilo) são ignorados!
+      const personalCheck = await isPersonalOrSavedContact({ leadKey: key, phoneDigits: key, replyJid: jid }, cfg);
+      if (personalCheck) continue;
+
       // Trava absoluta: mensagem já processada NUNCA é reprocessada no polling
       if (msgId && store.isMessageProcessed(msgId)) continue;
 
