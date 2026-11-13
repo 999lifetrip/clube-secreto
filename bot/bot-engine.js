@@ -164,7 +164,9 @@ async function pumpOutboundQueue() {
             await sleepBacklogInterruptible(jitter);
           }
         } else {
-          await evo.sleep(1200);
+          // Delay humano aleatório entre novos leads urgentes (4s a 9s) para simular troca natural de conversa
+          const urgentJitter = randomGapMs(4000, 9000);
+          await evo.sleep(urgentJitter);
         }
       }
     }
@@ -192,7 +194,7 @@ function enqueueLeadWork(leadKey, fn, urgent = true) {
   });
 }
 
-function randomGapMs(min = 1600, max = 3100) {
+function randomGapMs(min = 2500, max = 5000) {
   return min + Math.floor(Math.random() * (max - min + 1));
 }
 
@@ -207,10 +209,10 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
   let failCount = 0;
   let connectionClosed = false;
 
-  // Confirma leitura (tick azul) + pausa curta como humano lendo a conversa antes de responder
+  // Confirma leitura (tick azul) + pausa humanizada lendo a conversa antes de responder (2.5s a 5.5s)
   if (sourceMsgIds.length) {
     await evo.markMessageAsRead(cfg, sourceMsgIds.map((id) => ({ remoteJid: replyJid, id })));
-    await evo.sleep(randomGapMs(1500, 2700));
+    await evo.sleep(randomGapMs(2500, 5500));
   }
 
   for (const act of actions) {
@@ -240,7 +242,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
         addBotLog('error', `Falha ao enviar áudio ${act.audioId}`, { leadKey, status: res.status, raw: res.raw || res.error });
         if (String(res.raw || res.error || '').includes('Connection Closed')) { connectionClosed = true; break; }
       }
-      await evo.sleep(randomGapMs(1600, 2900));
+      await evo.sleep(randomGapMs(2400, 5200));
     } else if (act.type === 'preview_image') {
       if (lead.sentPrevia) continue;
       const res = await evo.sendPreviewImage(cfg, replyJid, act.filePath, act.caption || '', act.viewOnce !== false);
@@ -254,7 +256,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
         failCount++;
         addBotLog('error', 'Falha ao enviar foto prévia', { leadKey, status: res.status, raw: res.raw || res.error });
       }
-      await evo.sleep(600);
+      await evo.sleep(800);
     } else if (act.type === 'text') {
       const normText = normalizeText(act.text);
       const sentStrings = Array.isArray(lead.sentTextStrings) ? lead.sentTextStrings : [];
@@ -281,7 +283,7 @@ async function executePlannedActions({ leadKey, replyJid, actions, nextStage, pa
         addBotLog('error', `Falha ao enviar texto [${act.key}]`, { leadKey, status: res.status, raw: res.raw || res.error });
         if (String(res.raw || res.error || '').includes('Connection Closed')) { connectionClosed = true; break; }
       }
-      await evo.sleep(randomGapMs(1500, 2700));
+      await evo.sleep(randomGapMs(2200, 4800));
     } else if (act.type === 'pix') {
       const res = await evo.sendPixPayment(cfg, replyJid);
       if (res.ok) {
