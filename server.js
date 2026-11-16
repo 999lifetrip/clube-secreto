@@ -35,7 +35,9 @@ const DEFAULT_SETTINGS = {
   secretGroupEnabled: true,
   secretGroupBanner: '/assets/grupo-secreto.jpg',
   secretGroupSlug: 'grupo',
-  metaPixelId: ''
+  metaPixelId: '',
+  radarWhatsAppUrl: 'https://chat.whatsapp.com/LWnINbc47JtFObREmnFgRO',
+  radarTitle: 'Radar de Ofertas • Edição de Natal 🎄'
 };
 
 if (!fs.existsSync(BACKUPS_DIR)) {
@@ -142,7 +144,9 @@ function getPublicSettings(settings) {
     secretGroupEnabled: s.secretGroupEnabled !== false,
     secretGroupBanner: s.secretGroupBanner || '/assets/grupo-secreto.jpg',
     secretGroupSlug: s.secretGroupSlug || 'grupo',
-    metaPixelId: s.metaPixelId || ''
+    metaPixelId: s.metaPixelId || '',
+    radarWhatsAppUrl: s.radarWhatsAppUrl || 'https://chat.whatsapp.com/LWnINbc47JtFObREmnFgRO',
+    radarTitle: s.radarTitle || 'Radar de Ofertas • Edição de Natal 🎄'
   };
 }
 
@@ -1623,8 +1627,11 @@ const server = http.createServer(async (req, res) => {
   const isPageEntry = (normalizedPath === '/' || normalizedPath === '/index.html' || normalizedPath === unlockedSlugPath);
   const isUnlockedRoute = (normalizedPath === unlockedSlugPath) || (isPageEntry && !!(queryVipToken && currentSettings.vipAccessToken && queryVipToken === currentSettings.vipAccessToken));
   const isGroupRoute = (normalizedPath === groupSlugPath || normalizedPath === '/grupo' || normalizedPath === '/grupo-secreto' || normalizedPath === '/entrar-grupo' || normalizedPath === '/wpp');
+  const isRadarRoute = (normalizedPath === '/radar' || normalizedPath === '/radar-de-ofertas' || normalizedPath === '/natal' || normalizedPath === '/sorteio' || normalizedPath === '/ofertas' || normalizedPath === '/arvore' || normalizedPath === '/radar.html');
 
-  if (isGroupRoute) {
+  if (isRadarRoute) {
+    cleanUrl = '/radar.html';
+  } else if (isGroupRoute) {
     cleanUrl = '/grupo.html';
   } else if (cleanUrl === '/' || cleanUrl === '' || (isPageEntry && isUnlockedRoute)) {
     cleanUrl = '/index.html';
@@ -1710,8 +1717,8 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Injeta estado dinâmico no grupo.html (Página dedicada para Tráfego Pago / Anúncios)
-  if (cleanUrl === '/grupo.html') {
+  // Injeta estado dinâmico no grupo.html ou radar.html (Landing Pages para Tráfego / Anúncios)
+  if (cleanUrl === '/grupo.html' || cleanUrl === '/radar.html') {
     fs.readFile(filePath, 'utf8', (err, html) => {
       if (err) {
         res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
