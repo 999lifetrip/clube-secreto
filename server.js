@@ -1628,8 +1628,11 @@ const server = http.createServer(async (req, res) => {
   const isUnlockedRoute = (normalizedPath === unlockedSlugPath) || (isPageEntry && !!(queryVipToken && currentSettings.vipAccessToken && queryVipToken === currentSettings.vipAccessToken));
   const isGroupRoute = (normalizedPath === groupSlugPath || normalizedPath === '/grupo' || normalizedPath === '/grupo-secreto' || normalizedPath === '/entrar-grupo' || normalizedPath === '/wpp');
   const isRadarRoute = (normalizedPath === '/radar' || normalizedPath === '/radar-de-ofertas' || normalizedPath === '/natal' || normalizedPath === '/sorteio' || normalizedPath === '/ofertas' || normalizedPath === '/arvore' || normalizedPath === '/radar.html');
+  const isTvRoute = (normalizedPath === '/tv' || normalizedPath === '/planos' || normalizedPath === '/quiz' || normalizedPath === '/streaming' || normalizedPath === '/iptv' || normalizedPath === '/canais' || normalizedPath === '/tv.html');
 
-  if (isRadarRoute) {
+  if (isTvRoute) {
+    cleanUrl = '/tv.html';
+  } else if (isRadarRoute) {
     cleanUrl = '/radar.html';
   } else if (isGroupRoute) {
     cleanUrl = '/grupo.html';
@@ -1717,8 +1720,8 @@ const server = http.createServer(async (req, res) => {
     }
   }
 
-  // Injeta estado dinâmico no grupo.html ou radar.html (Landing Pages para Tráfego / Anúncios)
-  if (cleanUrl === '/grupo.html' || cleanUrl === '/radar.html') {
+  // Injeta estado dinâmico no grupo.html, radar.html ou tv.html (Landing Pages para Tráfego / Anúncios)
+  if (cleanUrl === '/grupo.html' || cleanUrl === '/radar.html' || cleanUrl === '/tv.html') {
     fs.readFile(filePath, 'utf8', (err, html) => {
       if (err) {
         res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
