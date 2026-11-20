@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Acesso VIP • Novelas, Doramas, Futebol e TV Online no WhatsApp ou Smart TV</title>
-  <meta name="description" content="Assista a mais de 10.000 novelinhas verticais, doramas dublados, novelas turcas, futebol ao vivo 60FPS e lançamentos de cinema. Pagamento único sem mensalidades a partir de R$ 10!" />
+  <title>Acesso VIP • Novelas Turcas, Doramas, Futebol e TV Online no WhatsApp ou Smart TV</title>
+  <meta name="description" content="Assista a Força de Mulher, novelas turcas completas, doramas dublados, futebol 60FPS e lançamentos de cinema no seu WhatsApp ou Smart TV. Pagamento único a partir de R$ 10!" />
   <link rel="icon" href="/assets/logo.jpg" type="image/jpeg" />
 
   <!-- Google Fonts: Plus Jakarta Sans -->
@@ -50,8 +50,8 @@
       flex-direction: column;
       overflow-x: hidden;
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.14) 0%, transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(59, 130, 246, 0.10) 0%, transparent 40%);
+        radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 80% 25%, rgba(59, 130, 246, 0.12) 0%, transparent 40%);
       background-repeat: no-repeat;
     }
 
@@ -127,7 +127,7 @@
       -webkit-text-fill-color: transparent;
     }
     .hero-subtitle {
-      font-size: 0.86rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       max-width: 480px;
       margin: 0 auto 12px;
@@ -136,7 +136,7 @@
     }
 
     /* ======================================================== */
-    /* QUIZ CONTAINER ESTILO APP (RÁPIDO, VISUAL E SEM ENROLAÇÃO)*/
+    /* ETAPA 1: O QUIZ VISUAL COM IMAGENS & GATILHOS DIRETOS    */
     /* ======================================================== */
     .quiz-card {
       background: var(--bg-card);
@@ -148,148 +148,136 @@
       position: relative;
     }
 
-    /* PROGRESS TRACK */
-    .quiz-progress-wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-    .quiz-progress-track {
-      width: 100%;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .quiz-progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #ec4899, #3b82f6);
-      width: 33.33%;
-      transition: width 0.28s ease;
-      border-radius: 999px;
-    }
-
-    .step-box {
-      display: none;
-    }
-    .step-box.active {
-      display: block;
-      animation: fadeIn 0.25s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .step-heading {
-      font-size: 1.15rem;
+    .quiz-header-title {
+      font-size: 1.18rem;
       font-weight: 900;
       color: #ffffff;
       margin-bottom: 4px;
       line-height: 1.25;
+      text-align: center;
     }
-    .step-subheading {
-      font-size: 0.78rem;
+    .quiz-header-sub {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
+      text-align: center;
     }
 
-    /* GRANDES CARDS VISUAIS DE ESCOLHA (ESTILO APP DE QUIZ) */
-    .quiz-cards-grid {
+    .choice-cards-container {
       display: grid;
-      gap: 10px;
+      gap: 14px;
     }
 
-    .quiz-choice-card {
+    /* CARD VISUAL RICO COM PÔSTERES EMBUTIDOS */
+    .rich-choice-card {
       background: var(--bg-elevated);
-      border: 1.5px solid var(--border);
+      border: 2px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 14px 14px;
+      padding: 14px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.18s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
       position: relative;
+      overflow: hidden;
     }
-    .quiz-choice-card:active {
+    .rich-choice-card:active {
       transform: scale(0.98);
     }
-    .quiz-choice-card.selected {
+    .rich-choice-card.pink:hover,
+    .rich-choice-card.pink.selected {
       border-color: #ec4899;
-      background: rgba(236, 72, 153, 0.12);
-      box-shadow: 0 0 0 1px #ec4899;
+      background: linear-gradient(180deg, rgba(236, 72, 153, 0.12) 0%, var(--bg-elevated) 100%);
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.25);
     }
-    .choice-content {
+    .rich-choice-card.blue:hover,
+    .rich-choice-card.blue.selected {
+      border-color: #3b82f6;
+      background: linear-gradient(180deg, rgba(59, 130, 246, 0.12) 0%, var(--bg-elevated) 100%);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+    }
+
+    /* MINI PÔSTERES NO TOPO DO CARD PARA GATILHO VISUAL IMEDIATO */
+    .choice-posters-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .choice-poster-thumb {
+      width: 100%;
+      aspect-ratio: 2/2.8;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #0f1422;
+      display: block;
+    }
+
+    .choice-info-header {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      margin-bottom: 4px;
     }
-    .choice-icon {
-      font-size: 1.6rem;
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .choice-title {
-      font-size: 0.98rem;
-      font-weight: 800;
+    .choice-main-title {
+      font-size: 1.05rem;
+      font-weight: 900;
       color: #ffffff;
-      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-    .choice-desc {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      line-height: 1.3;
-    }
-    .choice-badge-mini {
-      display: inline-block;
+    .card-top-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
       font-size: 0.65rem;
-      font-weight: 800;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+    }
+    .card-top-tag.pink {
       background: rgba(236, 72, 153, 0.2);
       color: #f472b6;
-      padding: 2px 7px;
-      border-radius: 4px;
-      margin-top: 4px;
+      border: 1px solid rgba(236, 72, 153, 0.4);
     }
-    .quiz-radio {
-      width: 22px;
-      height: 22px;
-      border: 2px solid rgba(255, 255, 255, 0.25);
-      border-radius: 50%;
+    .card-top-tag.blue {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+    }
+    .choice-main-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .choice-badges-row {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.18s;
+      flex-wrap: wrap;
+      gap: 6px;
     }
-    .quiz-choice-card.selected .quiz-radio {
-      border-color: #ec4899;
-      background: #ec4899;
+    .choice-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
-    .quiz-radio::after {
-      content: '';
-      width: 8px;
-      height: 8px;
-      background: #ffffff;
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 0.18s;
+    .choice-tag.pink {
+      background: rgba(236, 72, 153, 0.2);
+      color: #f472b6;
+      border: 1px solid rgba(236, 72, 153, 0.35);
     }
-    .quiz-choice-card.selected .quiz-radio::after {
-      opacity: 1;
+    .choice-tag.green {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.35);
     }
 
     /* SCANNER RÁPIDO */
@@ -327,11 +315,15 @@
     }
 
     /* ======================================================== */
-    /* RESULT SECTION: APRESENTAÇÃO + VITRINE REAL               */
+    /* ETAPA 2: PROVAS SOCIAIS + APRESENTAÇÃO + PLANOS          */
     /* ======================================================== */
-    #quiz-result-area {
+    #etapa-2-area {
       display: none;
       animation: fadeIn 0.3s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* MATCH BANNER */
@@ -368,7 +360,7 @@
       line-height: 1.35;
     }
 
-    /* COVERS REAL GRID (IMAGENS LOCAIS 100% FUNCIONANDO SEM BUG) */
+    /* VITRINE DE PÔSTERES REAIS */
     .covers-showcase-card {
       background: var(--bg-card);
       border: 1.5px solid var(--border);
@@ -440,38 +432,26 @@
       text-overflow: ellipsis;
     }
 
-    /* COMO FUNCIONA (COPY EXATA) */
-    .how-it-works-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px 16px;
-      margin-bottom: 20px;
-    }
-    .how-it-works-title {
-      font-size: 1.15rem;
-      font-weight: 900;
-      color: #ffffff;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .how-it-works-body {
-      font-size: 0.86rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-    }
-    .how-it-works-body p {
-      margin-bottom: 8px;
-    }
-
     /* ======================================================== */
-    /* MOCKUP ULTRA-REALISTA DE CONVERSA DO WHATSAPP (PROVA REAL)*/
+    /* PROVAS SOCIAIS REAIS DO WHATSAPP (MOCKUP ULTRA-REALISTA) */
     /* ======================================================== */
     .whatsapp-proof-section {
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
     .wa-mockup-wrapper {
       background: #0b141a;
       border: 1.5px solid rgba(255, 255, 255, 0.12);
@@ -480,7 +460,6 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
       margin-bottom: 14px;
     }
-    /* WHATSAPP TOP BAR */
     .wa-top-bar {
       background: #1f2c34;
       padding: 10px 12px;
@@ -521,7 +500,6 @@
       font-size: 1rem;
     }
 
-    /* WHATSAPP CHAT BODY */
     .wa-chat-body {
       padding: 14px 12px;
       display: flex;
@@ -567,7 +545,6 @@
       font-weight: 900;
     }
 
-    /* VOUCHER / COMPROVANTE PIX CARD DENTRO DO ZAP */
     .wa-pix-receipt {
       background: #111b21;
       border: 1px solid rgba(16, 185, 129, 0.4);
@@ -595,8 +572,34 @@
       font-size: 0.68rem;
     }
 
+    /* COMO FUNCIONA (COPY EXATA) */
+    .how-it-works-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 16px;
+      margin-bottom: 22px;
+    }
+    .how-it-works-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .how-it-works-body {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .how-it-works-body p {
+      margin-bottom: 8px;
+    }
+
     /* ======================================================== */
-    /* OS 2 PLANOS OFICIAIS: R$ 10 (SIMPLES) E R$ 20 (VIP)      */
+    /* OS 2 PLANOS OFICIAIS (CLIQUE VAI DIRETO PRO PIX!)        */
     /* ======================================================== */
     .plans-section {
       margin-bottom: 24px;
@@ -715,7 +718,9 @@
       transform: translateY(-1px);
     }
 
-    /* PIX CHECKOUT BOX */
+    /* ======================================================== */
+    /* CHECKOUT PIX AUTOMÁTICO (ROLA DIRETO PRA CÁ!)            */
+    /* ======================================================== */
     #checkout-box {
       display: none;
       background: #0d121c;
@@ -1001,148 +1006,92 @@
 
   <div class="container">
 
-    <!-- HERO HEADER -->
+    <!-- HERO HEADER COM FOCO EM NOVELAS TURCAS E FUTEBOL -->
     <header class="hero">
       <div class="hero-badge">
         <span>🎬 ACESSO COMPLETO • PAGAMENTO ÚNICO</span>
       </div>
       <h1 class="hero-title">
-        Novelinhas, Doramas, Futebol e Filmes <span>no WhatsApp ou TV</span>
+        Novelas Turcas, Doramas, Futebol e Filmes <span>no WhatsApp ou TV</span>
       </h1>
       <p class="hero-subtitle">
-        Sem mensalidades nem moedinhas por capítulo! Faça o teste rápido de 10 segundos para liberar seu acesso:
+        Sem mensalidades nem moedinhas por capítulo! Toque no que você quer assistir para liberar seu catálogo:
       </p>
     </header>
 
     <!-- ======================================================== -->
-    <!-- QUIZ INTERATIVO ESTILO APP (PERGUNTA 1: NOVELAS OU TV?)   -->
+    <!-- ETAPA 1: O QUIZ VISUAL COM PÔSTERES EMBUTIDOS NOS CARDS  -->
     <!-- ======================================================== -->
     <div class="quiz-card" id="quiz-box">
-      
-      <div class="quiz-progress-wrap">
-        <span id="quiz-step-title">ETAPA 1 DE 3</span>
-        <span id="quiz-step-pct">33%</span>
-      </div>
-      <div class="quiz-progress-track">
-        <div class="quiz-progress-bar" id="quiz-bar"></div>
-      </div>
+      <h2 class="quiz-header-title">O que você quer assistir hoje?</h2>
+      <p class="quiz-header-sub">Toque na sua opção para ver as provas e escolher seu plano:</p>
 
-      <!-- ETAPA 1: ESCOLHA PRINCIPAL (NOVELAS vs TV + FILMES) -->
-      <div class="step-box active" id="quiz-step-1">
-        <h2 class="step-heading">O que você mais quer assistir?</h2>
-        <p class="step-subheading">Toque na sua preferência para personalizar seu catálogo:</p>
-
-        <div class="quiz-cards-grid">
+      <div class="choice-cards-container">
+        
+        <!-- CARD 1: NOVELAS TURCAS, DORAMAS E NOVELINHAS (COM FOTOS REAIS!) -->
+        <div class="rich-choice-card pink selected" onclick="selectFunnelCategory('novelas', this)">
+          <div class="card-top-tag pink">👑 MAIS PEDIDO NO BRASIL</div>
           
-          <!-- OPÇÃO A: NOVELAS, DORAMAS E TURCAS -->
-          <div class="quiz-choice-card selected" onclick="chooseStep1('novelas', this)">
-            <div class="choice-content">
-              <div class="choice-icon">🌹</div>
-              <div>
-                <div class="choice-title">Novelas & Doramas</div>
-                <div class="choice-desc">Novelinhas verticais, Turcas dubladas e K-Dramas coreanos</div>
-                <span class="choice-badge-mini">+10.000 Capítulos Completos</span>
-              </div>
-            </div>
-            <div class="quiz-radio"></div>
+          <!-- MINI PÔSTERES EMBUTIDOS -->
+          <div class="choice-posters-strip">
+            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" class="choice-poster-thumb" />
+            <img src="/assets/covers/turca-terra-amarga.jpg" alt="Terra Amarga" class="choice-poster-thumb" />
+            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Alquimia das Almas" class="choice-poster-thumb" />
           </div>
 
-          <!-- OPÇÃO B: TV AO VIVO, FUTEBOL E FILMES -->
-          <div class="quiz-choice-card" onclick="chooseStep1('tv_stream', this)">
-            <div class="choice-content">
-              <div class="choice-icon">⚽</div>
-              <div>
-                <div class="choice-title">TV Ao Vivo, Futebol & Filmes</div>
-                <div class="choice-desc">Premiere 60FPS sem delay, Champions, UFC, Netflix e Cinema 2026</div>
-                <span class="choice-badge-mini" style="background:rgba(16,185,129,0.2); color:#6ee7b7;">+2.500 Canais em 4K</span>
-              </div>
-            </div>
-            <div class="quiz-radio"></div>
+          <div class="choice-info-header">
+            <div class="choice-main-title">🎬 Novelas Turcas & Doramas</div>
+            <span style="font-size:1.1rem; color:#ec4899;">➔</span>
           </div>
-
+          <div class="choice-main-desc">
+            Assista a <b>Força de Mulher</b>, <b>Terra Amarga</b>, Doramas coreanos e novelinhas completas sem moedinhas!
+          </div>
+          <div class="choice-badges-row">
+            <span class="choice-tag pink">🔥 100% Dubladas</span>
+            <span class="choice-tag pink">✨ +10.000 Capítulos</span>
+            <span class="choice-tag green">💬 Direto no WhatsApp</span>
+          </div>
         </div>
-      </div>
 
-      <!-- ETAPA 2: DISPOSITIVO -->
-      <div class="step-box" id="quiz-step-2">
-        <h2 class="step-heading">Onde você prefere assistir?</h2>
-        <p class="step-subheading">Para enviarmos o formato certo para você:</p>
-
-        <div class="quiz-cards-grid">
+        <!-- CARD 2: TV AO VIVO, FUTEBOL & FILMES (COM FOTOS REAIS!) -->
+        <div class="rich-choice-card blue" onclick="selectFunnelCategory('tv_stream', this)">
+          <div class="card-top-tag blue">⚡ 100% AO VIVO SEM DELAY</div>
           
-          <div class="quiz-choice-card selected" onclick="chooseStep2('whatsapp', this)">
-            <div class="choice-content">
-              <div class="choice-icon">💬</div>
-              <div>
-                <div class="choice-title">Direto no WhatsApp & Celular</div>
-                <div class="choice-desc">Receba episódios em pastas organizadas sem baixar nada pesado</div>
-              </div>
-            </div>
-            <div class="quiz-radio"></div>
+          <!-- MINI PÔSTERES EMBUTIDOS -->
+          <div class="choice-posters-strip">
+            <img src="/assets/covers/futebol-premiere.jpg" alt="Futebol Premiere" class="choice-poster-thumb" />
+            <img src="/assets/covers/champions-league.jpg" alt="Champions League" class="choice-poster-thumb" />
+            <img src="/assets/covers/cinema-lancamentos.jpg" alt="Cinema 2026" class="choice-poster-thumb" />
           </div>
 
-          <div class="quiz-choice-card" onclick="chooseStep2('smart_tv', this)">
-            <div class="choice-content">
-              <div class="choice-icon">📺</div>
-              <div>
-                <div class="choice-title">Na Smart TV / TV Box</div>
-                <div class="choice-desc">Com suporte VIP exclusivo passo a passo para colocar na TV</div>
-              </div>
-            </div>
-            <div class="quiz-radio"></div>
+          <div class="choice-info-header">
+            <div class="choice-main-title">⚽ TV Ao Vivo, Futebol & Cinema</div>
+            <span style="font-size:1.1rem; color:#3b82f6;">➔</span>
           </div>
-
+          <div class="choice-main-desc">
+            Premiere 60FPS sem delay, Champions League, canais fechados, Netflix e lançamentos de cinema em 4K.
+          </div>
+          <div class="choice-badges-row">
+            <span class="choice-tag green">⚡ 60 FPS Sem Delay</span>
+            <span class="choice-tag green">📺 +2.500 Canais</span>
+            <span class="choice-tag pink">🍿 Cinema 2026</span>
+          </div>
         </div>
+
       </div>
 
-      <!-- ETAPA 3: NÍVEL VIP (R$ 20 VIP vs R$ 10 SIMPLES) -->
-      <div class="step-box" id="quiz-step-3">
-        <h2 class="step-heading">Qual nível de acesso você prefere?</h2>
-        <p class="step-subheading">Ambos com pagamento único (sem mensalidade nenhuma):</p>
-
-        <div class="quiz-cards-grid">
-          
-          <!-- VIP COMPLETO R$ 20 -->
-          <div class="quiz-choice-card selected" onclick="chooseStep3('vip_20', this)">
-            <div class="choice-content">
-              <div class="choice-icon">🥇</div>
-              <div>
-                <div class="choice-title">Plano Completo VIP — R$ 20,00</div>
-                <div class="choice-desc">Novidades TODO DIA + Pode pedir qualquer novela/filme + Suporte na TV</div>
-                <span class="choice-badge-mini" style="background:rgba(245,158,11,0.25); color:#fbbf24;">⭐ O Mais Escolhido</span>
-              </div>
-            </div>
-            <div class="quiz-radio"></div>
-          </div>
-
-          <!-- BÁSICO R$ 10 -->
-          <div class="quiz-choice-card" onclick="chooseStep3('simples_10', this)">
-            <div class="choice-content">
-              <div class="choice-icon">🌻</div>
-              <div>
-                <div class="choice-title">Plano Simples — R$ 10,00</div>
-                <div class="choice-desc">3.000 títulos sem atualização diária e sem direito a pedidos</div>
-              </div>
-            </div>
-            <div class="quiz-radio"></div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- SCANNER DE CARREGAMENTO (800ms) -->
+      <!-- SCANNER TRANSITION (RAPIDINHO 400ms) -->
       <div class="scanner-box" id="scanner-box">
         <div class="spin-ring"></div>
         <h3 class="scanner-title">Liberando seu catálogo...</h3>
-        <p class="scanner-status" id="scanner-status">Configurando acesso exclusivo para WhatsApp e TV...</p>
+        <p class="scanner-status">Configurando acesso exclusivo no WhatsApp e Smart TV...</p>
       </div>
-
     </div>
 
     <!-- ======================================================== -->
-    <!-- RESULTADO APÓS O QUIZ: APRESENTAÇÃO + PROVA + VENDA      -->
+    <!-- ETAPA 2: PROVAS SOCIAIS + APRESENTAÇÃO + PLANOS          -->
     <!-- ======================================================== -->
-    <div id="quiz-result-area">
+    <div id="etapa-2-area">
 
       <!-- BANNER PERSONALIZADO -->
       <div class="match-banner">
@@ -1155,7 +1104,7 @@
         </p>
       </div>
 
-      <!-- VITRINE DE PÔSTERES REAIS (SEM BUGS) -->
+      <!-- VITRINE DE PÔSTERES REAIS -->
       <div class="covers-showcase-card">
         <div class="covers-header">
           <span id="covers-showcase-title">🌟 Novelas Mais Assistidas Esta Semana:</span>
@@ -1165,50 +1114,29 @@
           <!-- PÔSTER 1 -->
           <div class="cover-box">
             <span class="cover-tag-over">RECORD DE IBOPE</span>
-            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" onerror="this.src='https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&q=80'" />
+            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" />
             <div class="cover-title-text">Força de Mulher</div>
             <div class="cover-sub-text">Completa Dublada</div>
           </div>
           <!-- PÔSTER 2 -->
           <div class="cover-box">
             <span class="cover-tag-over">SUCESSO TURCO</span>
-            <img src="/assets/covers/turca-terra-amarga.jpg" alt="Terra Amarga" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=300&q=80'" />
+            <img src="/assets/covers/turca-terra-amarga.jpg" alt="Terra Amarga" />
             <div class="cover-title-text">Terra Amarga</div>
             <div class="cover-sub-text">Todas as Temporadas</div>
           </div>
           <!-- PÔSTER 3 -->
           <div class="cover-box">
             <span class="cover-tag-over">K-DRAMA EM ALTA</span>
-            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Alquimia das Almas" onerror="this.src='https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=300&q=80'" />
+            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Alquimia das Almas" />
             <div class="cover-title-text">Alquimia das Almas</div>
             <div class="cover-sub-text">Áudio Dublado HD</div>
           </div>
         </div>
       </div>
 
-      <!-- SEÇÃO COMO FUNCIONA (COPY EXATA DO CLIENTE) -->
-      <div class="how-it-works-box">
-        <h3 class="how-it-works-title">
-          <span>🍿</span> COMO FUNCIONA?
-        </h3>
-        <div class="how-it-works-body">
-          <p>
-            <b>Você encontra todas as opções de entretenimento em um só lugar! 🎬</b>
-          </p>
-          <p>
-            Conteúdos variados, com todas as opções das plataformas como <b>Netflix, Disney+, HBO Max</b> e canais ao vivo.
-          </p>
-          <p>
-            📱 <b>Assista em dispositivos compatíveis</b>, como Smart TV, TV Box, celular, computador ou <b>direto no seu WhatsApp</b>.
-          </p>
-          <p style="color:#34d399; font-weight:800; margin-bottom:0;">
-            Tudo isso com praticidade e preço acessível! 🚀
-          </p>
-        </div>
-      </div>
-
       <!-- ======================================================== -->
-      <!-- PROVAS REAIS: MOCKUP DE PRINT DE CONVERSA DO WHATSAPP     -->
+      <!-- PROVAS SOCIAIS REAIS: MOCKUP DE PRINT DO WHATSAPP        -->
       <!-- ======================================================== -->
       <div class="whatsapp-proof-section">
         <h3 class="section-title">Depoimentos Reais no WhatsApp</h3>
@@ -1294,12 +1222,33 @@
 
       </div>
 
+      <!-- SEÇÃO COMO FUNCIONA (COPY EXATA DO CLIENTE) -->
+      <div class="how-it-works-box">
+        <h3 class="how-it-works-title">
+          <span>🍿</span> COMO FUNCIONA?
+        </h3>
+        <div class="how-it-works-body">
+          <p>
+            <b>Você encontra todas as opções de entretenimento em um só lugar! 🎬</b>
+          </p>
+          <p>
+            Conteúdos variados, com todas as opções das plataformas como <b>Netflix, Disney+, HBO Max</b> e canais ao vivo.
+          </p>
+          <p>
+            📱 <b>Assista em dispositivos compatíveis</b>, como Smart TV, TV Box, celular, computador ou <b>direto no seu WhatsApp</b>.
+          </p>
+          <p style="color:#34d399; font-weight:800; margin-bottom:0;">
+            Tudo isso com praticidade e preço acessível! 🚀
+          </p>
+        </div>
+      </div>
+
       <!-- ======================================================== -->
-      <!-- OS 2 PLANOS OFICIAIS: R$ 10 (SIMPLES) E R$ 20 (VIP)      -->
+      <!-- OS 2 PLANOS OFICIAIS (CLIQUE VAI DIRETO PRO PIX!)        -->
       <!-- ======================================================== -->
       <div class="plans-section" id="planos-anchor">
-        <h3 class="section-title">Escolha Seu Plano e Ative em 2 Minutos</h3>
-        <p class="section-subtitle">Acesso com pagamento único (sem mensalidade nenhuma):</p>
+        <h3 class="section-title">Escolha Seu Plano e Pague no PIX</h3>
+        <p class="section-subtitle">Toque no plano desejado para gerar a Chave PIX imediatamente:</p>
 
         <!-- 1. PLANO COMPLETO VIP (R$ 20,00 - O MAIS ESCOLHIDO) -->
         <div class="plan-card featured" id="card-vip">
@@ -1324,8 +1273,8 @@
             <li><span class="bullet-ok">💰</span> <b>Pagamento único — sem mensalidade nenhuma!</b></li>
           </ul>
 
-          <button class="btn-choose-plan" onclick="openPixCheckout('Plano Completo VIP', '20.00')">
-            QUERO O PLANO VIP POR R$ 20 ➔
+          <button class="btn-choose-plan" onclick="goToPixCheckout('Plano Completo VIP', '20.00')">
+            PAGAR R$ 20 NO PIX & LIBERAR MEU ACESSO ➔
           </button>
         </div>
 
@@ -1350,17 +1299,19 @@
             <li><span class="bullet-no">❌</span> Não pode pedir novelinhas ou doramas</li>
           </ul>
 
-          <button class="btn-choose-plan" onclick="openPixCheckout('Plano Simples', '10.00')">
-            Escolher Plano Simples (R$ 10) ➔
+          <button class="btn-choose-plan" onclick="goToPixCheckout('Plano Simples', '10.00')">
+            PAGAR R$ 10 NO PIX ➔
           </button>
         </div>
 
       </div>
 
-      <!-- CHECKOUT PIX AUTOMÁTICO COM TRAVA ANTI-SPAM NO WHATSAPP -->
+      <!-- ======================================================== -->
+      <!-- CHECKOUT PIX AUTOMÁTICO (ROLA DIRETO PRA CÁ!)            -->
+      <!-- ======================================================== -->
       <div id="checkout-box">
         <h4 class="checkout-title">Pagamento Seguro via PIX</h4>
-        <p class="checkout-subtitle">Copie a chave, faça a transferência no app do seu banco e confirme:</p>
+        <p class="checkout-subtitle">Copie a chave, transfira no app do seu banco e confirme para liberar:</p>
 
         <div class="pix-amount-pill">
           <span>Plano: <b id="checkout-plan-name">Plano Completo VIP</b></span>
@@ -1378,7 +1329,7 @@
           <p><b>Favorecido:</b> Luan Batista (Chave CPF Oficial)</p>
           <ol>
             <li>Toque em <b>"Copiar Chave PIX"</b> acima.</li>
-            <li>Abra o aplicativo do seu banco e transfira o valor exato.</li>
+            <li>Abra o aplicativo do seu banco e pague o valor exato.</li>
             <li>Após pagar, toque no botão verde abaixo para enviar seu comprovante.</li>
           </ol>
         </div>
@@ -1472,107 +1423,37 @@
     const PIX_KEY = '09658990983';
     const WHATSAPP_PHONE = '554195993007';
 
-    let userChoices = {
-      category: 'novelas',
-      device: 'whatsapp',
-      plan: 'Plano Completo VIP',
-      price: '20.00'
-    };
+    let userSelectedCategory = 'novelas';
+    let currentPlan = 'Plano Completo VIP';
+    let currentPrice = '20.00';
 
-    // ETAPA 1 DO QUIZ: ESCOLHE NOVELAS OU TV+FILMES
-    function chooseStep1(cat, element) {
-      userChoices.category = cat;
-      const parent = element.closest('.quiz-cards-grid');
-      parent.querySelectorAll('.quiz-choice-card').forEach(c => c.classList.remove('selected'));
+    // ETAPA 1: SELEÇÃO VISUAL COM GATILHOS (AVANÇA DIRETO PARA A ETAPA 2)
+    function selectFunnelCategory(cat, element) {
+      userSelectedCategory = cat;
+
+      document.querySelectorAll('.rich-choice-card').forEach(c => c.classList.remove('selected'));
       element.classList.add('selected');
 
-      setTimeout(() => {
-        advanceQuizStep(2);
-      }, 220);
-    }
-
-    // ETAPA 2 DO QUIZ: DISPOSITIVO
-    function chooseStep2(dev, element) {
-      userChoices.device = dev;
-      const parent = element.closest('.quiz-cards-grid');
-      parent.querySelectorAll('.quiz-choice-card').forEach(c => c.classList.remove('selected'));
-      element.classList.add('selected');
-
-      setTimeout(() => {
-        advanceQuizStep(3);
-      }, 220);
-    }
-
-    // ETAPA 3 DO QUIZ: NÍVEL VIP (R$ 20 OU R$ 10)
-    function chooseStep3(planType, element) {
-      if (planType === 'vip_20') {
-        userChoices.plan = 'Plano Completo VIP';
-        userChoices.price = '20.00';
-      } else {
-        userChoices.plan = 'Plano Simples';
-        userChoices.price = '10.00';
-      }
-
-      const parent = element.closest('.quiz-cards-grid');
-      parent.querySelectorAll('.quiz-choice-card').forEach(c => c.classList.remove('selected'));
-      element.classList.add('selected');
-
-      setTimeout(() => {
-        finishAppQuiz();
-      }, 220);
-    }
-
-    // AVANÇAR ETAPAS
-    function advanceQuizStep(step) {
-      document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
-      const nextStepEl = document.getElementById('quiz-step-' + step);
-      if (nextStepEl) nextStepEl.classList.add('active');
-
-      const bar = document.getElementById('quiz-bar');
-      const title = document.getElementById('quiz-step-title');
-      const pct = document.getElementById('quiz-step-pct');
-
-      if (step === 2) {
-        bar.style.width = '66.66%';
-        title.innerText = 'ETAPA 2 DE 3';
-        pct.innerText = '66%';
-      } else if (step === 3) {
-        bar.style.width = '100%';
-        title.innerText = 'ETAPA 3 DE 3';
-        pct.innerText = '100%';
-      }
-    }
-
-    // FINALIZAR O QUIZ E MONTAR A APRESENTAÇÃO PERSONALIZADA
-    function finishAppQuiz() {
-      document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
       const scanner = document.getElementById('scanner-box');
       scanner.classList.add('active');
 
       setTimeout(() => {
-        // Esconde container de quiz
         document.getElementById('quiz-box').style.display = 'none';
 
-        // Atualiza a vitrine de acordo com o que o lead escolheu
-        renderPersonalizedResult();
+        renderEtapa2();
 
-        // Mostra a área de resultado
-        const resultArea = document.getElementById('quiz-result-area');
-        resultArea.style.display = 'block';
+        const etapa2 = document.getElementById('etapa-2-area');
+        etapa2.style.display = 'block';
 
         if (typeof fbq === 'function') {
-          fbq('track', 'QuizCompleted', {
-            category: userChoices.category,
-            device: userChoices.device,
-            plan: userChoices.plan
-          });
+          fbq('track', 'QuizCategorySelected', { category: cat });
         }
 
-        resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 800);
+        etapa2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 400);
     }
 
-    function renderPersonalizedResult() {
+    function renderEtapa2() {
       const headline = document.getElementById('match-headline');
       const details = document.getElementById('match-details');
       const showcaseTitle = document.getElementById('covers-showcase-title');
@@ -1580,31 +1461,31 @@
       const proofNovelas = document.getElementById('proof-wa-novelas');
       const proofFutebol = document.getElementById('proof-wa-futebol');
 
-      if (userChoices.category === 'tv_stream') {
+      if (userSelectedCategory === 'tv_stream') {
         headline.innerText = '⚽ Perfil TV Ao Vivo, Futebol & Cinema Pronto!';
         details.innerHTML = 'Acesso liberado com Premiere sem delay, Champions League, UFC Combate e canais em 4K no seu <b>WhatsApp ou Smart TV</b>.';
         showcaseTitle.innerHTML = '⚽ Canais e Jogos em 60 FPS Sem Delay:';
         grid.innerHTML = `
           <div class="cover-box">
             <span class="cover-tag-over">PREMIERE HD</span>
-            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Premiere" style="filter: hue-rotate(90deg);" />
+            <img src="/assets/covers/futebol-premiere.jpg" alt="Premiere FC" />
             <div class="cover-title-text">Premiere FC</div>
             <div class="cover-sub-text">60 FPS Sem Delay</div>
           </div>
           <div class="cover-box">
             <span class="cover-tag-over">CHAMPIONS</span>
-            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Champions" style="filter: hue-rotate(180deg);" />
+            <img src="/assets/covers/champions-league.jpg" alt="Champions League" />
             <div class="cover-title-text">Champions League</div>
             <div class="cover-sub-text">Ao Vivo em 4K</div>
           </div>
           <div class="cover-box">
             <span class="cover-tag-over">CINEMA 2026</span>
-            <img src="/assets/covers/mexicana-rebelde.jpg" alt="Cinema" />
+            <img src="/assets/covers/cinema-lancamentos.jpg" alt="Cinema & Séries" />
             <div class="cover-title-text">Cinema & Séries</div>
             <div class="cover-sub-text">Netflix & Max Juntos</div>
           </div>
         `;
-        proofFutebol.style.order = '-1'; // Mostra print de futebol primeiro
+        proofFutebol.style.order = '-1';
       } else {
         headline.innerText = '🌸 Catálogo Novelas & Doramas VIP Pronto!';
         details.innerHTML = 'Mais de 10.000 novelinhas verticais, novelas turcas dubladas e K-Dramas coreanos com pedidos liberados direto no seu <b>WhatsApp ou TV</b>!';
@@ -1629,14 +1510,14 @@
             <div class="cover-sub-text">Áudio Dublado HD</div>
           </div>
         `;
-        proofNovelas.style.order = '-1'; // Mostra print de novelas primeiro
+        proofNovelas.style.order = '-1';
       }
     }
 
-    // CHECKOUT PIX
-    function openPixCheckout(planName, price) {
-      userChoices.plan = planName;
-      userChoices.price = price;
+    // AO CLICAR NO PLANO: ROLA DIRETO PRO PIX E ABRE A CHAVE!
+    function goToPixCheckout(planName, price) {
+      currentPlan = planName;
+      currentPrice = price;
 
       document.getElementById('checkout-plan-name').innerText = planName;
       document.getElementById('checkout-plan-price').innerText = 'R$ ' + price.replace('.', ',');
@@ -1657,6 +1538,7 @@
         });
       }
 
+      // Rola suavemente direto para a caixinha do PIX
       checkoutBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -1709,9 +1591,9 @@
     function trackLeadConversion() {
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
-          value: parseFloat(userChoices.price),
+          value: parseFloat(currentPrice),
           currency: 'BRL',
-          content_name: userChoices.plan
+          content_name: currentPlan
         });
       }
     }
