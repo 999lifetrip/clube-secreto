@@ -956,22 +956,45 @@
       color: #34d399;
       font-weight: 900;
     }
-    .pix-key-wrapper {
+    .pix-key-box {
       background: #06090e;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1.5px solid rgba(16, 185, 129, 0.45);
       border-radius: var(--radius-md);
-      padding: 10px 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .pix-key-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .pix-type-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .pix-key-bottom-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 12px;
     }
     .pix-key-text {
       font-family: monospace;
-      font-size: 0.98rem;
+      font-size: 1.18rem;
       color: #fbbf24;
       font-weight: 900;
+      letter-spacing: 0.6px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -1385,35 +1408,41 @@
           <span class="val" id="checkout-plan-price">R$ 20,00</span>
         </div>
 
-        <div class="pix-key-wrapper">
-          <span class="pix-key-text" id="pix-key-display">09658990983</span>
-          <button class="btn-copy-pix" id="copy-btn" onclick="copyPixKey()">
-            <span id="copy-btn-text">Copiar Chave PIX</span>
-          </button>
+        <div class="pix-key-box">
+          <div class="pix-key-top-row">
+            <span class="pix-type-badge">🔑 TIPO DE CHAVE: CPF</span>
+            <span style="font-size:0.75rem; color:#94a3b8;"><b>Titular:</b> Luan Batista</span>
+          </div>
+          <div class="pix-key-bottom-row">
+            <span class="pix-key-text" id="pix-key-display">09658990983</span>
+            <button class="btn-copy-pix" id="copy-btn" onclick="copyPixKey()">
+              <span id="copy-btn-text">Copiar Chave CPF</span>
+            </button>
+          </div>
         </div>
 
         <div class="pix-instructions">
-          <p><b>Favorecido:</b> Luan Batista (Chave CPF Oficial)</p>
+          <p style="color:#e2e8f0; margin-bottom:6px;"><b>Como pagar no app do seu banco:</b></p>
           <ol>
-            <li>Toque em <b>"Copiar Chave PIX"</b> acima.</li>
-            <li>Abra o aplicativo do seu banco e pague o valor exato.</li>
-            <li>Após pagar, toque no botão verde abaixo para enviar seu comprovante.</li>
+            <li>No seu banco, acesse a <b>Área Pix</b> ➔ <b>Transferir</b> e selecione o tipo de chave: <b>CPF</b>.</li>
+            <li>Cole ou digite a chave CPF: <b>09658990983</b> (Titular: Luan Batista).</li>
+            <li>Transfira o valor exato e, em seguida, toque no botão abaixo:</li>
           </ol>
         </div>
 
         <!-- BOTÃO DE CONFIRMAÇÃO DO PIX -->
         <button class="btn-paid-confirmation" id="btn-confirm-pix" onclick="revealWhatsAppGate()">
-          ✓ JÁ FIZ O PIX (ENVIAR COMPROVANTE)
+          ✓ JÁ FIZ O PIX
         </button>
 
         <!-- WHATSAPP GATE: REVELADO SOMENTE APÓS O CLIQUE EM 'JÁ FIZ O PIX' -->
         <div id="whatsapp-gate">
-          <div class="gate-title">🎉 PIX Realizado! Só falta 1 clique para receber seu acesso:</div>
+          <div class="gate-title">🎉 Pagamento Confirmado! Libere seu acesso no WhatsApp:</div>
           <p class="gate-desc">
-            Toque no botão abaixo para abrir a conversa oficial e enviar o print do comprovante. Nosso atendente enviará seu acesso na mesma hora!
+            Toque no botão abaixo para abrir a conversa oficial no WhatsApp <b>(41 9599-3007)</b> e receber seus links de acesso imediatos para a TV e celular!
           </p>
           <a href="#" id="whatsapp-direct-link" target="_blank" class="btn-whatsapp-final" onclick="trackLeadConversion()">
-            📲 ENVIAR COMPROVANTE NO WHATSAPP & LIBERAR MEU ACESSO
+            📲 ENTRAR NO WHATSAPP & RECEBER ACESSO
           </a>
         </div>
       </div>
@@ -1536,8 +1565,8 @@
       <!-- 7. PROVAS SOCIAIS REAIS: MOCKUP DE PRINT DO WHATSAPP     -->
       <!-- ======================================================== -->
       <div class="whatsapp-proof-section">
-        <h3 class="section-title">Depoimentos Reais no WhatsApp</h3>
-        <p class="section-subtitle">Veja como nossos clientes recebem o acesso e assistem todos os dias:</p>
+        <h3 class="section-title">Depoimentos e Elogios no WhatsApp</h3>
+        <p class="section-subtitle">Veja o carinho e o feedback espontâneo de quem já está assistindo todos os dias:</p>
 
         <!-- PRINT 1: WHATSAPP FEMININO (NOVELAS TURCAS E GALÃS) -->
         <div class="wa-mockup-wrapper" id="proof-wa-novelas">
@@ -1553,29 +1582,26 @@
           </div>
 
           <div class="wa-chat-body">
-            <!-- MENSAGEM DO CLIENTE COM COMPROVANTE -->
+            <!-- MENSAGEM DO CLIENTE ELOGIO / AGRADECIMENTO -->
             <div class="wa-msg in">
-              Boa tarde Dona Sirlene! Acabei de fazer o Pix de 20 reais do Plano VIP. Segue o comprovante 👇
-              
-              <div class="wa-pix-receipt">
-                <div class="wa-receipt-header">✓ COMPROVANTE DE TRANSFERÊNCIA PIX</div>
-                <div class="wa-receipt-val">R$ 20,00</div>
-                <div class="wa-receipt-dest"><b>Destinatário:</b> Luan Batista (CPF 096...983)</div>
-                <div class="wa-receipt-dest"><b>Status:</b> Transação Concluída com Sucesso</div>
-              </div>
-              
+              Dona Sirlene, boa tarde! Passando pra agradecer de coração pelo atendimento e pela paciência comigo pra me ensinar a colocar na TV da sala! ❤️
               <div class="wa-time">13:40</div>
+            </div>
+
+            <div class="wa-msg in">
+              Menina, as novelas turcas são maravilhosas, imagem perfeita e tudo dublado com os galãs que eu amo! Minha mãe e eu estamos apaixonadas aqui maratonando 🥰
+              <div class="wa-time">13:41</div>
             </div>
 
             <!-- RESPOSTA DA ATENDENTE -->
             <div class="wa-msg out">
-              Confirmadíssimo, flor! 🎉 Segue seu link VIP liberado: <b>novelasvip.online/acesso</b>. Te mandei o vídeo de como espelhar na Smart TV também! Qualquer coisa me chama ❤️
-              <div class="wa-time">13:42 <span class="wa-blue-ticks">✓✓</span></div>
+              Boa tarde Dona Maria, que bênção ler sua mensagem! 😍 Pode maratonar bastante flor, e lembrando que qualquer novela ou dorama que você quiser que não ache, é só me mandar o nome que eu coloco pra vocês na mesma hora! Um grande beijo no coração ❤️
+              <div class="wa-time">13:43 <span class="wa-blue-ticks">✓✓</span></div>
             </div>
 
             <!-- FEEDBACK DO CLIENTE -->
             <div class="wa-msg in">
-              Mulher do céu, que maravilha!! Já abri as novelas dos galãs turcos aqui na TV da sala, minha mãe tá apaixonada kkkk tava gastando um absurdo naqueles apps de moedinhas. Muito obrigada mesmo! 🙏🥰
+              Muito obrigada mesmo linda! Eu tava gastando mais de 80 reais naqueles aplicativos de moedinhas todo mês, agora tenho tudo liberado sem pagar nada a mais. Nota 1000 pro serviço de vocês! Já recomendei pras minhas irmãs do grupo 🙏✨
               <div class="wa-time">14:15</div>
             </div>
           </div>
@@ -1596,22 +1622,22 @@
 
           <div class="wa-chat-body">
             <div class="wa-msg in">
-              Fala irmão, mandei o Pix de R$ 20 aí no CPF. Segue o comprovante.
-              <div class="wa-pix-receipt">
-                <div class="wa-receipt-header">✓ PIX ENVIADO COM SUCESSO</div>
-                <div class="wa-receipt-val">R$ 20,00</div>
-                <div class="wa-receipt-dest"><b>Beneficiário:</b> Luan Batista • Banco Inter</div>
-              </div>
+              Fala meu parceiro, boa noite! Passando só pra dar o feedback aqui...
               <div class="wa-time">18:22</div>
             </div>
 
+            <div class="wa-msg in">
+              Mano, assisti a rodada inteira do Premiere ontem liso em 60fps sem delay e sem travar 1 segundo sequer! Coloquei na Smart TV da LG em 2 minutos seguindo seu vídeo.
+              <div class="wa-time">18:23</div>
+            </div>
+
             <div class="wa-msg out">
-              Show de bola, parceiro! Acesso ativado com sucesso. Te enviei o link e o login no seu WhatsApp. Premiere, SporTV e Champions League liberados em 60 FPS sem delay! 🚀
-              <div class="wa-time">18:24 <span class="wa-blue-ticks">✓✓</span></div>
+              Fala Marcos, show de bola parceiro! 🔥 Aqui os servidores são dedicados de alta performance pra assistir antes do vizinho gritar gol haha. Precisando de qualquer suporte tamos sempre por aqui!
+              <div class="wa-time">18:25 <span class="wa-blue-ticks">✓✓</span></div>
             </div>
 
             <div class="wa-msg in">
-              Mano, assisti o jogo aqui na Smart TV da LG liso em 60fps sem nenhum travamento. Cancelei a fatura da TV a cabo hoje mesmo. Valeu cada centavo! 👊🔥
+              Top demais cara, hoje mesmo já liguei na operadora e cancelei a fatura da TV a cabo. Economia de mais de R$ 380 por mês! Os filmes de cinema 2026 também tão impecáveis. Valeu cada centavo, parabéns pelo trampo! 👊🚀
               <div class="wa-time">20:55</div>
             </div>
           </div>
@@ -1838,12 +1864,12 @@
 
       function onPixCopied() {
         copyBtn.classList.add('copied');
-        copyBtnText.innerText = '✓ Copiado!';
-        showToast('Chave PIX copiada! Abra o app do seu banco e pague.');
+        copyBtnText.innerText = '✓ CPF Copiado!';
+        showToast('Chave CPF copiada! No seu banco, transfira via PIX tipo CPF.');
 
         setTimeout(() => {
           copyBtn.classList.remove('copied');
-          copyBtnText.innerText = 'Copiar Chave PIX';
+          copyBtnText.innerText = 'Copiar Chave CPF';
         }, 3000);
       }
     }
@@ -1858,7 +1884,7 @@
 
     // MONTA O LINK DO WHATSAPP COM A MENSAGEM PRÉ-FORMATADA
     function updateWhatsAppLink(planName, price) {
-      const msg = `Olá Luan! Acabei de fazer o PIX de R$ ${price.replace('.', ',')} referente ao ${planName}. Segue meu comprovante anexado para liberar meu acesso no WhatsApp/TV agora!`;
+      const msg = `Olá! Acabei de fazer o PIX de R$ ${price.replace('.', ',')} no CPF referente ao ${planName}. Já fiz o Pix e gostaria de liberar meu acesso na TV e WhatsApp agora!`;
       const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
       const linkEl = document.getElementById('whatsapp-direct-link');
       linkEl.href = url;
