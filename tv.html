@@ -1213,7 +1213,7 @@
         Tudo o que Você Quer Assistir <span>na Sua TV ou Celular</span>
       </h1>
       <p class="hero-subtitle">
-        Novelas turcas com galãs, doramas, lançamentos de cinema, todas as plataformas juntas e futebol 60FPS. Sem mensalidades nem moedinhas!
+        Assista a tudo em um só lugar. Sem mensalidades nem moedinhas!
       </p>
 
       <!-- GATILHO: VOCÊ VAI TER TUDO QUE DESEJA -->
@@ -1232,9 +1232,9 @@
 
       <div class="choice-cards-container">
         
-        <!-- CARD 1: NOVELAS TURCAS, DORAMAS E GALÃS (CHAMA ATENÇÃO DAS MULHERES!) -->
+        <!-- CARD 1: NOVELAS TURCAS, DORAMAS & MINIDRAMAS (TUDO COMPLETO E LIBERADO) -->
         <div class="rich-choice-card pink selected" onclick="selectFunnelCategory('novelas', this)">
-          <div class="card-top-tag pink">👑 OS MAIORES GALÃS TURCOS & DORAMAS</div>
+          <div class="card-top-tag pink">👑 OS MAIORES GALÃS TURCOS, DORAMAS & MINIDRAMAS</div>
           
           <!-- MINI PÔSTERES EMBUTIDOS DE HOMENS GALÃS -->
           <div class="choice-posters-strip">
@@ -1244,40 +1244,42 @@
           </div>
 
           <div class="choice-info-header">
-            <div class="choice-main-title">🎬 Novelas Turcas, Doramas & Galãs</div>
+            <div class="choice-main-title">🎬 Novelas Turcas, Doramas & Minidramas</div>
             <span style="font-size:1.1rem; color:#ec4899;">➔</span>
           </div>
           <div class="choice-main-desc">
-            Assista aos <b>galãs mais desejados da Turquia</b>, romances apaixonantes, K-Dramas coreanos e novelinhas completas <b>sem moedinhas</b> por capítulo!
+            <b>TUDO INCLUSO:</b> Os <b>galãs mais desejados da Turquia</b> dublados, Doramas coreanos, e novelinhas verticais (tipo <b>DramaBox e ShortMax</b>) completas <b>sem pagar moedinhas</b> por episódio!
           </div>
           <div class="choice-badges-row">
             <span class="choice-tag pink">🔥 Galãs Mais Desejados</span>
+            <span class="choice-tag pink">📱 Minidramas Sem Moedas</span>
             <span class="choice-tag pink">✨ +10.000 Capítulos</span>
-            <span class="choice-tag green">💬 Direto no WhatsApp</span>
+            <span class="choice-tag green">💬 No WhatsApp ou TV</span>
           </div>
         </div>
 
-        <!-- CARD 2: TV AO VIVO, FUTEBOL & TODAS AS PLATAFORMAS (COM GANCHOS E MAIS INFO!) -->
+        <!-- CARD 2: TV AO VIVO, FUTEBOL & TODAS AS PLATAFORMAS (IMAGENS REAIS E GANCHOS FORTES) -->
         <div class="rich-choice-card blue" onclick="selectFunnelCategory('tv_stream', this)">
-          <div class="card-top-tag blue">🍿 TODAS AS PLATAFORMAS + FUTEBOL 60FPS</div>
+          <div class="card-top-tag blue">⚡ FUTEBOL AO VIVO 60FPS + TODAS AS PLATAFORMAS</div>
           
-          <!-- MINI PÔSTERES EMBUTIDOS -->
+          <!-- MINI PÔSTERES EMBUTIDOS REAIS (FUTEBOL, CINEMA 2026, SÉRIES) -->
           <div class="choice-posters-strip">
-            <img src="/assets/covers/futebol-premiere.jpg" alt="Futebol Premiere 60FPS" class="choice-poster-thumb" />
-            <img src="/assets/covers/champions-league.jpg" alt="Champions League 4K" class="choice-poster-thumb" />
-            <img src="/assets/covers/cinema-lancamentos.jpg" alt="Cinema Netflix & Max" class="choice-poster-thumb" />
+            <img src="/assets/covers/futebol-premiere-live.jpg" alt="Futebol Premiere 60FPS Ao Vivo" class="choice-poster-thumb" />
+            <img src="/assets/covers/cinema-lancamentos-2026.jpg" alt="Cinema 2026 Blockbusters" class="choice-poster-thumb" />
+            <img src="/assets/covers/series-streaming-max.jpg" alt="Séries Exclusivas Netflix e Max" class="choice-poster-thumb" />
           </div>
 
           <div class="choice-info-header">
-            <div class="choice-main-title">📺 TV Online, Futebol & Plataformas</div>
+            <div class="choice-main-title">📺 TV Online, Futebol, Séries & Cinema</div>
             <span style="font-size:1.1rem; color:#3b82f6;">➔</span>
           </div>
           <div class="choice-main-desc">
-            <b>Netflix, HBO Max, Disney+, Premiere FC e canais em 4K.</b> Assista antes do vizinho gritar gol e economize mais de <b>R$ 380 por mês</b>!
+            <b>Cinema 2026, Netflix, HBO Max, Disney+, Premiere FC e canais em 4K.</b> Grite gol antes do vizinho sem delay e economize mais de <b>R$ 380 por mês</b> em assinaturas!
           </div>
           <div class="choice-badges-row">
             <span class="choice-tag green">⚡ 60 FPS Sem Delay</span>
-            <span class="choice-tag green">🍿 Netflix + Max + Disney</span>
+            <span class="choice-tag green">🍿 Cinema 2026 Liberado</span>
+            <span class="choice-tag green">📺 Netflix + Max + Disney</span>
             <span class="choice-tag pink">💰 Sem Mensalidade</span>
           </div>
         </div>
@@ -1503,7 +1505,7 @@
       <div class="covers-showcase-card">
         <div class="covers-header">
           <span id="covers-showcase-title">🌟 Os Galãs Turcos e Novelas Mais Assistidas:</span>
-          <span style="font-size:0.7rem; color:#ec4899; font-weight:800;">100% DUBLADAS</span>
+          <span style="font-size:0.7rem; color:#ec4899; font-weight:800;" id="covers-showcase-badge">100% DUBLADAS</span>
         </div>
         <div class="covers-grid-3" id="covers-grid-box">
           <!-- PÔSTER 1: GALÃ TURCO ISTAMBUL -->
@@ -1723,39 +1725,48 @@
       const headline = document.getElementById('match-headline');
       const details = document.getElementById('match-details');
       const showcaseTitle = document.getElementById('covers-showcase-title');
+      const showcaseBadge = document.getElementById('covers-showcase-badge');
       const grid = document.getElementById('covers-grid-box');
       const proofNovelas = document.getElementById('proof-wa-novelas');
       const proofFutebol = document.getElementById('proof-wa-futebol');
 
       if (userSelectedCategory === 'tv_stream') {
         headline.innerText = '⚽ Passe Multi-Plataformas & TV VIP Pronto!';
-        details.innerHTML = 'Acesso liberado a <b>Netflix, HBO Max, Disney+, Premiere sem delay</b> e +2.500 canais ao vivo no seu <b>WhatsApp ou Smart TV</b>!';
-        showcaseTitle.innerHTML = '⚽ Canais e Jogos em 60 FPS Sem Delay:';
+        details.innerHTML = 'Acesso liberado a <b>Cinema 2026, Netflix, HBO Max, Disney+, Premiere sem delay</b> e +2.500 canais ao vivo no seu <b>WhatsApp ou Smart TV</b>!';
+        showcaseTitle.innerHTML = '⚡ Futebol Ao Vivo, Cinema 2026 e Séries Sem Limites:';
+        if (showcaseBadge) {
+          showcaseBadge.innerText = '4K ULTRA HD';
+          showcaseBadge.style.color = '#38bdf8';
+        }
         grid.innerHTML = `
           <div class="cover-box">
-            <span class="cover-tag-over">PREMIERE HD</span>
-            <img src="/assets/covers/futebol-premiere.jpg" alt="Premiere FC" />
-            <div class="cover-title-text">Premiere FC</div>
+            <span class="cover-tag-over">PREMIERE & LIBERTADORES</span>
+            <img src="/assets/covers/futebol-premiere-live.jpg" alt="Futebol Ao Vivo 60FPS" />
+            <div class="cover-title-text">Futebol Ao Vivo</div>
             <div class="cover-sub-text">60 FPS Sem Delay</div>
           </div>
           <div class="cover-box">
-            <span class="cover-tag-over">CHAMPIONS</span>
-            <img src="/assets/covers/champions-league.jpg" alt="Champions League" />
-            <div class="cover-title-text">Champions League</div>
-            <div class="cover-sub-text">Ao Vivo em 4K</div>
+            <span class="cover-tag-over">CINEMA 2026</span>
+            <img src="/assets/covers/cinema-lancamentos-2026.jpg" alt="Cinema 2026 Blockbuster" />
+            <div class="cover-title-text">Cinema 2026</div>
+            <div class="cover-sub-text">Filmes em Alta</div>
           </div>
           <div class="cover-box">
-            <span class="cover-tag-over">CINEMA 2026</span>
-            <img src="/assets/covers/cinema-lancamentos.jpg" alt="Cinema & Séries" />
-            <div class="cover-title-text">Cinema & Séries</div>
-            <div class="cover-sub-text">Netflix & Max Juntos</div>
+            <span class="cover-tag-over">SÉRIES & PLATAFORMAS</span>
+            <img src="/assets/covers/series-streaming-max.jpg" alt="Séries Exclusivas Netflix e Max" />
+            <div class="cover-title-text">Séries Exclusivas</div>
+            <div class="cover-sub-text">Netflix, Max & Prime</div>
           </div>
         `;
         proofFutebol.style.order = '-1';
       } else {
         headline.innerText = '🌸 Catálogo Novelas Turcas, Doramas & Galãs Pronto!';
-        details.innerHTML = 'Mais de 10.000 novelinhas verticais, novelas turcas dubladas com os <b>galãs mais desejados da Turquia</b> e K-Dramas coreanos liberados no seu <b>WhatsApp ou Smart TV</b>!';
+        details.innerHTML = 'Mais de 10.000 novelinhas verticais (estilo <b>DramaBox e ShortMax</b> sem moedinhas), novelas turcas dubladas com os <b>galãs mais desejados da Turquia</b> e K-Dramas coreanos liberados no seu <b>WhatsApp ou Smart TV</b>!';
         showcaseTitle.innerHTML = '🌟 Os Galãs Turcos e Novelas Mais Assistidas (100% Dubladas):';
+        if (showcaseBadge) {
+          showcaseBadge.innerText = '100% DUBLADAS';
+          showcaseBadge.style.color = '#ec4899';
+        }
         grid.innerHTML = `
           <div class="cover-box">
             <span class="cover-tag-over">GALÃ MAIS DESEJADO</span>
