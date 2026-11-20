@@ -3,36 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TUDO NA TV • Assista a Tudo o que Você Deseja em Um Só Lugar</title>
-  <meta name="description" content="Assista a novelas turcas completas com galãs, doramas dublados, futebol 60FPS sem delay, lançamentos de cinema e todas as plataformas no seu WhatsApp ou Smart TV. Pagamento único a partir de R$ 10!" />
-  <link rel="icon" href="/assets/logo-tudonatv-clean.png" type="image/png" />
+  <title>TUDO NA TV — Todos os Streamings, Novelas, Futebol e Cinema em Um Só Lugar</title>
+  
+  <!-- Meta Tags de Conversão & SEO -->
+  <meta name="description" content="Assista a todas as novelas turcas completas, doramas, lançamentos de cinema, futebol 60FPS e todos os streamings na sua Smart TV e WhatsApp sem mensalidades." />
+  <meta name="theme-color" content="#e50914" />
+  <link rel="icon" type="image/png" href="/assets/logo-tudonatv-clean.png" />
 
-  <!-- Google Fonts: Plus Jakarta Sans -->
+  <!-- Fontes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #07080c;
-      --bg-card: rgba(14, 16, 24, 0.94);
-      --bg-elevated: #151824;
-      --border: rgba(255, 255, 255, 0.1);
-      --primary: #e50914;
-      --primary-hover: #ff1e27;
-      --primary-glow: rgba(229, 9, 20, 0.35);
-      --accent-green: #10b981;
-      --accent-gold: #f59e0b;
+      --bg-dark: #07090e;
+      --bg-card: rgba(15, 20, 32, 0.88);
+      --bg-elevated: #131b2c;
+      --accent-red: #e50914;
+      --accent-red-hover: #b91c1c;
       --accent-blue: #3b82f6;
-      --whatsapp: #25d366;
-      --whatsapp-hover: #20ba5a;
-      --text: #f8fafc;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
+      --accent-gold: #fbbf24;
+      --text-main: #f8fafc;
       --text-muted: #94a3b8;
       --text-sub: #64748b;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-active: rgba(229, 9, 20, 0.6);
       --radius-sm: 8px;
       --radius-md: 14px;
       --radius-lg: 20px;
-      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     * {
@@ -40,150 +41,149 @@
       margin: 0;
       padding: 0;
       -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      line-height: 1.45;
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 10% 40%, rgba(59, 130, 246, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 90% 70%, rgba(229, 9, 20, 0.15) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(7, 9, 14, 0.94) 0%, #05070a 100%),
+        url('/assets/bg-tudonatv.jpg');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center top;
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
-      background-image: 
-        linear-gradient(180deg, rgba(7, 8, 12, 0.85) 0%, rgba(7, 8, 12, 0.94) 50%, #07080c 100%),
-        url('/assets/bg-tudonatv.jpg');
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+      padding-bottom: 70px;
     }
 
     /* TOP LIVE TICKER */
     .ticker-bar {
-      background: rgba(10, 12, 18, 0.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(229, 9, 20, 0.35);
-      padding: 9px 12px;
-      font-size: 0.78rem;
+      background: linear-gradient(90deg, #b91c1c 0%, #e50914 50%, #b91c1c 100%);
+      color: #ffffff;
+      padding: 8px 12px;
+      font-size: 0.76rem;
       font-weight: 800;
+      letter-spacing: 0.3px;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
       position: sticky;
       top: 0;
       z-index: 100;
-      letter-spacing: 0.3px;
     }
     .pulse-dot {
       width: 8px;
       height: 8px;
-      background-color: #e50914;
+      background: #22c55e;
       border-radius: 50%;
-      box-shadow: 0 0 10px #e50914;
-      animation: pulse 1.6s infinite;
+      box-shadow: 0 0 10px #22c55e;
+      animation: pulse 1.4s infinite;
     }
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.85); }
+      0% { transform: scale(0.9); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.8; }
     }
 
     .container {
       width: 100%;
-      max-width: 580px;
+      max-width: 520px;
       margin: 0 auto;
-      padding: 14px 14px 70px;
-      flex: 1;
+      padding: 16px 14px 40px;
     }
 
-    /* HERO HEADER COM A NOVA LOGO 3D */
+    /* HERO HEADER */
     .hero {
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      padding: 4px 6px 0;
     }
     .brand-logo-container {
+      margin: 0 auto 10px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-bottom: 12px;
+      justify-content: center;
     }
     .brand-hero-logo {
-      width: 195px;
-      max-width: 70vw;
+      width: 100%;
+      max-width: 250px;
       height: auto;
       display: block;
       filter: drop-shadow(0 10px 25px rgba(229, 9, 20, 0.45));
-      animation: logoPulse 4s ease-in-out infinite;
+      animation: floatLogo 4s ease-in-out infinite;
     }
-    @keyframes logoPulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.025); }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
     }
+
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(229, 9, 20, 0.16);
-      border: 1px solid rgba(229, 9, 20, 0.45);
+      background: rgba(229, 9, 20, 0.18);
+      border: 1px solid rgba(229, 9, 20, 0.4);
       color: #ff6b6b;
+      font-size: 0.72rem;
+      font-weight: 900;
       padding: 4px 14px;
       border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .hero-title {
-      font-size: 1.65rem;
+      font-size: 1.55rem;
       font-weight: 900;
       line-height: 1.2;
-      margin-bottom: 6px;
       color: #ffffff;
-      letter-spacing: -0.4px;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
     .hero-title span {
-      background: linear-gradient(135deg, #ffffff 0%, #ff4d4d 40%, #e50914 100%);
+      background: linear-gradient(135deg, #ff4d4d, #e50914);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     .hero-subtitle {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-      max-width: 480px;
-      margin: 0 auto 10px;
-      font-weight: 500;
+      font-size: 0.86rem;
+      color: #cbd5e1;
       line-height: 1.4;
+      margin-bottom: 12px;
+      font-weight: 500;
     }
 
-    /* GATILHO DE CERTEZA: TUDO O QUE VOCÊ DESEJA */
     .desire-guarantee-pill {
-      background: linear-gradient(135deg, rgba(229, 9, 20, 0.16), rgba(245, 158, 11, 0.14));
-      border: 1px solid rgba(229, 9, 20, 0.45);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
       border-radius: var(--radius-md);
-      padding: 9px 13px;
+      padding: 10px 12px;
       font-size: 0.76rem;
-      color: #f1f5f9;
+      color: #fef3c7;
+      line-height: 1.35;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
-      margin: 8px auto 0;
-      max-width: 490px;
-      line-height: 1.35;
       text-align: left;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
     }
-    .desire-guarantee-pill .pill-star {
+    .pill-star {
       font-size: 1.15rem;
       color: #fbbf24;
       flex-shrink: 0;
     }
 
     /* ======================================================== */
-    /* ETAPA 1: O QUIZ VISUAL COM IMAGENS & GATILHOS DIRETOS    */
+    /* PROGRESS BAR & QUIZ CARD                                 */
     /* ======================================================== */
     .quiz-card {
       background: var(--bg-card);
@@ -193,6 +193,38 @@
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
       margin-bottom: 22px;
       position: relative;
+    }
+    .quiz-progress-wrap {
+      margin-bottom: 16px;
+    }
+    .quiz-progress-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.7rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .quiz-progress-step {
+      color: #93c5fd;
+    }
+    .quiz-progress-pct {
+      color: #38bdf8;
+    }
+    .quiz-progress-track {
+      width: 100%;
+      height: 6px;
+      background: #172033;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #e50914, #ec4899);
+      border-radius: 999px;
+      transition: width 0.35s ease;
     }
 
     .quiz-header-title {
@@ -210,12 +242,11 @@
       text-align: center;
     }
 
+    /* STEP 1: RICH CARDS */
     .choice-cards-container {
       display: grid;
       gap: 14px;
     }
-
-    /* CARD VISUAL RICO COM PÔSTERES EMBUTIDOS */
     .rich-choice-card {
       background: var(--bg-elevated);
       border: 2px solid var(--border);
@@ -242,8 +273,6 @@
       background: linear-gradient(180deg, rgba(59, 130, 246, 0.15) 0%, var(--bg-elevated) 100%);
       box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
     }
-
-    /* MINI PÔSTERES NO TOPO DO CARD PARA GATILHO VISUAL IMEDIATO */
     .choice-posters-strip {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -260,7 +289,6 @@
       background: #0f1422;
       display: block;
     }
-
     .choice-info-header {
       display: flex;
       justify-content: space-between;
@@ -327,10 +355,62 @@
       border: 1px solid rgba(16, 185, 129, 0.35);
     }
 
-    /* SCANNER RÁPIDO */
+    /* STEP 2 & 3: DEVICE & PAIN GRIDS */
+    .option-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .option-card {
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .option-card:active {
+      transform: scale(0.98);
+    }
+    .option-card:hover {
+      border-color: #e50914;
+      background: rgba(229, 9, 20, 0.08);
+    }
+    .option-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .option-text-wrap {
+      flex: 1;
+    }
+    .option-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+    .option-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+    .option-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+
+    /* SCANNER */
     .scanner-box {
       text-align: center;
-      padding: 20px 10px;
+      padding: 24px 12px;
       display: none;
     }
     .scanner-box.active {
@@ -338,31 +418,32 @@
       animation: fadeIn 0.25s ease;
     }
     .spin-ring {
-      width: 44px;
-      height: 44px;
-      border: 3.5px solid rgba(236, 72, 153, 0.2);
-      border-top-color: #ec4899;
+      width: 48px;
+      height: 48px;
+      border: 3.5px solid rgba(229, 9, 20, 0.2);
+      border-top-color: #e50914;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
+      margin: 0 auto 14px;
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
     .scanner-title {
-      font-size: 1.15rem;
-      font-weight: 800;
+      font-size: 1.2rem;
+      font-weight: 900;
       color: #fff;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .scanner-status {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-family: monospace;
+      font-size: 0.82rem;
+      color: #38bdf8;
+      font-weight: 700;
+      min-height: 20px;
     }
 
     /* ======================================================== */
-    /* ETAPA 2: PROVAS SOCIAIS + APRESENTAÇÃO + PLANOS          */
+    /* ETAPA 2: PROVAS SOCIAIS + VITRINE + PLANOS               */
     /* ======================================================== */
     #etapa-2-area {
       display: none;
@@ -375,8 +456,8 @@
 
     /* MATCH BANNER */
     .match-banner {
-      background: linear-gradient(135deg, rgba(236, 72, 153, 0.16), rgba(59, 130, 246, 0.16));
-      border: 1.5px solid rgba(236, 72, 153, 0.45);
+      background: linear-gradient(135deg, rgba(229, 9, 20, 0.18), rgba(59, 130, 246, 0.18));
+      border: 1.5px solid rgba(229, 9, 20, 0.5);
       border-radius: var(--radius-lg);
       padding: 16px 14px;
       margin-bottom: 20px;
@@ -386,7 +467,7 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      background: #ec4899;
+      background: #e50914;
       color: #fff;
       font-size: 0.72rem;
       font-weight: 900;
@@ -407,36 +488,162 @@
       line-height: 1.35;
     }
 
-    /* VITRINE DE PÔSTERES REAIS */
-    .covers-showcase-card {
+    /* 🔍 VERIFICADOR DE TÍTULOS AO VIVO */
+    .title-verifier-box {
+      background: linear-gradient(180deg, #131b2e 0%, #0d1322 100%);
+      border: 1.5px solid rgba(59, 130, 246, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+    .verifier-header {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .verifier-sub {
+      font-size: 0.74rem;
+      color: #94a3b8;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+    .verifier-search-wrapper {
+      position: relative;
+      margin-bottom: 10px;
+    }
+    .verifier-input {
+      width: 100%;
+      padding: 12px 14px 12px 38px;
+      background: #080d17;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .verifier-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+    }
+    .verifier-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+    .verifier-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .v-chip {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .v-chip:hover, .v-chip:active {
+      border-color: #e50914;
+      background: rgba(229, 9, 20, 0.25);
+      color: #fff;
+    }
+    .verifier-result {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #34d399;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* 🎬 VITRINE HIPNÓTICA DE STREAMING */
+    .showcase-container {
       background: var(--bg-card);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 16px 14px;
-      margin-bottom: 20px;
+      padding: 18px 14px;
+      margin-bottom: 22px;
     }
-    .covers-header {
-      font-size: 0.88rem;
-      font-weight: 800;
+    .showcase-header {
+      margin-bottom: 12px;
+    }
+    .showcase-title {
+      font-size: 1.15rem;
+      font-weight: 900;
       color: #ffffff;
-      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 4px;
     }
-    .covers-grid-3 {
+    .showcase-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    .showcase-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .showcase-tabs::-webkit-scrollbar { display: none; }
+    .s-tab {
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .s-tab.active {
+      background: #e50914;
+      border-color: #e50914;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+    }
+    .showcase-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
     }
-    .cover-box {
-      background: #182032;
+    .s-poster-card {
+      background: #111827;
       border-radius: 10px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    .cover-box img {
+    .s-poster-card:active {
+      transform: scale(0.96);
+    }
+    .s-poster-card img {
       width: 100%;
       aspect-ratio: 2/3;
       object-fit: cover;
@@ -444,359 +651,59 @@
       display: block;
       background: #101624;
     }
-    .cover-tag-over {
+    .s-poster-badge {
       position: absolute;
       top: 4px;
       left: 4px;
       background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(4px);
       color: #fbbf24;
-      font-size: 0.58rem;
+      font-size: 0.55rem;
       font-weight: 900;
-      padding: 2px 5px;
+      padding: 2px 4px;
       border-radius: 4px;
       text-transform: uppercase;
     }
-    .cover-title-text {
-      font-size: 0.68rem;
+    .s-poster-info {
+      padding: 5px 3px;
+      text-align: center;
+    }
+    .s-poster-title {
+      font-size: 0.66rem;
       font-weight: 800;
       color: #f1f5f9;
-      padding: 5px 3px 2px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-align: center;
-      letter-spacing: -0.2px;
+      margin-bottom: 2px;
     }
-    .cover-sub-text {
-      font-size: 0.62rem;
+    .s-poster-genre {
+      font-size: 0.58rem;
       color: #ec4899;
       font-weight: 700;
-      padding: 0 4px 5px;
-      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     /* ======================================================== */
-    /* PROVAS SOCIAIS REAIS DO WHATSAPP (MOCKUP ULTRA-REALISTA) */
+    /* OS 2 PLANOS OFICIAIS                                     */
     /* ======================================================== */
-    .whatsapp-proof-section {
+    .plans-section {
       margin-bottom: 22px;
     }
     .section-title {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 900;
       color: #ffffff;
       text-align: center;
       margin-bottom: 4px;
     }
     .section-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       text-align: center;
-      margin-bottom: 14px;
-    }
-
-    .wa-mockup-wrapper {
-      background: #0b141a;
-      border: 1.5px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-      margin-bottom: 14px;
-    }
-    .wa-top-bar {
-      background: #1f2c34;
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .wa-profile-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .wa-profile-pic {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid #25d366;
-    }
-    .wa-profile-name {
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: #e9edef;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .wa-profile-status {
-      font-size: 0.68rem;
-      color: #25d366;
-      font-weight: 600;
-    }
-    .wa-icons {
-      display: flex;
-      gap: 14px;
-      color: #aebac1;
-      font-size: 1rem;
-    }
-
-    .wa-chat-body {
-      padding: 14px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background-color: #0b141a;
-      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-      background-size: 16px 16px;
-    }
-
-    .wa-msg {
-      max-width: 86%;
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      line-height: 1.35;
-      position: relative;
-    }
-    .wa-msg.in {
-      align-self: flex-start;
-      background: #202c33;
-      color: #e9edef;
-      border-top-left-radius: 0;
-    }
-    .wa-msg.out {
-      align-self: flex-end;
-      background: #005c4b;
-      color: #e9edef;
-      border-top-right-radius: 0;
-    }
-    .wa-time {
-      font-size: 0.62rem;
-      color: rgba(255, 255, 255, 0.6);
-      text-align: right;
-      margin-top: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 3px;
-    }
-    .wa-blue-ticks {
-      color: #53bdeb;
-      font-weight: 900;
-    }
-
-    .wa-pix-receipt {
-      background: #111b21;
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      border-radius: 8px;
-      padding: 8px 10px;
-      margin-top: 4px;
-      font-size: 0.74rem;
-    }
-    .wa-receipt-header {
-      color: #34d399;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      margin-bottom: 2px;
-    }
-    .wa-receipt-val {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: #ffffff;
-      margin-bottom: 2px;
-    }
-    .wa-receipt-dest {
-      color: #94a3b8;
-      font-size: 0.68rem;
-    }
-
-    /* COMO FUNCIONA (COPY EXATA) */
-    .how-it-works-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px 16px;
-      margin-bottom: 22px;
-    }
-    .how-it-works-title {
-      font-size: 1.15rem;
-      font-weight: 900;
-      color: #ffffff;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .how-it-works-body {
-      font-size: 0.86rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-    }
-    .how-it-works-body p {
-      margin-bottom: 8px;
-    }
-
-    /* ======================================================== */
-    /* SEÇÃO TODAS AS PLATAFORMAS & GANCHOS DE TV & ECONOMIA     */
-    /* ======================================================== */
-    .platforms-hub-box {
-      background: linear-gradient(180deg, #101728 0%, #0c111e 100%);
-      border: 1.5px solid rgba(59, 130, 246, 0.35);
-      border-radius: var(--radius-lg);
-      padding: 20px 16px;
-      margin-bottom: 22px;
-      position: relative;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-    }
-    .platforms-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(59, 130, 246, 0.2);
-      border: 1px solid rgba(59, 130, 246, 0.45);
-      color: #93c5fd;
-      font-size: 0.72rem;
-      font-weight: 900;
-      padding: 4px 12px;
-      border-radius: 999px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 10px;
-    }
-    .platforms-title {
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: #ffffff;
-      margin-bottom: 6px;
-      line-height: 1.25;
-    }
-    .platforms-sub {
-      font-size: 0.82rem;
-      color: #cbd5e1;
-      line-height: 1.45;
       margin-bottom: 16px;
-    }
-    .platform-chips-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-    .p-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 5px 10px;
-      border-radius: 8px;
-      background: #172138;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #f1f5f9;
-    }
-    .chip-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-    }
-    .p-chip.netflix .chip-dot { background: #e50914; }
-    .p-chip.max .chip-dot { background: #9333ea; }
-    .p-chip.disney .chip-dot { background: #0284c7; }
-    .p-chip.prime .chip-dot { background: #00a8e1; }
-    .p-chip.premiere .chip-dot { background: #22c55e; }
-    .p-chip.globo .chip-dot { background: #f97316; }
-    .p-chip.telecine .chip-dot { background: #ef4444; }
-    .p-chip.sportv .chip-dot { background: #3b82f6; }
-    .p-chip.doramas .chip-dot { background: #ec4899; }
-
-    /* ANCORAGEM DE PREÇO */
-    .price-compare-card {
-      background: #090e17;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      margin-bottom: 16px;
-    }
-    .compare-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-    }
-    .compare-row.old {
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
-      font-size: 0.76rem;
-    }
-    .compare-row.old .comp-val {
-      text-decoration: line-through;
-      color: #f87171;
-      font-weight: 800;
-      font-size: 0.88rem;
-    }
-    .compare-row.new {
-      color: #ffffff;
-      font-size: 0.82rem;
-      font-weight: 800;
-      padding-top: 8px;
-    }
-    .compare-row.new .comp-val {
-      color: #34d399;
-      font-weight: 900;
-      font-size: 1.05rem;
-    }
-    .per-mo { font-size: 0.65rem; color: #94a3b8; }
-    .per-one {
-      font-size: 0.62rem;
-      background: rgba(16, 185, 129, 0.2);
-      color: #34d399;
-      padding: 2px 6px;
-      border-radius: 4px;
-      margin-left: 4px;
-      border: 1px solid rgba(16, 185, 129, 0.35);
-    }
-
-    /* GANCHOS BULLETS */
-    .tv-hooks-list {
-      display: grid;
-      gap: 10px;
-    }
-    .hook-item {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      font-size: 0.8rem;
-      line-height: 1.4;
-      color: #cbd5e1;
-    }
-    .hook-icon {
-      font-size: 1.15rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .hook-content b {
-      color: #ffffff;
-      display: inline;
-    }
-
-    /* ======================================================== */
-    /* OS 2 PLANOS OFICIAIS (CLIQUE VAI DIRETO PRO PIX!)        */
-    /* ======================================================== */
-    .plans-section {
-      margin-bottom: 24px;
     }
     .plan-card {
       background: var(--bg-card);
@@ -868,12 +775,23 @@
       font-weight: 900;
       letter-spacing: 0.4px;
     }
+    .decoy-tag {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
     .plan-feature-bullets {
       list-style: none;
       display: grid;
       gap: 8px;
-      margin: 14px 0 18px;
-      font-size: 0.84rem;
+      margin: 12px 0 18px;
+      font-size: 0.82rem;
       color: #cbd5e1;
     }
     .plan-feature-bullets li {
@@ -914,7 +832,7 @@
     }
 
     /* ======================================================== */
-    /* CHECKOUT PIX AUTOMÁTICO (ROLA DIRETO PRA CÁ!)            */
+    /* CHECKOUT PIX AUTOMÁTICO                                  */
     /* ======================================================== */
     #checkout-box {
       display: none;
@@ -923,6 +841,7 @@
       border-radius: var(--radius-lg);
       padding: 22px 18px;
       margin-top: 18px;
+      margin-bottom: 22px;
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
       animation: fadeIn 0.3s ease;
     }
@@ -1028,8 +947,6 @@
       margin-left: 18px;
       margin-top: 4px;
     }
-
-    /* ANTI-SPAM WHATSAPP BUTTON */
     .btn-paid-confirmation {
       width: 100%;
       padding: 16px;
@@ -1048,127 +965,361 @@
       transition: all 0.2s;
     }
     .btn-paid-confirmation:hover {
-      background: linear-gradient(135deg, #059669, #047857);
+      opacity: 0.95;
       transform: translateY(-1px);
     }
 
-    /* WHATSAPP REVEAL GATE */
     #whatsapp-gate {
       display: none;
       margin-top: 14px;
-      padding: 16px;
+      padding: 14px;
       background: rgba(37, 211, 102, 0.12);
-      border: 1px solid rgba(37, 211, 102, 0.4);
+      border: 1.5px solid #25d366;
       border-radius: var(--radius-md);
       text-align: center;
       animation: fadeIn 0.3s ease;
     }
     .gate-title {
       font-size: 0.95rem;
-      font-weight: 800;
-      color: #4ade80;
-      margin-bottom: 4px;
+      font-weight: 900;
+      color: #34d399;
+      margin-bottom: 6px;
     }
     .gate-desc {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-      margin-bottom: 12px;
+      font-size: 0.78rem;
+      color: #e2e8f0;
       line-height: 1.4;
+      margin-bottom: 12px;
     }
     .btn-whatsapp-final {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      display: block;
       width: 100%;
-      padding: 16px;
-      background: var(--whatsapp);
+      padding: 15px;
+      background: #25d366;
       color: #000;
-      text-decoration: none;
-      border-radius: var(--radius-md);
-      font-size: 1.05rem;
       font-weight: 900;
-      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.45);
-      transition: all 0.2s;
-    }
-    .btn-whatsapp-final:hover {
-      background: var(--whatsapp-hover);
-      transform: translateY(-1px);
+      font-size: 0.95rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      animation: pulse 1.5s infinite;
     }
 
-    /* ATENDENTE FLUTUANTE (DONA SIRLENE) */
-    .attendant-pill {
-      position: fixed;
-      bottom: 18px;
-      right: 14px;
-      background: rgba(15, 20, 34, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(37, 211, 102, 0.4);
-      border-radius: 999px;
-      padding: 6px 12px 6px 6px;
+    /* 🛡️ GARANTIA BLINDADA 7 DIAS */
+    .guarantee-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(16, 185, 129, 0.08));
+      border: 1.5px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 16px 14px;
+      margin-bottom: 22px;
       display: flex;
+      gap: 12px;
       align-items: center;
+    }
+    .guarantee-badge-icon {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+    .guarantee-title {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #fbbf24;
+      margin-bottom: 2px;
+    }
+    .guarantee-desc {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      line-height: 1.35;
+    }
+
+    /* 📺 SMART TV BRANDS COMPATIBILITY */
+    .tv-brands-box {
+      background: #0d121c;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 14px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
+    .tv-brands-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .tv-brands-sub {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .tv-brands-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      z-index: 90;
-      cursor: pointer;
-      text-decoration: none;
-      animation: float 3s ease-in-out infinite;
+      margin-bottom: 12px;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-    .attendant-img {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--accent-green);
-    }
-    .attendant-info {
-      text-align: left;
-    }
-    .attendant-name {
-      font-size: 0.74rem;
+    .tv-brand-pill {
+      background: #151d2e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 4px;
+      font-size: 0.72rem;
       font-weight: 800;
-      color: #ffffff;
+      color: #e2e8f0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 4px;
     }
-    .attendant-status {
-      font-size: 0.64rem;
+    .tv-brand-pill span.icon {
+      font-size: 1.1rem;
+    }
+    .tv-brands-footer-note {
+      font-size: 0.74rem;
       color: #34d399;
       font-weight: 700;
     }
 
-    /* FAQ ACCORDION */
-    .faq-section {
-      margin-top: 28px;
+    /* 💰 CALCULADORA DO ROMBO FINANCEIRO */
+    .platforms-hub-box {
+      background: linear-gradient(180deg, #101728 0%, #0c111e 100%);
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
+      margin-bottom: 22px;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
     }
-    .faq-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
+    .platforms-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.45);
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .platforms-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .platforms-sub {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+    .price-compare-card {
+      background: #090e17;
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-md);
-      margin-bottom: 8px;
-      overflow: hidden;
+      padding: 12px 14px;
+      margin-bottom: 16px;
     }
-    .faq-q {
-      padding: 13px 16px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
+    .compare-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 6px 0;
+    }
+    .compare-row.old {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-size: 0.76rem;
+    }
+    .compare-row.old .comp-val {
+      text-decoration: line-through;
+      color: #f87171;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+    .compare-row.new {
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding-top: 8px;
+    }
+    .compare-row.new .comp-val {
+      color: #34d399;
+      font-size: 1.1rem;
+      font-weight: 900;
+    }
+
+    /* WHATSAPP PROOFS */
+    .whatsapp-proof-section {
+      margin-bottom: 22px;
+    }
+    .wa-mockup-wrapper {
+      background: #0b141a;
+      border: 1.5px solid #202c33;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .wa-top-bar {
+      background: #1f2c34;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .wa-profile-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wa-profile-pic {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #25d366;
+    }
+    .wa-profile-name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #e9edef;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .wa-profile-status {
+      font-size: 0.68rem;
+      color: #25d366;
+      font-weight: 600;
+    }
+    .wa-icons {
+      display: flex;
+      gap: 14px;
+      color: #aebac1;
+      font-size: 1rem;
+    }
+    .wa-chat-body {
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: #0b141a;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+    .wa-msg {
+      max-width: 86%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      line-height: 1.35;
+      position: relative;
+    }
+    .wa-msg.in {
+      align-self: flex-start;
+      background: #202c33;
+      color: #e9edef;
+      border-top-left-radius: 0;
+    }
+    .wa-msg.out {
+      align-self: flex-end;
+      background: #005c4b;
+      color: #e9edef;
+      border-top-right-radius: 0;
+    }
+    .wa-time {
+      font-size: 0.62rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: right;
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+    }
+    .wa-blue-ticks {
+      color: #53bdeb;
+      font-weight: 900;
+    }
+
+    /* MOCKUP ÁUDIO DONA SIRLENE */
+    .wa-voice-player {
+      background: #111b21;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+    }
+    .wa-voice-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .wa-voice-wave {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 16px;
+    }
+    .wa-wave-bar {
+      width: 3px;
+      background: #8696a0;
+      border-radius: 2px;
+    }
+    .wa-voice-time {
+      font-size: 0.65rem;
+      color: #8696a0;
+      font-family: monospace;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
+      margin-bottom: 22px;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #ffffff;
+      cursor: pointer;
     }
     .faq-a {
-      padding: 0 16px 13px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       line-height: 1.45;
+      margin-top: 8px;
       display: none;
     }
     .faq-item.open .faq-a {
@@ -1190,7 +1341,91 @@
       border-top: 1px solid var(--border);
     }
 
-    /* TOAST */
+    /* 🔔 NOTIFICAÇÃO FLUTUANTE FOMO */
+    #fomo-toast {
+      position: fixed;
+      bottom: 74px;
+      left: 14px;
+      right: 14px;
+      max-width: 380px;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1.5px solid rgba(16, 185, 129, 0.45);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      transform: translateY(120px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 998;
+      pointer-events: none;
+    }
+    #fomo-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .fomo-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .fomo-text {
+      font-size: 0.74rem;
+      color: #e2e8f0;
+      line-height: 1.25;
+    }
+    .fomo-text b {
+      color: #34d399;
+    }
+
+    /* 🥇 STICKY FOOTER BAR MOBILE */
+    #sticky-footer-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(11, 14, 23, 0.96);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(229, 9, 20, 0.4);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.7);
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+    }
+    #sticky-footer-bar.show {
+      transform: translateY(0);
+    }
+    .sticky-price-label {
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+    .sticky-price-val {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #fbbf24;
+    }
+    .btn-sticky-cta {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      white-space: nowrap;
+    }
+
+    /* TOAST GERAL */
     #toast {
       position: fixed;
       bottom: 70px;
@@ -1224,7 +1459,7 @@
 
   <div class="container">
 
-    <!-- HERO HEADER COM A NOVA LOGO 3D & GATILHO DE CONTEÚDO TOTAL -->
+    <!-- HERO HEADER -->
     <header class="hero">
       <div class="brand-logo-container">
         <img src="/assets/logo-tudonatv-clean.png" alt="TUDO NA TV" class="brand-hero-logo" />
@@ -1239,7 +1474,6 @@
         Assista a tudo em um só lugar. Sem mensalidades nem moedinhas!
       </p>
 
-      <!-- GATILHO: VOCÊ VAI TER TUDO QUE DESEJA -->
       <div class="desire-guarantee-pill">
         <span class="pill-star">✨</span>
         <span><b>Garantia Total:</b> Você vai ter tudo o que deseja! Mais de 100.000 títulos. Pode pedir QUALQUER novela ou filme que colocamos para você!</span>
@@ -1247,84 +1481,178 @@
     </header>
 
     <!-- ======================================================== -->
-    <!-- ETAPA 1: O QUIZ VISUAL COM PÔSTERES EMBUTIDOS NOS CARDS  -->
+    <!-- QUIZ INTERATIVO MULTI-ETAPAS (EXPERIÊNCIA ENVOLVENTE)    -->
     <!-- ======================================================== -->
     <div class="quiz-card" id="quiz-box">
-      <h2 class="quiz-header-title">O que você quer assistir hoje?</h2>
-      <p class="quiz-header-sub">Toque na sua opção para ver as provas e escolher seu plano:</p>
-
-      <div class="choice-cards-container">
-        
-        <!-- CARD 1: NOVELAS TURCAS, DORAMAS & MINIDRAMAS (TUDO COMPLETO E LIBERADO) -->
-        <div class="rich-choice-card pink selected" onclick="selectFunnelCategory('novelas', this)">
-          <div class="card-top-tag pink">👑 OS MAIORES GALÃS TURCOS, DORAMAS & MINIDRAMAS</div>
-          
-          <!-- MINI PÔSTERES EMBUTIDOS DE HOMENS GALÃS -->
-          <div class="choice-posters-strip">
-            <img src="/assets/covers/gala-turco-1.jpg" alt="Galã Turco Istambul" class="choice-poster-thumb" />
-            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" class="choice-poster-thumb" />
-            <img src="/assets/covers/turca-12.jpg" alt="Kıvanç Tatlıtuğ" class="choice-poster-thumb" />
-          </div>
-
-          <div class="choice-info-header">
-            <div class="choice-main-title">🎬 Novelas Turcas, Doramas & Minidramas</div>
-            <span style="font-size:1.1rem; color:#ec4899;">➔</span>
-          </div>
-          <div class="choice-main-desc">
-            <b>TUDO INCLUSO:</b> Os <b>galãs mais desejados da Turquia</b> dublados, Doramas coreanos, e novelinhas verticais (tipo <b>DramaBox e ShortMax</b>) completas <b>sem pagar moedinhas</b> por episódio!
-          </div>
-          <div class="choice-badges-row">
-            <span class="choice-tag pink">🔥 Galãs Mais Desejados</span>
-            <span class="choice-tag pink">📱 Minidramas Sem Moedas</span>
-            <span class="choice-tag pink">✨ +10.000 Capítulos</span>
-            <span class="choice-tag green">💬 No WhatsApp ou TV</span>
-          </div>
+      
+      <!-- BARRA DE PROGRESSO -->
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-labels">
+          <span class="quiz-progress-step" id="quiz-step-label">PASSO 1 DE 3 • O QUE VOCÊ MAIS GOSTA</span>
+          <span class="quiz-progress-pct" id="quiz-pct-label">33%</span>
         </div>
-
-        <!-- CARD 2: TV AO VIVO, FUTEBOL & TODAS AS PLATAFORMAS (IMAGENS REAIS E GANCHOS FORTES) -->
-        <div class="rich-choice-card blue" onclick="selectFunnelCategory('tv_stream', this)">
-          <div class="card-top-tag blue">⚡ FUTEBOL AO VIVO 60FPS + TODAS AS PLATAFORMAS</div>
-          
-          <!-- MINI PÔSTERES EMBUTIDOS REAIS (FUTEBOL, CINEMA 2026, SÉRIES) -->
-          <div class="choice-posters-strip">
-            <img src="/assets/covers/futebol-premiere-live.jpg" alt="Futebol Premiere 60FPS Ao Vivo" class="choice-poster-thumb" />
-            <img src="/assets/covers/cinema-lancamentos-2026.jpg" alt="Cinema 2026 Blockbusters" class="choice-poster-thumb" />
-            <img src="/assets/covers/series-streaming-max.jpg" alt="Séries Exclusivas Netflix e Max" class="choice-poster-thumb" />
-          </div>
-
-          <div class="choice-info-header">
-            <div class="choice-main-title">📺 TV Online, Futebol, Séries & Cinema</div>
-            <span style="font-size:1.1rem; color:#3b82f6;">➔</span>
-          </div>
-          <div class="choice-main-desc">
-            <b>Cinema 2026, Netflix, HBO Max, Disney+, Premiere FC e canais em 4K.</b> Grite gol antes do vizinho sem delay e economize mais de <b>R$ 380 por mês</b> em assinaturas!
-          </div>
-          <div class="choice-badges-row">
-            <span class="choice-tag green">⚡ 60 FPS Sem Delay</span>
-            <span class="choice-tag green">🍿 Cinema 2026 Liberado</span>
-            <span class="choice-tag green">📺 Netflix + Max + Disney</span>
-            <span class="choice-tag pink">💰 Sem Mensalidade</span>
-          </div>
+        <div class="quiz-progress-track">
+          <div class="quiz-progress-fill" id="quiz-progress-bar" style="width: 33%;"></div>
         </div>
-
       </div>
 
-      <!-- SCANNER TRANSITION (RAPIDINHO 400ms) -->
+      <!-- PASSO 1: PREFERÊNCIA DE CONTEÚDO -->
+      <div id="quiz-step-1">
+        <h2 class="quiz-header-title">O que você mais ama assistir?</h2>
+        <p class="quiz-header-sub">Toque na sua preferência para personalizar seu catálogo:</p>
+
+        <div class="choice-cards-container">
+          <!-- CARD A: NOVELAS TURCAS, DORAMAS & MINIDRAMAS -->
+          <div class="rich-choice-card pink selected" onclick="nextQuizStep(1, 'novelas')">
+            <div class="card-top-tag pink">👑 OS MAIORES GALÃS TURCOS, DORAMAS & MINIDRAMAS</div>
+            <div class="choice-posters-strip">
+              <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" class="choice-poster-thumb" />
+              <img src="/assets/covers/can-yaman-erkenci-kus.jpg" alt="Can Yaman" class="choice-poster-thumb" />
+              <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" class="choice-poster-thumb" />
+            </div>
+            <div class="choice-info-header">
+              <div class="choice-main-title">🎬 Novelas Turcas, Doramas & Minidramas</div>
+              <span style="font-size:1.1rem; color:#ec4899;">➔</span>
+            </div>
+            <div class="choice-main-desc">
+              <b>TUDO INCLUSO:</b> Os <b>galãs mais desejados da Turquia</b> dublados, Doramas coreanos, e novelinhas verticais (tipo <b>DramaBox e ShortMax</b>) completas <b>sem pagar moedinhas</b> por episódio!
+            </div>
+            <div class="choice-badges-row">
+              <span class="choice-tag pink">🔥 Can Yaman & Miran</span>
+              <span class="choice-tag pink">📱 Minidramas Sem Moedas</span>
+              <span class="choice-tag green">💬 No WhatsApp ou TV</span>
+            </div>
+          </div>
+
+          <!-- CARD B: TV ONLINE, FUTEBOL 60FPS & TODAS AS PLATAFORMAS -->
+          <div class="rich-choice-card blue" onclick="nextQuizStep(1, 'tv_stream')">
+            <div class="card-top-tag blue">⚡ FUTEBOL AO VIVO 60FPS + TODAS AS PLATAFORMAS</div>
+            <div class="choice-posters-strip">
+              <img src="/assets/covers/futebol-premiere-live.jpg" alt="Futebol Premiere 60FPS Ao Vivo" class="choice-poster-thumb" />
+              <img src="/assets/covers/deadpool-wolverine.jpg" alt="Deadpool & Wolverine" class="choice-poster-thumb" />
+              <img src="/assets/covers/wandinha.jpg" alt="Wandinha Netflix" class="choice-poster-thumb" />
+            </div>
+            <div class="choice-info-header">
+              <div class="choice-main-title">📺 TV Online, Futebol, Séries & Cinema</div>
+              <span style="font-size:1.1rem; color:#3b82f6;">➔</span>
+            </div>
+            <div class="choice-main-desc">
+              <b>Cinema 2026, Netflix, HBO Max, Disney+, Premiere FC e canais em 4K.</b> Grite gol antes do vizinho sem delay e economize mais de <b>R$ 380 por mês</b> em assinaturas!
+            </div>
+            <div class="choice-badges-row">
+              <span class="choice-tag green">⚡ 60 FPS Sem Delay</span>
+              <span class="choice-tag green">🍿 Cinema 2026 Liberado</span>
+              <span class="choice-tag pink">💰 Sem Mensalidade</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASSO 2: ONDE VAI ASSISTIR? (QUEBRANDO MEDO TÉCNICO) -->
+      <div id="quiz-step-2" style="display: none;">
+        <h2 class="quiz-header-title">Onde você vai assistir com sua família?</h2>
+        <p class="quiz-header-sub">Selecione o aparelho principal que você deseja usar:</p>
+
+        <div class="option-grid">
+          <div class="option-card" onclick="nextQuizStep(2, 'tv')">
+            <div class="option-icon">📺</div>
+            <div class="option-text-wrap">
+              <div class="option-title">Na Minha Smart TV (Sala ou Quarto)</div>
+              <div class="option-sub">Samsung, LG, TCL, Roku, Philips, Philco ou Android TV</div>
+              <span class="option-badge">✓ Auxílio exclusivo no WhatsApp com vídeo de 2 min</span>
+            </div>
+          </div>
+
+          <div class="option-card" onclick="nextQuizStep(2, 'celular')">
+            <div class="option-icon">📱</div>
+            <div class="option-text-wrap">
+              <div class="option-title">No Celular ou Direto no WhatsApp</div>
+              <div class="option-sub">Android ou iPhone com capítulos liberados na palma da mão</div>
+              <span class="option-badge">✓ Assista de onde quiser com 1 toque</span>
+            </div>
+          </div>
+
+          <div class="option-card" onclick="nextQuizStep(2, 'tvbox')">
+            <div class="option-icon">📦</div>
+            <div class="option-text-wrap">
+              <div class="option-title">TV Box, Fire TV Stick ou Chromecast</div>
+              <div class="option-sub">Transforma qualquer televisão em cinema completo</div>
+              <span class="option-badge">✓ 100% Compatível e ultra leve</span>
+            </div>
+          </div>
+
+          <div class="option-card" onclick="nextQuizStep(2, 'pc')">
+            <div class="option-icon">💻</div>
+            <div class="option-text-wrap">
+              <div class="option-title">Computador, Notebook ou Tablet</div>
+              <div class="option-sub">Acesso instantâneo via navegador sem instalar programas pesados</div>
+              <span class="option-badge">✓ Resolução 4K cristalina</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASSO 3: MAIOR DOR DO CLIENTE (ATENDENDO NA VEIA) -->
+      <div id="quiz-step-3" style="display: none;">
+        <h2 class="quiz-header-title">Qual é a sua maior frustração hoje?</h2>
+        <p class="quiz-header-sub">Toque na sua dor para personalizarmos sua liberação:</p>
+
+        <div class="option-grid">
+          <div class="option-card" onclick="nextQuizStep(3, 'moedinhas')">
+            <div class="option-icon">💸</div>
+            <div class="option-text-wrap">
+              <div class="option-title">Gasto muito dinheiro com moedinhas nos apps de novelinhas</div>
+              <div class="option-sub">DramaBox, ShortMax e ReelShort cobrando caro por míseros capítulos</div>
+              <span class="option-badge">➔ No VIP você assiste tudo completo sem pagar moedas!</span>
+            </div>
+          </div>
+
+          <div class="option-card" onclick="nextQuizStep(3, 'mensalidades')">
+            <div class="option-icon">💳</div>
+            <div class="option-text-wrap">
+              <div class="option-title">Pago mais de R$ 300 todo mês somando vários streamings</div>
+              <div class="option-sub">Netflix, Max, Disney, Premiere e Globoplay pesando na fatura</div>
+              <span class="option-badge">➔ Economize mais de R$ 4.200/ano com pagamento único de R$ 20!</span>
+            </div>
+          </div>
+
+          <div class="option-card" onclick="nextQuizStep(3, 'delay')">
+            <div class="option-icon">😤</div>
+            <div class="option-text-wrap">
+              <div class="option-title">O futebol trava ou o vizinho grita gol antes de mim</div>
+              <div class="option-sub">Transmissões piratas com atraso de 1 minuto e travamentos chatos</div>
+              <span class="option-badge">➔ Servidores dedicados 60 FPS sem delay para gritar gol na hora!</span>
+            </div>
+          </div>
+
+          <div class="option-card" onclick="nextQuizStep(3, 'catalogo')">
+            <div class="option-icon">🔍</div>
+            <div class="option-text-wrap">
+              <div class="option-title">Rodo o controle e nunca acho o que quero dublado e completo</div>
+              <div class="option-sub">Novelas turcas cortadas ou sem dublagem oficial em português</div>
+              <span class="option-badge">➔ Mais de 100.000 títulos + canal de pedidos exclusivo!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCANNER TRANSITION -->
       <div class="scanner-box" id="scanner-box">
         <div class="spin-ring"></div>
-        <h3 class="scanner-title">Liberando seu catálogo...</h3>
-        <p class="scanner-status">Configurando acesso exclusivo no WhatsApp e Smart TV...</p>
+        <h3 class="scanner-title">Liberando Seu Acesso VIP...</h3>
+        <p class="scanner-status" id="scanner-status-text">Conectando aos servidores dedicados 4K 60FPS...</p>
       </div>
+
     </div>
 
     <!-- ======================================================== -->
-    <!-- ETAPA 2: PROVAS SOCIAIS + APRESENTAÇÃO + PLANOS          -->
+    <!-- ETAPA 2: PROVAS SOCIAIS + VITRINE + PLANOS               -->
     <!-- ======================================================== -->
     <div id="etapa-2-area">
 
       <!-- 1. BANNER PERSONALIZADO -->
       <div class="match-banner">
-        <div class="match-badge">✓ Acesso Liberado com Desconto de Hoje</div>
+        <div class="match-badge">✓ Diagnóstico Concluído • Acesso Liberado</div>
         <h2 class="match-title" id="match-headline">
           Catálogo VIP Liberado para Você!
         </h2>
@@ -1333,8 +1661,64 @@
         </p>
       </div>
 
+      <!-- 2. 🔍 VERIFICADOR INTERATIVO DE TÍTULOS (ACABE COM A DÚVIDA) -->
+      <div class="title-verifier-box">
+        <div class="verifier-header">
+          <span>🔍</span> <b>O que você quer assistir agora? Teste aqui:</b>
+        </div>
+        <p class="verifier-sub">Digite o nome de qualquer novela, filme, série ou time para verificar a liberação imediata:</p>
+        
+        <div class="verifier-search-wrapper">
+          <span class="verifier-search-icon">🔎</span>
+          <input type="text" id="verifier-input" class="verifier-input" placeholder="Ex: Hercai, Força de Mulher, Deadpool, Flamengo..." oninput="onVerifierInput(this.value)" />
+        </div>
+
+        <div class="verifier-chips">
+          <span class="v-chip" onclick="quickVerify('Força de Mulher')">Força de Mulher</span>
+          <span class="v-chip" onclick="quickVerify('Can Yaman')">Can Yaman</span>
+          <span class="v-chip" onclick="quickVerify('Hercai')">Hercai</span>
+          <span class="v-chip" onclick="quickVerify('Deadpool & Wolverine')">Deadpool</span>
+          <span class="v-chip" onclick="quickVerify('Wandinha')">Wandinha</span>
+          <span class="v-chip" onclick="quickVerify('Premiere 60FPS')">Premiere</span>
+          <span class="v-chip" onclick="quickVerify('Minidramas')">Minidramas</span>
+          <span class="v-chip" onclick="quickVerify('Divertida Mente 2')">Divertida Mente</span>
+        </div>
+
+        <div class="verifier-result" id="verifier-result-box">
+          <span style="font-size:1.1rem;">🟢</span>
+          <div>
+            <b id="verifier-title-echo">Força de Mulher & +100.000 títulos</b> disponíveis no servidor VIP!
+            <div style="font-size:0.7rem; color:#94a3b8; font-weight:normal;">100% Dublado • Resolução 4K HDR • Todos os capítulos liberados</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 🎬 VITRINE HIPNÓTICA DE STREAMING (PÔSTERES REAIS DA INTERNET) -->
+      <div class="showcase-container">
+        <div class="showcase-header">
+          <h3 class="showcase-title">
+            <span>🔥</span> Vitrine em Alta: Se Existe, Você Assiste Aqui
+          </h3>
+          <p class="showcase-sub">Toque nas categorias para explorar nosso acervo 100% liberado:</p>
+        </div>
+
+        <!-- ABAS DE NAVEGAÇÃO -->
+        <div class="showcase-tabs">
+          <button class="s-tab active" onclick="switchShowcaseTab('em_alta', this)">🔥 Mais Assistidos</button>
+          <button class="s-tab" onclick="switchShowcaseTab('turcas', this)">👑 Novelas Turcas</button>
+          <button class="s-tab" onclick="switchShowcaseTab('cinema', this)">🍿 Cinema & Séries</button>
+          <button class="s-tab" onclick="switchShowcaseTab('futebol', this)">⚽ Futebol 60FPS</button>
+          <button class="s-tab" onclick="switchShowcaseTab('doramas', this)">🌸 Doramas Coreanos</button>
+        </div>
+
+        <!-- GRID DE PÔSTERES DINÂMICO -->
+        <div class="showcase-grid" id="showcase-grid-display">
+          <!-- Será preenchido dinamicamente via JS -->
+        </div>
+      </div>
+
       <!-- ======================================================== -->
-      <!-- 2. OS 2 PLANOS OFICIAIS NO TOPO (PAGUE E LIBERE NA HORA!) -->
+      <!-- 4. OS 2 PLANOS OFICIAIS NO TOPO (PAGUE E LIBERE NA HORA!) -->
       <!-- ======================================================== -->
       <div class="plans-section" id="planos-anchor">
         <h3 class="section-title">Escolha Seu Plano e Pague no PIX</h3>
@@ -1354,13 +1738,15 @@
             </div>
           </div>
 
+          <div class="decoy-tag">🔥 POR APENAS R$ 10 A MAIS, VOCÊ LEVA TUDO ILIMITADO PARA SEMPRE!</div>
+
           <ul class="plan-feature-bullets">
             <li><span class="bullet-star">✨</span> <b>+10.000 Novelinhas, Doramas, Galãs e Novelas Turcas</b></li>
-            <li><span class="bullet-star">✨</span> <b>Assista no WhatsApp, celular ou TV</b> (com auxílio no VIP)</li>
+            <li><span class="bullet-star">✨</span> <b>Assista no WhatsApp, celular ou Smart TV</b> (com auxílio no VIP)</li>
             <li><span class="bullet-ok">✅</span> <b>Novos Doramas, Novelas Turcas e Novelinhas TODOS OS DIAS</b></li>
             <li><span class="bullet-ok">✅</span> <b>Pode pedir e a gente coloca QUALQUER novela ou filme que quiser!</b></li>
-            <li><span class="bullet-ok">✅</span> <b>Suporte exclusivo para auxiliar a colocar na TV</b></li>
-            <li><span class="bullet-ok">💰</span> <b>Pagamento único — sem mensalidade nenhuma!</b></li>
+            <li><span class="bullet-ok">✅</span> <b>Suporte exclusivo Dona Sirlene para auxiliar a colocar na TV</b></li>
+            <li><span class="bullet-ok">💰</span> <b>Pagamento único — sem mensalidade nenhuma para sempre!</b></li>
           </ul>
 
           <button class="btn-choose-plan" onclick="goToPixCheckout('Plano Completo VIP', '20.00')">
@@ -1385,8 +1771,9 @@
             <li><span class="bullet-star">🌻</span> 3.000 Novelinhas, Doramas e Turcas</li>
             <li><span class="bullet-ok">💰</span> Pagamento único (paga só 1 vez)</li>
             <li><span class="bullet-ok">📱</span> Assista no celular ou WhatsApp</li>
-            <li><span class="bullet-no">❌</span> Sem atualização diária</li>
-            <li><span class="bullet-no">❌</span> Não pode pedir novelinhas ou doramas</li>
+            <li><span class="bullet-no">❌</span> Sem atualização diária de capítulos novos</li>
+            <li><span class="bullet-no">❌</span> Não pode pedir novelinhas ou filmes novos</li>
+            <li><span class="bullet-no">❌</span> Sem auxílio de instalação na Smart TV</li>
           </ul>
 
           <button class="btn-choose-plan" onclick="goToPixCheckout('Plano Simples', '10.00')">
@@ -1397,7 +1784,7 @@
       </div>
 
       <!-- ======================================================== -->
-      <!-- 3. CHECKOUT PIX AUTOMÁTICO (ABRE LOGO ABAIXO DOS PLANOS!) -->
+      <!-- 5. CHECKOUT PIX AUTOMÁTICO (ABRE LOGO ABAIXO DOS PLANOS!) -->
       <!-- ======================================================== -->
       <div id="checkout-box">
         <h4 class="checkout-title">Pagamento Seguro via PIX</h4>
@@ -1447,123 +1834,88 @@
         </div>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- 4. TODAS AS PLATAFORMAS & GANCHOS DE ECONOMIA E TV       -->
-      <!-- ======================================================== -->
+      <!-- 6. 🛡️ GARANTIA INCONDICIONAL DE 7 DIAS (RISCO ZERO) -->
+      <div class="guarantee-box">
+        <div class="guarantee-badge-icon">🛡️</div>
+        <div>
+          <div class="guarantee-title">GARANTIA INCONDICIONAL DE 7 DIAS • RISCO ZERO</div>
+          <div class="guarantee-desc">
+            Você tem 7 dias inteiros para testar na sua Smart TV e celular. Se por qualquer motivo não amar ou tiver qualquer dificuldade técnica, devolvemos <b>100% do seu PIX na hora</b>. Sem perguntas e sem ressentimentos!
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. 📺 GRADE VISUAL DE MARCAS DE SMART TV (MATANDO MEDO TÉCNICO) -->
+      <div class="tv-brands-box">
+        <h3 class="tv-brands-title">Compatível com Todas as Smart TVs e Aparelhos</h3>
+        <p class="tv-brands-sub">Não precisa de técnico nem antena. Qualquer pessoa instala em 2 minutos:</p>
+        
+        <div class="tv-brands-grid">
+          <div class="tv-brand-pill">
+            <span class="icon">📺</span>
+            <span>Samsung</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">📺</span>
+            <span>LG webOS</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">📺</span>
+            <span>TCL Roku</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">📺</span>
+            <span>Android TV</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">📦</span>
+            <span>TV Box</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">🔥</span>
+            <span>Fire Stick</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">📱</span>
+            <span>Android</span>
+          </div>
+          <div class="tv-brand-pill">
+            <span class="icon">🍎</span>
+            <span>iPhone</span>
+          </div>
+        </div>
+
+        <p class="tv-brands-footer-note">
+          ✓ Enviamos vídeo explicativo de 2 minutos direto no seu WhatsApp te ensinando passo a passo!
+        </p>
+      </div>
+
+      <!-- 8. 💰 CALCULADORA DO ROMBO FINANCEIRO (ECONOMIA DE R$ 380/MÊS) -->
       <div class="platforms-hub-box">
         <div class="platforms-badge">🍿 TODAS AS PLATAFORMAS EM UM SÓ LUGAR</div>
-        <h3 class="platforms-title">Economize Mais de R$ 380,00 por Mês!</h3>
+        <h3 class="platforms-title">Economize Mais de R$ 380,00 Todo Mês!</h3>
         <p class="platforms-sub">
           Em vez de pagar 7 assinaturas separadas todo mês, você assiste a <b>tudo em uma única central</b> sem nenhuma mensalidade:
         </p>
 
-        <!-- CHIPS DAS PLATAFORMAS -->
-        <div class="platform-chips-grid">
-          <div class="p-chip netflix"><span class="chip-dot"></span> Netflix 4K</div>
-          <div class="p-chip max"><span class="chip-dot"></span> HBO Max</div>
-          <div class="p-chip disney"><span class="chip-dot"></span> Disney+</div>
-          <div class="p-chip prime"><span class="chip-dot"></span> Prime Video</div>
-          <div class="p-chip premiere"><span class="chip-dot"></span> Premiere FC</div>
-          <div class="p-chip globo"><span class="chip-dot"></span> Globoplay</div>
-          <div class="p-chip telecine"><span class="chip-dot"></span> Telecine</div>
-          <div class="p-chip sportv"><span class="chip-dot"></span> SporTV & ESPN</div>
-          <div class="p-chip doramas"><span class="chip-dot"></span> Novelas & Doramas</div>
-        </div>
-
         <!-- ANCORAGEM DE PREÇO / COMPARATIVO -->
         <div class="price-compare-card">
           <div class="compare-row old">
-            <div class="comp-label">❌ Assinando Separado Todo Mês:</div>
-            <div class="comp-val">R$ 389,00 <span class="per-mo">/ mês</span></div>
+            <div class="comp-label">❌ Netflix + Max + Premiere + Moedinhas de Apps:</div>
+            <div class="comp-val">R$ 389,00 <span style="font-size:0.7rem;">/ mês (R$ 4.668/ano)</span></div>
           </div>
           <div class="compare-row new">
             <div class="comp-label">✅ Com Nosso Acesso VIP Hoje:</div>
-            <div class="comp-val">Apenas R$ 20,00 <span class="per-one">PAGA SÓ 1 VEZ</span></div>
+            <div class="comp-val">Apenas R$ 20,00 <span style="font-size:0.75rem; color:#10b981;">PAGA SÓ 1 VEZ</span></div>
           </div>
         </div>
-
-        <!-- GANCHOS PRINCIPAIS -->
-        <div class="tv-hooks-list">
-          <div class="hook-item">
-            <div class="hook-icon">⚡</div>
-            <div class="hook-content">
-              <b>Futebol 60 FPS Sem Delay:</b> Premiere, Libertadores e Champions League ao vivo sem travar. Grite gol antes do vizinho!
-            </div>
-          </div>
-          <div class="hook-item">
-            <div class="hook-icon">🍿</div>
-            <div class="hook-content">
-              <b>Cinema 2026 & Séries:</b> Filmes que acabaram de sair das salas de cinema já dublados em 4K HDR e temporadas completas.
-            </div>
-          </div>
-          <div class="hook-item">
-            <div class="hook-icon">📺</div>
-            <div class="hook-content">
-              <b>+2.500 Canais Ao Vivo Sem Antena:</b> Funciona em qualquer Smart TV (Samsung, LG, TCL, Android), TV Box, celular ou computador.
-            </div>
-          </div>
-        </div>
+        
+        <p style="font-size:0.78rem; color:#34d399; font-weight:800; text-align:center;">
+          🎉 Você economiza mais de R$ 4.600,00 por ano no seu bolso!
+        </p>
       </div>
 
-      <!-- ======================================================== -->
-      <!-- 5. COMO FUNCIONA (COPY EXATA)                            -->
-      <!-- ======================================================== -->
-      <div class="how-it-works-box">
-        <h3 class="how-it-works-title">
-          <span>🍿</span> COMO FUNCIONA?
-        </h3>
-        <div class="how-it-works-body">
-          <p>
-            <b>Você encontra todas as opções de entretenimento em um só lugar! 🎬</b>
-          </p>
-          <p>
-            Conteúdos variados, com todas as opções das plataformas como <b>Netflix, Disney+, HBO Max</b> e canais ao vivo.
-          </p>
-          <p>
-            📱 <b>Assista em dispositivos compatíveis</b>, como Smart TV, TV Box, celular, computador ou <b>direto no seu WhatsApp</b>.
-          </p>
-          <p style="color:#34d399; font-weight:800; margin-bottom:0;">
-            Tudo isso com praticidade e preço acessível! 🚀
-          </p>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- 6. VITRINE DE PÔSTERES REAIS                             -->
-      <!-- ======================================================== -->
-      <div class="covers-showcase-card">
-        <div class="covers-header">
-          <span id="covers-showcase-title">🌟 Os Galãs Turcos e Novelas Mais Assistidas:</span>
-          <span style="font-size:0.7rem; color:#ec4899; font-weight:800;" id="covers-showcase-badge">100% DUBLADAS</span>
-        </div>
-        <div class="covers-grid-3" id="covers-grid-box">
-          <!-- PÔSTER 1: GALÃ TURCO ISTAMBUL -->
-          <div class="cover-box">
-            <span class="cover-tag-over">GALÃ MAIS DESEJADO</span>
-            <img src="/assets/covers/gala-turco-1.jpg" alt="Galã Turco Istambul" />
-            <div class="cover-title-text">Amor em Istambul</div>
-            <div class="cover-sub-text">Novela Turca Dublada</div>
-          </div>
-          <!-- PÔSTER 2: MIRAN EM HERCAI -->
-          <div class="cover-box">
-            <span class="cover-tag-over">SUCESSO HERCAI</span>
-            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" />
-            <div class="cover-title-text">Hercai (Miran)</div>
-            <div class="cover-sub-text">Completa Dublada</div>
-          </div>
-          <!-- PÔSTER 3: KIVANÇ TATLITUĞ -->
-          <div class="cover-box">
-            <span class="cover-tag-over">KIVANÇ TATLITUĞ</span>
-            <img src="/assets/covers/turca-12.jpg" alt="Kıvanç Tatlıtuğ" />
-            <div class="cover-title-text">Brave & Beautiful</div>
-            <div class="cover-sub-text">Áudio Dublado HD</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- 7. PROVAS SOCIAIS REAIS: MOCKUP DE PRINT DO WHATSAPP     -->
-      <!-- ======================================================== -->
+      <!-- 9. 💬 DEPOIMENTOS E AGRADECIMENTOS NO WHATSAPP (HUMANIZADO) -->
       <div class="whatsapp-proof-section">
         <h3 class="section-title">Depoimentos e Elogios no WhatsApp</h3>
         <p class="section-subtitle">Veja o carinho e o feedback espontâneo de quem já está assistindo todos os dias:</p>
@@ -1582,6 +1934,30 @@
           </div>
 
           <div class="wa-chat-body">
+            <!-- MOCKUP ÁUDIO DA DONA SIRLENE -->
+            <div class="wa-msg out">
+              <div class="wa-voice-player" onclick="playVoiceSimulation(this)">
+                <div class="wa-voice-btn">▶</div>
+                <div class="wa-voice-wave">
+                  <div class="wa-wave-bar" style="height:6px;"></div>
+                  <div class="wa-wave-bar" style="height:12px;"></div>
+                  <div class="wa-wave-bar" style="height:16px;"></div>
+                  <div class="wa-wave-bar" style="height:8px;"></div>
+                  <div class="wa-wave-bar" style="height:14px;"></div>
+                  <div class="wa-wave-bar" style="height:10px;"></div>
+                  <div class="wa-wave-bar" style="height:15px;"></div>
+                  <div class="wa-wave-bar" style="height:7px;"></div>
+                  <div class="wa-wave-bar" style="height:13px;"></div>
+                  <div class="wa-wave-bar" style="height:9px;"></div>
+                </div>
+                <span class="wa-voice-time">0:16</span>
+              </div>
+              <div style="font-size:0.7rem; color:#cbd5e1; margin-top:2px;">
+                <i>"Oi flor! Já separei seu acesso VIP. Pode fazer seu Pix que eu mesma te ajudo na TV pelo WhatsApp!"</i>
+              </div>
+              <div class="wa-time">13:38 <span class="wa-blue-ticks">✓✓</span></div>
+            </div>
+
             <!-- MENSAGEM DO CLIENTE ELOGIO / AGRADECIMENTO -->
             <div class="wa-msg in">
               Dona Sirlene, boa tarde! Passando pra agradecer de coração pelo atendimento e pela paciência comigo pra me ensinar a colocar na TV da sala! ❤️
@@ -1645,7 +2021,7 @@
 
       </div>
 
-      <!-- 8. FAQ ACCORDION -->
+      <!-- 10. FAQ ACCORDION -->
       <div class="faq-section">
         <h3 class="section-title">Dúvidas Frequentes</h3>
         
@@ -1655,37 +2031,37 @@
             <span class="faq-arrow">▼</span>
           </div>
           <div class="faq-a">
-            É pagamento único! Você paga o valor promocional de hoje (R$ 10 no simples ou R$ 20 no VIP) e não tem cobrança surpresa nem mensalidade no seu cartão.
+            É pagamento único! Você paga o valor promocional de hoje (R$ 10 no simples ou R$ 20 no VIP) e não tem nenhuma cobrança surpresa nem mensalidade nunca mais.
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">
-            <span>Como faço para assistir no WhatsApp?</span>
+            <span>Como faço para assistir na Smart TV?</span>
             <span class="faq-arrow">▼</span>
           </div>
           <div class="faq-a">
-            Assim que você envia o comprovante, nós te adicionamos na nossa central exclusiva no WhatsApp onde todos os episódios, novelas e doramas ficam organizados por pastas para você assistir com 1 toque direto no celular.
+            Sim! No Plano VIP temos suporte exclusivo que te ensina em 2 minutinhos como conectar na sua Smart TV (Samsung, LG, TCL, Roku, Android) ou TV Box com total facilidade através de um vídeo passo a passo.
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">
-            <span>Vocês ajudam a colocar na Smart TV?</span>
+            <span>Posso pedir qualquer novela ou filme que não achar?</span>
             <span class="faq-arrow">▼</span>
           </div>
           <div class="faq-a">
-            Sim! No Plano VIP temos suporte exclusivo que te ensina em 2 minutinhos como conectar na sua Smart TV (Samsung, LG, TCL, Android) ou TV Box com total facilidade.
+            Sim! No Plano Completo VIP você tem o canal de pedidos liberado. Se tiver alguma novela antiga da Globo, mexicana, turca ou lançamento de cinema que você quer ver, basta mandar o nome que nossa equipe adiciona para você no mesmo dia!
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">
-            <span>Posso pedir qualquer novela ou dorama?</span>
+            <span>Como funciona a garantia de 7 dias?</span>
             <span class="faq-arrow">▼</span>
           </div>
           <div class="faq-a">
-            Sim! No Plano Completo VIP você tem o canal de pedidos liberado. Se tiver alguma novela antiga da Globo, novela mexicana, turca ou dorama novo que você quer ver, basta mandar o nome que a equipe adiciona para você!
+            Você tem 7 dias para testar tudo. Se não gostar da imagem ou tiver qualquer dificuldade no seu aparelho, devolvemos 100% do seu dinheiro via Pix imediatamente. Risco zero para você!
           </div>
         </div>
 
@@ -1695,20 +2071,30 @@
 
     <!-- FOOTER -->
     <footer>
-      <p>© 2026 Central VIP de Entretenimento • Todos os direitos reservados.</p>
+      <p>© 2026 Tudo Na TV • Central VIP de Entretenimento • Todos os direitos reservados.</p>
       <p style="margin-top:6px; font-size:0.72rem;">Conexão Segura Criptografada SSL 256-Bit • Ativação Imediata via PIX</p>
     </footer>
 
   </div>
 
-  <!-- FLOATING ATTENDANT BADGE (DONA SIRLENE) -->
-  <a href="#planos-anchor" class="attendant-pill">
-    <img src="/assets/dona_sirlene.jpg" alt="Dona Sirlene" class="attendant-img" onerror="this.src='/assets/logo.jpg'" />
-    <div class="attendant-info">
-      <div class="attendant-name">Dona Sirlene <span>👑</span></div>
-      <div class="attendant-status">● Suporte Online no VIP</div>
+  <!-- 🔔 NOTIFICAÇÃO FLUTUANTE DE VENDAS EM TEMPO REAL (FOMO TOAST) -->
+  <div id="fomo-toast">
+    <div class="fomo-icon">🎉</div>
+    <div class="fomo-text" id="fomo-text-display">
+      <b>Mariana S. (Curitiba/PR)</b> acabou de liberar o Plano VIP há 2 minutos!
     </div>
-  </a>
+  </div>
+
+  <!-- 🥇 STICKY FOOTER BAR MOBILE (APARECE AO ROLAR) -->
+  <div id="sticky-footer-bar">
+    <div>
+      <div class="sticky-price-label">Plano Completo VIP</div>
+      <div class="sticky-price-val">R$ 20,00 <span style="font-size:0.65rem; color:#10b981; font-weight:700;">ÚNICO</span></div>
+    </div>
+    <button class="btn-sticky-cta" onclick="scrollToPlans()">
+      PAGAR NO PIX ➔
+    </button>
+  </div>
 
   <!-- TOAST NOTIFICATION -->
   <div id="toast">Chave PIX copiada com sucesso!</div>
@@ -1717,107 +2103,161 @@
     const PIX_KEY = '09658990983';
     const WHATSAPP_PHONE = '554195993007';
 
-    let userSelectedCategory = 'novelas';
+    let userPreferences = {
+      category: 'novelas',
+      device: 'tv',
+      pain: 'moedinhas'
+    };
+
     let currentPlan = 'Plano Completo VIP';
     let currentPrice = '20.00';
 
-    // ETAPA 1: SELEÇÃO VISUAL COM GATILHOS (AVANÇA DIRETO PARA A ETAPA 2)
-    function selectFunnelCategory(cat, element) {
-      userSelectedCategory = cat;
+    // VITRINE ACERVO DE PÔSTERES REAIS
+    const SHOWCASE_DATA = {
+      em_alta: [
+        { title: 'Deadpool & Wolverine', genre: 'Cinema 2026 • 4K HDR', badge: 'RECORD BILHETERIA', cover: '/assets/covers/deadpool-wolverine.jpg' },
+        { title: 'Força de Mulher', genre: 'Novela Turca Dublada', badge: 'TOP 1 BRASIL', cover: '/assets/covers/turca-forca-de-mulher.jpg' },
+        { title: 'Futebol Ao Vivo', genre: 'Premiere • 60 FPS', badge: 'SEM DELAY', cover: '/assets/covers/futebol-premiere-live.jpg' },
+        { title: 'Wandinha', genre: 'Série Netflix • 4K', badge: 'TEMPORADA COMPLETA', cover: '/assets/covers/wandinha.jpg' },
+        { title: 'Can Yaman (Erkenci)', genre: 'Novela Turca Dublada', badge: 'GALÃ DESEJADO', cover: '/assets/covers/can-yaman-erkenci-kus.jpg' },
+        { title: 'Divertida Mente 2', genre: 'Cinema Dublado 4K', badge: 'LANÇAMENTO', cover: '/assets/covers/divertida-mente-2.jpg' }
+      ],
+      turcas: [
+        { title: 'Força de Mulher', genre: 'Kadın • 100 Capítulos', badge: 'SUCESSO RECORD', cover: '/assets/covers/turca-forca-de-mulher.jpg' },
+        { title: 'Can Yaman (Erkenci)', genre: 'Erkenci Kuş Dublada', badge: 'GALÃ NÚMERO 1', cover: '/assets/covers/can-yaman-erkenci-kus.jpg' },
+        { title: 'Hercai (Miran)', genre: 'Completa Dublada', badge: 'ROMANCE ÉPICO', cover: '/assets/covers/turca-5.jpg' },
+        { title: 'Brave and Beautiful', genre: 'Kıvanç Tatlıtuğ Dublado', badge: 'ÁUDIO HD', cover: '/assets/covers/turca-12.jpg' },
+        { title: 'Yalı Çapkını', genre: 'O Garoto de Ouro', badge: 'EM ALTA', cover: '/assets/covers/turca-yali-capkini.jpg' },
+        { title: 'Terra Amarga', genre: 'Bir Zamanlar Çukurova', badge: 'COMPLETA', cover: '/assets/covers/turca-terra-amarga.jpg' }
+      ],
+      cinema: [
+        { title: 'Deadpool & Wolverine', genre: 'Marvel Studios • 4K', badge: 'CINEMA 2026', cover: '/assets/covers/deadpool-wolverine.jpg' },
+        { title: 'Wandinha', genre: 'Netflix Original Dublado', badge: 'SÉRIE DO ANO', cover: '/assets/covers/wandinha.jpg' },
+        { title: 'Divertida Mente 2', genre: 'Disney / Pixar Dublado', badge: 'BILHETERIA', cover: '/assets/covers/divertida-mente-2.jpg' },
+        { title: 'Stranger Things', genre: 'Temporadas 1 a 4', badge: 'NETFLIX 4K', cover: '/assets/covers/stranger-things.jpg' },
+        { title: 'Duna: Parte 2', genre: 'Ficção Épica Dublada', badge: 'MAX ORIGINAL', cover: '/assets/covers/dune-2.jpg' },
+        { title: 'La Casa de Papel', genre: 'Todas as Temporadas', badge: 'EXCLUSIVO', cover: '/assets/covers/series-streaming-max.jpg' }
+      ],
+      futebol: [
+        { title: 'Futebol Ao Vivo 60FPS', genre: 'Premiere & SporTV', badge: 'SEM DELAY', cover: '/assets/covers/futebol-premiere-live.jpg' },
+        { title: 'Champions League 4K', genre: 'Real, City, PSG, Barça', badge: 'AO VIVO EM 4K', cover: '/assets/covers/champions-league.jpg' },
+        { title: 'Brasileirão Série A', genre: 'Todos os Jogos do Ano', badge: '60 FPS', cover: '/assets/covers/futebol-premiere.jpg' }
+      ],
+      doramas: [
+        { title: 'Alquimia das Almas', genre: 'K-Drama Coreano 4K', badge: 'DORAMA VIP', cover: '/assets/covers/dorama-alchemy-of-souls.jpg' },
+        { title: 'Pousando no Amor', genre: 'Romance Coreano Dublado', badge: 'TOP SUCESSO', cover: '/assets/covers/dorama-7.jpg' },
+        { title: 'Rebelde RBD', genre: 'Novela Completa HD', badge: 'NOSTALGIA', cover: '/assets/covers/mexicana-rebelde.jpg' }
+      ]
+    };
 
-      document.querySelectorAll('.rich-choice-card').forEach(c => c.classList.remove('selected'));
-      element.classList.add('selected');
+    // INICIALIZA A VITRINE COM A ABA 'EM ALTA'
+    function renderShowcase(tabKey) {
+      const grid = document.getElementById('showcase-grid-display');
+      const items = SHOWCASE_DATA[tabKey] || SHOWCASE_DATA.em_alta;
+      grid.innerHTML = items.map(item => `
+        <div class="s-poster-card" onclick="onPosterClick('${item.title}')">
+          <span class="s-poster-badge">${item.badge}</span>
+          <img src="${item.cover}" alt="${item.title}" loading="lazy" />
+          <div class="s-poster-info">
+            <div class="s-poster-title">${item.title}</div>
+            <div class="s-poster-genre">${item.genre}</div>
+          </div>
+        </div>
+      `).join('');
+    }
 
-      const scanner = document.getElementById('scanner-box');
-      scanner.classList.add('active');
+    function switchShowcaseTab(tabKey, btn) {
+      document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderShowcase(tabKey);
+    }
 
-      setTimeout(() => {
-        document.getElementById('quiz-box').style.display = 'none';
+    function onPosterClick(title) {
+      showToast('🟢 ' + title + ' liberado no VIP! Toque abaixo para pagar.');
+      document.getElementById('planos-anchor').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 
-        renderEtapa2();
+    // NAVEGAÇÃO DO QUIZ INTERATIVO (PASSOS 1, 2 E 3)
+    function nextQuizStep(step, val) {
+      if (step === 1) {
+        userPreferences.category = val;
+        document.getElementById('quiz-step-1').style.display = 'none';
+        document.getElementById('quiz-step-2').style.display = 'block';
+        document.getElementById('quiz-step-label').innerText = 'PASSO 2 DE 3 • ONDE VOCÊ VAI ASSISTIR';
+        document.getElementById('quiz-pct-label').innerText = '66%';
+        document.getElementById('quiz-progress-bar').style.width = '66%';
+      } else if (step === 2) {
+        userPreferences.device = val;
+        document.getElementById('quiz-step-2').style.display = 'none';
+        document.getElementById('quiz-step-3').style.display = 'block';
+        document.getElementById('quiz-step-label').innerText = 'PASSO 3 DE 3 • SUA MAIOR FRUSTRAÇÃO';
+        document.getElementById('quiz-pct-label').innerText = '90%';
+        document.getElementById('quiz-progress-bar').style.width = '90%';
+      } else if (step === 3) {
+        userPreferences.pain = val;
+        document.getElementById('quiz-step-3').style.display = 'none';
+        
+        // Ativa scanner
+        const scanner = document.getElementById('scanner-box');
+        scanner.classList.add('active');
+        document.getElementById('quiz-step-label').innerText = 'FINALIZANDO DIAGNÓSTICO';
+        document.getElementById('quiz-pct-label').innerText = '100%';
+        document.getElementById('quiz-progress-bar').style.width = '100%';
 
-        const etapa2 = document.getElementById('etapa-2-area');
-        etapa2.style.display = 'block';
-
-        if (typeof fbq === 'function') {
-          fbq('track', 'QuizCategorySelected', { category: cat });
-        }
-
-        etapa2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 400);
+        const statusEl = document.getElementById('scanner-status-text');
+        setTimeout(() => { statusEl.innerText = '✓ Servidores dedicados 4K 60FPS sincronizados...'; }, 400);
+        setTimeout(() => { statusEl.innerText = '✓ Travas de moedinhas e mensalidades removidas...'; }, 800);
+        setTimeout(() => {
+          document.getElementById('quiz-box').style.display = 'none';
+          renderEtapa2();
+          const etapa2 = document.getElementById('etapa-2-area');
+          etapa2.style.display = 'block';
+          renderShowcase(userPreferences.category === 'tv_stream' ? 'cinema' : 'turcas');
+          etapa2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 1200);
+      }
     }
 
     function renderEtapa2() {
       const headline = document.getElementById('match-headline');
       const details = document.getElementById('match-details');
-      const showcaseTitle = document.getElementById('covers-showcase-title');
-      const showcaseBadge = document.getElementById('covers-showcase-badge');
-      const grid = document.getElementById('covers-grid-box');
       const proofNovelas = document.getElementById('proof-wa-novelas');
       const proofFutebol = document.getElementById('proof-wa-futebol');
 
-      if (userSelectedCategory === 'tv_stream') {
-        headline.innerText = '⚽ Passe Multi-Plataformas & TV VIP Pronto!';
-        details.innerHTML = 'Acesso liberado a <b>Cinema 2026, Netflix, HBO Max, Disney+, Premiere sem delay</b> e +2.500 canais ao vivo no seu <b>WhatsApp ou Smart TV</b>!';
-        showcaseTitle.innerHTML = '⚡ Futebol Ao Vivo, Cinema 2026 e Séries Sem Limites:';
-        if (showcaseBadge) {
-          showcaseBadge.innerText = '4K ULTRA HD';
-          showcaseBadge.style.color = '#38bdf8';
-        }
-        grid.innerHTML = `
-          <div class="cover-box">
-            <span class="cover-tag-over">PREMIERE & LIBERTADORES</span>
-            <img src="/assets/covers/futebol-premiere-live.jpg" alt="Futebol Ao Vivo 60FPS" />
-            <div class="cover-title-text">Futebol Ao Vivo</div>
-            <div class="cover-sub-text">60 FPS Sem Delay</div>
-          </div>
-          <div class="cover-box">
-            <span class="cover-tag-over">CINEMA 2026</span>
-            <img src="/assets/covers/cinema-lancamentos-2026.jpg" alt="Cinema 2026 Blockbuster" />
-            <div class="cover-title-text">Cinema 2026</div>
-            <div class="cover-sub-text">Filmes em Alta</div>
-          </div>
-          <div class="cover-box">
-            <span class="cover-tag-over">SÉRIES & PLATAFORMAS</span>
-            <img src="/assets/covers/series-streaming-max.jpg" alt="Séries Exclusivas Netflix e Max" />
-            <div class="cover-title-text">Séries Exclusivas</div>
-            <div class="cover-sub-text">Netflix, Max & Prime</div>
-          </div>
-        `;
+      let deviceLabel = 'Smart TV';
+      if (userPreferences.device === 'celular') deviceLabel = 'Celular / WhatsApp';
+      else if (userPreferences.device === 'tvbox') deviceLabel = 'TV Box / Fire Stick';
+      else if (userPreferences.device === 'pc') deviceLabel = 'Computador / Tablet';
+
+      if (userPreferences.category === 'tv_stream') {
+        headline.innerText = '⚽ Passe Multi-Plataformas Liberado para sua ' + deviceLabel + '!';
+        details.innerHTML = 'Acesso liberado a <b>Cinema 2026, Netflix, HBO Max, Disney+, Premiere sem delay</b> e +2.500 canais ao vivo sem mensalidade!';
         proofFutebol.style.order = '-1';
       } else {
-        headline.innerText = '🌸 Catálogo Novelas Turcas, Doramas & Galãs Pronto!';
-        details.innerHTML = 'Mais de 10.000 novelinhas verticais (estilo <b>DramaBox e ShortMax</b> sem moedinhas), novelas turcas dubladas com os <b>galãs mais desejados da Turquia</b> e K-Dramas coreanos liberados no seu <b>WhatsApp ou Smart TV</b>!';
-        showcaseTitle.innerHTML = '🌟 Os Galãs Turcos e Novelas Mais Assistidas (100% Dubladas):';
-        if (showcaseBadge) {
-          showcaseBadge.innerText = '100% DUBLADAS';
-          showcaseBadge.style.color = '#ec4899';
-        }
-        grid.innerHTML = `
-          <div class="cover-box">
-            <span class="cover-tag-over">GALÃ MAIS DESEJADO</span>
-            <img src="/assets/covers/gala-turco-1.jpg" alt="Galã Turco Istambul" />
-            <div class="cover-title-text">Amor em Istambul</div>
-            <div class="cover-sub-text">Novela Turca Dublada</div>
-          </div>
-          <div class="cover-box">
-            <span class="cover-tag-over">SUCESSO HERCAI</span>
-            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" />
-            <div class="cover-title-text">Hercai (Miran)</div>
-            <div class="cover-sub-text">Completa Dublada</div>
-          </div>
-          <div class="cover-box">
-            <span class="cover-tag-over">KIVANÇ TATLITUĞ</span>
-            <img src="/assets/covers/turca-12.jpg" alt="Kıvanç Tatlıtuğ" />
-            <div class="cover-title-text">Brave & Beautiful</div>
-            <div class="cover-sub-text">Áudio Dublado HD</div>
-          </div>
-        `;
+        headline.innerText = '🌸 Catálogo Novelas Turcas, Doramas & Galãs Pronto na sua ' + deviceLabel + '!';
+        details.innerHTML = 'Mais de 10.000 novelinhas verticais (estilo <b>DramaBox e ShortMax sem moedinhas</b>), novelas turcas dubladas com os <b>galãs mais desejados</b> e K-Dramas coreanos!';
         proofNovelas.style.order = '-1';
       }
     }
 
-    // AO CLICAR NO PLANO: ROLA DIRETO PRO PIX E ABRE A CHAVE!
+    // 🔍 VERIFICADOR INTERATIVO DE TÍTULOS
+    function onVerifierInput(val) {
+      const echo = document.getElementById('verifier-title-echo');
+      const clean = val.trim();
+      if (clean.length > 0) {
+        echo.innerText = '"' + clean + '"';
+      } else {
+        echo.innerText = 'Seu título favorito';
+      }
+    }
+
+    function quickVerify(title) {
+      document.getElementById('verifier-input').value = title;
+      onVerifierInput(title);
+      showToast('🟢 ' + title + ' disponível em 4K Dublado no VIP!');
+    }
+
+    // AO CLICAR NO PLANO: ROLA DIRETO PRO PIX E ABRE A CHAVE
     function goToPixCheckout(planName, price) {
       currentPlan = planName;
       currentPrice = price;
@@ -1841,7 +2281,6 @@
         });
       }
 
-      // Rola suavemente direto para a caixinha do PIX
       checkoutBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
@@ -1890,7 +2329,6 @@
       linkEl.href = url;
     }
 
-    // TRACK LEAD CONVERSION
     function trackLeadConversion() {
       if (typeof fbq === 'function') {
         fbq('track', 'Lead', {
@@ -1901,19 +2339,69 @@
       }
     }
 
-    // ACCORDION FAQ
     function toggleFaq(el) {
       const item = el.closest('.faq-item');
       item.classList.toggle('open');
     }
 
-    // TOAST
     function showToast(msg) {
       const toast = document.getElementById('toast');
       toast.innerText = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3000);
     }
+
+    function scrollToPlans() {
+      goToPixCheckout('Plano Completo VIP', '20.00');
+    }
+
+    // SIMULAÇÃO DO ÁUDIO DA DONA SIRLENE
+    function playVoiceSimulation(el) {
+      const btn = el.querySelector('.wa-voice-btn');
+      btn.innerText = '⏸';
+      showToast('🔊 Dona Sirlene: "Oi flor! Pode fazer seu Pix que eu mesma te ajudo na TV pelo WhatsApp!"');
+      setTimeout(() => { btn.innerText = '▶'; }, 3500);
+    }
+
+    // NOTIFICAÇÕES DE COMPRAS EM TEMPO REAL (FOMO TOASTS)
+    const FOMO_LIST = [
+      { name: 'Mariana S. (Curitiba/PR)', plan: 'Plano VIP', time: 'há 2 minutos' },
+      { name: 'Carlos M. (São Paulo/SP)', plan: 'Premiere 60FPS na TV LG', time: 'há 3 minutos' },
+      { name: 'Dona Neide (Belo Horizonte/MG)', plan: 'Plano VIP Força de Mulher', time: 'há 4 minutos' },
+      { name: 'Lucas R. (Rio de Janeiro/RJ)', plan: 'VIP Cinema & Futebol', time: 'há 1 minuto' },
+      { name: 'Vanessa P. (Campinas/SP)', plan: 'Minidramas Sem Moedas', time: 'há 5 minutos' },
+      { name: 'Fernanda L. (Salvador/BA)', plan: 'Plano Completo VIP', time: 'agora mesmo' }
+    ];
+    let fomoIdx = 0;
+
+    function triggerNextFomo() {
+      const item = FOMO_LIST[fomoIdx];
+      fomoIdx = (fomoIdx + 1) % FOMO_LIST.length;
+      
+      const display = document.getElementById('fomo-text-display');
+      display.innerHTML = `<b>${item.name}</b> liberou o <b>${item.plan}</b> ${item.time}!`;
+      
+      const toast = document.getElementById('fomo-toast');
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 4500);
+    }
+
+    // Inicia o FOMO toast a cada 14s
+    setInterval(triggerNextFomo, 14000);
+    setTimeout(triggerNextFomo, 3500);
+
+    // STICKY FOOTER VISIBILIDADE
+    window.addEventListener('scroll', () => {
+      const sticky = document.getElementById('sticky-footer-bar');
+      if (window.scrollY > 400) {
+        sticky.classList.add('show');
+      } else {
+        sticky.classList.remove('show');
+      }
+    });
+
+    // Renderiza a vitrine inicial em alta
+    renderShowcase('em_alta');
   </script>
 </body>
 </html>
