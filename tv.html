@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Acesso VIP • Novelas Turcas, Doramas, Futebol e TV Online no WhatsApp ou Smart TV</title>
-  <meta name="description" content="Assista a Força de Mulher, novelas turcas completas, doramas dublados, futebol 60FPS e lançamentos de cinema no seu WhatsApp ou Smart TV. Pagamento único a partir de R$ 10!" />
-  <link rel="icon" href="/assets/logo.jpg" type="image/jpeg" />
+  <title>TUDO NA TV • Assista a Tudo o que Você Deseja em Um Só Lugar</title>
+  <meta name="description" content="Assista a novelas turcas completas com galãs, doramas dublados, futebol 60FPS sem delay, lançamentos de cinema e todas as plataformas no seu WhatsApp ou Smart TV. Pagamento único a partir de R$ 10!" />
+  <link rel="icon" href="/assets/logo-tudonatv-clean.png" type="image/png" />
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,11 +14,13 @@
 
   <style>
     :root {
-      --bg: #07090e;
-      --bg-card: #0f1422;
-      --bg-elevated: #161e32;
-      --border: rgba(255, 255, 255, 0.08);
-      --primary: #ec4899;
+      --bg: #07080c;
+      --bg-card: rgba(14, 16, 24, 0.94);
+      --bg-elevated: #151824;
+      --border: rgba(255, 255, 255, 0.1);
+      --primary: #e50914;
+      --primary-hover: #ff1e27;
+      --primary-glow: rgba(229, 9, 20, 0.35);
       --accent-green: #10b981;
       --accent-gold: #f59e0b;
       --accent-blue: #3b82f6;
@@ -50,16 +52,19 @@
       flex-direction: column;
       overflow-x: hidden;
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(236, 72, 153, 0.16) 0%, transparent 45%),
-        radial-gradient(circle at 80% 25%, rgba(59, 130, 246, 0.12) 0%, transparent 40%);
+        linear-gradient(180deg, rgba(7, 8, 12, 0.85) 0%, rgba(7, 8, 12, 0.94) 50%, #07080c 100%),
+        url('/assets/bg-tudonatv.jpg');
+      background-size: cover;
+      background-position: center top;
       background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
     /* TOP LIVE TICKER */
     .ticker-bar {
-      background: rgba(15, 20, 34, 0.96);
+      background: rgba(10, 12, 18, 0.96);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(229, 9, 20, 0.35);
       padding: 9px 12px;
       font-size: 0.78rem;
       font-weight: 800;
@@ -75,9 +80,9 @@
     .pulse-dot {
       width: 8px;
       height: 8px;
-      background-color: var(--accent-green);
+      background-color: #e50914;
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent-green);
+      box-shadow: 0 0 10px #e50914;
       animation: pulse 1.6s infinite;
     }
     @keyframes pulse {
@@ -89,22 +94,40 @@
       width: 100%;
       max-width: 580px;
       margin: 0 auto;
-      padding: 16px 14px 70px;
+      padding: 14px 14px 70px;
       flex: 1;
     }
 
-    /* HERO HEADER */
+    /* HERO HEADER COM A NOVA LOGO 3D */
     .hero {
       text-align: center;
       margin-bottom: 16px;
+    }
+    .brand-logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .brand-hero-logo {
+      width: 195px;
+      max-width: 70vw;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 10px 25px rgba(229, 9, 20, 0.45));
+      animation: logoPulse 4s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
     }
     .hero-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(236, 72, 153, 0.15);
-      border: 1px solid rgba(236, 72, 153, 0.4);
-      color: #f472b6;
+      background: rgba(229, 9, 20, 0.16);
+      border: 1px solid rgba(229, 9, 20, 0.45);
+      color: #ff6b6b;
       padding: 4px 14px;
       border-radius: 999px;
       font-size: 0.74rem;
@@ -122,7 +145,7 @@
       letter-spacing: -0.4px;
     }
     .hero-title span {
-      background: linear-gradient(135deg, #f472b6 0%, #a78bfa 50%, #60a5fa 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #ff4d4d 40%, #e50914 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -130,9 +153,33 @@
       font-size: 0.88rem;
       color: var(--text-muted);
       max-width: 480px;
-      margin: 0 auto 12px;
+      margin: 0 auto 10px;
       font-weight: 500;
       line-height: 1.4;
+    }
+
+    /* GATILHO DE CERTEZA: TUDO O QUE VOCÊ DESEJA */
+    .desire-guarantee-pill {
+      background: linear-gradient(135deg, rgba(229, 9, 20, 0.16), rgba(245, 158, 11, 0.14));
+      border: 1px solid rgba(229, 9, 20, 0.45);
+      border-radius: var(--radius-md);
+      padding: 9px 13px;
+      font-size: 0.76rem;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 8px auto 0;
+      max-width: 490px;
+      line-height: 1.35;
+      text-align: left;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    }
+    .desire-guarantee-pill .pill-star {
+      font-size: 1.15rem;
+      color: #fbbf24;
+      flex-shrink: 0;
     }
 
     /* ======================================================== */
@@ -185,15 +232,15 @@
     }
     .rich-choice-card.pink:hover,
     .rich-choice-card.pink.selected {
-      border-color: #ec4899;
-      background: linear-gradient(180deg, rgba(236, 72, 153, 0.12) 0%, var(--bg-elevated) 100%);
-      box-shadow: 0 0 20px rgba(236, 72, 153, 0.25);
+      border-color: #e50914;
+      background: linear-gradient(180deg, rgba(229, 9, 20, 0.15) 0%, var(--bg-elevated) 100%);
+      box-shadow: 0 0 25px rgba(229, 9, 20, 0.3);
     }
     .rich-choice-card.blue:hover,
     .rich-choice-card.blue.selected {
       border-color: #3b82f6;
-      background: linear-gradient(180deg, rgba(59, 130, 246, 0.12) 0%, var(--bg-elevated) 100%);
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+      background: linear-gradient(180deg, rgba(59, 130, 246, 0.15) 0%, var(--bg-elevated) 100%);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
     }
 
     /* MINI PÔSTERES NO TOPO DO CARD PARA GATILHO VISUAL IMEDIATO */
@@ -241,9 +288,9 @@
       margin-bottom: 8px;
     }
     .card-top-tag.pink {
-      background: rgba(236, 72, 153, 0.2);
-      color: #f472b6;
-      border: 1px solid rgba(236, 72, 153, 0.4);
+      background: rgba(229, 9, 20, 0.2);
+      color: #ff6b6b;
+      border: 1px solid rgba(229, 9, 20, 0.45);
     }
     .card-top-tag.blue {
       background: rgba(59, 130, 246, 0.2);
@@ -270,9 +317,9 @@
       letter-spacing: 0.3px;
     }
     .choice-tag.pink {
-      background: rgba(236, 72, 153, 0.2);
-      color: #f472b6;
-      border: 1px solid rgba(236, 72, 153, 0.35);
+      background: rgba(229, 9, 20, 0.2);
+      color: #ff8585;
+      border: 1px solid rgba(229, 9, 20, 0.4);
     }
     .choice-tag.green {
       background: rgba(16, 185, 129, 0.2);
@@ -761,22 +808,23 @@
       transition: all 0.2s;
     }
     .plan-card.featured {
-      border-color: #f59e0b;
-      background: linear-gradient(180deg, rgba(245, 158, 11, 0.1) 0%, var(--bg-card) 100%);
-      box-shadow: 0 0 30px rgba(245, 158, 11, 0.22);
+      border-color: #e50914;
+      background: linear-gradient(180deg, rgba(229, 9, 20, 0.15) 0%, var(--bg-card) 100%);
+      box-shadow: 0 0 35px rgba(229, 9, 20, 0.28);
     }
     .popular-ribbon {
       position: absolute;
       top: -12px;
       right: 18px;
-      background: linear-gradient(90deg, #f59e0b, #d97706);
-      color: #000;
+      background: linear-gradient(90deg, #e50914, #b91c1c);
+      color: #fff;
       font-size: 0.72rem;
       font-weight: 900;
       padding: 3px 14px;
       border-radius: 999px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.45);
     }
     .plan-top-badge {
       display: inline-block;
@@ -855,10 +903,10 @@
       transition: all 0.2s;
     }
     .plan-card.featured .btn-choose-plan {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: #000;
+      background: linear-gradient(135deg, #e50914, #b91c1c);
+      color: #fff;
       border: none;
-      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      box-shadow: 0 10px 25px rgba(229, 9, 20, 0.45);
     }
     .btn-choose-plan:hover {
       opacity: 0.92;
@@ -1153,17 +1201,26 @@
 
   <div class="container">
 
-    <!-- HERO HEADER COM FOCO EM NOVELAS TURCAS E FUTEBOL -->
+    <!-- HERO HEADER COM A NOVA LOGO 3D & GATILHO DE CONTEÚDO TOTAL -->
     <header class="hero">
+      <div class="brand-logo-container">
+        <img src="/assets/logo-tudonatv-clean.png" alt="TUDO NA TV" class="brand-hero-logo" />
+      </div>
       <div class="hero-badge">
-        <span>🎬 ACESSO COMPLETO • PAGAMENTO ÚNICO</span>
+        <span>🎬 SE EXISTE, VOCÊ ASSISTE AQUI</span>
       </div>
       <h1 class="hero-title">
-        Novelas Turcas, Doramas, Futebol e Filmes <span>no WhatsApp ou TV</span>
+        Tudo o que Você Quer Assistir <span>na Sua TV ou Celular</span>
       </h1>
       <p class="hero-subtitle">
-        Sem mensalidades nem moedinhas por capítulo! Toque no que você quer assistir para liberar seu catálogo:
+        Novelas turcas com galãs, doramas, lançamentos de cinema, todas as plataformas juntas e futebol 60FPS. Sem mensalidades nem moedinhas!
       </p>
+
+      <!-- GATILHO: VOCÊ VAI TER TUDO QUE DESEJA -->
+      <div class="desire-guarantee-pill">
+        <span class="pill-star">✨</span>
+        <span><b>Garantia Total:</b> Você vai ter tudo o que deseja! Mais de 100.000 títulos. Pode pedir QUALQUER novela ou filme que colocamos para você!</span>
+      </div>
     </header>
 
     <!-- ======================================================== -->
