@@ -599,6 +599,153 @@
     }
 
     /* ======================================================== */
+    /* SEÇÃO TODAS AS PLATAFORMAS & GANCHOS DE TV & ECONOMIA     */
+    /* ======================================================== */
+    .platforms-hub-box {
+      background: linear-gradient(180deg, #101728 0%, #0c111e 100%);
+      border: 1.5px solid rgba(59, 130, 246, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 20px 16px;
+      margin-bottom: 22px;
+      position: relative;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+    .platforms-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.45);
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .platforms-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .platforms-sub {
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin-bottom: 16px;
+    }
+    .platform-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .p-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: #172138;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
+    }
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .p-chip.netflix .chip-dot { background: #e50914; }
+    .p-chip.max .chip-dot { background: #9333ea; }
+    .p-chip.disney .chip-dot { background: #0284c7; }
+    .p-chip.prime .chip-dot { background: #00a8e1; }
+    .p-chip.premiere .chip-dot { background: #22c55e; }
+    .p-chip.globo .chip-dot { background: #f97316; }
+    .p-chip.telecine .chip-dot { background: #ef4444; }
+    .p-chip.sportv .chip-dot { background: #3b82f6; }
+    .p-chip.doramas .chip-dot { background: #ec4899; }
+
+    /* ANCORAGEM DE PREÇO */
+    .price-compare-card {
+      background: #090e17;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+    .compare-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+    }
+    .compare-row.old {
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-size: 0.76rem;
+    }
+    .compare-row.old .comp-val {
+      text-decoration: line-through;
+      color: #f87171;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+    .compare-row.new {
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding-top: 8px;
+    }
+    .compare-row.new .comp-val {
+      color: #34d399;
+      font-weight: 900;
+      font-size: 1.05rem;
+    }
+    .per-mo { font-size: 0.65rem; color: #94a3b8; }
+    .per-one {
+      font-size: 0.62rem;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 4px;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    /* GANCHOS BULLETS */
+    .tv-hooks-list {
+      display: grid;
+      gap: 10px;
+    }
+    .hook-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #cbd5e1;
+    }
+    .hook-icon {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .hook-content b {
+      color: #ffffff;
+      display: inline;
+    }
+
+    /* ======================================================== */
     /* OS 2 PLANOS OFICIAIS (CLIQUE VAI DIRETO PRO PIX!)        */
     /* ======================================================== */
     .plans-section {
@@ -1028,53 +1175,53 @@
 
       <div class="choice-cards-container">
         
-        <!-- CARD 1: NOVELAS TURCAS, DORAMAS E NOVELINHAS (COM FOTOS REAIS!) -->
+        <!-- CARD 1: NOVELAS TURCAS, DORAMAS E GALÃS (CHAMA ATENÇÃO DAS MULHERES!) -->
         <div class="rich-choice-card pink selected" onclick="selectFunnelCategory('novelas', this)">
-          <div class="card-top-tag pink">👑 MAIS PEDIDO NO BRASIL</div>
+          <div class="card-top-tag pink">👑 OS MAIORES GALÃS TURCOS & DORAMAS</div>
           
-          <!-- MINI PÔSTERES EMBUTIDOS -->
+          <!-- MINI PÔSTERES EMBUTIDOS DE HOMENS GALÃS -->
           <div class="choice-posters-strip">
-            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" class="choice-poster-thumb" />
-            <img src="/assets/covers/turca-terra-amarga.jpg" alt="Terra Amarga" class="choice-poster-thumb" />
-            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Alquimia das Almas" class="choice-poster-thumb" />
+            <img src="/assets/covers/gala-turco-1.jpg" alt="Galã Turco Istambul" class="choice-poster-thumb" />
+            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" class="choice-poster-thumb" />
+            <img src="/assets/covers/turca-12.jpg" alt="Kıvanç Tatlıtuğ" class="choice-poster-thumb" />
           </div>
 
           <div class="choice-info-header">
-            <div class="choice-main-title">🎬 Novelas Turcas & Doramas</div>
+            <div class="choice-main-title">🎬 Novelas Turcas, Doramas & Galãs</div>
             <span style="font-size:1.1rem; color:#ec4899;">➔</span>
           </div>
           <div class="choice-main-desc">
-            Assista a <b>Força de Mulher</b>, <b>Terra Amarga</b>, Doramas coreanos e novelinhas completas sem moedinhas!
+            Assista aos <b>galãs mais desejados da Turquia</b>, romances apaixonantes, K-Dramas coreanos e novelinhas completas <b>sem moedinhas</b> por capítulo!
           </div>
           <div class="choice-badges-row">
-            <span class="choice-tag pink">🔥 100% Dubladas</span>
+            <span class="choice-tag pink">🔥 Galãs Mais Desejados</span>
             <span class="choice-tag pink">✨ +10.000 Capítulos</span>
             <span class="choice-tag green">💬 Direto no WhatsApp</span>
           </div>
         </div>
 
-        <!-- CARD 2: TV AO VIVO, FUTEBOL & FILMES (COM FOTOS REAIS!) -->
+        <!-- CARD 2: TV AO VIVO, FUTEBOL & TODAS AS PLATAFORMAS (COM GANCHOS E MAIS INFO!) -->
         <div class="rich-choice-card blue" onclick="selectFunnelCategory('tv_stream', this)">
-          <div class="card-top-tag blue">⚡ 100% AO VIVO SEM DELAY</div>
+          <div class="card-top-tag blue">🍿 TODAS AS PLATAFORMAS + FUTEBOL 60FPS</div>
           
           <!-- MINI PÔSTERES EMBUTIDOS -->
           <div class="choice-posters-strip">
-            <img src="/assets/covers/futebol-premiere.jpg" alt="Futebol Premiere" class="choice-poster-thumb" />
-            <img src="/assets/covers/champions-league.jpg" alt="Champions League" class="choice-poster-thumb" />
-            <img src="/assets/covers/cinema-lancamentos.jpg" alt="Cinema 2026" class="choice-poster-thumb" />
+            <img src="/assets/covers/futebol-premiere.jpg" alt="Futebol Premiere 60FPS" class="choice-poster-thumb" />
+            <img src="/assets/covers/champions-league.jpg" alt="Champions League 4K" class="choice-poster-thumb" />
+            <img src="/assets/covers/cinema-lancamentos.jpg" alt="Cinema Netflix & Max" class="choice-poster-thumb" />
           </div>
 
           <div class="choice-info-header">
-            <div class="choice-main-title">⚽ TV Ao Vivo, Futebol & Cinema</div>
+            <div class="choice-main-title">📺 TV Online, Futebol & Plataformas</div>
             <span style="font-size:1.1rem; color:#3b82f6;">➔</span>
           </div>
           <div class="choice-main-desc">
-            Premiere 60FPS sem delay, Champions League, canais fechados, Netflix e lançamentos de cinema em 4K.
+            <b>Netflix, HBO Max, Disney+, Premiere FC e canais em 4K.</b> Assista antes do vizinho gritar gol e economize mais de <b>R$ 380 por mês</b>!
           </div>
           <div class="choice-badges-row">
             <span class="choice-tag green">⚡ 60 FPS Sem Delay</span>
-            <span class="choice-tag green">📺 +2.500 Canais</span>
-            <span class="choice-tag pink">🍿 Cinema 2026</span>
+            <span class="choice-tag green">🍿 Netflix + Max + Disney</span>
+            <span class="choice-tag pink">💰 Sem Mensalidade</span>
           </div>
         </div>
 
@@ -1093,7 +1240,7 @@
     <!-- ======================================================== -->
     <div id="etapa-2-area">
 
-      <!-- BANNER PERSONALIZADO -->
+      <!-- 1. BANNER PERSONALIZADO -->
       <div class="match-banner">
         <div class="match-badge">✓ Acesso Liberado com Desconto de Hoje</div>
         <h2 class="match-title" id="match-headline">
@@ -1104,147 +1251,8 @@
         </p>
       </div>
 
-      <!-- VITRINE DE PÔSTERES REAIS -->
-      <div class="covers-showcase-card">
-        <div class="covers-header">
-          <span id="covers-showcase-title">🌟 Novelas Mais Assistidas Esta Semana:</span>
-          <span style="font-size:0.7rem; color:#ec4899; font-weight:800;">100% DUBLADAS</span>
-        </div>
-        <div class="covers-grid-3" id="covers-grid-box">
-          <!-- PÔSTER 1 -->
-          <div class="cover-box">
-            <span class="cover-tag-over">RECORD DE IBOPE</span>
-            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" />
-            <div class="cover-title-text">Força de Mulher</div>
-            <div class="cover-sub-text">Completa Dublada</div>
-          </div>
-          <!-- PÔSTER 2 -->
-          <div class="cover-box">
-            <span class="cover-tag-over">SUCESSO TURCO</span>
-            <img src="/assets/covers/turca-terra-amarga.jpg" alt="Terra Amarga" />
-            <div class="cover-title-text">Terra Amarga</div>
-            <div class="cover-sub-text">Todas as Temporadas</div>
-          </div>
-          <!-- PÔSTER 3 -->
-          <div class="cover-box">
-            <span class="cover-tag-over">K-DRAMA EM ALTA</span>
-            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Alquimia das Almas" />
-            <div class="cover-title-text">Alquimia das Almas</div>
-            <div class="cover-sub-text">Áudio Dublado HD</div>
-          </div>
-        </div>
-      </div>
-
       <!-- ======================================================== -->
-      <!-- PROVAS SOCIAIS REAIS: MOCKUP DE PRINT DO WHATSAPP        -->
-      <!-- ======================================================== -->
-      <div class="whatsapp-proof-section">
-        <h3 class="section-title">Depoimentos Reais no WhatsApp</h3>
-        <p class="section-subtitle">Veja como nossos clientes recebem o acesso e assistem todos os dias:</p>
-
-        <!-- PRINT 1: WHATSAPP FEMININO (NOVELAS TURCAS E FORÇA DE MULHER) -->
-        <div class="wa-mockup-wrapper" id="proof-wa-novelas">
-          <div class="wa-top-bar">
-            <div class="wa-profile-group">
-              <img src="/assets/dona_sirlene.jpg" alt="Dona Sirlene" class="wa-profile-pic" onerror="this.src='/assets/logo.jpg'" />
-              <div>
-                <div class="wa-profile-name">Dona Sirlene - Novelas VIP 👑</div>
-                <div class="wa-profile-status">online agora</div>
-              </div>
-            </div>
-            <div class="wa-icons">📞 📹 ⋮</div>
-          </div>
-
-          <div class="wa-chat-body">
-            <!-- MENSAGEM DO CLIENTE COM COMPROVANTE -->
-            <div class="wa-msg in">
-              Boa tarde Dona Sirlene! Acabei de fazer o Pix de 20 reais do Plano VIP. Segue o comprovante 👇
-              
-              <div class="wa-pix-receipt">
-                <div class="wa-receipt-header">✓ COMPROVANTE DE TRANSFERÊNCIA PIX</div>
-                <div class="wa-receipt-val">R$ 20,00</div>
-                <div class="wa-receipt-dest"><b>Destinatário:</b> Luan Batista (CPF 096...983)</div>
-                <div class="wa-receipt-dest"><b>Status:</b> Transação Concluída com Sucesso</div>
-              </div>
-              
-              <div class="wa-time">13:40</div>
-            </div>
-
-            <!-- RESPOSTA DA ATENDENTE -->
-            <div class="wa-msg out">
-              Confirmadíssimo, flor! 🎉 Segue seu link VIP liberado: <b>novelasvip.online/acesso</b>. Te mandei o vídeo de como espelhar na Smart TV também! Qualquer coisa me chama ❤️
-              <div class="wa-time">13:42 <span class="wa-blue-ticks">✓✓</span></div>
-            </div>
-
-            <!-- FEEDBACK DO CLIENTE -->
-            <div class="wa-msg in">
-              Mulher do céu, que maravilha!! Já abri Força de Mulher aqui na TV da sala, minha mãe tá pulando de alegria kkkk tava gastando um absurdo naqueles apps de moedinhas. Muito obrigada mesmo! 🙏🥰
-              <div class="wa-time">14:15</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PRINT 2: WHATSAPP MASCULINO (FUTEBOL 60FPS E SMART TV) -->
-        <div class="wa-mockup-wrapper" id="proof-wa-futebol">
-          <div class="wa-top-bar">
-            <div class="wa-profile-group">
-              <div class="wa-profile-pic" style="background:#2563eb; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:0.85rem;">TV</div>
-              <div>
-                <div class="wa-profile-name">Suporte Ativação TV & Futebol ⚽</div>
-                <div class="wa-profile-status">online agora</div>
-              </div>
-            </div>
-            <div class="wa-icons">📞 📹 ⋮</div>
-          </div>
-
-          <div class="wa-chat-body">
-            <div class="wa-msg in">
-              Fala irmão, mandei o Pix de R$ 20 aí no CPF. Segue o comprovante.
-              <div class="wa-pix-receipt">
-                <div class="wa-receipt-header">✓ PIX ENVIADO COM SUCESSO</div>
-                <div class="wa-receipt-val">R$ 20,00</div>
-                <div class="wa-receipt-dest"><b>Beneficiário:</b> Luan Batista • Banco Inter</div>
-              </div>
-              <div class="wa-time">18:22</div>
-            </div>
-
-            <div class="wa-msg out">
-              Show de bola, parceiro! Acesso ativado com sucesso. Te enviei o link e o login no seu WhatsApp. Premiere, SporTV e Champions League liberados em 60 FPS sem delay! 🚀
-              <div class="wa-time">18:24 <span class="wa-blue-ticks">✓✓</span></div>
-            </div>
-
-            <div class="wa-msg in">
-              Mano, assisti o jogo aqui na Smart TV da LG liso em 60fps sem nenhum travamento. Cancelei a fatura da TV a cabo hoje mesmo. Valeu cada centavo! 👊🔥
-              <div class="wa-time">20:55</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- SEÇÃO COMO FUNCIONA (COPY EXATA DO CLIENTE) -->
-      <div class="how-it-works-box">
-        <h3 class="how-it-works-title">
-          <span>🍿</span> COMO FUNCIONA?
-        </h3>
-        <div class="how-it-works-body">
-          <p>
-            <b>Você encontra todas as opções de entretenimento em um só lugar! 🎬</b>
-          </p>
-          <p>
-            Conteúdos variados, com todas as opções das plataformas como <b>Netflix, Disney+, HBO Max</b> e canais ao vivo.
-          </p>
-          <p>
-            📱 <b>Assista em dispositivos compatíveis</b>, como Smart TV, TV Box, celular, computador ou <b>direto no seu WhatsApp</b>.
-          </p>
-          <p style="color:#34d399; font-weight:800; margin-bottom:0;">
-            Tudo isso com praticidade e preço acessível! 🚀
-          </p>
-        </div>
-      </div>
-
-      <!-- ======================================================== -->
-      <!-- OS 2 PLANOS OFICIAIS (CLIQUE VAI DIRETO PRO PIX!)        -->
+      <!-- 2. OS 2 PLANOS OFICIAIS NO TOPO (PAGUE E LIBERE NA HORA!) -->
       <!-- ======================================================== -->
       <div class="plans-section" id="planos-anchor">
         <h3 class="section-title">Escolha Seu Plano e Pague no PIX</h3>
@@ -1265,10 +1273,10 @@
           </div>
 
           <ul class="plan-feature-bullets">
-            <li><span class="bullet-star">✨</span> <b>+10.000 Novelinhas, Doramas e Novelas Turcas</b></li>
+            <li><span class="bullet-star">✨</span> <b>+10.000 Novelinhas, Doramas, Galãs e Novelas Turcas</b></li>
             <li><span class="bullet-star">✨</span> <b>Assista no WhatsApp, celular ou TV</b> (com auxílio no VIP)</li>
             <li><span class="bullet-ok">✅</span> <b>Novos Doramas, Novelas Turcas e Novelinhas TODOS OS DIAS</b></li>
-            <li><span class="bullet-ok">✅</span> <b>Pode pedir e a gente coloca QUALQUER novela que você quiser!</b></li>
+            <li><span class="bullet-ok">✅</span> <b>Pode pedir e a gente coloca QUALQUER novela ou filme que quiser!</b></li>
             <li><span class="bullet-ok">✅</span> <b>Suporte exclusivo para auxiliar a colocar na TV</b></li>
             <li><span class="bullet-ok">💰</span> <b>Pagamento único — sem mensalidade nenhuma!</b></li>
           </ul>
@@ -1307,7 +1315,7 @@
       </div>
 
       <!-- ======================================================== -->
-      <!-- CHECKOUT PIX AUTOMÁTICO (ROLA DIRETO PRA CÁ!)            -->
+      <!-- 3. CHECKOUT PIX AUTOMÁTICO (ABRE LOGO ABAIXO DOS PLANOS!) -->
       <!-- ======================================================== -->
       <div id="checkout-box">
         <h4 class="checkout-title">Pagamento Seguro via PIX</h4>
@@ -1351,7 +1359,208 @@
         </div>
       </div>
 
-      <!-- FAQ ACCORDION -->
+      <!-- ======================================================== -->
+      <!-- 4. TODAS AS PLATAFORMAS & GANCHOS DE ECONOMIA E TV       -->
+      <!-- ======================================================== -->
+      <div class="platforms-hub-box">
+        <div class="platforms-badge">🍿 TODAS AS PLATAFORMAS EM UM SÓ LUGAR</div>
+        <h3 class="platforms-title">Economize Mais de R$ 380,00 por Mês!</h3>
+        <p class="platforms-sub">
+          Em vez de pagar 7 assinaturas separadas todo mês, você assiste a <b>tudo em uma única central</b> sem nenhuma mensalidade:
+        </p>
+
+        <!-- CHIPS DAS PLATAFORMAS -->
+        <div class="platform-chips-grid">
+          <div class="p-chip netflix"><span class="chip-dot"></span> Netflix 4K</div>
+          <div class="p-chip max"><span class="chip-dot"></span> HBO Max</div>
+          <div class="p-chip disney"><span class="chip-dot"></span> Disney+</div>
+          <div class="p-chip prime"><span class="chip-dot"></span> Prime Video</div>
+          <div class="p-chip premiere"><span class="chip-dot"></span> Premiere FC</div>
+          <div class="p-chip globo"><span class="chip-dot"></span> Globoplay</div>
+          <div class="p-chip telecine"><span class="chip-dot"></span> Telecine</div>
+          <div class="p-chip sportv"><span class="chip-dot"></span> SporTV & ESPN</div>
+          <div class="p-chip doramas"><span class="chip-dot"></span> Novelas & Doramas</div>
+        </div>
+
+        <!-- ANCORAGEM DE PREÇO / COMPARATIVO -->
+        <div class="price-compare-card">
+          <div class="compare-row old">
+            <div class="comp-label">❌ Assinando Separado Todo Mês:</div>
+            <div class="comp-val">R$ 389,00 <span class="per-mo">/ mês</span></div>
+          </div>
+          <div class="compare-row new">
+            <div class="comp-label">✅ Com Nosso Acesso VIP Hoje:</div>
+            <div class="comp-val">Apenas R$ 20,00 <span class="per-one">PAGA SÓ 1 VEZ</span></div>
+          </div>
+        </div>
+
+        <!-- GANCHOS PRINCIPAIS -->
+        <div class="tv-hooks-list">
+          <div class="hook-item">
+            <div class="hook-icon">⚡</div>
+            <div class="hook-content">
+              <b>Futebol 60 FPS Sem Delay:</b> Premiere, Libertadores e Champions League ao vivo sem travar. Grite gol antes do vizinho!
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-icon">🍿</div>
+            <div class="hook-content">
+              <b>Cinema 2026 & Séries:</b> Filmes que acabaram de sair das salas de cinema já dublados em 4K HDR e temporadas completas.
+            </div>
+          </div>
+          <div class="hook-item">
+            <div class="hook-icon">📺</div>
+            <div class="hook-content">
+              <b>+2.500 Canais Ao Vivo Sem Antena:</b> Funciona em qualquer Smart TV (Samsung, LG, TCL, Android), TV Box, celular ou computador.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 5. COMO FUNCIONA (COPY EXATA)                            -->
+      <!-- ======================================================== -->
+      <div class="how-it-works-box">
+        <h3 class="how-it-works-title">
+          <span>🍿</span> COMO FUNCIONA?
+        </h3>
+        <div class="how-it-works-body">
+          <p>
+            <b>Você encontra todas as opções de entretenimento em um só lugar! 🎬</b>
+          </p>
+          <p>
+            Conteúdos variados, com todas as opções das plataformas como <b>Netflix, Disney+, HBO Max</b> e canais ao vivo.
+          </p>
+          <p>
+            📱 <b>Assista em dispositivos compatíveis</b>, como Smart TV, TV Box, celular, computador ou <b>direto no seu WhatsApp</b>.
+          </p>
+          <p style="color:#34d399; font-weight:800; margin-bottom:0;">
+            Tudo isso com praticidade e preço acessível! 🚀
+          </p>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 6. VITRINE DE PÔSTERES REAIS                             -->
+      <!-- ======================================================== -->
+      <div class="covers-showcase-card">
+        <div class="covers-header">
+          <span id="covers-showcase-title">🌟 Os Galãs Turcos e Novelas Mais Assistidas:</span>
+          <span style="font-size:0.7rem; color:#ec4899; font-weight:800;">100% DUBLADAS</span>
+        </div>
+        <div class="covers-grid-3" id="covers-grid-box">
+          <!-- PÔSTER 1: GALÃ TURCO ISTAMBUL -->
+          <div class="cover-box">
+            <span class="cover-tag-over">GALÃ MAIS DESEJADO</span>
+            <img src="/assets/covers/gala-turco-1.jpg" alt="Galã Turco Istambul" />
+            <div class="cover-title-text">Amor em Istambul</div>
+            <div class="cover-sub-text">Novela Turca Dublada</div>
+          </div>
+          <!-- PÔSTER 2: MIRAN EM HERCAI -->
+          <div class="cover-box">
+            <span class="cover-tag-over">SUCESSO HERCAI</span>
+            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" />
+            <div class="cover-title-text">Hercai (Miran)</div>
+            <div class="cover-sub-text">Completa Dublada</div>
+          </div>
+          <!-- PÔSTER 3: KIVANÇ TATLITUĞ -->
+          <div class="cover-box">
+            <span class="cover-tag-over">KIVANÇ TATLITUĞ</span>
+            <img src="/assets/covers/turca-12.jpg" alt="Kıvanç Tatlıtuğ" />
+            <div class="cover-title-text">Brave & Beautiful</div>
+            <div class="cover-sub-text">Áudio Dublado HD</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 7. PROVAS SOCIAIS REAIS: MOCKUP DE PRINT DO WHATSAPP     -->
+      <!-- ======================================================== -->
+      <div class="whatsapp-proof-section">
+        <h3 class="section-title">Depoimentos Reais no WhatsApp</h3>
+        <p class="section-subtitle">Veja como nossos clientes recebem o acesso e assistem todos os dias:</p>
+
+        <!-- PRINT 1: WHATSAPP FEMININO (NOVELAS TURCAS E GALÃS) -->
+        <div class="wa-mockup-wrapper" id="proof-wa-novelas">
+          <div class="wa-top-bar">
+            <div class="wa-profile-group">
+              <img src="/assets/dona_sirlene.jpg" alt="Dona Sirlene" class="wa-profile-pic" onerror="this.src='/assets/logo.jpg'" />
+              <div>
+                <div class="wa-profile-name">Dona Sirlene - Novelas VIP 👑</div>
+                <div class="wa-profile-status">online agora</div>
+              </div>
+            </div>
+            <div class="wa-icons">📞 📹 ⋮</div>
+          </div>
+
+          <div class="wa-chat-body">
+            <!-- MENSAGEM DO CLIENTE COM COMPROVANTE -->
+            <div class="wa-msg in">
+              Boa tarde Dona Sirlene! Acabei de fazer o Pix de 20 reais do Plano VIP. Segue o comprovante 👇
+              
+              <div class="wa-pix-receipt">
+                <div class="wa-receipt-header">✓ COMPROVANTE DE TRANSFERÊNCIA PIX</div>
+                <div class="wa-receipt-val">R$ 20,00</div>
+                <div class="wa-receipt-dest"><b>Destinatário:</b> Luan Batista (CPF 096...983)</div>
+                <div class="wa-receipt-dest"><b>Status:</b> Transação Concluída com Sucesso</div>
+              </div>
+              
+              <div class="wa-time">13:40</div>
+            </div>
+
+            <!-- RESPOSTA DA ATENDENTE -->
+            <div class="wa-msg out">
+              Confirmadíssimo, flor! 🎉 Segue seu link VIP liberado: <b>novelasvip.online/acesso</b>. Te mandei o vídeo de como espelhar na Smart TV também! Qualquer coisa me chama ❤️
+              <div class="wa-time">13:42 <span class="wa-blue-ticks">✓✓</span></div>
+            </div>
+
+            <!-- FEEDBACK DO CLIENTE -->
+            <div class="wa-msg in">
+              Mulher do céu, que maravilha!! Já abri as novelas dos galãs turcos aqui na TV da sala, minha mãe tá apaixonada kkkk tava gastando um absurdo naqueles apps de moedinhas. Muito obrigada mesmo! 🙏🥰
+              <div class="wa-time">14:15</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRINT 2: WHATSAPP MASCULINO (FUTEBOL 60FPS E SMART TV) -->
+        <div class="wa-mockup-wrapper" id="proof-wa-futebol">
+          <div class="wa-top-bar">
+            <div class="wa-profile-group">
+              <div class="wa-profile-pic" style="background:#2563eb; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:800; font-size:0.85rem;">TV</div>
+              <div>
+                <div class="wa-profile-name">Suporte Ativação TV & Futebol ⚽</div>
+                <div class="wa-profile-status">online agora</div>
+              </div>
+            </div>
+            <div class="wa-icons">📞 📹 ⋮</div>
+          </div>
+
+          <div class="wa-chat-body">
+            <div class="wa-msg in">
+              Fala irmão, mandei o Pix de R$ 20 aí no CPF. Segue o comprovante.
+              <div class="wa-pix-receipt">
+                <div class="wa-receipt-header">✓ PIX ENVIADO COM SUCESSO</div>
+                <div class="wa-receipt-val">R$ 20,00</div>
+                <div class="wa-receipt-dest"><b>Beneficiário:</b> Luan Batista • Banco Inter</div>
+              </div>
+              <div class="wa-time">18:22</div>
+            </div>
+
+            <div class="wa-msg out">
+              Show de bola, parceiro! Acesso ativado com sucesso. Te enviei o link e o login no seu WhatsApp. Premiere, SporTV e Champions League liberados em 60 FPS sem delay! 🚀
+              <div class="wa-time">18:24 <span class="wa-blue-ticks">✓✓</span></div>
+            </div>
+
+            <div class="wa-msg in">
+              Mano, assisti o jogo aqui na Smart TV da LG liso em 60fps sem nenhum travamento. Cancelei a fatura da TV a cabo hoje mesmo. Valeu cada centavo! 👊🔥
+              <div class="wa-time">20:55</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 8. FAQ ACCORDION -->
       <div class="faq-section">
         <h3 class="section-title">Dúvidas Frequentes</h3>
         
@@ -1462,8 +1671,8 @@
       const proofFutebol = document.getElementById('proof-wa-futebol');
 
       if (userSelectedCategory === 'tv_stream') {
-        headline.innerText = '⚽ Perfil TV Ao Vivo, Futebol & Cinema Pronto!';
-        details.innerHTML = 'Acesso liberado com Premiere sem delay, Champions League, UFC Combate e canais em 4K no seu <b>WhatsApp ou Smart TV</b>.';
+        headline.innerText = '⚽ Passe Multi-Plataformas & TV VIP Pronto!';
+        details.innerHTML = 'Acesso liberado a <b>Netflix, HBO Max, Disney+, Premiere sem delay</b> e +2.500 canais ao vivo no seu <b>WhatsApp ou Smart TV</b>!';
         showcaseTitle.innerHTML = '⚽ Canais e Jogos em 60 FPS Sem Delay:';
         grid.innerHTML = `
           <div class="cover-box">
@@ -1487,26 +1696,26 @@
         `;
         proofFutebol.style.order = '-1';
       } else {
-        headline.innerText = '🌸 Catálogo Novelas & Doramas VIP Pronto!';
-        details.innerHTML = 'Mais de 10.000 novelinhas verticais, novelas turcas dubladas e K-Dramas coreanos com pedidos liberados direto no seu <b>WhatsApp ou TV</b>!';
-        showcaseTitle.innerHTML = '🌟 Novelas Mais Pedidas Esta Semana (100% Dubladas):';
+        headline.innerText = '🌸 Catálogo Novelas Turcas, Doramas & Galãs Pronto!';
+        details.innerHTML = 'Mais de 10.000 novelinhas verticais, novelas turcas dubladas com os <b>galãs mais desejados da Turquia</b> e K-Dramas coreanos liberados no seu <b>WhatsApp ou Smart TV</b>!';
+        showcaseTitle.innerHTML = '🌟 Os Galãs Turcos e Novelas Mais Assistidas (100% Dubladas):';
         grid.innerHTML = `
           <div class="cover-box">
-            <span class="cover-tag-over">RECORD DE IBOPE</span>
-            <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" />
-            <div class="cover-title-text">Força de Mulher</div>
+            <span class="cover-tag-over">GALÃ MAIS DESEJADO</span>
+            <img src="/assets/covers/gala-turco-1.jpg" alt="Galã Turco Istambul" />
+            <div class="cover-title-text">Amor em Istambul</div>
+            <div class="cover-sub-text">Novela Turca Dublada</div>
+          </div>
+          <div class="cover-box">
+            <span class="cover-tag-over">SUCESSO HERCAI</span>
+            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" />
+            <div class="cover-title-text">Hercai (Miran)</div>
             <div class="cover-sub-text">Completa Dublada</div>
           </div>
           <div class="cover-box">
-            <span class="cover-tag-over">SUCESSO TURCO</span>
-            <img src="/assets/covers/turca-terra-amarga.jpg" alt="Terra Amarga" />
-            <div class="cover-title-text">Terra Amarga</div>
-            <div class="cover-sub-text">Todas as Temporadas</div>
-          </div>
-          <div class="cover-box">
-            <span class="cover-tag-over">K-DRAMA EM ALTA</span>
-            <img src="/assets/covers/dorama-alchemy-of-souls.jpg" alt="Alquimia das Almas" />
-            <div class="cover-title-text">Alquimia das Almas</div>
+            <span class="cover-tag-over">KIVANÇ TATLITUĞ</span>
+            <img src="/assets/covers/turca-12.jpg" alt="Kıvanç Tatlıtuğ" />
+            <div class="cover-title-text">Brave & Beautiful</div>
             <div class="cover-sub-text">Áudio Dublado HD</div>
           </div>
         `;
