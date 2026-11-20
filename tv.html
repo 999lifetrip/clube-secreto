@@ -2242,6 +2242,8 @@
 
     // 🔍 VERIFICADOR INTERATIVO DE TÍTULOS
     function onVerifierInput(val) {
+      if (val === undefined) { const inp = document.getElementById("verifier-input"); val = inp ? inp.value : ""; }
+      val = val || "";
       const echo = document.getElementById('verifier-title-echo');
       const clean = val.trim();
       if (clean.length > 0) {
