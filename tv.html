@@ -1245,12 +1245,12 @@
 
         <!-- OPÇÃO 1: NOVELAS TURCAS, GALÃS & MINIDRAMAS -->
         <div class="choice-card-interactive theme-novelas" onclick="onSelectCategory('novelas')">
-          <span class="card-category-badge pink">👑 Galãs Mais Desejados & Novelas</span>
+          <span class="card-category-badge pink">👑 Galãs Turcos & Doramas Coreanos</span>
           
           <div class="posters-preview-strip">
             <img src="/assets/covers/turca-forca-de-mulher.jpg" alt="Força de Mulher" class="poster-preview-img" />
             <img src="/assets/covers/can-yaman-erkenci-kus.jpg" alt="Can Yaman" class="poster-preview-img" />
-            <img src="/assets/covers/turca-5.jpg" alt="Miran em Hercai" class="poster-preview-img" />
+            <img src="/assets/covers/dorama-pousando-no-amor.jpg" alt="Pousando no Amor" class="poster-preview-img" />
           </div>
 
           <div class="choice-card-header">
@@ -1261,33 +1261,33 @@
             Novelas turcas dubladas completas, novelinhas verticais (estilo DramaBox e ShortMax) <b>sem pagar moedinhas</b> por capítulo e K-Dramas coreanos.
           </div>
           <div class="choice-card-tags">
-            <span class="choice-pill highlight">🔥 Can Yaman & Miran</span>
+            <span class="choice-pill highlight">🔥 Can Yaman & Força de Mulher</span>
+            <span class="choice-pill highlight" style="color:#f472b6; background:rgba(236,72,153,0.15); border-color:rgba(236,72,153,0.3);">🌸 Pousando no Amor (Doramas)</span>
             <span class="choice-pill">📱 Minidramas Sem Moedas</span>
-            <span class="choice-pill">💬 Direto no WhatsApp</span>
           </div>
         </div>
 
         <!-- OPÇÃO 2: TV AO VIVO, FUTEBOL & STREAMINGS -->
         <div class="choice-card-interactive theme-tv" onclick="onSelectCategory('tv_stream')">
-          <span class="card-category-badge blue">⚽ Futebol 60FPS + Todas as Plataformas</span>
+          <span class="card-category-badge blue">⚽ Futebol 60FPS + 🥊 Canal Combate (UFC)</span>
           
           <div class="posters-preview-strip">
             <img src="/assets/covers/futebol-premiere-live.jpg" alt="Futebol Premiere 60FPS" class="poster-preview-img" />
+            <img src="/assets/covers/luta-canal-combate.jpg" alt="Canal Combate & UFC Ao Vivo" class="poster-preview-img" />
             <img src="/assets/covers/deadpool-wolverine.jpg" alt="Deadpool & Wolverine" class="poster-preview-img" />
-            <img src="/assets/covers/wandinha.jpg" alt="Wandinha" class="poster-preview-img" />
           </div>
 
           <div class="choice-card-header">
-            <div class="choice-card-title">TV Online, Futebol, Filmes & Séries</div>
+            <div class="choice-card-title">Futebol 60FPS, Canal Combate & Cinema</div>
             <div class="choice-card-arrow" style="color: #3b82f6;">➔</div>
           </div>
           <div class="choice-card-desc">
-            Premiere sem delay em 60 FPS, todos os canais de TV fechada, lançamentos de cinema e todas as plataformas (Netflix, Max, Disney+) juntas.
+            Premiere sem delay em 60 FPS, todos os eventos do <b>Canal Combate & UFC ao vivo</b>, lançamentos de cinema e todas as plataformas (Netflix, Max, Disney+) juntas.
           </div>
           <div class="choice-card-tags">
             <span class="choice-pill highlight" style="color:#60a5fa; background:rgba(59,130,246,0.15); border-color:rgba(59,130,246,0.3);">⚡ 60 FPS Sem Delay</span>
+            <span class="choice-pill highlight" style="color:#f87171; background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.3);">🥊 Canal Combate & UFC</span>
             <span class="choice-pill">🍿 Cinema 2026 Liberado</span>
-            <span class="choice-pill">💰 Sem Mensalidades</span>
           </div>
         </div>
       </div>
@@ -1488,7 +1488,7 @@
         <div class="vitrine-tabs-scroll">
           <button type="button" class="v-tab-btn active" id="tab-novelas" onclick="switchVitrineTab('novelas', this)">👑 Novelas Turcas</button>
           <button type="button" class="v-tab-btn" id="tab-cinema" onclick="switchVitrineTab('cinema', this)">🍿 Cinema & Séries</button>
-          <button type="button" class="v-tab-btn" id="tab-futebol" onclick="switchVitrineTab('futebol', this)">⚽ Futebol 60FPS</button>
+          <button type="button" class="v-tab-btn" id="tab-futebol" onclick="switchVitrineTab('futebol', this)">🥊 Combate & Futebol</button>
           <button type="button" class="v-tab-btn" id="tab-doramas" onclick="switchVitrineTab('doramas', this)">🌸 Doramas Coreanos</button>
         </div>
 
@@ -1634,11 +1634,11 @@
     const VITRINE_ITEMS = {
       novelas: [
         { title: 'Força de Mulher', genre: 'Kadın • 100 Capítulos', badge: 'TOP 1 RECORD', cover: '/assets/covers/turca-forca-de-mulher.jpg' },
+        { title: 'Pousando no Amor', genre: 'Dorama Coreano Dublado', badge: 'MAIOR DORAMA', cover: '/assets/covers/dorama-pousando-no-amor.jpg' },
         { title: 'Can Yaman (Erkenci)', genre: 'Erkenci Kuş Dublada', badge: 'GALÃ DESEJADO', cover: '/assets/covers/can-yaman-erkenci-kus.jpg' },
+        { title: 'Alquimia das Almas', genre: 'K-Drama Coreano 4K', badge: 'DORAMA VIP', cover: '/assets/covers/dorama-alchemy-of-souls.jpg' },
         { title: 'Hercai (Miran)', genre: 'Romance Completo', badge: 'ROMANCE ÉPICO', cover: '/assets/covers/turca-5.jpg' },
-        { title: 'Brave and Beautiful', genre: 'Kıvanç Tatlıtuğ Dublado', badge: 'ÁUDIO HD', cover: '/assets/covers/turca-12.jpg' },
-        { title: 'Yalı Çapkını', genre: 'O Garoto de Ouro', badge: 'EM ALTA', cover: '/assets/covers/turca-yali-capkini.jpg' },
-        { title: 'Terra Amarga', genre: 'Bir Zamanlar Çukurova', badge: 'COMPLETA', cover: '/assets/covers/turca-terra-amarga.jpg' }
+        { title: 'Brave and Beautiful', genre: 'Kıvanç Tatlıtuğ Dublado', badge: 'ÁUDIO HD', cover: '/assets/covers/turca-12.jpg' }
       ],
       cinema: [
         { title: 'Deadpool & Wolverine', genre: 'Marvel Studios • 4K', badge: 'CINEMA 2026', cover: '/assets/covers/deadpool-wolverine.jpg' },
@@ -1649,13 +1649,14 @@
         { title: 'La Casa de Papel', genre: 'Todas as Temporadas', badge: 'SÉRIE COMPLETA', cover: '/assets/covers/series-streaming-max.jpg' }
       ],
       futebol: [
+        { title: 'Canal Combate • UFC', genre: 'Todas as Lutas e PPV', badge: 'UFC AO VIVO', cover: '/assets/covers/luta-canal-combate.jpg' },
         { title: 'Futebol Ao Vivo 60FPS', genre: 'Premiere & SporTV', badge: 'SEM DELAY', cover: '/assets/covers/futebol-premiere-live.jpg' },
         { title: 'Champions League 4K', genre: 'Real, City, PSG, Barça', badge: 'AO VIVO EM 4K', cover: '/assets/covers/champions-league.jpg' },
         { title: 'Brasileirão Série A', genre: 'Todos os Jogos do Ano', badge: '60 FPS', cover: '/assets/covers/futebol-premiere.jpg' }
       ],
       doramas: [
+        { title: 'Pousando no Amor', genre: 'Romance Coreano Dublado', badge: 'MAIOR SUCESSO', cover: '/assets/covers/dorama-pousando-no-amor.jpg' },
         { title: 'Alquimia das Almas', genre: 'K-Drama Coreano 4K', badge: 'DORAMA VIP', cover: '/assets/covers/dorama-alchemy-of-souls.jpg' },
-        { title: 'Pousando no Amor', genre: 'Romance Coreano Dublado', badge: 'TOP SUCESSO', cover: '/assets/covers/dorama-7.jpg' },
         { title: 'Rebelde RBD', genre: 'Novela Completa HD', badge: 'NOSTALGIA', cover: '/assets/covers/mexicana-rebelde.jpg' }
       ]
     };
@@ -1832,14 +1833,14 @@
         
         switchVitrineTab('novelas', document.getElementById('tab-novelas'));
       } else {
-        unlockTitle.innerText = '⚽ Acesso TV, Futebol 60FPS & Filmes Pronto na sua ' + deviceLabel + '!';
-        unlockDesc.innerText = 'Premiere 60FPS sem delay, todos os canais de TV fechada, lançamentos de cinema e todas as plataformas juntas!';
+        unlockTitle.innerText = '🥊 Canal Combate (UFC) & Futebol 60FPS Pronto na sua ' + deviceLabel + '!';
+        unlockDesc.innerText = 'Canal Combate com todos os eventos do UFC ao vivo, Premiere sem delay em 60 FPS, Cinema 2026 e todas as plataformas!';
         vipFeatures.innerHTML = 
+          '<li><span class="feature-check">✓</span> <span><b>Canal Combate com todos os eventos do UFC ao vivo</b></span></li>' +
           '<li><span class="feature-check">✓</span> <span><b>Todos os canais Premiere a 60 FPS</b> para gritar gol antes do vizinho</span></li>' +
           '<li><span class="feature-check">✓</span> <span><b>Netflix, Max, Disney+, Globoplay e Prime</b> inclusos</span></li>' +
           '<li><span class="feature-check">✓</span> <span><b>Cinema 2026 e lançamentos em 4K HDR</b></span></li>' +
           '<li><span class="feature-check">✓</span> <span><b>Assista na Smart TV, TV Box ou celular</b> com auxílio rápido</span></li>' +
-          '<li><span class="feature-check">✓</span> <span><b>Mais de 2.500 canais ao vivo</b> com estabilidade garantida</span></li>' +
           '<li><span class="feature-check">✓</span> <span><b>Pagamento único</b> — sem faturas nem mensalidades para sempre</span></li>';
         
         switchVitrineTab('cinema', document.getElementById('tab-cinema'));
