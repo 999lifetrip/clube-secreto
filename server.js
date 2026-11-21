@@ -8,6 +8,7 @@ const botAudios = require('./bot/audios-manifest');
 const botStore = require('./bot/bot-store');
 const botEvo = require('./bot/evolution-client');
 const botEngine = require('./bot/bot-engine');
+const { sendMetaCapiPurchase } = require('./meta-capi');
 
 const PORT = process.env.PORT || 3008;
 const CONFIG_FILE = path.join(__dirname, 'config', 'vip_codes.json');
@@ -144,7 +145,7 @@ function getPublicSettings(settings) {
     secretGroupEnabled: s.secretGroupEnabled !== false,
     secretGroupBanner: s.secretGroupBanner || '/assets/grupo-secreto.jpg',
     secretGroupSlug: s.secretGroupSlug || 'grupo',
-    metaPixelId: s.metaPixelId || '',
+    metaPixelId: (process.env.META_PIXEL_ID || s.metaPixelId || '').trim(),
     radarWhatsAppUrl: s.radarWhatsAppUrl || 'https://chat.whatsapp.com/LWnINbc47JtFObREmnFgRO',
     radarTitle: s.radarTitle || 'Radar de Ofertas • Edição de Natal 🎄'
   };
@@ -350,6 +351,30 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 401, { success: false, error: 'Acesso não autorizado.' });
     }
     return sendJson(res, 200, { success: true, settings: loadSettings() }, req);
+  }
+
+  if (req.method === 'POST' && pathname === '/api/admin/confirm-purchase') {
+    if (!isAdmin(req)) return sendJson(res, 401, { error: 'Unauthorized' });
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const result = await sendMetaCapiPurchase({
+          orderId: payload.orderId || ('admin_manual_' + Date.now()),
+          value: payload.value || 20.00,
+          currency: payload.currency || 'BRL',
+          phone: payload.phone,
+          email: payload.email,
+          clientIp: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+          userAgent: req.headers['user-agent']
+        });
+        return sendJson(res, 200, { success: true, result });
+      } catch(e) {
+        return sendJson(res, 400, { error: 'Invalid payload: ' + e.message });
+      }
+    });
+    return;
   }
 
   if (req.method === 'POST' && pathname === '/api/admin/settings') {
@@ -1729,7 +1754,7 @@ const server = http.createServer(async (req, res) => {
       }
 
       const publicSettings = getPublicSettings(currentSettings);
-      const pixelId = (publicSettings.metaPixelId || '').replace(/\D/g, '');
+      const pixelId = (process.env.META_PIXEL_ID || publicSettings.metaPixelId || '').replace(/\D/g, '');
       const pixelScript = pixelId ? `
 <script>
 !function(f,b,e,v,n,t,s)

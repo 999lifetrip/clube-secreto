@@ -1219,6 +1219,62 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+  
+    /* ========================================================= */
+    /* BANNER DE PRIVACIDADE & COOKIES (LGPD COMPLIANT)          */
+    /* ========================================================= */
+    .cookie-banner-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 15, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 12px 16px;
+      z-index: 999999;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.7);
+      animation: slideCookieUp 0.35s ease;
+    }
+    @keyframes slideCookieUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .cookie-banner-content {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    .cookie-icon {
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .cookie-text {
+      font-size: 0.72rem;
+      color: #cbd5e1;
+      line-height: 1.35;
+      flex: 1;
+      margin: 0;
+    }
+    .btn-cookie-accept {
+      background: #10b981;
+      color: #042f1b;
+      border: none;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.15s ease;
+    }
+    .btn-cookie-accept:active {
+      transform: scale(0.96);
+    }
+
   </style>
 </head>
 <body>
@@ -1525,7 +1581,7 @@
         <div class="whatsapp-gate-box" id="whatsapp-gate">
           <div class="wa-gate-title">🎉 Pagamento Confirmado!</div>
           <p class="wa-gate-sub">Toque abaixo para entrar no WhatsApp oficial (<b>41 9599-3007</b>) e receber seus dados imediatos:</p>
-          <a href="#" class="btn-whatsapp-access" id="whatsapp-direct-link" target="_blank" rel="noopener">
+          <a href="#" class="btn-whatsapp-access" id="whatsapp-direct-link" target="_blank" rel="noopener" onclick="onWhatsAppContactClick()">
             📲 ENTRAR NO WHATSAPP & RECEBER ACESSO
           </a>
         </div>
@@ -1659,6 +1715,98 @@
       device: 'smart_tv',
       selectedTitles: []
     };
+
+    
+    // ========================================================
+    // META PIXEL TRACKER CENTRALIZADO & LGPD COMPLIANT
+    // ========================================================
+    const metaEventsFired = {};
+
+    function initMetaPixel() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const testPixel = urlParams.get('test_pixel') || urlParams.get('pixel');
+        const settings = window.__CS_SETTINGS__ || {};
+        const pixelId = (testPixel || window.META_PIXEL_ID || settings.metaPixelId || '').replace(/\D/g, '');
+
+        if (!window.fbq && pixelId) {
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', pixelId);
+          console.log('🚀 [Meta Pixel] Inicializado com sucesso para ID:', pixelId);
+        }
+
+        // Dispara PageView no carregamento (se ainda não disparado pelo cabeçalho)
+        trackMetaEvent('PageView');
+      } catch (e) {
+        console.warn('Erro ao inicializar Meta Pixel:', e);
+      }
+    }
+
+    function trackMetaEvent(eventName, params = {}) {
+      try {
+        // SEGURANÇA ETIQUETA COMERCIAL: Purchase JAMAIS deve ser disparado no cliente
+        if (eventName === 'Purchase') {
+          console.warn('⚠️ [Meta Pixel Seguro] Purchase é restrito ao servidor pós-confirmação bancária real.');
+          return;
+        }
+
+        // Deduplicação de eventos chave por sessão
+        if (eventName === 'ViewContent' && metaEventsFired['ViewContent']) return;
+        if (eventName === 'PageView' && metaEventsFired['PageView']) return;
+
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', eventName, params);
+          metaEventsFired[eventName] = true;
+          console.log('📊 [Meta Pixel Disparado]:', eventName, params);
+        } else {
+          console.log('ℹ️ [Meta Pixel - Modo Aguardando ID]: Evento pronto:', eventName, params);
+        }
+      } catch (err) {
+        console.warn('Erro ao registrar evento Meta:', err);
+      }
+    }
+
+    function onWhatsAppContactClick() {
+      trackMetaEvent('Contact', {
+        content_name: currentPlanName || 'Plano Completo VIP',
+        content_category: 'Suporte & Liberação WhatsApp',
+        value: parseFloat(currentPlanPrice) || 20.00,
+        currency: 'BRL'
+      });
+    }
+
+    function checkCookieConsent() {
+      try {
+        if (!localStorage.getItem('cs_cookie_consent')) {
+          const b = document.getElementById('cs-cookie-banner');
+          if (b) b.style.display = 'block';
+        }
+      } catch(e) {}
+    }
+
+    function acceptCookieConsent() {
+      try {
+        localStorage.setItem('cs_cookie_consent', 'accepted');
+        const b = document.getElementById('cs-cookie-banner');
+        if (b) b.style.display = 'none';
+        if (typeof window.fbq === 'function') {
+          window.fbq('consent', 'grant');
+        }
+      } catch(e) {}
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      initMetaPixel();
+      checkCookieConsent();
+    });
+
 
     let currentPlanName = 'Plano Completo VIP';
     let currentPlanPrice = '20.00';
@@ -1818,6 +1966,15 @@
     // ========================================================
     function finishExperienceAndShowOffer() {
       document.getElementById('experience-box').style.display = 'none';
+
+      // Dispara evento oficial ViewContent do Meta Pixel ao revelar os planos
+      trackMetaEvent('ViewContent', {
+        content_name: 'Planos & Ativação VIP',
+        content_category: userState.genre === 'novelas' ? 'Novelas & Doramas' : 'Futebol & Combate',
+        value: 20.00,
+        currency: 'BRL'
+      });
+
       
       const revelacao = document.getElementById('etapa-revelacao');
       revelacao.style.display = 'block';
@@ -1872,6 +2029,16 @@
     function openPixCheckout(planName, price) {
       currentPlanName = planName;
       currentPlanPrice = price;
+
+      // Dispara evento oficial InitiateCheckout do Meta Pixel
+      trackMetaEvent('InitiateCheckout', {
+        content_name: planName,
+        content_category: 'Assinatura VIP',
+        value: parseFloat(price) || 20.00,
+        currency: 'BRL',
+        num_items: 1
+      });
+
 
       document.getElementById('checkout-plan-name').innerText = planName;
       document.getElementById('checkout-plan-price').innerText = 'R$ ' + price.replace('.', ',');
@@ -1964,6 +2131,20 @@
       }, 4200);
     }, 15000);
   </script>
+
+
+  <!-- BANNER DE PRIVACIDADE & CONSENTIMENTO DE COOKIES (LGPD COMPLIANT) -->
+  <div id="cs-cookie-banner" class="cookie-banner-container" style="display: none;">
+    <div class="cookie-banner-content">
+      <span class="cookie-icon">🍪</span>
+      <p class="cookie-text">
+        Utilizamos cookies essenciais e tecnologias de medição para otimizar sua navegação e segurança. Ao continuar, você concorda com nossos termos.
+      </p>
+      <div class="cookie-actions">
+        <button type="button" class="btn-cookie-accept" onclick="acceptCookieConsent()">Entendi e Aceitar</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
