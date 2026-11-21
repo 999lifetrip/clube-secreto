@@ -1750,6 +1750,35 @@
       }
     }
 
+    
+    function sendMetaBeacon(eventName, params = {}) {
+      try {
+        const settings = window.__CS_SETTINGS__ || {};
+        const pixelId = (window.META_PIXEL_ID || settings.metaPixelId || '2650529092097314').replace(/\D/g, '');
+        if (!pixelId) return;
+
+        const qs = new URLSearchParams({
+          id: pixelId,
+          ev: eventName,
+          dl: window.location.href,
+          rl: document.referrer || '',
+          if: 'false',
+          ts: Date.now(),
+          v: '2.9.441',
+          r: 'stable'
+        });
+
+        if (params.content_name) qs.set('cd[content_name]', params.content_name);
+        if (params.content_category) qs.set('cd[content_category]', params.content_category);
+        if (params.value) qs.set('cd[value]', String(params.value));
+        if (params.currency) qs.set('cd[currency]', params.currency || 'BRL');
+
+        const beaconUrl = 'https://www.facebook.com/tr/?' + qs.toString();
+        const img = new Image();
+        img.src = beaconUrl;
+      } catch (err) {}
+    }
+
     function trackMetaEvent(eventName, params = {}) {
       try {
         // SEGURANÇA ETIQUETA COMERCIAL: Purchase JAMAIS deve ser disparado no cliente
@@ -1762,6 +1791,7 @@
         if (eventName === 'ViewContent' && metaEventsFired['ViewContent']) return;
         if (eventName === 'PageView' && metaEventsFired['PageView']) return;
 
+        sendMetaBeacon(eventName, params);
         if (typeof window.fbq === 'function') {
           window.fbq('track', eventName, params);
           metaEventsFired[eventName] = true;
