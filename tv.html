@@ -307,6 +307,80 @@
     .selectable-poster-card:active {
       transform: scale(0.96);
     }
+    
+    /* TEASER CARD BORRADO TRANSPARENTE (+3.000 NOVELAS / +50.000 FILMES) */
+    .selectable-poster-card.is-locked-teaser {
+      background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+      border: 1.5px dashed rgba(245, 158, 11, 0.75);
+      position: relative;
+    }
+    .selectable-poster-card.is-locked-teaser.selected {
+      border: 2px solid #10b981;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
+    }
+    .selectable-poster-card.is-locked-teaser .teaser-blur-img {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      filter: blur(8px) brightness(0.28);
+      transform: scale(1.15);
+      display: block;
+    }
+    .locked-teaser-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 135px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6px;
+      z-index: 2;
+      background: rgba(10, 15, 26, 0.45);
+      backdrop-filter: blur(2px);
+    }
+    .locked-padlock-icon {
+      font-size: 1.45rem;
+      line-height: 1;
+      margin-bottom: 2px;
+      filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.6));
+      animation: softPulse 2s infinite ease-in-out;
+    }
+    @keyframes softPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+    .locked-big-count {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #fbbf24;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 10px rgba(245, 158, 11, 0.5);
+    }
+    .locked-sub-label {
+      font-size: 0.62rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 1px;
+    }
+    .locked-pill-tag {
+      font-size: 0.54rem;
+      font-weight: 800;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.22);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
     .selectable-poster-card.selected {
       border-color: #10b981;
       box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
@@ -1171,7 +1245,15 @@
         <img src="/assets/logo-tudonatv-clean.png" alt="TUDO NA TV" class="main-logo-img" />
       </div>
       <h1 class="header-title">Tudo o que você quer assistir <span>na sua TV ou Celular</span></h1>
-      <p class="header-sub">✨ <b>Garantia Total:</b> Mais de 100.000 títulos sem moedinhas nem mensalidades. Pode pedir qualquer novela ou jogo que colocamos para você!</p>
+      
+      <!-- GARANTIA TOTAL DESTAQUE (IDENTICO AO PRINT) -->
+      <div class="guarantee-box-clean" style="margin: 14px auto 0 auto; max-width: 480px; text-align: left;">
+        <div class="guarantee-icon" style="font-size: 1.5rem;">✨</div>
+        <div class="guarantee-text">
+          <h4 style="font-size: 0.84rem; margin-bottom: 2px;">Garantia Total: Você vai ter tudo o que deseja! Mais de 100.000 títulos.</h4>
+          <p style="font-size: 0.72rem; color: #cbd5e1;">Pode pedir QUALQUER novela ou filme que colocamos para você!</p>
+        </div>
+      </div>
     </div>
 
     <!-- CONTAINER DA EXPERIÊNCIA DE DESCOBERTA (O FUNIL ENVOLVENTE) -->
@@ -1592,18 +1674,36 @@
         { title: 'Hercai (Miran)', genre: 'Romance Épico Dublado', badge: '⭐ TOP AUDIÊNCIA', cover: '/assets/covers/turca-5.jpg' },
         { title: 'Terra Amarga', genre: 'Bir Zamanlar Çukurova', badge: '🌾 COMPLETA', cover: '/assets/covers/turca-terra-amarga.jpg' },
         { title: 'O Retorno do Bilionário', genre: 'DramaBox • Dublado', badge: '📱 SEM MOEDAS', cover: '/assets/covers/dorama-7.jpg' },
-        { title: 'A Esposa Rejeitada', genre: 'ShortMax • Completo', badge: '📱 SEM MOEDAS', cover: '/assets/covers/dorama-8.jpg' }
+        {
+          title: '+3.000 Novelas & Doramas',
+          genre: 'Acervo VIP Completo',
+          badge: '🔒 ACERVO VIP',
+          cover: '/assets/covers/dorama-8.jpg',
+          isLockedTeaser: true,
+          countText: '+3.000',
+          labelText: 'NOVELAS',
+          toastMsg: '🔒 +3.000 Novelas e Doramas inclusos automaticamente no seu acesso VIP!'
+        }
       ],
       tv_stream: [
         { title: 'Canal Combate • UFC Ao Vivo', genre: 'Todos os Eventos & PPVs', badge: '🥊 UFC AO VIVO', cover: '/assets/covers/luta-canal-combate.jpg' },
         { title: 'Futebol Ao Vivo 60FPS', genre: 'Premiere & SporTV', badge: '⚡ 60 FPS SEM DELAY', cover: '/assets/covers/futebol-premiere-live.jpg' },
+        { title: 'Wandinha (Wednesday)', genre: 'Netflix • 4K Dublado', badge: '💎 TOP SÉRIES', cover: '/assets/covers/wandinha.jpg' },
         { title: 'Deadpool & Wolverine', genre: 'Marvel Studios • 4K', badge: '🍿 CINEMA 2026', cover: '/assets/covers/deadpool-wolverine.jpg' },
         { title: 'UEFA Champions League', genre: 'Real Madrid, City, PSG, Barça', badge: '🏆 4K ULTRA HD', cover: '/assets/covers/champions-league.jpg' },
         { title: 'Divertida Mente 2', genre: 'Disney / Pixar Dublado', badge: '⭐ MAIOR BILHETERIA', cover: '/assets/covers/divertida-mente-2.jpg' },
-        { title: 'Moana 2', genre: 'Disney • Dublado 4K', badge: '🌊 LANÇAMENTO', cover: '/assets/covers/cinema-moana-2.jpg' },
-        { title: 'Gladiador II', genre: 'Paramount • 4K Ultra HD', badge: '⚔️ CINEMA 2026', cover: '/assets/covers/cinema-gladiador-2.jpg' },
+        { title: 'Moana 2 & Gladiador II', genre: 'Cinema & Streamings', badge: '🌊 LANÇAMENTOS', cover: '/assets/covers/cinema-moana-2.jpg' },
         { title: 'Brasileirão Série A e B', genre: 'Todos os Jogos do Ano', badge: '⚽ PREMIERE HD', cover: '/assets/covers/futebol-premiere.jpg' },
-        { title: 'UFC Fight Night & Boxe', genre: 'Cards Principais e Preliminares', badge: '🥊 COMBATE VIP', cover: '/assets/covers/luta-ufc-combate.jpg' }
+        {
+          title: '+50.000 Filmes & Canais',
+          genre: 'Acervo VIP Completo',
+          badge: '🔒 ACERVO VIP',
+          cover: '/assets/covers/series-streaming-max.jpg',
+          isLockedTeaser: true,
+          countText: '+50.000',
+          labelText: 'FILMES & CANAIS',
+          toastMsg: '🔒 +50.000 Filmes, Séries e Canais inclusos automaticamente no seu acesso VIP!'
+        }
       ]
     };
 
@@ -1636,30 +1736,45 @@
 
       for (let i = 0; i < list.length; i++) {
         const item = list[i];
-        // Primeiros selecionados por padrão para experiência engajante
-        const isSelected = i < 4 ? 'selected' : '';
-        html += '<div class="selectable-poster-card ' + isSelected + '" onclick="toggleSelectPoster(this, \'' + item.title + '\')">';
-        html += '<span class="selectable-poster-badge">' + item.badge + '</span>';
-        html += '<div class="selectable-check-mark">✓</div>';
-        html += '<img src="' + item.cover + '" alt="' + item.title + '" loading="lazy" />';
-        html += '<div class="selectable-poster-info">';
-        html += '<div class="selectable-poster-title">' + item.title + '</div>';
-        html += '<div class="selectable-poster-genre">' + item.genre + '</div>';
-        html += '</div></div>';
+        // Primeiros títulos e o card teaser começam selecionados
+        const isSelected = (i < 4 || item.isLockedTeaser) ? 'selected' : '';
+
+        if (item.isLockedTeaser) {
+          html += '<div class="selectable-poster-card is-locked-teaser ' + isSelected + '" onclick="toggleSelectPoster(this, \'' + item.title + '\', \'' + (item.toastMsg || '') + '\')">';
+          html += '<span class="selectable-poster-badge" style="background:#b45309; color:#fef08a;">' + item.badge + '</span>';
+          html += '<div class="selectable-check-mark">✓</div>';
+          html += '<img src="' + item.cover + '" alt="' + item.title + '" class="teaser-blur-img" loading="lazy" />';
+          html += '<div class="locked-teaser-overlay">';
+          html += '  <div class="locked-padlock-icon">🔒</div>';
+          html += '  <div class="locked-big-count">' + item.countText + '</div>';
+          html += '  <div class="locked-sub-label">' + item.labelText + '</div>';
+          html += '  <div class="locked-pill-tag">Liberado no VIP</div>';
+          html += '</div>';
+          html += '<div class="selectable-poster-info">';
+          html += '  <div class="selectable-poster-title" style="color:#fbbf24;">' + item.title + '</div>';
+          html += '  <div class="selectable-poster-genre">' + item.genre + '</div>';
+          html += '</div></div>';
+        } else {
+          html += '<div class="selectable-poster-card ' + isSelected + '" onclick="toggleSelectPoster(this, \'' + item.title + '\')">';
+          html += '<span class="selectable-poster-badge">' + item.badge + '</span>';
+          html += '<div class="selectable-check-mark">✓</div>';
+          html += '<img src="' + item.cover + '" alt="' + item.title + '" loading="lazy" />';
+          html += '<div class="selectable-poster-info">';
+          html += '  <div class="selectable-poster-title">' + item.title + '</div>';
+          html += '  <div class="selectable-poster-genre">' + item.genre + '</div>';
+          html += '</div></div>';
+        }
       }
       container.innerHTML = html;
     }
 
-    function toggleSelectPoster(el, title) {
+    function toggleSelectPoster(el, title, customToast) {
       el.classList.toggle('selected');
       if (el.classList.contains('selected')) {
-        showToast('🟢 ' + title + ' adicionado ao seu acesso!');
+        showToast(customToast || ('🟢 ' + title + ' adicionado ao seu acesso!'));
       }
     }
 
-    // ========================================================
-    // ETAPA 2: CONFIRMAÇÃO DE TÍTULOS E AVANÇO PARA APARELHO
-    // ========================================================
     function onConfirmTitles() {
       document.getElementById('exp-step-2').style.display = 'none';
       document.getElementById('exp-step-3').style.display = 'block';
