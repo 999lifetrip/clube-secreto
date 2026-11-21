@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TUDO NA TV — Experiência VIP de Streaming & Novelas</title>
+  <title>Portal de Entretenimento & Guia Cultural</title>
+  <meta name="description" content="Acesse o catálogo digital com novidades culturais, resenhas e seleções de entretenimento para você e sua família." />
+  <meta property="og:title" content="Portal de Entretenimento & Guia Cultural" />
+  <meta property="og:description" content="Acesse o catálogo digital com novidades culturais, resenhas e seleções de entretenimento para você e sua família." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="noindex, nofollow" />
   
-  <meta name="description" content="Assista a todas as novelas turcas dubladas completas, doramas sem moedas, UFC no Canal Combate, futebol 60FPS e lançamentos de cinema na sua Smart TV e celular sem mensalidades." />
+  
   <meta name="theme-color" content="#07090e" />
   <link rel="icon" type="image/png" href="/assets/logo-tudonatv-clean.png" />
 
@@ -1291,7 +1296,7 @@
     <div style="text-align: center;">
       <div class="top-live-badge">
         <div class="pulse-dot"></div>
-        Acesso Imediato no WhatsApp e Smart TV • Sem Mensalidades
+        Acesso Imediato no WhatsApp e Smart TV • Conteúdo Selecionado
       </div>
     </div>
 
@@ -1717,127 +1722,10 @@
     };
 
     
-    // ========================================================
-    // META PIXEL TRACKER CENTRALIZADO & LGPD COMPLIANT
-    // ========================================================
-    window.META_PIXEL_ID = '2374223073311287';
-    const metaEventsFired = {};
-
-    function initMetaPixel() {
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const testPixel = urlParams.get('test_pixel') || urlParams.get('pixel');
-        const settings = window.__CS_SETTINGS__ || {};
-        const pixelId = (testPixel || window.META_PIXEL_ID || settings.metaPixelId || '').replace(/\D/g, '');
-
-        if (!window.fbq && pixelId) {
-          !function(f,b,e,v,n,t,s)
-          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-          n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', pixelId);
-          console.log('🚀 [Meta Pixel] Inicializado com sucesso para ID:', pixelId);
-        }
-
-        // Dispara PageView no carregamento (se ainda não disparado pelo cabeçalho)
-        trackMetaEvent('PageView');
-      } catch (e) {
-        console.warn('Erro ao inicializar Meta Pixel:', e);
-      }
-    }
-
-    
-    function sendMetaBeacon(eventName, params = {}) {
-      try {
-        const settings = window.__CS_SETTINGS__ || {};
-        const pixelId = (window.META_PIXEL_ID || settings.metaPixelId || '2374223073311287').replace(/\D/g, '');
-        if (!pixelId) return;
-
-        const qs = new URLSearchParams({
-          id: pixelId,
-          ev: eventName,
-          dl: window.location.href,
-          rl: document.referrer || '',
-          if: 'false',
-          ts: Date.now(),
-          v: '2.9.441',
-          r: 'stable'
-        });
-
-        if (params.content_name) qs.set('cd[content_name]', params.content_name);
-        if (params.content_category) qs.set('cd[content_category]', params.content_category);
-        if (params.value) qs.set('cd[value]', String(params.value));
-        if (params.currency) qs.set('cd[currency]', params.currency || 'BRL');
-
-        const beaconUrl = 'https://www.facebook.com/tr/?' + qs.toString();
-        const img = new Image();
-        img.src = beaconUrl;
-      } catch (err) {}
-    }
-
-    function trackMetaEvent(eventName, params = {}) {
-      try {
-        // SEGURANÇA ETIQUETA COMERCIAL: Purchase JAMAIS deve ser disparado no cliente
-        if (eventName === 'Purchase') {
-          console.warn('⚠️ [Meta Pixel Seguro] Purchase é restrito ao servidor pós-confirmação bancária real.');
-          return;
-        }
-
-        // Deduplicação de eventos chave por sessão
-        if (eventName === 'ViewContent' && metaEventsFired['ViewContent']) return;
-        if (eventName === 'PageView' && metaEventsFired['PageView']) return;
-
-        sendMetaBeacon(eventName, params);
-        if (typeof window.fbq === 'function') {
-          window.fbq('track', eventName, params);
-          metaEventsFired[eventName] = true;
-          console.log('📊 [Meta Pixel Disparado]:', eventName, params);
-        } else {
-          console.log('ℹ️ [Meta Pixel - Modo Aguardando ID]: Evento pronto:', eventName, params);
-        }
-      } catch (err) {
-        console.warn('Erro ao registrar evento Meta:', err);
-      }
-    }
-
-    function onWhatsAppContactClick() {
-      trackMetaEvent('Contact', {
-        content_name: currentPlanName || 'Plano Completo VIP',
-        content_category: 'Suporte & Liberação WhatsApp',
-        value: parseFloat(currentPlanPrice) || 20.00,
-        currency: 'BRL'
-      });
-    }
-
-    function checkCookieConsent() {
-      try {
-        if (!localStorage.getItem('cs_cookie_consent')) {
-          const b = document.getElementById('cs-cookie-banner');
-          if (b) b.style.display = 'block';
-        }
-      } catch(e) {}
-    }
-
-    function acceptCookieConsent() {
-      try {
-        localStorage.setItem('cs_cookie_consent', 'accepted');
-        const b = document.getElementById('cs-cookie-banner');
-        if (b) b.style.display = 'none';
-        if (typeof window.fbq === 'function') {
-          window.fbq('consent', 'grant');
-        }
-      } catch(e) {}
-    }
-
-    window.addEventListener('DOMContentLoaded', function() {
-      initMetaPixel();
-      checkCookieConsent();
-    });
-
+    // Funções de analytics neutras (Pixel desativado)
+    function trackMetaEvent() {}
+    function onWhatsAppContactClick() {}
+    function acceptCookieConsent() {}
 
     let currentPlanName = 'Plano Completo VIP';
     let currentPlanPrice = '20.00';
@@ -2164,17 +2052,7 @@
   </script>
 
 
-  <!-- BANNER DE PRIVACIDADE & CONSENTIMENTO DE COOKIES (LGPD COMPLIANT) -->
-  <div id="cs-cookie-banner" class="cookie-banner-container" style="display: none;">
-    <div class="cookie-banner-content">
-      <span class="cookie-icon">🍪</span>
-      <p class="cookie-text">
-        Utilizamos cookies essenciais e tecnologias de medição para otimizar sua navegação e segurança. Ao continuar, você concorda com nossos termos.
-      </p>
-      <div class="cookie-actions">
-        <button type="button" class="btn-cookie-accept" onclick="acceptCookieConsent()">Entendi e Aceitar</button>
-      </div>
-    </div>
+  
   </div>
 
 </body>
