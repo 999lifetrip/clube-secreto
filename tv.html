@@ -1720,7 +1720,7 @@
     // ========================================================
     // META PIXEL TRACKER CENTRALIZADO & LGPD COMPLIANT
     // ========================================================
-    window.META_PIXEL_ID = '2650529092097314';
+    window.META_PIXEL_ID = '2374223073311287';
     const metaEventsFired = {};
 
     function initMetaPixel() {
@@ -1754,7 +1754,7 @@
     function sendMetaBeacon(eventName, params = {}) {
       try {
         const settings = window.__CS_SETTINGS__ || {};
-        const pixelId = (window.META_PIXEL_ID || settings.metaPixelId || '2650529092097314').replace(/\D/g, '');
+        const pixelId = (window.META_PIXEL_ID || settings.metaPixelId || '2374223073311287').replace(/\D/g, '');
         if (!pixelId) return;
 
         const qs = new URLSearchParams({
