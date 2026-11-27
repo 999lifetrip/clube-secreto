@@ -40,22 +40,16 @@
       </div>
 
       <div class="nav-actions" id="navActions">
-        <!-- Botão Grupo Secreto VIP -->
-        <button id="btnHeaderGroup" class="btn-group-header" onclick="switchMainTab('secret-group')" title="Entrar no Grupo Secreto VIP">
+        <!-- Botão Grupo Secreto VIP (Direcionado para Pagamento R$ 9,90) -->
+        <button id="btnHeaderGroup" class="btn-group-header" onclick="openVipModal('Grupo Secreto VIP')" title="Entrar no Grupo Secreto VIP">
           <span class="group-live-pulse"></span>
-          <span>🔒 Grupo VIP</span>
+          <span>🔒 Grupo VIP (R$ 9,90)</span>
         </button>
 
-        <!-- Botão direto do WhatsApp -->
-        <a id="btnHeaderWhatsapp" href="https://wa.me/554195993007?text=Ol%C3%A1!%20Quero%20liberar%20meu%20Acesso%20VIP%20no%20Clube%20Secreto%20por%20R%24%2015%2C00!" target="_blank" rel="noopener noreferrer" class="btn-wpp-header">
-          <span>💬</span>
-          <span>WhatsApp</span>
-        </a>
-
-        <!-- Botão Acesso VIP R$ 15 / Status VIP -->
+        <!-- Botão Acesso VIP R$ 9,90 / Status VIP -->
         <button id="btnHeaderVip" class="btn-vip-header" onclick="openVipModal()">
           <span id="btnHeaderVipIcon">👑</span>
-          <span id="btnHeaderVipText">VIP R$ 15,00</span>
+          <span id="btnHeaderVipText">VIP R$ 9,90</span>
         </button>
       </div>
     </div>
@@ -86,85 +80,9 @@
     </div>
   </section>
 
-  <!-- Hero Spotlight: WhatsApp & PIX -->
-  <section class="hero-banner">
-    <div class="hero-card">
-      <div class="hero-content">
-        <div class="hero-tag" id="heroTag">
-          <span>🔒</span> PRÉVIA GRÁTIS • ACESSO VIP COMPLETO
-        </div>
-        <h1 class="hero-title" id="heroTitle">Portfólios & Ensaios <span class="hero-title-accent">Exclusivos</span></h1>
-        <p class="hero-desc" id="heroDesc">
-          Veja as prévias grátis abaixo! Para liberar <strong>TODAS as fotos 4K e TODOS os vídeos</strong> sem censura de todas as modelos, é só fazer o PIX e chamar no WhatsApp:
-        </p>
+  
 
-        <!-- Bloco Prático de Preço + PIX + WhatsApp no Hero (Fácil para todos) -->
-        <div id="heroPixBox" class="hero-pix-practical-box">
-          <div class="hero-price-row">
-            <span id="heroOldPrice" class="hero-old-price">de R$ 29,90</span>
-            <span id="heroVipPrice" class="hero-vip-price">POR APENAS R$ 15,00</span>
-            <span id="heroVipPlanLabel" class="hero-plan-pill">TUDO LIBERADO 🔥</span>
-          </div>
-          <div class="hero-pix-strip">
-            <div class="hero-pix-info">
-              <span class="hero-pix-label">💠 CHAVE PIX (CPF):</span>
-              <strong id="heroPixKeyText" class="hero-pix-num">09658990983</strong>
-              <span id="heroPixHolderText" class="hero-pix-holder">(Luan Batista)</span>
-            </div>
-            <button type="button" class="btn-hero-copy-pix" onclick="copyPixKey(this)">
-              <span>📋 Copiar Chave PIX</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="hero-cta" id="heroCtaRow">
-          <a id="btnHeroWhatsapp" href="https://wa.me/554195993007?text=Ol%C3%A1!%20Quero%20liberar%20meu%20Acesso%20VIP%20no%20Clube%20Secreto%20por%20R%24%2015%2C00!" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-hero">
-            <span>💬</span>
-            <span id="btnHeroWhatsappText">CHAMAR NO WHATSAPP / LIBERAR VIP (R$ 15,00)</span>
-          </a>
-          <button id="btnHeroBuy" class="btn-primary-glow" onclick="openVipModal()">
-            <span>💠</span>
-            <span>PAGAR NO PIX (R$ 15,00)</span>
-          </button>
-        </div>
-
-        <p id="heroSubHint" class="hero-sub-hint">
-          ⚡ Enviou o PIX de R$ 15,00? Mande o comprovante no WhatsApp e receba o link com <strong>TUDO LIBERADO</strong> na hora! (Quer só 1 modelo específica? Chame no WhatsApp!)
-        </p>
-
-        <!-- Chamada Rápida para o Grupo Secreto -->
-        <div class="hero-group-strip" id="heroGroupStrip" onclick="switchMainTab('secret-group')" role="button" tabindex="0">
-          <span class="group-strip-icon">📲</span>
-          <div class="group-strip-text">
-            <span>Quer ver <strong>prévias diárias e novidades</strong> no WhatsApp?</span>
-            <strong class="group-strip-highlight">Acessar Grupo Secreto VIP ➔</strong>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-logo-box">
-        <img src="/assets/logo.jpg?v=4" alt="Logo Oficial Clube Secreto" class="hero-logo-large" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Navegação de Abas: Coleções vs Grupo Secreto VIP -->
-  <section class="site-tabs-section" id="siteTabsSection">
-    <div class="site-tabs-container">
-      <button class="site-tab-pill active" id="tabNavCatalog" onclick="switchMainTab('catalog')">
-        <span class="site-tab-icon">🔥</span>
-        <span class="site-tab-label">Coleções & Ensaios</span>
-        <span class="site-tab-badge" id="tabCatalogCount">10</span>
-      </button>
-
-      <button class="site-tab-pill" id="tabNavSecretGroup" onclick="switchMainTab('secret-group')">
-        <span class="group-live-pulse-sm"></span>
-        <span class="site-tab-icon">🔒</span>
-        <span class="site-tab-label" id="tabSecretGroupLabel">Grupo Secreto VIP</span>
-        <span class="site-tab-tag-hot">WHATSAPP 📲</span>
-      </button>
-    </div>
-  </section>
+  
 
   <!-- Catalog Section -->
   <main class="catalog-section" id="catalogSection">
@@ -181,91 +99,57 @@
     </div>
   </main>
 
-  <!-- Seção da Aba: Grupo Secreto VIP (WhatsApp) -->
-  <section class="secret-group-section" id="secretGroupSection" style="display: none;">
-    <div class="secret-group-card">
-      <div class="secret-group-topbar">
-        <div class="secret-badge-box">
-          <span class="secret-badge-pulse" id="secretGroupBadge">🔒 GRUPO VIP EXCLUSIVO</span>
-          <span class="secret-badge-status"><span class="status-live-dot"></span> Vagas Abertas</span>
+  <!-- Seção de Oferta & Preço VIP (Posicionada Lá Embaixo) -->
+  <section class="hero-banner" id="pricingOfferSection" style="margin-top: 40px; margin-bottom: 50px;">
+    <div class="hero-card">
+      <div class="hero-content">
+        <div class="hero-tag" id="heroTag">
+          <span>👑</span> ACESSO VIP VITALÍCIO • TUDO LIBERADO
         </div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-          <a href="/grupo" class="btn-open-dedicated-group" title="Abrir Página Dedicada do Grupo para Tráfego Pago">
-            <span>🔗 Abrir Página (/grupo)</span>
-          </a>
-          <button class="btn-back-to-catalog" onclick="switchMainTab('catalog')">
-            <span>← Voltar aos Ensaios</span>
+        <h1 class="hero-title" id="heroTitle">Portfólios & Ensaios <span class="hero-title-accent">Exclusivos</span></h1>
+        <p class="hero-desc" id="heroDesc">
+          Para liberar <strong>TODAS as fotos 4K e TODOS os vídeos sem censura</strong> de todas as criadoras, é só fazer o PIX único de <strong>R$ 9,90</strong> e enviar o comprovante:
+        </p>
+
+        <!-- Bloco Prático de Preço + PIX -->
+        <div id="heroPixBox" class="hero-pix-practical-box">
+          <div class="hero-price-row">
+            <span id="heroOldPrice" class="hero-old-price">de R$ 29,90</span>
+            <span id="heroVipPrice" class="hero-vip-price">POR APENAS R$ 9,90</span>
+            <span id="heroVipPlanLabel" class="hero-plan-pill">VITALÍCIO 🔥</span>
+          </div>
+          <div class="hero-pix-strip">
+            <div class="hero-pix-info">
+              <span class="hero-pix-label">💠 CHAVE PIX (CPF):</span>
+              <strong id="heroPixKeyText" class="hero-pix-num">09658990983</strong>
+              <span id="heroPixHolderText" class="hero-pix-holder">(Luan Batista)</span>
+            </div>
+            <button type="button" class="btn-hero-copy-pix" onclick="copyPixKey(this)">
+              <span>📋 Copiar Chave PIX</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-cta" id="heroCtaRow" style="margin-top: 18px;">
+          <button id="btnHeroBuy" class="btn-primary-glow" onclick="openVipModal()" style="width: 100%; max-width: 360px; padding: 16px 24px; font-size: 16px; font-weight: 900;">
+            <span>💠</span>
+            <span>PAGAR NO PIX (R$ 9,90 VITALÍCIO)</span>
           </button>
         </div>
+
+        <p id="heroSubHint" class="hero-sub-hint" style="margin-top: 14px; font-size: 13px; color: #94a3b8;">
+          ⚡ Enviou o PIX de <strong>R$ 9,90</strong>? Envie o comprovante para o WhatsApp <strong>(41) 8706-2166</strong> e receba na hora seu link exclusivo com <strong>TUDO LIBERADO</strong>!
+        </p>
       </div>
 
-      <div class="secret-group-grid">
-        <!-- Visual do Grupo -->
-        <div class="secret-group-media-wrap">
-          <div class="secret-group-media-frame">
-            <img id="secretGroupBannerImg" src="/assets/grupo-secreto.jpg" alt="Banner Grupo Secreto VIP" class="secret-group-banner-img" />
-            <div class="secret-group-media-floating-tag">
-              <span class="live-dot-green"></span>
-              <span>VIP WhatsApp Oficial</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Informações e Benefícios -->
-        <div class="secret-group-info">
-          <h2 class="secret-group-title" id="secretGroupTitle">GRUPO SECRETO VIP</h2>
-          <p class="secret-group-desc" id="secretGroupDesc">
-            Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!
-          </p>
-
-          <div class="secret-group-perks">
-            <div class="secret-perk-item">
-              <span class="perk-icon">🔞</span>
-              <div class="perk-text">
-                <strong>Prévias & Bastidores Exclusivos</strong>
-                <span>Fotos e cortes em primeira mão antes de saírem no catálogo</span>
-              </div>
-            </div>
-            <div class="secret-perk-item">
-              <span class="perk-icon">⚡</span>
-              <div class="perk-text">
-                <strong>Alertas Imediatos de Novos Ensaios</strong>
-                <span>Fique sabendo no segundo em que novas criadoras forem lançadas</span>
-              </div>
-            </div>
-            <div class="secret-perk-item">
-              <span class="perk-icon">💬</span>
-              <div class="perk-text">
-                <strong>Interação Direta & Enquetes</strong>
-                <span>Opine sobre os próximos ensaios e participe de enquetes restritas</span>
-              </div>
-            </div>
-            <div class="secret-perk-item">
-              <span class="perk-icon">🎁</span>
-              <div class="perk-text">
-                <strong>Sorteios & Mimos Exclusivos</strong>
-                <span>Acesso a bônus, prévias e ensaios sorteados apenas entre os membros</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Botão Principal de Entrada -->
-          <div class="secret-group-cta-box">
-            <a id="btnSecretGroupCta" href="https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL" target="_blank" rel="noopener noreferrer" class="btn-secret-group-cta">
-              <div class="secret-cta-icon-circle">💬</div>
-              <div class="secret-cta-labels">
-                <strong class="secret-cta-title" id="secretGroupBtnText">Entrar no Grupo do Clube Secreto 📲</strong>
-                <span class="secret-cta-subtitle">Toque para entrar direto no WhatsApp Oficial • Vagas Abertas</span>
-              </div>
-            </a>
-            <div class="secret-group-security-note">
-              <span>🔒 Grupo 100% oficial e discreto do Clube Secreto. Acesso direto no WhatsApp.</span>
-            </div>
-          </div>
-        </div>
+      <div class="hero-logo-box">
+        <img src="/assets/logo.jpg?v=4" alt="Logo Oficial Clube Secreto" class="hero-logo-large" />
       </div>
     </div>
   </section>
+
+
+  
 
   <!-- Modal: Preview Gallery -->
   <div class="modal-backdrop" id="previewModal">
@@ -313,14 +197,14 @@
         <span style="font-size: 40px; display: block; margin-bottom: 8px;">🔒</span>
         <h3 id="lightboxLockedTitle" style="font-size: 18px; color: #fff; margin-bottom: 8px;">Fotos & Vídeos VIP Bloqueados</h3>
         <p id="lightboxLockedDesc" style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 18px;">
-          Esta foi apenas uma prévia grátis! Para liberar TODAS as fotos em 4K e TODOS os vídeos sem censura de todas as modelos por apenas <strong id="lightboxPriceHighlight">R$ 15,00</strong>:
+          Esta foi apenas uma prévia grátis! Para liberar TODAS as fotos em 4K e TODOS os vídeos sem censura de todas as modelos por apenas <strong id="lightboxPriceHighlight">R$ 9,90 Vitalício</strong>:
         </p>
         <div style="display: flex; flex-direction: column; gap: 10px;">
-          <a id="lightboxWhatsappBtn" href="https://wa.me/554195993007" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-confirm" style="padding: 15px 18px; font-size: 15px;">
+          <a id="lightboxWhatsappBtn" href="https://wa.me/5541987062166" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-confirm" style="padding: 15px 18px; font-size: 15px;">
             <span>💬 CHAMAR NO WHATSAPP / ENVIAR PIX</span>
           </a>
           <button id="lightboxPixBtn" class="btn-primary-glow" style="width: 100%; justify-content: center; padding: 13px 16px; font-size: 13px;" onclick="closeLightbox(); openVipModal();">
-            <span id="lightboxPixBtnText">💠 VER CHAVE PIX (09658990983) — R$ 15,00</span>
+            <span id="lightboxPixBtnText">💠 VER CHAVE PIX (09658990983) — R$ 9,90</span>
           </button>
         </div>
       </div>
@@ -368,7 +252,7 @@
           </div>
           <div class="pix-summary-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color);">
             <span style="font-weight: 800; font-size: 15px;">Valor Único:</span>
-            <span id="pixItemValue" class="val-highlight" style="font-size: 24px;">R$ 15,00</span>
+            <span id="pixItemValue" class="val-highlight" style="font-size: 24px;">R$ 9,90</span>
           </div>
         </div>
 
@@ -386,19 +270,21 @@
 
         <div class="pix-steps-box" style="font-size: 13px; line-height: 1.65;">
           <strong style="color: #fff; display: block; margin-bottom: 6px; font-size: 14px;">Como liberar em 2 passos fáceis:</strong>
-          <div class="pix-step-item">1️⃣ Copie a chave PIX acima e faça o PIX de <strong id="pixStepPrice">R$ 15,00</strong> no banco para <strong id="pixStepHolder">Luan Batista</strong>.</div>
+          <div class="pix-step-item">1️⃣ Copie a chave PIX acima e faça o PIX de <strong id="pixStepPrice">R$ 9,90</strong> no banco para <strong id="pixStepHolder">Luan Batista</strong>.</div>
           <div class="pix-step-item">2️⃣ Toque no <strong>botão verde grande abaixo</strong> para mandar o comprovante no WhatsApp.</div>
           <div class="pix-step-item" style="color: #34d399; font-weight: 700;">✅ Enviamos o link com TUDO LIBERADO na hora no seu WhatsApp (sem precisar digitar código!).</div>
         </div>
 
-        <a id="btnWhatsAppConfirm" href="https://wa.me/554195993007" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-confirm" style="padding: 18px 16px; font-size: 16px; font-weight: 900;">
+        <div style="background: rgba(225, 29, 72, 0.1); border: 1px solid rgba(225, 29, 72, 0.35); border-radius: 10px; padding: 10px 14px; margin-top: 14px; margin-bottom: 12px; font-size: 12px; color: #fca5a5; line-height: 1.45; text-align: center;">
+          ⚠️ <strong>ATENÇÃO:</strong> O WhatsApp <strong>(41) 8706-2166</strong> recebe APENAS quem já realizou o PIX. Mensagens sem comprovante anexado não são atendidas.
+        </div>
+
+        <a id="btnWhatsAppConfirm" href="https://wa.me/5541987062166?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20PIX%20de%20R%24%209%2C90%20(Vital%C3%ADcio)%20para%20Luan%20Batista.%20Segue%20meu%20comprovante%20em%20anexo%20para%20liberar%20o%20VIP:" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-confirm" style="padding: 18px 16px; font-size: 16px; font-weight: 900;">
           <span style="font-size: 22px;">💬</span>
-          <span>ENVIAR COMPROVANTE NO WHATSAPP</span>
+          <span>JÁ FIZ O PIX • ENVIAR COMPROVANTE</span>
         </a>
 
-        <p style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 12px; line-height: 1.4;">
-          Dúvidas ou quer comprar só 1 modelo no x1? Toque no botão verde acima para falar direto comigo no WhatsApp!
-        </p>
+        <p style="text-align: center; font-size: 12px; color: #94a3b8; margin-top: 12px; line-height: 1.4;">🔒 Envie o comprovante para liberação imediata do seu acesso vitalício!</p>
       </div>
     </div>
   </div>
@@ -445,7 +331,7 @@
       <div class="reels-sticky-actions" id="reelsStickyActions">
         <button class="btn-reels-access" id="btnReelsAccess" onclick="closeReelsFeed(); openVipModal();">
           <span class="reels-btn-glow"></span>
-          <span class="reels-btn-text">💬 LIBERAR TUDO — R$ 15,00 (PIX / WHATSAPP)</span>
+          <span class="reels-btn-text">💬 LIBERAR TUDO — R$ 9,90 (PIX / WHATSAPP)</span>
           <span class="reels-btn-sub">Toque para copiar o PIX ou chamar no WhatsApp agora</span>
         </button>
       </div>
@@ -455,16 +341,36 @@
     </div>
   </div>
 
-  <!-- Botão Flutuante Oficial do WhatsApp -->
-  <a id="floatingWhatsappBtn" href="https://wa.me/554195993007?text=Ol%C3%A1!%20Estou%20no%20site%20Clube%20Secreto%20e%20quero%20liberar%20meu%20Acesso%20VIP%20por%20R%24%2015%2C00!" target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" title="Falar no WhatsApp e Liberar Acesso">
-    <svg class="whatsapp-float-icon" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-    </svg>
-    <span class="whatsapp-float-text">Chamar no WhatsApp</span>
-  </a>
+  <!-- Botão Flutuante WhatsApp Removido conforme solicitação -->
 
   <!-- Scripts -->
   <script src="/catalog.js?v=16_vip"></script>
   <script src="/app.js?v=16_vip"></script>
+
+  <!-- Modal: Chat Interativo & Solicitação de Chamada de Vídeo (R$ 47 / 1h) -->
+  <div class="modal-backdrop" id="chatModal">
+    <div class="modal-box chat-modal-box">
+      <div class="chat-modal-header">
+        <div class="chat-user-info">
+          <img id="chatModelAvatar" src="/assets/logo.jpg" alt="Avatar" class="chat-user-avatar" />
+          <div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <strong id="chatModelName" style="color: #fff; font-size: 15px;">Criadora VIP</strong>
+              <span class="verified-icon" style="font-size: 11px;">✓</span>
+            </div>
+            <span style="font-size: 11px; color: #10b981; display: flex; align-items: center; gap: 4px;">
+              <span class="chat-online-dot"></span> Online agora
+            </span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeChatModal()" title="Fechar">✕ Fechar</button>
+      </div>
+
+      <div class="chat-messages-body" id="chatMessagesBody">
+        <!-- Renderizado dinamicamente via app.js -->
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

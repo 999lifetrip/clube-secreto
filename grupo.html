@@ -650,26 +650,59 @@
     <!-- Barra de Vagas Restantes -->
     <div class="vagas-box">
       <div class="vagas-header">
-        <span class="vagas-title">⚡ Status das Vagas Gratuitas:</span>
-        <span class="vagas-count" id="vagasCountText">Restam apenas 12 vagas</span>
+        <span class="vagas-title">⚡ Acesso ao Grupo VIP:</span>
+        <span class="vagas-count" id="vagasCountText" style="color: #34d399; font-weight: 800;">ACESSO VITALÍCIO • R$ 9,90</span>
       </div>
       <div class="vagas-bar-bg">
-        <div class="vagas-bar-fill"></div>
+        <div class="vagas-bar-fill" style="width: 100%; background: linear-gradient(90deg, #10b981, #059669);"></div>
       </div>
     </div>
 
-    <!-- BOTÃO DE AÇÃO PRINCIPAL (CTA 1) -->
-    <a id="btnMainCta" href="https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL" target="_blank" rel="noopener noreferrer" class="btn-cta-group" onclick="trackLeadClick()">
-      <div class="cta-icon-wrap">💬</div>
-      <div class="cta-text-wrap">
-        <strong class="cta-main-text" id="ctaMainText">Entrar no Grupo do Clube Secreto 📲</strong>
-        <span class="cta-sub-text">Toque para ingressar direto no WhatsApp Oficial • Vagas Abertas</span>
+    
+    <!-- BLOCO PIX & LIBERAÇÃO DO GRUPO VIP -->
+    <div style="background: linear-gradient(135deg, rgba(225,29,72,0.18), rgba(15,23,42,0.95)); border: 2px solid rgba(225,29,72,0.5); border-radius: 18px; padding: 22px 18px; margin-bottom: 22px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+        <span style="color: #94a3b8; text-decoration: line-through; font-size: 14px;">de R$ 29,90</span>
+        <strong style="color: #fff; font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #10b981, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">POR APENAS R$ 9,90</strong>
+        <span style="background: #e11d48; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 20px;">VITALÍCIO 🔥</span>
       </div>
-    </a>
 
-    <div class="security-note">
-      <span>🔒 Entrada 100% gratuita, discreta e segura. Acesso imediato no WhatsApp.</span>
+      <p style="color: #cbd5e1; font-size: 13.5px; line-height: 1.5; margin-bottom: 14px;">
+        Faça o PIX de <strong>R$ 9,90</strong> e envie o comprovante para receber o link exclusivo de entrada no WhatsApp:
+      </p>
+
+      <div style="background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 12px 14px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 4px; text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #94a3b8; font-size: 12px;">CHAVE PIX (CPF):</span>
+          <strong style="color: #fff; font-size: 15px; letter-spacing: 0.5px;">09658990983</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #94a3b8; font-size: 12px;">FAVORECIDO:</span>
+          <span style="color: #34d399; font-weight: 700; font-size: 13px;">Luan Batista</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn-cta-group" onclick="copyPixDirect(this)" style="width: 100%; border: none; cursor: pointer; margin-bottom: 10px; background: linear-gradient(135deg, #e11d48, #be123c);">
+        <div class="cta-icon-wrap">📋</div>
+        <div class="cta-text-wrap" style="text-align: center;">
+          <strong class="cta-main-text">COPIAR CHAVE PIX (1 TOQUE)</strong>
+          <span class="cta-sub-text">Chave CPF: 09658990983 • R$ 9,90</span>
+        </div>
+      </button>
+
+      <div style="background: rgba(225, 29, 72, 0.12); border: 1px solid rgba(225, 29, 72, 0.35); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; font-size: 12px; color: #fca5a5; line-height: 1.45;">
+        ⚠️ <strong>ATENÇÃO:</strong> O WhatsApp <strong>(41) 8706-2166</strong> recebe APENAS quem já realizou o PIX. Mensagens sem comprovante anexado não são atendidas.
+      </div>
+
+      <a id="btnMainCta" href="https://wa.me/5541987062166?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20PIX%20de%20R%24%209%2C90%20(Vital%C3%ADcio)%20para%20Luan%20Batista.%20Segue%20meu%20comprovante%20em%20anexo%20para%20entrar%20no%20Grupo%20Secreto%20VIP:" target="_blank" rel="noopener noreferrer" class="btn-cta-group" style="background: linear-gradient(135deg, #22c55e, #15803d); text-decoration: none;">
+        <div class="cta-icon-wrap">💬</div>
+        <div class="cta-text-wrap" style="text-align: center;">
+          <strong class="cta-main-text">JÁ FIZ O PIX • ENVIAR COMPROVANTE</strong>
+          <span class="cta-sub-text">Toque para mandar o comprovante no WhatsApp e entrar no grupo</span>
+        </div>
+      </a>
     </div>
+
 
     <!-- Grade de Benefícios -->
     <section class="benefits-section">
@@ -735,27 +768,29 @@
     <section class="faq-section">
       <span class="section-label">Dúvidas Frequentes:</span>
       <div class="faq-card">
-        <div class="faq-q">❓ Preciso pagar para entrar no grupo?</div>
-        <div class="faq-a">Não! A entrada no grupo é 100% gratuita por tempo limitado enquanto houver vagas abertas.</div>
+        <div class="faq-q">❓ Como funciona o pagamento para entrar no grupo?</div>
+        <div class="faq-a">A entrada no Grupo Secreto VIP custa apenas R$ 9,90 no PIX (taxa única vitalícia, sem mensalidades!). Você paga uma vez e permanece no grupo com prévias e fotos/vídeos sem censura para sempre.</div>
       </div>
       <div class="faq-card">
         <div class="faq-q">❓ Meu número de WhatsApp fica exposto?</div>
         <div class="faq-a">Não. O grupo é administrado com rigoroso sigilo e moderação ativa para preservar sua privacidade total.</div>
       </div>
       <div class="faq-card">
-        <div class="faq-q">❓ Como faço para entrar agora?</div>
-        <div class="faq-a">Basta tocar no botão verde abaixo. Você será redirecionado direto para o aplicativo oficial do WhatsApp.</div>
+        <div class="faq-q">❓ Como recebo o link do grupo após o pagamento?</div>
+        <div class="faq-a">Basta fazer o PIX de R$ 9,90 para a chave 09658990983 (Luan Batista) e tocar no botão verde para enviar o comprovante no WhatsApp (41) 8706-2166. Enviamos o link oficial de entrada na hora!</div>
       </div>
     </section>
 
-    <!-- SEGUNDO BOTÃO CTA (Fechamento) -->
-    <a id="btnBottomCta" href="https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL" target="_blank" rel="noopener noreferrer" class="btn-cta-group" onclick="trackLeadClick()">
+    
+    <!-- SEGUNDO BOTÃO CTA (Fechamento no PIX R$ 9,90) -->
+    <a id="btnBottomCta" href="https://wa.me/5541987062166?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20PIX%20de%20R%24%209%2C90%20(Vital%C3%ADcio)%20para%20Luan%20Batista.%20Segue%20meu%20comprovante%20em%20anexo%20para%20entrar%20no%20Grupo%20Secreto%20VIP:" target="_blank" rel="noopener noreferrer" class="btn-cta-group" style="background: linear-gradient(135deg, #22c55e, #15803d); text-decoration: none;">
       <div class="cta-icon-wrap">💬</div>
       <div class="cta-text-wrap">
-        <strong class="cta-main-text" id="ctaBottomText">Entrar no Grupo do Clube Secreto 📲</strong>
-        <span class="cta-sub-text">Clique aqui para garantir sua vaga gratuita agora</span>
+        <strong class="cta-main-text" id="ctaBottomText">LIBERAR GRUPO VIP — R$ 9,90 (VITALÍCIO)</strong>
+        <span class="cta-sub-text">Pague no PIX e envie o comprovante para (41) 8706-2166</span>
       </div>
     </a>
+
 
     <!-- Link Secundário para o Catálogo -->
     <a href="/" class="btn-site-catalog">
@@ -814,6 +849,18 @@
     if (ctaStickyText) ctaStickyText.textContent = groupBtnText;
 
     // Disparo de evento de conversão para tráfego pago (Meta Ads Pixel, Google, etc)
+    
+    function copyPixDirect(btn) {
+      const key = "09658990983";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(key).then(() => {
+          alert("Chave PIX (09658990983) copiada com sucesso! Abra o app do seu banco, faça o PIX de R$ 9,90 e depois envie o comprovante no botão verde.");
+        });
+      } else {
+        prompt("Copie a Chave PIX (CPF):", key);
+      }
+    }
+
     function trackLeadClick() {
       try {
         if (typeof window.fbq === "function") {

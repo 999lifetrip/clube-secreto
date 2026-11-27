@@ -18,14 +18,16 @@ const MEDIA_DIR = path.join(__dirname, 'media');
 const BACKUPS_DIR = path.join(__dirname, 'backups');
 
 const DEFAULT_SETTINGS = {
-  vipPrice: '15,00',
+  vipPrice: '9,90',
   vipOldPrice: '29,90',
-  vipPlanTitle: 'ACESSO VIP COMPLETO',
+  vipPlanTitle: 'ACESSO VIP VITALÍCIO',
   vipPlanSubtitle: 'Todas as modelos, fotos 4K e vídeos 60fps sem censura',
   pixKey: '09658990983',
   pixHolder: 'Luan Batista',
-  whatsappNumber: '554195993007',
+  whatsappNumber: '5541987062166',
   whatsappMessage: 'Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:',
+  videoCallPrice: '47,00',
+  videoCallDuration: '1 hora',
   unlockedSlug: 'vip-liberado',
   vipAccessToken: 'CS-VIP-LIBERADO-2026',
   secretGroupUrl: 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL',
@@ -114,7 +116,7 @@ function saveSettings(newSettings, skipBackup = false) {
       .toLowerCase()
       .replace(/^\/+/, '')
       .replace(/[^a-z0-9_-]/g, '') || 'grupo';
-    merged.whatsappNumber = String(merged.whatsappNumber || '554195993007').replace(/\D/g, '') || '554195993007';
+    merged.whatsappNumber = String(merged.whatsappNumber || '5541987062166').replace(/\D/g, '') || '5541987062166';
     if (!merged.vipAccessToken) {
       merged.vipAccessToken = 'CS-VIP-' + crypto.randomBytes(4).toString('hex').toUpperCase();
     }
@@ -137,6 +139,8 @@ function getPublicSettings(settings) {
     pixHolder: s.pixHolder,
     whatsappNumber: s.whatsappNumber,
     whatsappMessage: s.whatsappMessage,
+    videoCallPrice: s.videoCallPrice || '47,00',
+    videoCallDuration: s.videoCallDuration || '1 hora',
     secretGroupUrl: s.secretGroupUrl || 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL',
     secretGroupTitle: s.secretGroupTitle || 'GRUPO SECRETO VIP',
     secretGroupDesc: s.secretGroupDesc || 'Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!',
@@ -928,7 +932,7 @@ const server = http.createServer(async (req, res) => {
           cover: data.cover || '',
           avatar: data.avatar || '',
           individualPrice: data.individualPrice || '9,90',
-          comboPrice: loadSettings().vipPrice || '15,00',
+          comboPrice: loadSettings().vipPrice || '9,90',
           previews: []
         };
 
@@ -1231,12 +1235,12 @@ const server = http.createServer(async (req, res) => {
       for (let i = 0; i < count; i++) {
         let codeStr = '';
         let label = '';
-        let price = currentSettings.vipPrice || '15,00';
+        let price = currentSettings.vipPrice || '9,90';
 
         if (type === 'WEEKLY_VIP') {
           codeStr = `VIP${randDigits(4)}`;
-          label = 'Acesso VIP Completo';
-          price = currentSettings.vipPrice || '15,00';
+          label = 'Acesso VIP Vitalício';
+          price = currentSettings.vipPrice || '9,90';
         } else {
           codeStr = `PACK${randDigits(4)}`;
           label = modelId ? `Pack Individual (${modelId}) — Acesso Vitalício` : 'Pack Individual (WhatsApp x1)';

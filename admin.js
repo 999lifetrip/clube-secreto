@@ -6,13 +6,13 @@
 let catalogCache = [];
 let codesCache = [];
 let settingsCache = {
-  vipPrice: '15,00',
+  vipPrice: '9,90',
   vipOldPrice: '29,90',
-  vipPlanTitle: 'ACESSO VIP COMPLETO',
+  vipPlanTitle: 'ACESSO VIP VITALÍCIO',
   vipPlanSubtitle: 'Todas as modelos, fotos 4K e vídeos 60fps sem censura',
   pixKey: '09658990983',
   pixHolder: 'Luan Batista',
-  whatsappNumber: '554195993007',
+  whatsappNumber: '5541987062166',
   whatsappMessage: 'Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:',
   unlockedSlug: 'vip-liberado',
   vipAccessToken: 'CS-VIP-LIBERADO-2026'
@@ -324,7 +324,7 @@ async function loadAdminSettings() {
       if (testLink) testLink.href = settingsCache.secretGroupUrl || 'https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL';
 
       const quickPriceBadge = document.getElementById('quickVipPriceBadge');
-      if (quickPriceBadge) quickPriceBadge.textContent = `R$ ${settingsCache.vipPrice || '15,00'}`;
+      if (quickPriceBadge) quickPriceBadge.textContent = `R$ ${settingsCache.vipPrice || '9,90'}`;
       updateUnlockedPreviewUrl();
       updateGroupAdUrlPreview();
     }
@@ -548,7 +548,7 @@ function renderModelsGrid() {
           <img src="${avatarSrc}" alt="${model.creatorName}" class="model-card-avatar" style="border: 3px solid #0f131d; box-shadow: 0 4px 12px rgba(0,0,0,0.5);" onerror="this.src='assets/logo.jpg'" />
           <div class="model-card-names">
             <div class="model-card-name" style="font-size: 15px;">${model.creatorName}</div>
-            <div class="model-card-username">${model.username || ''} • <strong style="color: #10b981;">VIP R$ ${settingsCache.vipPrice || '15,00'}</strong> <span style="opacity:0.75;">(x1: R$ ${model.individualPrice || '9,90'})</span></div>
+            <div class="model-card-username">${model.username || ''} • <strong style="color: #10b981;">VIP R$ ${settingsCache.vipPrice || '9,90'}</strong></div>
           </div>
         </div>
 

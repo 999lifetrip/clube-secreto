@@ -5,14 +5,16 @@
 const INITIAL_SETTINGS = (typeof window !== "undefined" && window.__CS_SETTINGS__) || {};
 
 let SITE_SETTINGS = {
-  vipPrice: INITIAL_SETTINGS.vipPrice || "15,00",
+  vipPrice: INITIAL_SETTINGS.vipPrice || "9,90",
   vipOldPrice: INITIAL_SETTINGS.vipOldPrice !== undefined ? INITIAL_SETTINGS.vipOldPrice : "29,90",
   vipPlanTitle: INITIAL_SETTINGS.vipPlanTitle || "ACESSO VIP COMPLETO",
   vipPlanSubtitle: INITIAL_SETTINGS.vipPlanSubtitle || "Todas as modelos, fotos 4K e vídeos 60fps sem censura",
   pixKey: INITIAL_SETTINGS.pixKey || "09658990983",
   pixHolder: INITIAL_SETTINGS.pixHolder || "Luan Batista",
-  whatsappNumber: INITIAL_SETTINGS.whatsappNumber || "554195993007",
+  whatsappNumber: INITIAL_SETTINGS.whatsappNumber || "5541987062166",
   whatsappMessage: INITIAL_SETTINGS.whatsappMessage || "Olá! Quero liberar meu Acesso VIP no Clube Secreto (R$ {PRICE})! Chave PIX {PIX}. Segue meu comprovante:",
+  videoCallPrice: INITIAL_SETTINGS.videoCallPrice || "47,00",
+  videoCallDuration: INITIAL_SETTINGS.videoCallDuration || "1 hora",
   secretGroupUrl: INITIAL_SETTINGS.secretGroupUrl || "https://chat.whatsapp.com/D94Vv6tFFPV1xjzRt8BcaL",
   secretGroupTitle: INITIAL_SETTINGS.secretGroupTitle || "GRUPO SECRETO VIP",
   secretGroupDesc: INITIAL_SETTINGS.secretGroupDesc || "Entre no grupo exclusivo do WhatsApp para receber prévias diárias, conteúdos exclusivos e novidades em primeira mão!",
@@ -49,10 +51,10 @@ function appendMediaAuth(url) {
 }
 
 function formatWhatsappLink(customMessage) {
-  const num = (SITE_SETTINGS.whatsappNumber || "554195993007").replace(/\D/g, "") || "554195993007";
+  const num = (SITE_SETTINGS.whatsappNumber || "5541987062166").replace(/\D/g, "") || "5541987062166";
   let text = customMessage || SITE_SETTINGS.whatsappMessage || "Olá! Quero liberar meu Acesso VIP no Clube Secreto por R$ {PRICE}!";
   text = text
-    .replace(/\{PRICE\}/g, SITE_SETTINGS.vipPrice || "15,00")
+    .replace(/\{PRICE\}/g, SITE_SETTINGS.vipPrice || "9,90")
     .replace(/\{PIX\}/g, SITE_SETTINGS.pixKey || "09658990983");
   return `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
 }
@@ -182,7 +184,7 @@ async function syncLiveSettings() {
 }
 
 function applySettingsToDOM() {
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const oldPrice = (SITE_SETTINGS.vipOldPrice || "").trim();
   const pixKey = SITE_SETTINGS.pixKey || "09658990983";
   const pixHolder = SITE_SETTINGS.pixHolder || "Luan Batista";
@@ -279,6 +281,10 @@ function applySettingsToDOM() {
 
 // Alternar entre abas principais: Coleções vs Grupo Secreto
 function switchMainTab(tabName) {
+  if (tabName === "secret-group") {
+    openVipModal("Grupo Secreto VIP");
+    return;
+  }
   const catalogSec = document.getElementById("catalogSection");
   const secretSec = document.getElementById("secretGroupSection");
   const tabCatalog = document.getElementById("tabNavCatalog");
@@ -440,7 +446,7 @@ async function syncStatusWithBackend() {
 function updateVipUI() {
   const isVisitorTestMode = sessionStorage.getItem("cs_visitor_preview") === "1";
   const hasAccess = !isVisitorTestMode && (IS_UNLOCKED_ROUTE || isAdminActive || isVipActive || unlockedModels.size > 0);
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
 
   const btnHeaderVipIcon = document.getElementById("btnHeaderVipIcon");
   const btnHeaderWhatsapp = document.getElementById("btnHeaderWhatsapp");
@@ -659,7 +665,7 @@ function renderCatalog() {
     return;
   }
 
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const oldPrice = (SITE_SETTINGS.vipOldPrice || "").trim();
 
   cardsGrid.innerHTML = filtered.map(item => {
@@ -696,18 +702,28 @@ function renderCatalog() {
 
           <div class="card-actions">
             ${unlocked ? `
-              <button class="btn-preview" onclick="openPreviewModal('${item.id}')">
-                <span>📸 Fotos (${item.photoCount})</span>
-              </button>
-              <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857);" onclick="openModelReels('${item.id}', 0)">
-                <span>🎬 Vídeos (${item.videoCount || ""})</span>
+              <div class="card-actions-row">
+                <button class="btn-preview" onclick="openPreviewModal('${item.id}')">
+                  <span>📸 Fotos (${item.photoCount})</span>
+                </button>
+                <button class="btn-buy" style="background: linear-gradient(135deg, #059669, #047857);" onclick="openModelReels('${item.id}', 0)">
+                  <span>🎬 Vídeos (${item.videoCount || ""})</span>
+                </button>
+              </div>
+              <button class="btn-chat-trigger btn-chat-unlocked" onclick="openChatModal('${item.id}')">
+                <span>📞 Chamada de Vídeo / Chat (1h)</span>
               </button>
             ` : `
-              <button class="btn-preview" onclick="openPreviewModal('${item.id}')">
-                <span>👁️ Ver Prévia</span>
-              </button>
-              <button class="btn-buy btn-buy-wpp" onclick="openVipModal('${item.creatorName.replace(/'/g, "\\'")}')">
-                <span>🔓 Liberar R$ ${price}</span>
+              <div class="card-actions-row">
+                <button class="btn-preview" onclick="openPreviewModal('${item.id}')">
+                  <span>👁️ Ver Prévia</span>
+                </button>
+                <button class="btn-buy btn-buy-wpp" onclick="openVipModal('${item.creatorName.replace(/'/g, "\\'")}')">
+                  <span>🔒 Liberar R$ ${price}</span>
+                </button>
+              </div>
+              <button class="btn-chat-trigger" onclick="openChatModal('${item.id}')">
+                <span>💬 Chat com ${item.creatorName.split(' ')[0]}</span>
               </button>
             `}
           </div>
@@ -746,7 +762,7 @@ function renderPreviewContent(item) {
   const catalog = getCatalog();
   const unlocked = isModelUnlocked(item.id);
   const previews = Array.isArray(item.previews) ? item.previews : [];
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const pixKey = SITE_SETTINGS.pixKey || "09658990983";
   const pixHolder = SITE_SETTINGS.pixHolder || "Luan Batista";
 
@@ -995,7 +1011,7 @@ function renderLightboxSlide() {
 
   const totalPhotosInPack = currentLightboxItem.photoCount || currentLightboxPhotos.length;
   const numAvailablePreviews = currentLightboxPhotos.length;
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const pixKey = SITE_SETTINGS.pixKey || "09658990983";
 
   if (currentLightboxIndex >= numAvailablePreviews && !unlocked) {
@@ -1052,15 +1068,15 @@ function closeLightbox() {
 // ═════════════════════════════════════════════════════════════════════════
 
 function openPixModal(modelHint) {
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const pixKey = SITE_SETTINGS.pixKey || "09658990983";
   const pixHolder = SITE_SETTINGS.pixHolder || "Luan Batista";
-  const planTitle = SITE_SETTINGS.vipPlanTitle || "ACESSO VIP COMPLETO";
+  const planTitle = (modelHint === "Grupo Secreto VIP") ? "GRUPO SECRETO VIP + ACESSO VITALÍCIO" : (SITE_SETTINGS.vipPlanTitle || "ACESSO VIP VITALÍCIO");
   const catalogCount = getCatalog().length;
 
   if (pixItemName) pixItemName.textContent = `${planTitle} (${catalogCount} Modelos)`;
   if (pixItemValue) pixItemValue.textContent = `R$ ${price}`;
-  if (pixItemDuration) pixItemDuration.textContent = "Todas as Fotos 4K + Todos os Vídeos";
+  if (pixItemDuration) pixItemDuration.textContent = "Todas as Fotos 4K + Vídeos 60fps • Acesso Vitalício Sem Prazos";
 
   const modalKeyEl = document.getElementById("pixModalKeyDisplay");
   const holderEl = document.getElementById("pixHolderDisplay");
@@ -1071,8 +1087,8 @@ function openPixModal(modelHint) {
   if (stepPriceEl) stepPriceEl.textContent = `R$ ${price}`;
   if (stepHolderEl) stepHolderEl.textContent = pixHolder;
 
-  const extra = modelHint ? ` (Vi a modelo ${modelHint})` : "";
-  const message = `Olá! Quero liberar meu Acesso VIP de *R$ ${price}* no Clube Secreto!${extra}\n\nChave PIX: ${pixKey} (${pixHolder}). Segue meu comprovante (ou me chame aqui):`;
+  const extra = modelHint ? ` (${modelHint})` : "";
+  const message = `Olá! Acabei de fazer o PIX de R$ ${price} (Vitalício) para Luan Batista. Segue meu comprovante em anexo para liberação imediata${extra}:`;
   if (btnWhatsAppConfirm) {
     btnWhatsAppConfirm.href = formatWhatsappLink(message);
   }
@@ -1300,7 +1316,7 @@ function openModelReels(modelId, startVideoIndex = 0) {
   if (!overlay || !container) return;
 
   const unlocked = isModelUnlocked(model.id);
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const pixKey = SITE_SETTINGS.pixKey || "09658990983";
 
   const allVids = (model.previews || []).filter(p => (typeof p === "object" && p.type === "video") || (typeof p === "string" && p.endsWith(".mp4")));
@@ -1648,7 +1664,7 @@ function updateReelsStickyBottom(modelId, videoIdx, totalVideos, isUnlocked) {
   }
 
   const unlocked = isUnlocked !== undefined ? isUnlocked : isModelUnlocked(model.id);
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
 
   if (unlocked) {
     if (btn) btn.style.display = "none";
@@ -1659,8 +1675,8 @@ function updateReelsStickyBottom(modelId, videoIdx, totalVideos, isUnlocked) {
       btn.style.display = "flex";
       btn.innerHTML = `
         <span class="reels-btn-glow"></span>
-        <span class="reels-btn-text">💬 LIBERAR TUDO — R$ ${price} (PIX / WHATSAPP)</span>
-        <span class="reels-btn-sub">Toque para pagar no PIX ou chamar no WhatsApp agora</span>
+        <span class="reels-btn-text">💬 LIBERAR TUDO — R$ ${price} (PIX VITALÍCIO)</span>
+        <span class="reels-btn-sub">Toque para pagar no PIX e liberar tudo agora</span>
       `;
       btn.style.background = "linear-gradient(135deg, #22c55e, #15803d)";
       btn.onclick = () => {
@@ -1742,7 +1758,7 @@ function deactivateVip() {
 
 function copyPixKey(triggerBtn) {
   const pixKey = SITE_SETTINGS.pixKey || "09658990983";
-  const price = SITE_SETTINGS.vipPrice || "15,00";
+  const price = SITE_SETTINGS.vipPrice || "9,90";
   const btn = triggerBtn || document.querySelector(".btn-copy-pix");
   const originalHtml = btn ? btn.innerHTML : "";
 
@@ -1852,3 +1868,129 @@ window.toggleVisitorMode = toggleVisitorMode;
 window.goToNextReel = goToNextReel;
 window.goToPrevReel = goToPrevReel;
 window.toggleReelsAudio = toggleReelsAudio;
+
+
+// ═════════════════════════════════════════════════════════════════════════
+// CHAT MODAL INTERATIVO & UPSELL DE CHAMADA DE VÍDEO (R$ 47 / 1 HORA)
+// ═════════════════════════════════════════════════════════════════════════
+
+let currentChatModel = null;
+
+function openChatModal(modelId) {
+  const catalog = getCatalog();
+  const model = catalog.find(m => m.id === modelId);
+  if (!model) return;
+
+  currentChatModel = model;
+  const unlocked = isModelUnlocked(model.id);
+  const avatar = document.getElementById("chatModelAvatar");
+  const name = document.getElementById("chatModelName");
+  const body = document.getElementById("chatMessagesBody");
+  const modal = document.getElementById("chatModal");
+
+  if (avatar) avatar.src = model.avatar || model.cover || "/assets/logo.jpg";
+  if (name) name.textContent = model.creatorName;
+
+  const firstName = model.creatorName.split(" ")[0];
+  const pixKey = SITE_SETTINGS.pixKey || "09658990983";
+  const pixHolder = SITE_SETTINGS.pixHolder || "Luan Batista";
+  const vipPrice = SITE_SETTINGS.vipPrice || "9,90";
+  const callPrice = SITE_SETTINGS.videoCallPrice || "47,00";
+  const wppNum = (SITE_SETTINGS.whatsappNumber || "5541987062166").replace(/\D/g, "") || "5541987062166";
+
+  if (body) {
+    if (unlocked) {
+      // ESTADO LIBERADO / PÓS-VENDA (UPSELL: Chamada de Vídeo de 1 Hora por R$ 47,00)
+      const wppCallUrl = `https://wa.me/${wppNum}?text=` + encodeURIComponent(`Olá! Sou membro VIP do Clube Secreto e quero agendar a Chamada de Vídeo Privada de 1 Hora com a ${model.creatorName} (PIX R$ 47,00 pago). Segue meu comprovante:`);
+
+      body.innerHTML = `
+        <div class="chat-bubble model">
+          Oi amor! 🔥 Adorei ver você por aqui no VIP liberado! Que bom que você já tem acesso total a todos os meus conteúdos.
+        </div>
+        <div class="chat-bubble model">
+          Agora a gente pode ir pro próximo nível: bater um papo no privado ou fazer uma <strong>Chamada de Vídeo Exclusiva de 1 Hora</strong> só nós dois no WhatsApp!
+        </div>
+
+        <div class="chat-upsell-box">
+          <span class="chat-call-badge">🔥 UPSELL EXCLUSIVO VIP</span>
+          <h4 style="color: #fff; font-size: 16px; font-weight: 900; margin-bottom: 6px;">Chamada de Vídeo / Conversa Privada</h4>
+          <p style="color: #cbd5e1; font-size: 13px; line-height: 1.5; margin-bottom: 12px;">
+            1 Hora exclusiva só você e a <strong>${model.creatorName}</strong> no WhatsApp com total sigilo e discrição.
+          </p>
+
+          <div style="background: rgba(0,0,0,0.4); border-radius: 10px; padding: 12px; margin-bottom: 14px; text-align: left; font-size: 13px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: #94a3b8;">Duração:</span>
+              <strong style="color: #fff;">1 Hora Completa</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+              <span style="color: #94a3b8;">Valor Especial:</span>
+              <strong style="color: #10b981; font-size: 16px;">R$ ${callPrice}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.1);">
+              <span style="color: #94a3b8;">Chave PIX (CPF):</span>
+              <strong style="color: #fff;">${pixKey}</strong>
+            </div>
+            <div style="text-align: right; color: #94a3b8; font-size: 11px;">(${pixHolder})</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button class="btn-primary" style="padding: 12px 16px; font-size: 13px; font-weight: 800; width: 100%; justify-content: center;" onclick="copyCustomPix('${pixKey}', this)">
+              <span>📋 Copiar Chave PIX (R$ ${callPrice})</span>
+            </button>
+            <a href="${wppCallUrl}" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-confirm" style="padding: 12px 16px; font-size: 13px; font-weight: 800; justify-content: center; text-decoration: none;">
+              <span>📞 Solicitar Chamada no WhatsApp ((41) 8706-2166)</span>
+            </a>
+          </div>
+        </div>
+      `;
+    } else {
+      // ESTADO PRÉ-VENDA (Visitante comum: convite para ativar o VIP de R$ 9,90)
+      body.innerHTML = `
+        <div class="chat-bubble model">
+          Oi amor! 🔥 Adorei que você veio aqui no meu perfil...
+        </div>
+        <div class="chat-bubble model">
+          Pra gente conversar sem limites e liberar todas as minhas fotos 4K e vídeos sem censura, você precisa ativar o <strong>Acesso VIP Vitalício</strong> por apenas <strong>R$ ${vipPrice}</strong>!
+        </div>
+        <div class="chat-bubble model">
+          E assim que você liberar o VIP, fica disponível a opção de agendar uma <strong>Chamada de Vídeo Privada de 1 Hora</strong> comigo no WhatsApp!
+        </div>
+
+        <div class="chat-upsell-box" style="background: linear-gradient(135deg, rgba(225,29,72,0.15), rgba(168,85,247,0.15)); border-color: rgba(225,29,72,0.4);">
+          <span class="chat-call-badge" style="background: linear-gradient(135deg, #e11d48, #9f1239);">👑 PASSO 1: ATIVAR VIP</span>
+          <h4 style="color: #fff; font-size: 15px; font-weight: 900; margin-bottom: 6px;">Liberar Todas as Fotos & Vídeos</h4>
+          <p style="color: #cbd5e1; font-size: 12.5px; line-height: 1.5; margin-bottom: 12px;">
+            Ative o VIP Vitalício por apenas <strong>R$ ${vipPrice}</strong> para desbloquear tudo e liberar a função de conversa!
+          </p>
+
+          <button class="btn-primary-glow" style="width: 100%; padding: 13px 16px; font-size: 14px; font-weight: 800; justify-content: center;" onclick="closeChatModal(); openVipModal('${model.creatorName.replace(/'/g, "\\'")}');">
+            <span>🔒 Liberar Acesso VIP (R$ ${vipPrice})</span>
+          </button>
+        </div>
+      `;
+    }
+  }
+
+  if (modal) modal.classList.add("open");
+}
+
+function closeChatModal() {
+  const modal = document.getElementById("chatModal");
+  if (modal) modal.classList.remove("open");
+}
+
+function copyCustomPix(key, btn) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(key).then(() => {
+      showToast("Chave PIX copiada com sucesso!");
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = "<span>✅ CHAVE COPIADA!</span>";
+        setTimeout(() => { btn.innerHTML = orig; }, 2200);
+      }
+    });
+  } else {
+    showToast("Chave PIX: " + key);
+  }
+}
